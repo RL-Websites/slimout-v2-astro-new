@@ -1,0 +1,103 @@
+<div class="toast-demo">
+	<button type="button" class="theme-btn theme-btn__primary" id="showAllToasts">
+		Show Toast
+	</button>
+</div>
+
+<div class="toast-region" aria-live="polite" aria-atomic="true">
+	<!-- Success toast -->
+	<div
+		id="successToast"
+		class="notification-toast notification-toast--success toast"
+		role="alert"
+	>
+		<span class="notification-toast__icon-badge">
+			<i class="notification-toast__icon icon-checkmark" aria-hidden="true"></i>
+		</span>
+
+		<p class="notification-toast__message">Added to cart successfully!</p>
+
+		<button
+			type="button"
+			class="notification-toast__close"
+			data-bs-dismiss="toast"
+			aria-label="Close notification"
+		>
+			<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+				<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+
+	<!-- Warning toast -->
+	<div
+		id="warningToast"
+		class="notification-toast notification-toast--warning toast"
+		role="alert"
+	>
+		<span class="notification-toast__icon-badge">
+			<i class="notification-toast__icon icon-exlamation" aria-hidden="true"></i>
+		</span>
+
+		<p class="notification-toast__message">Warning – Coupon code is mandatory.</p>
+
+		<button
+			type="button"
+			class="notification-toast__close"
+			data-bs-dismiss="toast"
+			aria-label="Close notification"
+		>
+			<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+				<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+
+	<!-- Danger toast -->
+	<div
+		id="dangerToast"
+		class="notification-toast notification-toast--danger toast"
+		role="alert"
+	>
+		<span class="notification-toast__icon-badge">
+			<i class="notification-toast__icon icon-cross" aria-hidden="true"></i>
+		</span>
+
+		<p class="notification-toast__message">Error – Invalid coupon code.</p>
+
+		<button
+			type="button"
+			class="notification-toast__close"
+			data-bs-dismiss="toast"
+			aria-label="Close notification"
+		>
+			<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+				<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+
+	<!-- Information toast -->
+	<div
+		id="informationToast"
+		class="notification-toast notification-toast--information toast"
+		role="status"
+	>
+		<span class="notification-toast__icon-badge">
+			<i class="notification-toast__icon icon-info-filled" aria-hidden="true"></i>
+		</span>
+
+		<p class="notification-toast__message">Your account information has been updated.</p>
+
+		<button
+			type="button"
+			class="notification-toast__close"
+			data-bs-dismiss="toast"
+			aria-label="Close notification"
+		>
+			<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+				<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+</div>

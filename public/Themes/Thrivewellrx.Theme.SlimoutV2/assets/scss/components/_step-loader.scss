@@ -1,0 +1,29 @@
+// Shared "loading next question" transition — shown by quiz.js/intake.js between steps
+// while the current answer is being processed, in place of the outgoing/incoming step markup.
+@layer components {
+  .common-step-loading {
+    @apply w-full max-w-[640px] flex flex-col items-center justify-center gap-4
+      animate-[quiz-fade-up_0.3s_cubic-bezier(0.2,0.8,0.2,1)_both];
+    min-height: clamp(220px, 34vh, 320px);
+
+    &[hidden] {
+      @apply hidden;
+    }
+
+    &-spinner {
+      @apply block w-[34px] h-[34px] rounded-full border-[3px] border-[#E4E7DA]
+        animate-[common-nav-spin_0.7s_linear_infinite];
+      border-top-color: #a8c22f;
+    }
+
+    &-label {
+      @apply font-mono text-[10.5px] tracking-[0.2em] uppercase text-[#8B9483];
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .common-step-loading-spinner {
+      animation: none !important;
+    }
+  }
+}

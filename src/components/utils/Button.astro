@@ -1,0 +1,64 @@
+---
+// `full` covers the common full-width case with a named prop backed by `.theme-btn--full`.
+// For other one-off needs, `className`/`class` passes a raw Tailwind utility straight through
+// via class:list below — this is Button's documented exception to the project's
+// no-utilities-in-markup rule (see SKILLS.md). Remember to rerun `npm run build:css` after
+// adding a new utility class here — it won't appear until the stylesheet is rebuilt.
+type Variant = 'outline' | 'link' | 'primary' | 'secondary' | 'danger';
+type Size = 'sm' | 'md' | 'lg';
+
+interface Props {
+	text?: string;
+	variant?: Variant;
+	size?: Size;
+	href?: string;
+	type?: 'button' | 'submit' | 'reset';
+	disabled?: boolean;
+	target?: '_self' | '_blank' | '_parent' | '_top';
+	rel?: string;
+	full?: boolean;
+	className?: string;
+	class?: string;
+	[key: string]: unknown;
+}
+
+const {
+	text,
+	variant = 'primary',
+	size = 'md',
+	href,
+	type = 'button',
+	disabled = false,
+	target,
+	rel,
+	className,
+	class: classAttribute,
+	full = false,
+	...attributes
+} = Astro.props;
+
+const baseClass = 'theme-btn';
+const variantClass = `${baseClass}__${variant}`;
+const sizeClass = size !== 'md' ? `${baseClass}--${size}` : '';
+const fullClass = full ? `${baseClass}--full` : '';
+
+const classes = [baseClass, variantClass, sizeClass, fullClass, className ?? classAttribute];
+---
+
+{href ? (
+	<a
+		href={href}
+		class:list={classes}
+		target={target}
+		rel={rel}
+		aria-disabled={disabled ? 'true' : undefined}
+		tabindex={disabled ? -1 : undefined}
+		{...attributes}
+	>
+		<slot>{text}</slot>
+	</a>
+) : (
+	<button type={type} class:list={classes} disabled={disabled} {...attributes}>
+		<slot>{text}</slot>
+	</button>
+)}

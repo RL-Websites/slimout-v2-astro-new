@@ -1,0 +1,40 @@
+---
+import CartTimeline from './CartTimeline.astro';
+import CartItems from './CartItems.astro';
+import CartSummary from './CartSummary.astro';
+
+interface CartItem {
+	id: number;
+	baseName: string;
+	program?: string;
+	shipping: 'Regular' | 'Overnight';
+	qty: number;
+	unit: number;
+	image: string;
+}
+
+interface Props {
+	items: CartItem[];
+	itemCount: string;
+	subtotal: number;
+	shipping: number;
+	shipLabel: string;
+	total: number;
+	baseShip: number;
+	overnightShip: number;
+}
+
+const { items, itemCount, subtotal, shipping, shipLabel, total, baseShip, overnightShip } = Astro.props;
+---
+
+<section id="top" class="cart-section">
+	<div class="cart-section-inner">
+		<div data-cart-timeline-wrap style={items.length ? '' : 'display:none'}>
+			<CartTimeline active={1} />
+		</div>
+
+		<CartItems items={items} itemCount={itemCount} baseShip={baseShip} overnightShip={overnightShip} />
+
+		<CartSummary subtotal={subtotal} shipping={shipping} shipLabel={shipLabel} total={total} />
+	</div>
+</section>

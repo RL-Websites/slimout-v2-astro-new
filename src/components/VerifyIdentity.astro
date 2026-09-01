@@ -1,0 +1,83 @@
+---
+import Button from './utils/Button.astro';
+import StickyNav from './StickyNav.astro';
+import FileSlot from './FileSlot.astro';
+import FileDropzone from './FileDropzone.astro';
+import QrUploadModal from './QrUploadModal.astro';
+
+const QR_MODAL_ID = 'verify-qr-modal';
+const LAB_DROPZONE_ID = 'verify-lab-report';
+---
+
+<section id="top" class="verify-identity">
+	<div class="verify-identity-inner">
+		<!-- Step 1: driver's license front/back — mandatory in every flow -->
+		<div data-step="1">
+			<div class="verify-identity-head">
+				<h1 class="verify-identity-title">Verify your <span class="verify-identity-title-alt">identity</span></h1>
+			</div>
+
+			<div class="verify-identity-notice">
+				<span class="verify-identity-notice-icon">i</span>
+				<div class="verify-identity-notice-text"><strong>Mandatory Files to Upload:</strong> You have to upload these mandatory documents.</div>
+			</div>
+
+			<div class="verify-identity-slots">
+				<FileSlot id="license-front" label="Front of license" />
+				<FileSlot id="license-back" label="Back of license" />
+			</div>
+
+			<Button variant="outline" className="verify-identity-qr-trigger" data-qr-trigger data-qr-label="Front & back of license">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 14h3v3"></path><path d="M20 20h.01"></path><path d="M17 20h.01"></path><path d="M20 17h.01"></path>
+				</svg>
+				Upload using mobile device
+			</Button>
+
+			<div class="verify-identity-notice verify-identity-notice--mt">
+				<span class="verify-identity-notice-icon">i</span>
+				<div class="verify-identity-notice-text"><strong>Mobile Upload Available:</strong> If you don't have your ID on this device, you can securely upload it using your mobile phone.</div>
+			</div>
+		</div>
+
+		<!-- Step 2: lab report — only reachable when a previous step marked it required -->
+		<div data-step="2" class="is-hidden">
+			<div class="verify-identity-head">
+				<h1 class="verify-identity-title">Upload Lab <span class="verify-identity-title-alt">Report</span></h1>
+			</div>
+
+			<div class="verify-identity-lab-dropzone">
+				<FileDropzone id={LAB_DROPZONE_ID} accept=".jpg,.jpeg,.png,.pdf" maxMB={50} emptyText="Uploaded reports will be listed here." />
+			</div>
+
+			<Button variant="outline" className="verify-identity-qr-trigger" data-qr-trigger data-qr-label="Lab report">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 14h3v3"></path><path d="M20 20h.01"></path><path d="M17 20h.01"></path><path d="M20 17h.01"></path>
+				</svg>
+				Upload using mobile device
+			</Button>
+
+			<div class="verify-identity-notice verify-identity-notice--mt">
+				<span class="verify-identity-notice-icon">i</span>
+				<div class="verify-identity-notice-text"><strong>Mandatory Files to Upload:</strong> You can skip this process by clicking on save, but you will have to upload these mandatory documents later.</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<StickyNav maxWidth={820}>
+	<span slot="status" data-status>Upload both sides of your license to continue</span>
+	<Button slot="back" variant="link" className="sticky-nav-back" data-back-btn>
+		<span data-back-label>Back</span>
+	</Button>
+	<Button slot="next" className="sticky-nav-next" data-next>
+		<span data-next-label>Next</span>
+		<span class="sticky-nav-next-arrow">
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+			</svg>
+		</span>
+	</Button>
+</StickyNav>
+
+<QrUploadModal id={QR_MODAL_ID} />

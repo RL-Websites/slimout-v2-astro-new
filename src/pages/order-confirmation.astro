@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import OrderConfirmation from '../components/OrderConfirmation.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<Layout
+	title="Order Confirmed — SlimOut"
+	description="Your SlimOut order is confirmed and on its way to a licensed provider for review."
+>
+	<div class="site-header">
+		<!-- header section start -->
+		<Header />
+		<!-- header section end -->
+	</div>
+
+	<main>
+		<!-- order confirmation section start -->
+		<OrderConfirmation />
+		<!-- order confirmation section end -->
+	</main>
+
+	<div class="site-footer">
+		<!-- footer section start -->
+		<Footer />
+		<!-- footer section end -->
+	</div>
+</Layout>

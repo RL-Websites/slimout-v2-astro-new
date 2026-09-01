@@ -1,0 +1,39 @@
+@layer components {
+  .checkout-page {
+    @apply flex flex-col min-h-screen bg-cream;
+
+    &-spacer {
+      @apply h-[114px] shrink-0 bg-cream;
+    }
+  }
+
+  .checkout-section {
+    @apply flex-1 pt-3 sm:pt-5 lg:pt-8 px-5 sm:px-8 lg:px-13 pb-32.5 sm:pb-37.5 lg:pb-42.5 bg-cream;
+
+    &-inner {
+      @apply max-w-[780px] mx-auto;
+    }
+
+    &-head {
+      @apply text-center mb-5.5 sm:mb-7 lg:mb-8.5;
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[10px] tracking-[0.24em] uppercase text-muted-light mb-3 sm:mb-3.5
+        lg:mb-4;
+    }
+
+    &-title {
+      @apply font-sora text-[30px] sm:text-[44px] lg:text-[58px] font-medium leading-[0.98]
+        tracking-tight text-ink m-0;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-forms {
+      @apply flex flex-col gap-3;
+    }
+  }
+}

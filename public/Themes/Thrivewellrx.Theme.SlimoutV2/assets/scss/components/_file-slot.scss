@@ -1,0 +1,118 @@
+// Generic reusable single-file upload slot (see src/components/FileSlot.astro) — kept
+// separate from page-level partials so any document-verification flow (front/back of an ID,
+// insurance card, etc.) can drop this in without page-specific chrome. Complements
+// _file-dropzone.scss, which is for a growing multi-file list instead of one named slot.
+@layer components {
+  .file-slot {
+    @apply h-[360px] flex flex-col bg-white border border-[#E4E7DA] rounded-[20px]
+      overflow-hidden;
+  }
+
+  .file-slot-head {
+    @apply flex items-center gap-2.5 py-3.5 px-4.5 border-b border-[#EDEFE4] shrink-0;
+  }
+
+  .file-slot-label {
+    @apply font-sora text-[15px] font-semibold tracking-tight text-ink;
+  }
+
+  .file-slot-state {
+    @apply ml-auto font-mono text-[9.5px] tracking-[0.14em] uppercase text-[#C88B5A];
+
+    &--done {
+      @apply text-[#5F6E1D];
+    }
+  }
+
+  .file-slot-empty {
+    @apply flex-1 min-h-0 flex flex-col items-center justify-center m-3.5 border-[1.5px]
+      border-dashed border-[#C6D38A] bg-sage-50 rounded-[14px] px-4.5 py-5 sm:py-6.5
+      text-center cursor-pointer transition-colors duration-250;
+
+    &:hover,
+    &.is-dragover {
+      @apply border-lime-deep bg-sage-100;
+    }
+  }
+
+  .file-slot-empty-icon {
+    @apply inline-flex items-center justify-center w-10 h-10 rounded-full bg-sage-100
+      text-[#5F6E1D] mb-2.5;
+  }
+
+  .file-slot-empty-title {
+    @apply font-sora text-[14.5px] font-semibold leading-[1.5] tracking-tight text-ink mb-1;
+  }
+
+  .file-slot-empty-hint {
+    @apply text-[12.5px] text-[#8B9483];
+  }
+
+  .file-slot-filled {
+    @apply flex-1 min-h-0 flex flex-col p-3.5;
+  }
+
+  .file-slot-preview {
+    @apply relative h-[190px] md:flex-1 md:h-auto md:min-h-0 flex items-center justify-center
+      rounded-[14px] overflow-hidden bg-[#EFF1E6] mb-3 cursor-pointer;
+  }
+
+  .file-slot-preview-image {
+    @apply absolute inset-0 bg-cover bg-center;
+  }
+
+  .file-slot-preview-doc {
+    @apply flex flex-col items-center gap-2 font-mono text-[11px] tracking-[0.1em]
+      text-[#5F6E1D];
+  }
+
+  .file-slot-reupload,
+  .file-slot-delete {
+    @apply absolute top-2.5 z-[2] w-8 h-8 rounded-full bg-[rgba(251,251,247,0.94)] text-ink
+      flex items-center justify-center cursor-pointer
+      transition-colors duration-250;
+    box-shadow: 0 6px 16px -8px rgba(16, 26, 20, 0.5);
+  }
+
+  .file-slot-reupload {
+    @apply right-[50px];
+
+    &:hover {
+      @apply bg-lime-dark text-white;
+    }
+  }
+
+  .file-slot-delete {
+    @apply right-2.5;
+
+    &:hover {
+      @apply bg-[#8A4526] text-offwhite;
+    }
+  }
+
+  .file-slot-reupload-overlay {
+    @apply absolute inset-0 flex items-center justify-center bg-[rgba(12,20,15,0.62)]
+      opacity-0 cursor-pointer transition-opacity duration-300;
+  }
+
+  .file-slot-preview:hover .file-slot-reupload-overlay {
+    @apply opacity-100;
+  }
+
+  .file-slot-reupload-pill {
+    @apply flex items-center gap-2.25 text-sm text-ink py-2.75 px-5 bg-[#FBFBF7] rounded-full
+      whitespace-nowrap scale-95 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)];
+  }
+
+  .file-slot-preview:hover .file-slot-reupload-pill {
+    @apply scale-100;
+  }
+
+  .file-slot-name {
+    @apply font-sora text-[14.5px] font-medium tracking-tight text-ink mb-0.75 truncate;
+  }
+
+  .file-slot-size {
+    @apply text-[12.5px] text-[#8B9483];
+  }
+}

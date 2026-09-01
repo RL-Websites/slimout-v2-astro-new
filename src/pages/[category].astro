@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import CategoryHero from '../components/CategoryHero.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import Recommended from '../components/common/Recommended.astro';
+import ProductDetailModal from '../components/ProductDetailModal.astro';
+import Marquee from '../components/Marquee.astro';
+import FaqSection from '../components/common/FaqSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Footer from '../components/common/Footer.astro';
+import ShippingDrawer from '../components/cart/ShippingDrawer.astro';
+import { categories } from '../data/categories';
+
+export function getStaticPaths() {
+	return categories.map((category) => ({
+		params: { category: category.slug },
+		props: { category },
+	}));
+}
+
+const { category } = Astro.props;
+// Testosterone is the only category that adds to cart through the shipping/lab-consent drawer
+// instead of the "Get Started" CTA — other categories are unaffected.
+const isTestosterone = category.slug === 'testosterone';
+---
+
+<Layout title={`${category.name} — SlimOut`} description={category.blurb}>
+	<div class="site-header">
+		<!-- header section start -->
+		<Header />
+		<!-- header section end -->
+	</div>
+
+	<main>
+		<!-- category hero section start -->
+		<CategoryHero category={category.name} blurb={category.blurb} heroImage={category.heroImage} />
+		<!-- category hero section end -->
+
+		<!-- category products section start -->
+		<ProductGrid
+			products={category.products}
+			enableModals={true}
+			showAddToCart={isTestosterone}
+		/>
+		<!-- category products section end -->
+
+		<!-- marquee section start -->
+		<Marquee />
+		<!-- marquee section end -->
+
+		<!-- category recommended section start -->
+		<Recommended items={category.recommended} />
+		<!-- category recommended section end -->
+
+		<!-- faq section start -->
+		<FaqSection faqs={category.faqs} eyebrow="FAQ" />
+		<!-- faq section end -->
+
+		<!-- cta section start -->
+		<CtaSection />
+		<!-- cta section end -->
+	</main>
+
+	<!-- product modals section start -->
+	{category.products.map((product) => (
+		<ProductDetailModal
+			product={product}
+			modalId={`product-modal-${product.slot}`}
+			recommendedItems={category.recommended}
+		/>
+	))}
+	<!-- product modals section end -->
+
+	<div class="site-footer">
+		<!-- footer section start -->
+		<Footer />
+		<!-- footer section end -->
+	</div>
+
+	{isTestosterone && <ShippingDrawer labRequired />}
+</Layout>

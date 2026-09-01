@@ -1,0 +1,111 @@
+// Generic reusable click-or-drag-drop file picker (see src/components/FileDropzone.astro) —
+// kept separate from page-level partials so any feature needing file upload can drop this
+// in without page-specific chrome.
+@layer components {
+  .file-dropzone {
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-3;
+    }
+
+    &-drop {
+      @apply min-h-[260px] flex flex-col items-center justify-start p-7.5 sm:p-9 border-[1.5px]
+        border-dashed border-[#C6D38A] bg-sage-50 rounded-[20px] text-center cursor-pointer
+        transition-colors duration-250;
+
+      &:hover,
+      &.is-dragover {
+        @apply border-lime-deep bg-sage-100;
+      }
+    }
+
+    &-drop-icon {
+      @apply inline-flex items-center justify-center w-13 h-13 rounded-full bg-sage-100
+        text-[#5F6E1D] mb-3.5;
+    }
+
+    &-drop-title {
+      @apply font-sora text-[15.5px] font-semibold tracking-tight text-ink mb-1.25 text-pretty;
+    }
+
+    &-drop-hint {
+      @apply text-[13.5px] text-[#8B9483] mb-5;
+    }
+
+    &-drop-browse {
+      @apply inline-flex items-center justify-center text-sm font-medium text-offwhite px-6.5
+        py-2.75 bg-ink rounded-full transition-colors duration-300;
+    }
+
+    &-drop:hover &-drop-browse {
+      @apply bg-[#1C2F24];
+    }
+
+    &-files {
+      @apply min-w-0 bg-white border border-[#E4E7DA] rounded-[20px];
+    }
+
+    &-file-list {
+      @apply flex flex-col max-h-[246px] overflow-y-auto p-2.5 sm:p-3;
+    }
+
+    &-file-row {
+      @apply flex items-center gap-3.5 py-3.75 px-3.5 border-b border-[#EDEFE4] rounded-[14px]
+        transition-colors duration-250;
+
+      &:last-child {
+        @apply border-b-0;
+      }
+
+      &:hover {
+        @apply bg-sage-50;
+      }
+    }
+
+    &-file-icon {
+      @apply flex items-center justify-center w-10 h-10 rounded-xl bg-sage-100 text-[#5F6E1D]
+        shrink-0;
+    }
+
+    &-file-info {
+      @apply flex-1 min-w-0;
+    }
+
+    &-file-name {
+      @apply block font-sora text-[14.5px] font-semibold tracking-tight text-ink truncate;
+    }
+
+    &-file-meta {
+      @apply flex items-center gap-1.75 text-[12.5px] text-[#8B9483] mt-1.75;
+    }
+
+    &-file-status {
+      @apply flex items-center gap-1.25 text-lime-darker;
+    }
+
+    &-file-remove {
+      @apply w-9.5 h-9.5 rounded-full border border-[#E4E7DA] bg-white text-[#8A4526] flex
+        items-center justify-center cursor-pointer shrink-0 transition-colors duration-250;
+
+      &:hover {
+        @apply bg-[#8A4526] text-offwhite border-[#8A4526];
+      }
+    }
+
+    &-empty {
+      @apply min-h-[260px] flex flex-col items-center justify-start p-7.5 sm:p-9 text-center;
+    }
+
+    &-empty-icon {
+      @apply inline-flex items-center justify-center w-13 h-13 rounded-full bg-sage-100
+        text-[#5F6E1D] mb-3.5;
+    }
+
+    &-empty-title {
+      @apply font-sora text-[15.5px] font-semibold tracking-tight text-ink mb-1.25;
+    }
+
+    &-empty-text {
+      @apply text-[13.5px] text-[#8B9483] text-pretty;
+    }
+  }
+}

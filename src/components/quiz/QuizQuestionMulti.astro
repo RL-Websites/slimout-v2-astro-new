@@ -1,0 +1,31 @@
+---
+import InputCheckbox from '../fields/InputCheckbox.astro';
+
+interface Option {
+	value: string;
+	label: string;
+	exclusive?: boolean;
+}
+
+interface Props {
+	id: string;
+	question: string;
+	options: Option[];
+}
+
+const { id, question, options } = Astro.props;
+---
+
+<h2 class="quiz-question-title">{question}</h2>
+<div class="quiz-question-options">
+	{
+		options.map((option) => (
+			<InputCheckbox
+				name={id}
+				value={option.value}
+				label={option.label}
+				exclusive={option.exclusive}
+			/>
+		))
+	}
+</div>

@@ -1,0 +1,79 @@
+.toast-demo {
+  @apply fixed bottom-6 right-6;
+
+  z-index: 111110;
+}
+
+.toast-region {
+  @apply fixed top-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 p-3;
+
+  z-index: 111111;
+}
+
+.notification-toast {
+  @apply hidden items-center gap-3 whitespace-nowrap lg:rounded-full rounded-2xl bg-dark px-6 py-[15px] text-offwhite;
+
+  box-shadow: 0 24px 50px -22px rgba(16, 26, 20, 0.6);
+
+  &.is-visible {
+    animation: toast-fade-in-top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+    @apply flex;
+  }
+
+  &__icon-badge {
+    @apply flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white;
+  }
+
+  &__icon {
+    @apply text-sm/none;
+  }
+
+  &__message {
+    @apply m-0 text-sm font-medium text-offwhite max-w-[250px] text-wrap;
+
+    @screen md {
+      @apply text-[15px];
+    }
+  }
+
+  &__close {
+    @apply ml-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0;
+    @apply cursor-pointer text-offwhite/55 transition-colors;
+
+    &:hover {
+      @apply text-offwhite;
+    }
+
+    &:focus-visible {
+      @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-dark;
+    }
+  }
+
+  &--success {
+    .notification-toast__icon-badge {
+      @apply bg-lime-dark;
+    }
+  }
+
+  &--warning {
+    .notification-toast__icon-badge {
+      @apply bg-[#e9b34a];
+    }
+  }
+
+  &--danger {
+    .notification-toast__icon-badge {
+      @apply bg-red;
+      .icon-cross {
+        @apply text-[8px]/none;
+      }
+    }
+  }
+
+  &--information {
+    .notification-toast__icon-badge {
+      @apply bg-blue-4;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+---
+const badges = ['LegitScript', 'URAC', 'AAAHC', 'ATA', 'NABP'];
+---
+
+<section class="about-accreditation">
+	<div class="about-accreditation-panel">
+		<div class="about-accreditation-inner">
+			<div>
+				<h2 class="about-accreditation-title">
+					Accredited, <span class="about-accreditation-title-alt">verified</span>
+				</h2>
+				<p class="about-accreditation-body">
+					Prescriptions are fulfilled by trusted pharmacy partners and your records stay private
+					and secure. We work within the standards set by the bodies that govern telehealth and
+					pharmacy practice.
+				</p>
+			</div>
+			<div class="about-accreditation-badges">
+				{
+					badges.map((name) => (
+						<div class="about-accreditation-badge">
+							<div class="about-accreditation-badge-name">{name}</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>

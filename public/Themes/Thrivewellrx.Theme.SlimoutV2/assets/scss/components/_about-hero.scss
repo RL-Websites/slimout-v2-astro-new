@@ -1,0 +1,44 @@
+@layer components {
+  .about-hero {
+    @apply pt-3 sm:pt-6 lg:pt-8 px-3 sm:px-4.5 lg:px-6 pb-0;
+
+    &-panel {
+      @apply relative rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] overflow-hidden bg-ink
+        min-h-[420px] sm:min-h-[500px] lg:min-h-[580px] flex items-end;
+    }
+
+    &-media {
+      @apply absolute inset-0;
+    }
+
+    &-image {
+      @apply w-full h-full object-cover;
+    }
+
+    &-overlay {
+      @apply absolute inset-0 bg-gradient-to-r from-ink/[0.94] via-ink/60 to-ink/[0.08];
+    }
+
+    &-content {
+      @apply relative z-[5] p-7 sm:p-10 lg:p-16 max-w-[760px];
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[10px] tracking-[0.24em] uppercase text-lime mb-4 sm:mb-5 lg:mb-6;
+    }
+
+    &-title {
+      @apply font-sora text-[32px] sm:text-[48px] lg:text-[72px] font-medium leading-[0.98]
+        tracking-tight text-offwhite m-0 mb-5;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal text-lime;
+    }
+
+    &-lead {
+      @apply m-0 text-[15px] sm:text-[16.5px] lg:text-[18px] leading-[1.65] text-offwhite/82
+        max-w-[560px] text-pretty;
+    }
+  }
+}

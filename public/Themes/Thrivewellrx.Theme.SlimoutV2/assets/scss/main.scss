@@ -1,0 +1,95 @@
+// Compiled by scripts/build-css.mjs (Sass -> PostCSS/Tailwind), NOT by Astro/Vite.
+// The `@import "tailwindcss"` + `@config` lines are injected by that script, not here —
+// see scripts/build-css.mjs for why (Sass can't pass a bare `@import "tailwindcss"` through
+// untouched the way plain PostCSS can).
+
+@import 'base/font-file';
+@import 'base/reset';
+@import 'base/animations';
+@import 'base/state';
+
+@import 'components/button';
+
+@import 'components/header';
+@import 'components/mobile-drawer';
+@import 'components/hero';
+@import 'components/category-hero';
+@import 'components/product-grid';
+@import 'components/product-modal';
+@import 'components/trust-bar';
+@import 'components/programs';
+@import 'components/how-it-works';
+@import 'components/why-slimout';
+@import 'components/experience';
+@import 'components/delivery';
+@import 'components/care';
+@import 'components/marquee';
+@import 'components/faq';
+@import 'components/get-started';
+@import 'components/footer';
+@import 'components/order-confirmation';
+
+@import 'components/cart-section';
+@import 'components/cart-timeline';
+@import 'components/cart-items';
+@import 'components/cart-summary';
+@import 'components/cart-sticky';
+@import 'components/recommended';
+@import 'components/drawer';
+
+@import 'components/fields';
+@import 'components/modal';
+@import 'components/modal-alert';
+@import 'components/warning-modal';
+@import 'components/confirmation-modal';
+@import 'components/selectable-card';
+@import 'components/custom-select-dropdown';
+@import 'components/file-dropzone';
+@import 'components/file-slot';
+@import 'components/qr-upload-modal';
+@import 'components/sticky-nav';
+@import 'components/logo-bar';
+@import 'components/progress-bar';
+@import 'components/nav-bar';
+@import 'components/step-loader';
+@import 'components/common';
+@import 'components/quiz';
+@import 'components/intake';
+@import 'components/toast';
+@import 'components/checkbox';
+
+@import 'components/checkout-section';
+@import 'components/checkout-checkbox';
+@import 'components/checkout-form';
+@import 'components/checkout-lab-option';
+@import 'components/checkout-summary';
+@import 'components/checkout-terms-row';
+@import 'components/checkout-sticky';
+@import 'components/checkout-terms-modal';
+
+@import 'components/register';
+@import 'components/login';
+@import 'components/forgot';
+@import 'components/reset-password';
+
+@import 'components/about-hero';
+@import 'components/about-split';
+@import 'components/about-accreditation';
+@import 'components/about-cta';
+
+@import 'components/contact-support';
+@import 'components/contact-form';
+
+@import 'components/account';
+@import 'components/change-password';
+
+@import 'components/lab-results';
+@import 'components/lab-option-modal';
+@import 'components/lab-warn-modal';
+@import 'components/lab-upload-modal';
+
+@import 'components/verify-identity';
+
+@import 'components/my-orders';
+@import 'components/order-status-modal';
+@import 'components/order-details';

@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import OrdersTable from '../components/my-orders/OrdersTable.astro';
+import OrderStatusModal from '../components/my-orders/OrderStatusModal.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<Layout
+	title="My Orders — SlimOut"
+	description="View your SlimOut order history, track statuses, and manage documents and refills from your patient portal."
+>
+	<div class="site-header">
+		<!-- header section start -->
+		<Header />
+		<!-- header section end -->
+	</div>
+
+	<main>
+		<!-- my orders section start -->
+		<OrdersTable />
+		<!-- my orders section end -->
+	</main>
+
+	<div class="site-footer">
+		<!-- footer section start -->
+		<Footer />
+		<!-- footer section end -->
+	</div>
+
+	<OrderStatusModal />
+</Layout>

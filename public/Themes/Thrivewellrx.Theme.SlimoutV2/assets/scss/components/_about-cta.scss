@@ -1,0 +1,62 @@
+@layer components {
+  .about-cta {
+    @apply py-14 sm:py-18 lg:py-27.5 px-3 sm:px-4.5 lg:px-6;
+
+    &-panel {
+      @apply relative rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] overflow-hidden bg-ink
+        py-11 sm:py-18 lg:py-27.5 px-6 sm:px-12 lg:px-16 text-center;
+    }
+
+    &-grid-bg {
+      @extend .get-started-grid-bg;
+    }
+
+    &-content {
+      @apply relative z-[2] max-w-[800px] mx-auto;
+    }
+
+    &-title {
+      @apply font-sora text-[28px] sm:text-[42px] lg:text-[60px] font-medium leading-none
+        tracking-tight text-offwhite m-0 mb-4.5;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal text-lime;
+    }
+
+    &-lead {
+      @apply m-0 mb-7 sm:mb-8 lg:mb-9.5 text-[15px] sm:text-[16.5px] lg:text-[18px]
+        leading-[1.6] text-offwhite/70 max-w-[620px] mx-auto text-pretty;
+    }
+
+    &-actions {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[500px] mx-auto;
+    }
+
+    &-primary {
+      @apply flex items-center justify-center gap-2.75 text-base font-medium text-white
+        py-4.5 px-6.5 bg-lime-dark rounded-full transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-1;
+      }
+
+      &:hover &-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-primary-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-secondary {
+      @apply flex items-center justify-center text-base text-offwhite py-4.5 px-6.5
+        border border-offwhite/40 rounded-full transition-colors duration-[250ms];
+
+      &:hover {
+        @apply border-lime text-lime;
+      }
+    }
+  }
+}

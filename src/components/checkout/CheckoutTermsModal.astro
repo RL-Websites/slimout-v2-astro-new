@@ -1,0 +1,299 @@
+---
+import Button from "../utils/Button.astro";
+
+interface TermsSection {
+	title: string;
+	paras: string[];
+}
+
+const sections: TermsSection[] = [
+	{
+		title: "Important Legal Notice",
+		paras: [
+			"By purchasing from Slimout, you acknowledge that all products are for research purposes only and agree to comply with all terms outlined below. These terms constitute a legally binding agreement.",
+		],
+	},
+	{
+		title: "1. Acceptance of Terms",
+		paras: [
+			"By accessing or using Slimout's website and purchasing our products, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use our website or purchase our products.",
+			"These terms constitute a legally binding agreement between you and Slimout. We reserve the right to modify these terms at any time, and such modifications shall be effective immediately upon posting on our website.",
+		],
+	},
+	{
+		title: "2. Research Use Only",
+		paras: [
+			"ALL PRODUCTS ARE SOLD STRICTLY FOR LABORATORY AND RESEARCH PURPOSES ONLY.",
+			"Our peptides and research chemicals are NOT intended for:",
+			"• Human consumption or self-administration",
+			"• Therapeutic, diagnostic, or medical use",
+			"• Administration to animals (in-vivo applications)",
+			"• Use as food additives or dietary supplements",
+			"• Any application outside legitimate scientific research",
+			"By purchasing, you acknowledge and warrant that you will use products exclusively for qualified research purposes in appropriate laboratory settings.",
+		],
+	},
+	{
+		title: "3. Age Verification & Eligibility",
+		paras: [
+			"You must be at least 18 years of age to purchase from Slimout. By placing an order, you represent and warrant that:",
+			"• You are 18 years of age or older",
+			"• You have the legal capacity to enter into this agreement",
+			"• You are not prohibited by law from purchasing these products",
+			"• All information you provide is accurate and complete",
+			"We reserve the right to refuse service or cancel orders if we suspect misrepresentation of age or eligibility.",
+		],
+	},
+	{
+		title: "4. Product Information & Accuracy",
+		paras: [
+			"We strive to provide accurate product information, including descriptions, specifications, purity levels, and pricing. However:",
+			"• Product images are for illustration purposes and may not reflect exact appearance",
+			"• Specifications are based on manufacturer data and third-party testing",
+			"• We reserve the right to correct errors in product information or pricing",
+			"• Certificates of Analysis (COAs) are provided when available and reflect batch-specific testing",
+			"• Product availability is subject to change without notice",
+			"If a product is listed at an incorrect price due to error, we reserve the right to cancel the order and refund your payment.",
+		],
+	},
+	{
+		title: "5. Orders & Payment",
+		paras: [
+			"Order Acceptance: All orders are subject to acceptance by Slimout. We reserve the right to refuse or cancel any order for any reason, including but not limited to:",
+			"• Product availability",
+			"• Errors in pricing or product information",
+			"• Suspected fraudulent activity",
+			"• Failure to meet eligibility requirements",
+			"Payment: We accept major credit cards and other payment methods as displayed at checkout. Payment is due at the time of order placement. All prices are in USD.",
+			"Order Confirmation: You will receive an email confirmation once your order is placed. This does not constitute acceptance of your order—acceptance occurs when we ship your products.",
+		],
+	},
+	{
+		title: "6. Shipping & Delivery",
+		paras: [
+			"Shipping Terms:",
+			"• We ship to addresses within the United States only",
+			"• Shipping costs are calculated at checkout based on weight and destination",
+			"• Estimated delivery times are provided but not guaranteed",
+			"• Products are shipped in discreet, unmarked packaging",
+			"• Cold chain integrity is maintained for temperature-sensitive products",
+			"Delivery: Once a package is shipped, risk of loss transfers to you. We are not responsible for:",
+			"• Delays caused by shipping carriers",
+			"• Failed delivery attempts due to incorrect addresses",
+			"• Packages lost or stolen after delivery confirmation",
+			"• Damage during shipping (claims must be filed with carrier)",
+			"Tracking information will be provided once your order ships.",
+		],
+	},
+	{
+		title: "7. Returns, Refunds & Exchanges",
+		paras: [
+			"Due to the nature of research chemicals and safety considerations:",
+			"Non-Returnable Products: All sales are final for opened, used, or reconstituted products.",
+			"Eligible Returns: Unopened, unused products in original packaging may be returned within 14 days of delivery, subject to a 20% restocking fee.",
+			"Damaged or Defective Products: If you receive damaged or defective products:",
+			"• Contact us within 48 hours of delivery with photographic evidence",
+			"• We will replace the product or issue a full refund at our discretion",
+			"• Return shipping costs for defective products will be covered by us",
+			"Refund Processing: Approved refunds will be processed within 7-10 business days to your original payment method.",
+		],
+	},
+	{
+		title: "8. Quality & Testing",
+		paras: [
+			"We are committed to providing research-grade peptides of the highest quality:",
+			"• All products are sourced from reputable manufacturers",
+			"• Batch-specific third-party testing is conducted when available",
+			"• Certificates of Analysis (COAs) are provided for verification",
+			"• Purity specifications are guaranteed within stated ranges",
+			"However, we make no warranties regarding:",
+			"• Suitability for any specific research application",
+			"• Results or outcomes from product use",
+			"• Performance in any particular protocol or study",
+			"You assume all responsibility for proper handling, storage, and use of products.",
+		],
+	},
+	{
+		title: "9. Limitation of Liability",
+		paras: [
+			"TO THE MAXIMUM EXTENT PERMITTED BY LAW:",
+			'Products are provided "AS-IS" for research purposes only. Slimout shall not be liable for:',
+			"• Any direct, indirect, incidental, consequential, or punitive damages",
+			"• Injuries, adverse reactions, or health consequences from product misuse",
+			"• Loss of profits, data, or business opportunities",
+			"• Any claims arising from improper use or handling",
+			"Our total liability shall not exceed the purchase price of the product(s) in question.",
+			"You agree to indemnify and hold harmless Slimout, its officers, directors, employees, and agents from any claims, damages, or expenses arising from your use of our products.",
+		],
+	},
+	{
+		title: "10. Intellectual Property",
+		paras: [
+			"All content on this website, including text, graphics, logos, images, and software, is the property of Slimout or its licensors and is protected by copyright and trademark laws.",
+			"You may not:",
+			"• Reproduce, distribute, or display any content without written permission",
+			"• Use our trademarks or trade names without authorization",
+			"• Reverse engineer or create derivative works from our website or content",
+		],
+	},
+	{
+		title: "11. Privacy & Data Protection",
+		paras: [
+			"We collect and process personal information in accordance with our Privacy Policy. By using our website and services, you consent to:",
+			"• Collection of personal and payment information",
+			"• Use of cookies and tracking technologies",
+			"• Storage and processing of your data as described in our Privacy Policy",
+			"We do not sell or share your personal information with third parties except as necessary to process orders and comply with legal obligations.",
+		],
+	},
+	{
+		title: "12. Legal Compliance",
+		paras: [
+			"You are solely responsible for ensuring your purchase and use of products complies with all applicable:",
+			"• Federal, state, and local laws",
+			"• Institutional regulations and policies",
+			"• Professional ethical standards",
+			"You warrant that you will not:",
+			"• Use products for unlawful purposes",
+			"• Violate any regulations governing research chemicals",
+			"• Resell products without proper licensing",
+			"• Export products in violation of export control laws",
+			"Slimout reserves the right to report suspected illegal activity to appropriate authorities.",
+		],
+	},
+	{
+		title: "13. Termination",
+		paras: [
+			"We reserve the right to:",
+			"• Refuse service to anyone at any time",
+			"• Terminate or suspend your access to our website",
+			"• Cancel orders or refuse future orders",
+			"Reasons for termination may include:",
+			"• Violation of these Terms and Conditions",
+			"• Fraudulent or suspicious activity",
+			"• Misuse of products",
+			"• Providing false information",
+			"Upon termination, you must immediately cease using our products and website.",
+		],
+	},
+	{
+		title: "14. Dispute Resolution & Governing Law",
+		paras: [
+			"These Terms and Conditions shall be governed by and construed in accordance with the laws of the United States and the state in which Slimout is registered, without regard to conflict of law principles.",
+			"Arbitration: Any dispute arising from these terms or your use of our products shall be resolved through binding arbitration in accordance with the American Arbitration Association rules.",
+			"You waive any right to participate in class action lawsuits or class-wide arbitration.",
+		],
+	},
+	{
+		title: "15. Severability",
+		paras: [
+			"If any provision of these Terms and Conditions is found to be invalid or unenforceable, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.",
+		],
+	},
+	{
+		title: "16. Contact Information",
+		paras: [
+			"For questions about these Terms and Conditions, please contact us through our website’s contact form.",
+			"By completing a purchase, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.",
+		],
+	},
+	{
+		title: "Choice of Law",
+		paras: [
+			"THIS AGREEMENT SHALL BE GOVERNED BY THE LAWS OF THE STATE OF TEXAS, WITHOUT GIVING EFFECT TO ANY PRINCIPLES REGARDING CONFLICT OF LAWS.",
+		],
+	},
+];
+
+const today = new Date().toLocaleDateString("en-US", {
+	month: "long",
+	day: "numeric",
+	year: "numeric",
+});
+---
+
+<div class="checkout-terms-modal" data-terms-modal>
+	<div class="checkout-terms-modal-scrim" data-terms-close></div>
+	<div class="checkout-terms-modal-panel">
+		<div class="checkout-terms-modal-head">
+			<h2 class="checkout-terms-modal-title">Terms and Conditions</h2>
+			<Button
+				variant="link"
+				className="checkout-terms-modal-close"
+				data-terms-close
+				aria-label="Close"
+			>
+				<svg
+					width="15"
+					height="15"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M6 6l12 12M18 6L6 18"></path>
+				</svg>
+			</Button>
+		</div>
+
+		<div class="checkout-terms-modal-body" data-terms-scroll>
+			<div class="checkout-terms-modal-brand"
+				>SlimOut Weight Loss, Wellness &amp; Recovery&#8480;</div
+			>
+			<div class="checkout-terms-modal-dba"
+				>(DBA: SlimOut Weight Loss&#8480;) (DBA: SLIMOUT MD 360&#8480;)</div
+			>
+			<p class="checkout-terms-modal-emergency">
+				We are not a substitute for emergency medical services. If you have a
+				medical emergency, seek emergency medical care immediately in-person or
+				dial 911 or your local emergency number.
+			</p>
+
+			{
+				sections.map((section) => (
+					<div class="checkout-terms-modal-section">
+						{section.title && (
+							<h3 class="checkout-terms-modal-section-title">
+								{section.title}
+							</h3>
+						)}
+						{section.paras.map((p) => (
+							<p class="checkout-terms-modal-section-para">{p}</p>
+						))}
+					</div>
+				))
+			}
+
+			<div class="checkout-terms-modal-ack">
+				<h3 class="checkout-terms-modal-ack-title"
+					>Terms &amp; Conditions Acknowledgment</h3
+				>
+				<div class="checkout-terms-modal-ack-row">
+					Customer Full Name: <strong class="checkout-terms-modal-ack-value"
+						>Patient Name</strong
+					>
+				</div>
+				<div class="checkout-terms-modal-ack-row">
+					Date: <strong class="checkout-terms-modal-ack-value">{today}</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="checkout-terms-modal-footer">
+			<span class="checkout-terms-modal-hint" data-terms-hint
+				>Scroll to the end to continue</span
+			>
+			<Button
+				variant="link"
+				className="checkout-terms-modal-cancel"
+				data-terms-close
+				text="Cancel"
+			/>
+			<Button className="checkout-terms-modal-agree" data-terms-agree>
+				Agree to the terms &amp; conditions
+			</Button>
+		</div>
+	</div>
+</div>

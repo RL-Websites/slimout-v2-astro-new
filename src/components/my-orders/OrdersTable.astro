@@ -1,0 +1,599 @@
+---
+import Button from "../utils/Button.astro";
+
+import { FILTERS, ORDERS, orderSlug, statusSlug } from "../../data/orders";
+
+const rows = ORDERS.map((order, i) => {
+	const singleStatus = order.items.length === 1 && !order.items[0].bundle;
+	const intakeReq = order.items.some((it) => it.intake);
+	// Seeded demo state — overridden client-side by anything uploaded from this page
+	// (see the global my-orders.js and storage.js).
+	const reportDone = i % 3 !== 2;
+	const licenseDone = i % 4 !== 2;
+	const intakeDone = i % 5 !== 3;
+
+	return {
+		order,
+		singleStatus,
+		statusValues: order.items.map((it) => it.status).join(","),
+		reportDone,
+		licenseDone,
+		intakeNeeded: intakeReq && !intakeDone,
+		intakeDone: intakeReq && intakeDone,
+		intakeNone: !intakeReq,
+	};
+});
+---
+
+<section id="top" class="my-orders">
+	<div class="my-orders-inner">
+		<div class="my-orders-head">
+			<div class="my-orders-heading">
+				<div class="my-orders-eyebrow">Patient portal</div>
+				<h1 class="my-orders-title"
+					>My <span class="my-orders-title-alt">orders</span></h1
+				>
+			</div>
+			<div class="my-orders-filters" data-orders-filters>
+				{
+					FILTERS.map((label, i) => (
+						<span
+							class:list={["my-orders-filter", i === 0 && "is-active"]}
+							role="button"
+							data-filter={label}
+						>
+							{label}
+						</span>
+					))
+				}
+			</div>
+		</div>
+
+		<div class="my-orders-card my-orders-card--table">
+			<div class="my-orders-scroll">
+				<div class="my-orders-table">
+					<div class="my-orders-table-head">
+						<span class="my-orders-table-head-cell">Order ID &amp; Date</span>
+						<span class="my-orders-table-head-cell">Product &amp; Price</span>
+						<span class="my-orders-table-head-cell">Billing Name</span>
+						<span class="my-orders-table-head-cell">Status</span>
+						<span class="my-orders-table-head-cell">Payment</span>
+						<span class="my-orders-table-head-cell">Documents</span>
+						<span class="my-orders-table-head-cell">Intake</span>
+					</div>
+
+					<div data-orders-rows>
+						{
+							rows.map(
+								({
+									order,
+									singleStatus,
+									statusValues,
+									reportDone,
+									licenseDone,
+									intakeNeeded,
+									intakeDone,
+									intakeNone,
+								}) => (
+									<div
+										class="my-orders-row"
+										data-order-row
+										data-order-id={order.id}
+										data-status={statusValues}
+									>
+										<span class="my-orders-cell-id">
+											<a
+												href={`my-order/${orderSlug(order.id)}.html`}
+												class="my-orders-cell-id-link"
+											>
+												{order.id}
+											</a>
+											<span class="my-orders-cell-id-date">{order.date}</span>
+										</span>
+
+										<span class="my-orders-cell-product">
+											{order.items.map((item) => (
+												<span class="my-orders-line">
+													<span class="my-orders-line-name">{item.name}</span>
+													{item.bundle ? (
+														<span
+															class="my-orders-package-badge"
+															role="button"
+															tabindex="0"
+															aria-label={`Show package contents for ${item.name}`}
+															data-package-badge
+															data-contents={(item.contents || []).join("|")}
+														>
+															+{item.bundle}
+														</span>
+													) : null}
+												</span>
+											))}
+											<span class="my-orders-amount">
+												${order.amount.toFixed(2)}
+											</span>
+										</span>
+
+										<span class="my-orders-cell-billing">{order.billing}</span>
+
+										<span class="my-orders-cell-status">
+											{singleStatus ? (
+												<span
+													class:list={[
+														"order-badge",
+														`order-badge--${statusSlug(order.items[0].status)}`,
+													]}
+												>
+													{order.items[0].status}
+												</span>
+											) : (
+												<Button
+													variant="link"
+													className="my-orders-view-status"
+													data-view-status
+													data-modal-open="order-status-modal"
+													data-order-id={order.id}
+												>
+													View Status
+													<svg
+														width="11"
+														height="11"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="2.2"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														aria-hidden="true"
+													>
+														<path d="M9 6l6 6-6 6" />
+													</svg>
+												</Button>
+											)}
+										</span>
+
+										<span class="my-orders-cell-pay">
+											<span
+												class:list={[
+													"order-badge",
+													`order-badge--${statusSlug(order.pay)}`,
+												]}
+											>
+												{order.pay}
+											</span>
+										</span>
+
+										<span class="my-orders-cell-docs">
+											<a
+												href="lab-results.html"
+												class:list={[
+													"order-doc-btn",
+													"order-doc-btn--done",
+													!reportDone && "is-hidden",
+												]}
+												data-doc="report"
+												data-doc-view="done"
+											>
+												Lab · Done
+											</a>
+											<Button
+												variant="outline"
+												className={`order-doc-btn order-doc-btn--pending${reportDone ? " is-hidden" : ""}`}
+												aria-label="Upload lab report"
+												data-doc="report"
+												data-doc-view="pending"
+												data-order-id={order.id}
+											>
+												<svg
+													width="11"
+													height="11"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													aria-hidden="true"
+												>
+													<>
+														<path d="M12 16V4" />
+														<path d="M7 9l5-5 5 5" />
+														<path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
+													</>
+												</svg>
+												Upload Lab
+											</Button>
+
+											<a
+												href="verify-identity.html"
+												class:list={[
+													"order-doc-btn",
+													"order-doc-btn--done",
+													!licenseDone && "is-hidden",
+												]}
+												data-doc="license"
+												data-doc-view="done"
+											>
+												DL · Done
+											</a>
+											<Button
+												variant="outline"
+												className={`order-doc-btn order-doc-btn--pending${licenseDone ? " is-hidden" : ""}`}
+												aria-label="Upload driver's license"
+												data-doc="license"
+												data-doc-view="pending"
+												data-order-id={order.id}
+											>
+												<svg
+													width="11"
+													height="11"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													aria-hidden="true"
+												>
+													<>
+														<path d="M12 16V4" />
+														<path d="M7 9l5-5 5 5" />
+														<path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
+													</>
+												</svg>
+												Upload DL
+											</Button>
+										</span>
+
+										<span class="my-orders-cell-intake">
+											{intakeNeeded && (
+												<a href="intake.html" class="order-intake-btn">
+													<svg
+														width="11"
+														height="11"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="2"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														aria-hidden="true"
+														style="margin-right:6px"
+													>
+														<path d="M12 16V4" />
+														<path d="M7 9l5-5 5 5" />
+														<path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
+													</svg>
+													Submit
+												</a>
+											)}
+											{intakeDone && (
+												<span class="order-intake-done">
+													<svg
+														width="11"
+														height="11"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="2.8"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														aria-hidden="true"
+													>
+														<path d="M4 12.5l5 5L20 6.5" />
+													</svg>
+													Done
+												</span>
+											)}
+											{intakeNone && <span class="order-intake-none">—</span>}
+										</span>
+									</div>
+								),
+							)
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="my-orders-cards" data-orders-cards>
+			{
+				rows.map(
+					({
+						order,
+						singleStatus,
+						statusValues,
+						reportDone,
+						licenseDone,
+						intakeNeeded,
+						intakeDone,
+						intakeNone,
+					}) => (
+						<div
+							class="my-orders-mobile-card"
+							data-order-row
+							data-order-id={order.id}
+							data-status={statusValues}
+						>
+							<div class="my-orders-mobile-card-head">
+								<span class="my-orders-mobile-card-id">
+									<a
+										href={`my-order/${orderSlug(order.id)}.html`}
+										class="my-orders-cell-id-link"
+									>
+										{order.id}
+									</a>
+									<span class="my-orders-cell-id-date">{order.date}</span>
+								</span>
+
+								{singleStatus ? (
+									<span
+										class:list={[
+											"order-badge",
+											"my-orders-mobile-card-badge",
+											`order-badge--${statusSlug(order.items[0].status)}`,
+										]}
+									>
+										{order.items[0].status}
+									</span>
+								) : (
+									<Button
+										variant="link"
+										className="my-orders-view-status my-orders-mobile-card-badge"
+										data-view-status
+										data-modal-open="order-status-modal"
+										data-order-id={order.id}
+									>
+										View Status
+										<svg
+											width="11"
+											height="11"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2.2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											aria-hidden="true"
+										>
+											<path d="M9 6l6 6-6 6" />
+										</svg>
+									</Button>
+								)}
+							</div>
+
+							<div class="my-orders-mobile-card-row my-orders-mobile-card-row--product">
+								<span class="my-orders-mobile-card-label">
+									Product &amp; Price
+								</span>
+								<span class="my-orders-mobile-card-lines">
+									{order.items.map((item) => (
+										<span class="my-orders-line">
+											<span class="my-orders-line-name">{item.name}</span>
+											{item.bundle ? (
+												<span
+													class="my-orders-package-badge"
+													role="button"
+													tabindex="0"
+													aria-label={`Show package contents for ${item.name}`}
+													data-package-badge
+													data-contents={(item.contents || []).join("|")}
+												>
+													+{item.bundle}
+												</span>
+											) : null}
+										</span>
+									))}
+									<span class="my-orders-amount">
+										${order.amount.toFixed(2)}
+									</span>
+								</span>
+							</div>
+
+							<div class="my-orders-mobile-card-row">
+								<span class="my-orders-mobile-card-label">Billing Name</span>
+								<span class="my-orders-mobile-card-value">{order.billing}</span>
+							</div>
+
+							<div class="my-orders-mobile-card-row">
+								<span class="my-orders-mobile-card-label">Payment</span>
+								<span
+									class:list={[
+										"order-badge",
+										`order-badge--${statusSlug(order.pay)}`,
+									]}
+								>
+									{order.pay}
+								</span>
+							</div>
+
+							<div class="my-orders-mobile-card-row my-orders-mobile-card-row--top">
+								<span class="my-orders-mobile-card-label">Documents</span>
+								<span class="my-orders-mobile-card-docs">
+									<a
+										href="lab-results.html"
+										class:list={[
+											"order-doc-btn",
+											"order-doc-btn--done",
+											!reportDone && "is-hidden",
+										]}
+										data-doc="report"
+										data-doc-view="done"
+									>
+										Lab · Manage
+									</a>
+									<Button
+										variant="outline"
+										className={`order-doc-btn order-doc-btn--pending${reportDone ? " is-hidden" : ""}`}
+										aria-label="Upload lab report"
+										data-doc="report"
+										data-doc-view="pending"
+										data-order-id={order.id}
+									>
+										<svg
+											width="11"
+											height="11"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											aria-hidden="true"
+										>
+											<>
+												<path d="M12 16V4" />
+												<path d="M7 9l5-5 5 5" />
+												<path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
+											</>
+										</svg>
+										Upload Lab
+									</Button>
+
+									<a
+										href="verify-identity.html"
+										class:list={[
+											"order-doc-btn",
+											"order-doc-btn--done",
+											!licenseDone && "is-hidden",
+										]}
+										data-doc="license"
+										data-doc-view="done"
+									>
+										DL · Manage
+									</a>
+									<Button
+										variant="outline"
+										className={`order-doc-btn order-doc-btn--pending${licenseDone ? " is-hidden" : ""}`}
+										aria-label="Upload driver's license"
+										data-doc="license"
+										data-doc-view="pending"
+										data-order-id={order.id}
+									>
+										<svg
+											width="11"
+											height="11"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											aria-hidden="true"
+										>
+											<>
+												<path d="M12 16V4" />
+												<path d="M7 9l5-5 5 5" />
+												<path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
+											</>
+										</svg>
+										Upload DL
+									</Button>
+								</span>
+							</div>
+
+							<div class="my-orders-mobile-card-row">
+								<span class="my-orders-mobile-card-label">Intake</span>
+								{intakeNeeded && (
+									<a href="intake.html" class="order-intake-btn">
+										<svg
+											width="11"
+											height="11"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											aria-hidden="true"
+											style="margin-right:6px"
+										>
+											<path d="M12 16V4" />
+											<path d="M7 9l5-5 5 5" />
+											<path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
+										</svg>
+										Submit
+									</a>
+								)}
+								{intakeDone && (
+									<span class="order-intake-done">
+										<svg
+											width="11"
+											height="11"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2.8"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											aria-hidden="true"
+										>
+											<path d="M4 12.5l5 5L20 6.5" />
+										</svg>
+										Done
+									</span>
+								)}
+								{intakeNone && <span class="order-intake-none">—</span>}
+							</div>
+						</div>
+					),
+				)
+			}
+		</div>
+
+		<div class="my-orders-empty" data-orders-empty>
+			<div class="my-orders-empty-text">No orders with that status.</div>
+		</div>
+
+		<div class="my-orders-pager">
+			<span class="my-orders-pager-range" data-orders-range></span>
+			<span class="my-orders-pager-btns">
+				<button
+					type="button"
+					class="theme-btn theme-btn__outline my-orders-pager-btn"
+					aria-label="Previous page"
+					data-orders-prev
+				>
+					<svg
+						width="15"
+						height="15"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M15 6l-6 6 6 6"></path>
+					</svg>
+				</button>
+				<button
+					type="button"
+					class="theme-btn theme-btn__outline my-orders-pager-btn"
+					aria-label="Next page"
+					data-orders-next
+				>
+					<svg
+						width="15"
+						height="15"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M9 6l6 6-6 6"></path>
+					</svg>
+				</button>
+			</span>
+		</div>
+	</div>
+
+	<div class="order-popover" data-order-popover>
+		<div class="order-popover-label">Package includes</div>
+		<div class="order-popover-list" data-order-popover-list></div>
+	</div>
+</section>

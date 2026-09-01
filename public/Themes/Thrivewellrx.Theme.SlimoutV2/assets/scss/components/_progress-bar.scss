@@ -1,0 +1,35 @@
+// Generic step-progress bar (.common-progress-bar) — used by the quiz today; reuse for any
+// future multi-step flow (e.g. the intake form) rather than duplicating this markup/styling.
+@layer components {
+  .common-progress-bar {
+    @apply relative z-10 flex items-center gap-2.5 max-w-[640px] w-full mx-auto mb-4;
+
+    &-back {
+      @apply flex items-center gap-1.5 min-w-[52px] font-mono text-[11px] tracking-[0.08em]
+        uppercase text-muted-light cursor-pointer transition-colors duration-[220ms];
+
+      &:hover {
+        @apply text-ink;
+      }
+    }
+
+    &-eyebrow {
+      @apply flex-1 text-center font-mono text-[10px] tracking-[0.22em] uppercase text-ink;
+    }
+
+    &-counter {
+      @apply min-w-[52px] text-right font-mono text-[11px] tracking-[0.08em] text-muted-light;
+    }
+  }
+
+  .common-progress-bar-track {
+    @apply relative z-10 max-w-[640px] w-full mx-auto h-[5px] rounded-full bg-sage-200 mb-9 sm:mb-12
+      overflow-hidden;
+  }
+
+  .common-progress-bar-fill {
+    @apply block h-full rounded-full bg-lime-dark transition-[width] duration-[450ms]
+      ease-[cubic-bezier(0.2,0.8,0.2,1)];
+    width: 0%;
+  }
+}

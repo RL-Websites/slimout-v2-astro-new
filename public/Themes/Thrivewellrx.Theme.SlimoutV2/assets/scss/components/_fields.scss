@@ -1,0 +1,123 @@
+// Generic, reusable form field classes (.general-input/.input-radio/.input-checkbox) —
+// kept separate from page-level partials so any component can pull these in without page chrome.
+@layer components {
+  .general-input {
+    @apply relative flex items-center w-full;
+
+    &-field {
+      @apply w-full px-5 py-4 rounded-2xl border-[1.5px] border-[#DDE1D2] bg-white
+        font-sans text-[15.5px] text-ink transition-colors duration-[220ms];
+
+      &::placeholder {
+        @apply text-sage-400;
+      }
+
+      &:disabled {
+        @apply bg-sage-50 text-sage-400 cursor-not-allowed;
+      }
+
+      // Hide the native up/down stepper Chrome/Edge/Safari show on hover for type="number".
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &[type='number'] {
+        -moz-appearance: textfield;
+      }
+    }
+
+    &-suffix {
+      @apply absolute right-5 font-mono text-[11px] tracking-[0.08em] uppercase text-muted-light
+        pointer-events-none;
+    }
+
+    &[data-error='true'] &-field,
+    &--error &-field {
+      @apply border-[#C24A3A];
+    }
+
+    &-error {
+      @apply block mt-2 text-[13px] text-[#C24A3A];
+    }
+  }
+
+  .general-textarea {
+    @apply w-full px-5 py-4 rounded-2xl border-[1.5px] border-[#DDE1D2] bg-white
+      font-sans text-[15.5px] text-ink transition-colors duration-[220ms] resize-y;
+
+    &::placeholder {
+      @apply text-sage-400;
+    }
+  }
+
+  .input-radio,
+  .input-checkbox {
+    @apply relative flex items-center gap-3.5 px-5 py-4.25 rounded-2xl cursor-pointer
+      border-[1.5px] border-[#E4E9DE] bg-white
+      transition-all duration-[220ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
+
+    &:hover {
+      @apply border-lime -translate-y-0.5;
+    }
+
+    &--disabled {
+      @apply cursor-not-allowed opacity-50 pointer-events-none;
+    }
+
+    &-input {
+      @apply absolute w-0 h-0 opacity-0;
+    }
+
+    &-label {
+      @apply font-sora text-[15.5px] font-medium tracking-tight text-muted-dark;
+    }
+  }
+
+  .input-radio:has(.input-radio-input:checked),
+  .input-checkbox:has(.input-checkbox-input:checked) {
+    @apply border-lime bg-sage-100;
+  }
+
+  .input-radio:has(.input-radio-input:checked) .input-radio-label,
+  .input-checkbox:has(.input-checkbox-input:checked) .input-checkbox-label {
+    @apply text-ink;
+  }
+
+  .input-radio-dot {
+    @apply relative w-5 h-5 rounded-full border-[1.5px] border-[#C3CBBD] shrink-0
+      transition-colors duration-[220ms];
+
+    &::after {
+      content: '';
+      @apply absolute inset-[4px] rounded-full bg-lime-dark scale-0 transition-transform
+        duration-[220ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
+    }
+  }
+
+  .input-radio:has(.input-radio-input:checked) .input-radio-dot {
+    @apply border-lime-dark;
+
+    &::after {
+      @apply scale-100;
+    }
+  }
+
+  .input-checkbox-box {
+    @apply relative w-5 h-5 rounded-[6px] border-[1.5px] border-[#C3CBBD] shrink-0
+      flex items-center justify-center text-white transition-colors duration-[220ms];
+
+    svg {
+      @apply scale-0 transition-transform duration-[220ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
+    }
+  }
+
+  .input-checkbox:has(.input-checkbox-input:checked) .input-checkbox-box {
+    @apply border-lime-dark bg-lime-dark;
+
+    svg {
+      @apply scale-100;
+    }
+  }
+}

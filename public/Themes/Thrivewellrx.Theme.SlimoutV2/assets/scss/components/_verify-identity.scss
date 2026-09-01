@@ -1,0 +1,63 @@
+@layer components {
+  .verify-identity {
+    @apply bg-cream px-5 sm:px-8 lg:px-13;
+    padding-top: calc(114px + clamp(12px, 2.4vw, 32px));
+    padding-bottom: clamp(130px, 15vh, 170px);
+
+    &-inner {
+      @apply max-w-[980px] mx-auto;
+    }
+
+    &-head {
+      @apply text-center mb-6 sm:mb-8;
+    }
+
+    &-title {
+      @apply font-sora text-[30px] sm:text-[42px] lg:text-[56px] font-medium leading-[0.98]
+        tracking-tighter text-ink m-0 text-balance;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-notice {
+      @apply flex items-center gap-3.5 p-4.5 sm:p-6 bg-sage-100 border border-dashed
+        border-[#C6D38A] rounded-[20px] mb-3;
+
+      &--mt {
+        @apply mt-3 mb-0;
+      }
+    }
+
+    &-notice-icon {
+      @apply w-6.5 h-6.5 rounded-full border-[1.5px] border-lime-deep text-[#5F6E1D] flex
+        items-center justify-center font-sora text-[13px] font-semibold shrink-0;
+    }
+
+    &-notice-text {
+      @apply min-w-0 text-[14.5px] leading-relaxed text-muted-dark text-pretty;
+
+      strong {
+        @apply font-sora font-semibold text-ink;
+      }
+    }
+
+    &-slots {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3;
+    }
+
+    &-qr-trigger {
+      @apply flex items-center justify-center gap-2.25 text-sm text-offwhite py-3 px-4 bg-ink
+        border border-ink rounded-full cursor-pointer transition-colors duration-250;
+
+      &:hover {
+        @apply bg-[#2A3A2F] border-[#2A3A2F];
+      }
+    }
+
+    &-lab-dropzone {
+      @apply mb-3;
+    }
+  }
+}

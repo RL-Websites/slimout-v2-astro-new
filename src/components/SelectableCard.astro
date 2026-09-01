@@ -1,0 +1,48 @@
+---
+// Generic "pick one of several rich cards" control. Selection is native — a real
+// (visually hidden) radio input per card — so the group's checked state, keyboard
+// navigation, and the visual highlight are all handled by the browser + this
+// component's `:has()` CSS, with zero page-level JS required to manage selection.
+// Read the chosen value the same way you'd read any radio group:
+//   document.querySelector<HTMLInputElement>('input[name="..."]:checked')?.value
+//
+// For a simple text-only choice (no rich body content), see the existing
+// src/components/fields/InputRadio.astro instead — this component is for cards that
+// need a header + supporting detail lines, like a plan/option picker.
+interface Props {
+	name: string;
+	value: string;
+	label: string;
+	checked?: boolean;
+	disabled?: boolean;
+}
+
+const { name, value, label, checked = false, disabled = false } = Astro.props;
+const hasBody = Astro.slots.has('default');
+---
+
+<label class:list={['selectable-card', disabled && 'selectable-card--disabled']}>
+	<input
+		type="radio"
+		name={name}
+		value={value}
+		checked={checked}
+		disabled={disabled}
+		class="selectable-card-input"
+	/>
+	<span class="selectable-card-top">
+		<span class="selectable-card-label">{label}</span>
+		<span class="selectable-card-dot">
+			<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M4 12.5l5 5L20 6.5"></path>
+			</svg>
+		</span>
+	</span>
+	{
+		hasBody && (
+			<span class="selectable-card-body">
+				<slot />
+			</span>
+		)
+	}
+</label>

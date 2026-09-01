@@ -1,0 +1,78 @@
+// Generic reusable modal shell (see src/components/Modal.astro) — kept separate from
+// page-level partials so any feature can render a modal without page-specific chrome.
+// Uses opacity/visibility rather than display:none so BOTH open and close animate;
+// toggling `display` (e.g. a `hidden`/`flex` pair) can't transition in either direction.
+@layer components {
+  .modal {
+    @apply fixed inset-0 z-[250] flex items-center justify-center p-3 sm:p-6 lg:p-10 invisible opacity-0 pointer-events-none transition-opacity duration-300;
+
+    &.is-open {
+      @apply visible opacity-100 pointer-events-auto;
+    }
+
+    &-scrim {
+      @apply absolute inset-0 backdrop-blur-sm;
+      background-color: rgba(12, 20, 15, 0.5)
+    }
+
+    &-panel {
+      @apply relative w-full bg-[#FBFBF7] rounded-[26px] flex flex-col overflow-hidden scale-95 transition-transform duration-300;
+      transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+      max-height: calc(100vh - 200px);
+      box-shadow: 0 40px 90px -40px rgba(16, 26, 20, 0.55);
+
+      &:focus-visible {
+        outline: 0;
+      }
+    }
+
+    &.is-open &-panel {
+      @apply scale-100;
+    }
+
+    &--sm &-panel {
+      @apply max-w-[560px];
+    }
+
+    &--md &-panel {
+      @apply max-w-[860px];
+    }
+
+    &--lg &-panel {
+      @apply max-w-[940px];
+    }
+
+    &--xl &-panel {
+      @apply max-w-[1250px];
+    }
+
+    &--xxl &-panel {
+      @apply max-w-[1350px];
+    }
+
+    // Optional structural chrome for a modal that's shaped like "title bar + scrollable body +
+    // action bar" (see LabOptionModal.astro/LabUploadModal.astro). Not every modal needs all
+    // three — a modal without a title bar (e.g. LabWarnModal.astro) just skips `-header`.
+    &-header {
+      @apply flex items-center justify-between gap-3.5 p-4 sm:p-5.5 border-b border-[#E4E7DA] shrink-0;
+    }
+
+    &-body {
+      @apply flex-1 min-h-0 overflow-y-auto;
+    }
+
+    &-footer {
+      @apply flex flex-wrap items-center gap-2.5 p-3.5 sm:p-5 border-t border-[#E4E7DA] shrink-0;
+    }
+  }
+
+  // Reusable circular close (X) button — drop `class="modal-close" data-modal-close` into
+  // any modal's own header markup rather than redefining this per feature.
+  .modal-close {
+    @apply w-9 h-9 rounded-full border border-[#E4E7DA] text-ink flex items-center justify-center cursor-pointer shrink-0 transition-colors duration-[250ms];
+
+    &:hover {
+      @apply bg-ink text-offwhite border-ink;
+    }
+  }
+}

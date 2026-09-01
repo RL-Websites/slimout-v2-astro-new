@@ -1,0 +1,387 @@
+@layer components {
+  .intake {
+    @apply relative flex flex-col min-h-screen px-5 sm:px-8 pt-6 sm:pt-11 pb-[150px] bg-cream
+      overflow-x-clip;
+  }
+
+  // --- decorative background (mirrors the quiz's own treatment) ---
+  .intake-bg {
+    @apply absolute inset-0 overflow-hidden pointer-events-none z-0;
+
+    &-blob {
+      @apply absolute rounded-full block;
+
+      &--1 {
+        top: -140px;
+        left: -120px;
+        width: min(520px, 52vw);
+        aspect-ratio: 1;
+        background: radial-gradient(circle at 32% 32%, rgba(187, 204, 70, 0.2), rgba(187, 204, 70, 0) 68%);
+      }
+      &--2 {
+        top: 16%;
+        right: -160px;
+        width: min(460px, 46vw);
+        aspect-ratio: 1;
+        background: radial-gradient(circle at 60% 40%, rgba(16, 26, 20, 0.055), rgba(16, 26, 20, 0) 70%);
+      }
+      &--3 {
+        bottom: -180px;
+        left: 8%;
+        width: min(560px, 58vw);
+        aspect-ratio: 1;
+        background: radial-gradient(circle at 50% 50%, rgba(187, 204, 70, 0.13), rgba(187, 204, 70, 0) 70%);
+      }
+    }
+
+    &-ring {
+      @apply absolute rounded-full block border;
+
+      &--1 {
+        top: 22%;
+        left: -90px;
+        width: min(300px, 30vw);
+        aspect-ratio: 1;
+        border-color: rgba(148, 167, 46, 0.16);
+      }
+      &--2 {
+        bottom: 14%;
+        right: -70px;
+        width: min(360px, 34vw);
+        aspect-ratio: 1;
+        border-color: rgba(16, 26, 20, 0.06);
+      }
+    }
+
+    &-dot {
+      @apply absolute rounded-full block;
+
+      &--1 {
+        top: 8%;
+        right: 14%;
+        width: 9px;
+        height: 9px;
+        background: rgba(148, 167, 46, 0.35);
+      }
+      &--2 {
+        bottom: 26%;
+        left: 12%;
+        width: 7px;
+        height: 7px;
+        background: rgba(16, 26, 20, 0.14);
+      }
+    }
+  }
+
+  // --- step viewport ---
+  .intake-viewport {
+    @apply relative z-10 flex-1 flex items-start justify-center;
+  }
+
+  .intake-step {
+    @apply hidden w-full max-w-[640px];
+
+    &.is-active {
+      @apply block animate-[intake-fade-up_0.4s_cubic-bezier(0.2,0.8,0.2,1)_both];
+    }
+
+  }
+
+  .intake-step--intro.is-active {
+    @apply max-w-[560px] mx-auto text-center;
+  }
+
+  .intake-question-title {
+    @apply font-sora text-[26px] sm:text-[32px] font-semibold tracking-tight text-ink leading-[1.15]
+      mb-7 sm:mb-9;
+  }
+
+  .intake-question-body {
+    @apply flex flex-col gap-3.5 p-4.5 sm:p-5.5 bg-white border border-[#E4E7DA] rounded-2xl mb-4.5;
+
+    &-item {
+      @apply flex gap-3;
+    }
+
+    &-dot {
+      @apply block w-1.5 h-1.5 mt-2 rounded-full bg-lime-dark shrink-0;
+    }
+  }
+
+  .intake-question-options {
+    @apply grid grid-cols-1 gap-2.5;
+
+    &--multi {
+      @apply sm:grid-cols-2;
+    }
+  }
+
+  .intake-question-cond {
+    @apply mt-2 px-4.5 py-3.5 border border-dashed border-[#C6D38A] bg-sage-100 rounded-xl
+      text-[13px] leading-[1.55] text-[#5F6E1D]
+      animate-[intake-cond-in_0.3s_cubic-bezier(0.2,0.8,0.2,1)_both];
+
+    &[hidden] {
+      @apply hidden;
+    }
+  }
+
+  .intake-question-other {
+    @apply mt-3 animate-[intake-cond-in_0.28s_cubic-bezier(0.2,0.8,0.2,1)_both];
+
+    &[hidden] {
+      @apply hidden;
+    }
+
+    &-count {
+      @apply mt-2 text-right font-mono text-[11px] tracking-[0.06em] text-muted-light;
+    }
+  }
+
+  // --- units step ---
+  .intake-units {
+    @apply flex flex-col gap-5 sm:gap-6;
+
+    &-group-label {
+      @apply block font-mono text-[11px] tracking-[0.14em] uppercase text-ink mb-2.5;
+    }
+
+    &-group-fields {
+      @apply flex flex-col sm:flex-row flex-wrap gap-3;
+    }
+
+    &-group-fields .general-input {
+      @apply sm:flex-1 sm:min-w-[180px];
+    }
+  }
+
+  // --- review step ---
+  .intake-review {
+    &-eyebrow {
+      @apply block font-mono text-[10px] tracking-[0.24em] uppercase text-muted-light mb-3;
+    }
+
+    &-title {
+      @apply font-sora text-[26px] sm:text-[34px] font-medium tracking-tight text-ink mb-3;
+
+      &-alt {
+        @apply font-serif italic font-normal;
+      }
+    }
+
+    &-lead {
+      @apply text-[15px] leading-[1.65] text-muted mb-7;
+    }
+
+    &-list {
+      @apply flex flex-col gap-2.5;
+    }
+
+    &-row {
+      @apply flex flex-wrap items-start gap-3 px-4.5 sm:px-5 py-4.5 sm:py-5 rounded-2xl bg-white
+        border border-[#E4E7DA];
+
+      &-body {
+        @apply flex-1 min-w-[180px] flex flex-col gap-1.5;
+      }
+
+      &-eyebrow {
+        @apply font-mono text-[9.5px] tracking-[0.16em] uppercase text-muted-light;
+      }
+
+      &-question {
+        @apply font-sora text-[14.5px] font-semibold tracking-tight text-ink;
+      }
+
+      &-answer {
+        @apply text-[14.5px] leading-[1.6] text-muted;
+
+        &--empty {
+          @apply text-[#A9B2A5] italic;
+        }
+      }
+
+      &-edit {
+        @apply shrink-0 px-5 py-2.5 rounded-full border border-[#D6DAC8] font-sans text-[14px]
+          text-ink cursor-pointer transition-colors duration-[220ms];
+
+        &:hover {
+          @apply bg-ink text-offwhite border-ink;
+        }
+      }
+    }
+  }
+
+  // --- done step ---
+  .intake-done {
+    @apply text-center;
+
+    &-title {
+      @apply font-sora text-[28px] sm:text-[36px] font-semibold tracking-tight text-ink
+        mb-8 sm:mb-10;
+    }
+
+    &-heading {
+      @apply font-sora text-[16px] sm:text-[18px] font-semibold tracking-tight text-ink mb-3.5
+        text-left;
+    }
+
+    &-box {
+      @apply flex flex-col gap-2.5 text-left p-4.5 sm:p-5.5 mb-7 rounded-2xl border border-dashed
+        border-[#D6DAC8] bg-white text-[14.5px] leading-[1.6] text-[#3A463C];
+
+      &--accent {
+        @apply bg-sage-100 border-[#C6D38A];
+      }
+
+      strong {
+        @apply font-sora font-semibold text-ink;
+      }
+    }
+  }
+
+  // --- loading overlay ---
+  .intake-loading {
+    @apply fixed inset-0 z-[200] bg-cream flex flex-col items-center justify-center gap-5;
+
+    &[hidden] {
+      @apply hidden;
+    }
+
+    &-spinner {
+      @apply block w-11 h-11 rounded-full border-[3px] border-sage-200;
+      border-top-color: #a8c22f;
+      animation: intake-spin 0.8s linear infinite;
+    }
+
+    &-text {
+      @apply font-mono text-[11px] tracking-[0.2em] uppercase text-muted-light;
+    }
+  }
+
+  // --- order-placed modal ---
+  .intake-placed {
+    @apply fixed inset-0 z-[220] flex items-center justify-center p-4 sm:p-8;
+
+    &[hidden] {
+      @apply hidden;
+    }
+
+    &-scrim {
+      @apply absolute inset-0 bg-[rgba(12,20,15,0.55)] backdrop-blur-sm
+        animate-[intake-scrim-in_0.3s_ease_both];
+    }
+
+    &-panel {
+      @apply relative bg-[#FBFBF7] rounded-3xl p-7 sm:p-9 text-center
+        animate-[intake-modal-in_0.32s_cubic-bezier(0.2,0.8,0.2,1)_both];
+      width: min(520px, 100%);
+      box-shadow: 0 40px 90px -40px rgba(16, 26, 20, 0.55);
+    }
+
+    &-icon {
+      @apply inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage-100
+        text-[#5F6E1D] mb-4.5;
+    }
+
+    &-title {
+      @apply font-sora text-[22px] sm:text-[27px] font-semibold tracking-tight text-ink mb-3;
+    }
+
+    &-lead {
+      @apply text-[15px] leading-[1.65] text-muted mb-6 sm:mb-7;
+    }
+
+    &-actions {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-2.5;
+    }
+
+    &-home,
+    &-orders {
+      @apply flex items-center justify-center gap-2 px-4.5 py-3.5 rounded-full text-[14.5px]
+        whitespace-nowrap transition-colors duration-[220ms];
+    }
+
+    &-home {
+      @apply border border-[#D6DAC8] text-ink;
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-orders {
+      @apply bg-lime-dark text-white font-medium;
+
+      &:hover {
+        @apply bg-lime-darker text-white;
+      }
+    }
+
+    &-orders-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-orders:hover &-orders-arrow {
+      @apply -rotate-45;
+    }
+  }
+
+  @keyframes intake-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes intake-cond-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes intake-scrim-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes intake-modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes intake-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intake-step.is-active,
+    .intake-question-cond,
+    .intake-question-other,
+    .intake-placed-scrim,
+    .intake-placed-panel {
+      animation: none !important;
+    }
+  }
+}

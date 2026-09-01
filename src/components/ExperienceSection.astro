@@ -1,0 +1,45 @@
+---
+const tags = [
+	"Consultations",
+	"Provider reviews",
+	"Pharmacy fulfillment",
+	"Ongoing support",
+];
+---
+
+<section class="experience">
+	<div class="experience-inner">
+		<div class="experience-media">
+			<div class="experience-frame">
+				<img
+					src="Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/experience-patient.png"
+					alt="Patient at ease during a telehealth visit"
+					class="experience-image"
+					loading="lazy"
+				/>
+			</div>
+			<div class="experience-badge">
+				<div class="experience-badge-title">One account</div>
+				<div class="experience-badge-body">
+					Consultation, plan, fulfillment and support, all in one place.
+				</div>
+			</div>
+		</div>
+		<div class="experience-content">
+			<div class="experience-eyebrow">04 — Personalized experience</div>
+			<h2 class="experience-title">
+				Healthcare that moves <span class="experience-title-alt">with you</span>
+			</h2>
+			<p class="experience-body">
+				SlimOut brings consultations, provider reviews, prescription management,
+				pharmacy fulfillment, and ongoing patient support together in one
+				seamless experience. From your initial consultation to medication
+				delivery, every step is designed to make your healthcare journey simple,
+				secure, and convenient.
+			</p>
+			<div class="experience-tags">
+				{tags.map((tag) => <span class="experience-tag">{tag}</span>)}
+			</div>
+		</div>
+	</div>
+</section>

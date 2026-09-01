@@ -1,0 +1,38 @@
+---
+interface Props {
+	id: string;
+	question: string;
+}
+
+const { id, question } = Astro.props;
+
+const days = Array.from({ length: 31 }, (_, i) => i + 1);
+const months = [
+	'January', 'February', 'March', 'April', 'May', 'June',
+	'July', 'August', 'September', 'October', 'November', 'December',
+];
+const currentYear = 2026;
+const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
+---
+
+<h2 class="quiz-question-title">{question}</h2>
+<div class="quiz-date">
+	<span class="quiz-date-select">
+		<select name={`${id}-day`} id={`${id}-day`} aria-label="Day">
+			<option value="">Day</option>
+			{days.map((day) => <option value={day}>{day}</option>)}
+		</select>
+	</span>
+	<span class="quiz-date-select">
+		<select name={`${id}-month`} id={`${id}-month`} aria-label="Month">
+			<option value="">Month</option>
+			{months.map((month, i) => <option value={i + 1}>{month}</option>)}
+		</select>
+	</span>
+	<span class="quiz-date-select">
+		<select name={`${id}-year`} id={`${id}-year`} aria-label="Year">
+			<option value="">Year</option>
+			{years.map((year) => <option value={year}>{year}</option>)}
+		</select>
+	</span>
+</div>

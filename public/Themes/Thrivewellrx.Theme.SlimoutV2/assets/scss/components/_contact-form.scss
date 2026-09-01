@@ -1,0 +1,141 @@
+@layer components {
+  .contact-form {
+    @apply min-w-0 bg-white border border-[#E4E7DA] rounded-[20px] sm:rounded-[26px]
+      p-5.5 sm:p-7.5;
+
+    &-view {
+      @apply block;
+    }
+
+    &-fields {
+      @apply flex flex-col gap-3.5 mb-4.5 sm:mb-5.5;
+    }
+
+    &-field {
+      @apply block min-w-0;
+    }
+
+    &-label {
+      @apply block text-[13px] text-muted mb-1.75;
+    }
+
+    &-label-hint {
+      @apply text-[#A9B2A5];
+    }
+
+    &-select-wrap {
+      @apply relative;
+    }
+
+    &-select {
+      @apply w-full text-[15px] text-ink py-3.75 pr-11 pl-4.5 bg-sage-50 border
+        border-[#DDE1D2] rounded-xl appearance-none cursor-pointer;
+    }
+
+    &-select-chevron {
+      @apply absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none flex text-muted;
+    }
+
+    &-input,
+    &-textarea {
+      @apply w-full font-sans text-[15px] text-ink py-3.75 px-4.5 bg-sage-50 border
+        border-[#DDE1D2] rounded-xl;
+
+      &::placeholder {
+        @apply text-[#98A292];
+      }
+    }
+
+    &-textarea {
+      @apply leading-relaxed resize-y;
+    }
+
+    &-char-count {
+      @apply block mt-2 text-[12.5px] text-[#8B9483];
+    }
+
+    &-actions {
+      @apply flex flex-wrap gap-2.5;
+    }
+
+    &-submit {
+      @apply flex items-center gap-2.75 text-[15.5px] font-medium py-3.75 pr-4 pl-7 rounded-full
+        whitespace-nowrap bg-[#E4E7DA] text-[#A9B2A5] cursor-not-allowed transition-all
+        duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)];
+
+      &.is-enabled {
+        @apply bg-lime text-white cursor-pointer;
+
+        &:hover {
+          @apply -translate-y-[3px];
+        }
+      }
+
+      &.is-enabled:hover &-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-submit-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-cancel {
+      @apply flex items-center text-[15px] text-ink py-3.75 px-7 border border-[#D6DAC8]
+        rounded-full cursor-pointer transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-success {
+      @apply text-center py-4.5 sm:py-8;
+    }
+
+    &-success-icon {
+      @apply inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage-100
+        text-[#5F6E1D] mb-5;
+    }
+
+    &-success-title {
+      @apply font-sora text-[20px] sm:text-[26px] font-semibold tracking-tight text-ink m-0
+        mb-2.5;
+    }
+
+    &-success-text {
+      @apply mx-auto mb-6 sm:mb-7 text-[15px] leading-relaxed text-muted max-w-[380px]
+        text-pretty;
+    }
+
+    &-success-actions {
+      @apply flex flex-wrap gap-2.5 justify-center;
+    }
+
+    &-success-primary {
+      @apply flex items-center gap-2.75 text-[15.5px] font-medium text-white py-3.75 pr-4 pl-7
+        bg-lime rounded-full transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-[3px];
+      }
+
+      &:hover &-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-success-primary-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-success-secondary {
+      @apply flex items-center text-[15px] text-ink py-3.75 px-7 border border-[#D6DAC8]
+        rounded-full cursor-pointer transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+  }
+}

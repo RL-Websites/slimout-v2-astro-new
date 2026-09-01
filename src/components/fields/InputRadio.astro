@@ -1,0 +1,24 @@
+---
+interface Props {
+	name: string;
+	value: string;
+	label: string;
+	checked?: boolean;
+	disabled?: boolean;
+}
+
+const { name, value, label, checked = false, disabled = false } = Astro.props;
+---
+
+<label class:list={['input-radio', disabled && 'input-radio--disabled']} data-field-option>
+	<input
+		class="input-radio-input"
+		type="radio"
+		name={name}
+		value={value}
+		checked={checked}
+		disabled={disabled}
+	/>
+	<span class="input-radio-dot"></span>
+	<span class="input-radio-label">{label}</span>
+</label>

@@ -1,0 +1,47 @@
+---
+interface Props {
+	itemCount: string;
+	subtotal: number;
+	shipping: number;
+	fee: number;
+	discount: number;
+	total: number;
+}
+
+const { itemCount, subtotal, shipping, fee, discount, total } = Astro.props;
+
+const money = (n: number) => '$' + n.toFixed(2);
+---
+
+<div class="checkout-summary">
+	<div class="checkout-summary-head" data-summary-toggle role="button" aria-expanded="false">
+		<span class="checkout-summary-label">Order summary</span>
+		<span class="checkout-summary-count">{itemCount}</span>
+		<span class="checkout-summary-total">{money(total)}</span>
+		<span class="checkout-summary-chevron">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M6 9l6 6 6-6"></path>
+			</svg>
+		</span>
+	</div>
+	<div class="checkout-summary-body" data-summary-body>
+		<div class="checkout-summary-row">
+			<span class="checkout-summary-row-label">Subtotal</span>
+			<span class="checkout-summary-row-value">{money(subtotal)}</span>
+		</div>
+		<div class="checkout-summary-row">
+			<span class="checkout-summary-row-label">Shipping</span>
+			<span class="checkout-summary-row-value">{money(shipping)}</span>
+		</div>
+		<div class="checkout-summary-row">
+			<span class="checkout-summary-row-label">Consultancy Fee</span>
+			<span class="checkout-summary-row-value">{money(fee)}</span>
+		</div>
+		<div class="checkout-summary-row">
+			<span class="checkout-summary-row-label">Discount</span>
+			<span class="checkout-summary-row-value checkout-summary-row-value--discount">
+				&minus;{money(discount)}
+			</span>
+		</div>
+	</div>
+</div>

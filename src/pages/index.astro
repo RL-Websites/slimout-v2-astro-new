@@ -1,0 +1,79 @@
+---
+import CareSection from "../components/CareSection.astro";
+import FaqSection from "../components/common/FaqSection.astro";
+import Footer from "../components/common/Footer.astro";
+import Header from "../components/common/Header.astro";
+import Toast from "../components/common/Toast.astro";
+import CtaSection from "../components/CtaSection.astro";
+import DeliverySection from "../components/DeliverySection.astro";
+import ExperienceSection from "../components/ExperienceSection.astro";
+import Hero from "../components/Hero.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import Marquee from "../components/Marquee.astro";
+import ProgramsSection from "../components/ProgramsSection.astro";
+import TrustBar from "../components/TrustBar.astro";
+import WhySlimOut from "../components/WhySlimOut.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+	<header class="site-header">
+		<!-- header section start -->
+		<Header />
+		<!-- header section end -->
+	</header>
+
+	<main class="page">
+		<!-- hero section start -->
+		<Hero />
+		<!-- hero section end -->
+
+		<!-- trust bar section start -->
+		<TrustBar />
+		<!-- trust bar section end -->
+
+		<!-- programs section start -->
+		<ProgramsSection />
+		<!-- programs section end -->
+
+		<!-- how it works section start -->
+		<HowItWorks />
+		<!-- how it works section end -->
+
+		<!-- why slimout section start -->
+		<WhySlimOut />
+		<!-- why slimout section end -->
+
+		<!-- experience section start -->
+		<ExperienceSection />
+		<!-- experience section end -->
+
+		<!-- delivery section start -->
+		<DeliverySection />
+		<!-- delivery section end -->
+
+		<!-- care section start -->
+		<CareSection />
+		<!-- care section end -->
+
+		<!-- marquee section start -->
+		<Marquee />
+		<!-- marquee section end -->
+
+		<!-- faq section start -->
+		<FaqSection />
+		<!-- faq section end -->
+
+		<!-- cta section start -->
+		<CtaSection />
+		<!-- cta section end -->
+		<span class="theme-btn__loader spin"></span>
+	</main>
+
+	<footer class="site-footer">
+		<!-- footer section start -->
+		<Footer />
+		<!-- footer section end -->
+	</footer>
+	<Toast />
+</Layout>

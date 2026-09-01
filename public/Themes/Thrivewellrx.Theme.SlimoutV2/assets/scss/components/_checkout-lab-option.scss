@@ -1,0 +1,103 @@
+@layer components {
+  .checkout-lab-option {
+    @apply bg-white border border-[#E4E7DA] rounded-[22px] overflow-hidden mb-5.5 sm:mb-7 lg:mb-8;
+
+    &-inner {
+      @apply p-5 sm:p-6 lg:p-7;
+    }
+
+    &-head {
+      @apply flex items-center gap-3.5 mb-3.5;
+    }
+
+    &-title {
+      @apply font-sora text-[18px] sm:text-[20px] lg:text-[22px] font-semibold tracking-tight
+        text-ink m-0;
+    }
+
+    &-toggle {
+      @apply ml-auto flex items-center justify-center w-9.5 h-9.5 rounded-xl border
+        border-[#C6D38A] bg-white text-ink cursor-pointer shrink-0 transition-colors
+        duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite;
+      }
+
+      &.is-open {
+        .checkout-lab-option-toggle-icon {
+          @apply rotate-180;
+        }
+      }
+    }
+
+    &-toggle-icon {
+      @apply flex transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)];
+    }
+
+    &-box {
+      @apply p-4.5 sm:p-5 lg:p-5.5 border-[1.5px] border-lime-dark bg-[#F6F8EE] rounded-[18px];
+    }
+
+    &-box-row {
+      @apply flex flex-wrap items-center gap-3.5;
+    }
+
+    &-box-icon {
+      @apply flex items-center justify-center w-10 h-10 rounded-full bg-lime-dark text-white shrink-0;
+    }
+
+    &-box-body {
+      @apply flex-1 min-w-[150px];
+    }
+
+    &-box-label {
+      @apply block font-mono text-[9.5px] tracking-[0.18em] uppercase text-lime-darker mb-1.25;
+    }
+
+    &-box-value {
+      @apply block font-sora text-[15.5px] sm:text-[17px] font-semibold tracking-tight text-ink
+        text-pretty;
+    }
+
+    &-download {
+      @apply flex items-center gap-2.25 text-[14.5px] text-ink px-5 py-3 border
+        border-[#C6D38A] rounded-full whitespace-nowrap transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-box-note {
+      @apply m-0 mt-3.5 pt-3.5 border-t border-lime-dark text-[14.5px] leading-[1.65]
+        text-[#3A463C] text-pretty;
+    }
+
+    &-tests {
+      @apply hidden px-5 sm:px-6 lg:px-7 pb-5 sm:pb-6 lg:pb-7;
+
+      &.is-open {
+        @apply block;
+      }
+    }
+
+    &-tests-title {
+      @apply font-sora text-[18px] sm:text-[20px] lg:text-[22px] font-semibold tracking-tight
+        text-ink m-0 mb-2.5;
+    }
+
+    &-tests-lead {
+      @apply m-0 mb-4 sm:mb-5 text-[15px] leading-[1.65] text-muted text-pretty;
+    }
+
+    &-tests-list {
+      @apply flex flex-wrap gap-2.25;
+    }
+
+    &-tests-chip {
+      @apply font-sora text-[12.5px] font-semibold tracking-tight text-[#5F6E1D] px-4 py-2.25
+        bg-sage-100 border border-[#D9E3B4] rounded-full whitespace-nowrap;
+    }
+  }
+}

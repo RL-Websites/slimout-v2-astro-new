@@ -1,0 +1,166 @@
+---
+import Modal from "./Modal.astro";
+
+interface Product {
+	name: string;
+	desc: string;
+	price: string;
+	priceLabel?: string;
+	image: string;
+	qty?: string;
+	unit?: number;
+}
+
+interface RecommendedItem {
+	name: string;
+	desc: string;
+	priceLabel: string;
+	price: string;
+	unit?: number;
+	qty?: string;
+	image: string;
+}
+
+interface Props {
+	product: Product;
+	modalId: string;
+	recommendedItems?: RecommendedItem[];
+}
+
+const { product, modalId, recommendedItems = [] } = Astro.props;
+---
+
+<Modal id={modalId} size="lg" labelledBy={`${modalId}-title`}>
+	<div
+		class="modal-body product-modal"
+		data-product-name={product.name}
+		data-product-unit={product.unit ?? 0}
+	>
+		<button
+			class="theme-btn theme-btn__link product-modal-close"
+			data-modal-close
+			aria-label="Close"
+		>
+			<svg
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<line x1="18" y1="6" x2="6" y2="18"></line>
+				<line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+
+		<div class="product-modal-content">
+			<div class="product-modal-image-side">
+				<div class="product-modal-image-wrapper">
+					<img
+						src={product.image}
+						alt={product.name}
+						class="product-modal-image"
+						loading="lazy"
+					/>
+				</div>
+			</div>
+
+			<div class="product-modal-info-side">
+				{
+					product.qty && (
+						<div class="product-modal-badge">
+							<svg
+								data-dc-tpl="263"
+								width="13"
+								height="13"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								aria-hidden="true"
+								style="display: block;"
+							>
+								<>
+									<circle data-dc-tpl="264" cx="9" cy="12" r="6.2" />
+									<circle data-dc-tpl="265" cx="15" cy="12" r="6.2" />
+								</>
+							</svg>
+							<span>{product.qty}</span>
+						</div>
+					)
+				}
+
+				<h2 id={`${modalId}-title`} class="product-modal-title">
+					{product.name}
+				</h2>
+
+				<div class="product-modal-ingredient">
+					<span class="product-modal-label">Ingredient:</span>
+					<p class="product-modal-ingredient-text">{product.desc}</p>
+				</div>
+
+				<div class="product-modal-prescribed">
+					<span class="product-modal-label">Commonly prescribed:</span>
+					<p class="product-modal-prescribed-text">
+						Inject 50 units SQ once weekly.
+					</p>
+				</div>
+
+				<div class="product-modal-pricing">
+					<span class="product-modal-price-intro">{product.priceLabel}</span>
+					<span class="product-modal-price-value">{product.price}</span>
+				</div>
+
+				<div class="product-modal-actions">
+					<button
+						type="button"
+						class="theme-btn theme-btn__outline"
+						data-product-add-to-cart
+					>
+						Add to Cart
+					</button>
+					<div class="product-modal-qty is-hidden" data-product-qty>
+						<button
+							type="button"
+							class="product-modal-qty-btn product-modal-qty-btn--dec"
+							data-product-qty-dec
+							data-disabled="true"
+							aria-label="Decrease quantity"
+						>
+							&#8211;
+						</button>
+						<span class="product-modal-qty-value" data-product-qty-value>1</span
+						>
+						<button
+							type="button"
+							class="product-modal-qty-btn product-modal-qty-btn--inc"
+							data-product-qty-inc
+							aria-label="Increase quantity"
+						>
+							+
+						</button>
+					</div>
+					<button class="theme-btn theme-btn__primary" data-modal-close>
+						Buy Now
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</Modal>

@@ -1,0 +1,27 @@
+@layer components {
+  .lab-option-modal {
+    &-title {
+      @apply font-sora text-[17px] sm:text-[21px] font-semibold tracking-tight text-ink m-0;
+    }
+
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-3 gap-2.5 items-stretch;
+    }
+
+    // .modal-footer is a flex row (for modals with multiple actions) — this modal has a
+    // single, full-width primary action, so it opts out of shrink-to-content sizing.
+    &-save {
+      @apply w-full flex items-center justify-center gap-2.75 text-base font-medium py-3.75
+        pr-4.25 pl-7 rounded-full bg-[#E4E7DA] text-[#A9B2A5] cursor-not-allowed transition-all
+        duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)];
+
+      &.is-enabled {
+        @apply bg-lime text-white cursor-pointer;
+
+        &:hover {
+          @apply -translate-y-[3px];
+        }
+      }
+    }
+  }
+}

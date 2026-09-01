@@ -1,0 +1,50 @@
+---
+interface Props {
+	title: string;
+	titleAlt: string;
+	body: string;
+	image: string;
+	alt: string;
+	reverse?: boolean;
+	titleBreak?: boolean;
+	tight?: boolean;
+}
+
+const {
+	title,
+	titleAlt,
+	body,
+	image,
+	alt,
+	reverse = false,
+	titleBreak = false,
+	tight = false,
+} = Astro.props;
+
+const ASSET_BASE = 'Themes/Thrivewellrx.Theme.SlimoutV2/assets/img';
+---
+
+<section
+	class:list={[
+		'about-split',
+		reverse && 'about-split--center',
+		reverse && 'about-split--reverse',
+		tight && 'about-split--tight',
+	]}
+>
+	<div class="about-split-inner">
+		<div class="about-split-content">
+			<h2 class:list={['about-split-title', reverse && 'about-split-title--gap']}>
+				{title}
+				{titleBreak ? <br /> : ' '}
+				<span class="about-split-title-alt">{titleAlt}</span>
+			</h2>
+			<p class:list={['about-split-body', reverse && 'about-split-body--flush']}>{body}</p>
+		</div>
+		<div class="about-split-media">
+			<div class="about-split-frame">
+				<img src={`${ASSET_BASE}/${image}`} alt={alt} class="about-split-image" loading="lazy" />
+			</div>
+		</div>
+	</div>
+</section>

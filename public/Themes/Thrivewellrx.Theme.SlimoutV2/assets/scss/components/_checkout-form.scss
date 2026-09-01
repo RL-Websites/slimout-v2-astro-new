@@ -1,0 +1,146 @@
+@layer components {
+  .checkout-form {
+    @apply bg-white border border-[#E4E7DA] rounded-[20px] p-5 sm:p-6 lg:p-7.5;
+
+    &-head {
+      @apply flex flex-wrap items-center justify-between gap-3 mb-4.5 sm:mb-5 lg:mb-6;
+    }
+
+    &-head-left {
+      @apply flex items-center gap-3;
+    }
+
+    &-head-actions {
+      @apply flex flex-wrap items-center gap-4;
+    }
+
+    &-step {
+      @apply w-6.5 h-6.5 rounded-full bg-sage-100 text-ink flex items-center justify-center
+        font-sora text-xs font-semibold shrink-0;
+    }
+
+    &-title {
+      @apply font-sora text-[18px] sm:text-[20px] lg:text-[22px] font-semibold tracking-tight
+        text-ink m-0;
+    }
+
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-3;
+    }
+
+    &-grid--auto {
+      @apply sm:grid-cols-[repeat(auto-fit,minmax(240px,1fr))];
+    }
+
+    &-field {
+      @apply block min-w-0;
+    }
+
+    &-field--full {
+      @apply sm:col-span-2;
+    }
+
+    &-label {
+      @apply block text-[13px] text-muted mb-1.75;
+    }
+
+    &-input,
+    &-select {
+      @apply w-full text-[15px] tracking-[0.02em] text-ink py-3.5 px-4.25 bg-sage-50
+        border border-[#DDE1D2] rounded-[11px];
+    }
+
+    &-input::placeholder {
+      @apply text-[#98A292] tracking-normal;
+    }
+
+    &-select-wrap {
+      @apply relative;
+    }
+
+    &-select {
+      @apply appearance-none pr-11 cursor-pointer;
+    }
+
+    &-select-chevron {
+      @apply absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none flex text-muted;
+    }
+
+    &-card-picker {
+      @apply flex flex-col gap-3 mb-5 sm:mb-6;
+    }
+
+    &-saved-card {
+      @apply flex-wrap gap-x-3.5 gap-y-2 sm:flex-nowrap sm:gap-y-0;
+    }
+
+    &-saved-card-head {
+      @apply flex items-center gap-3.5 shrink-0;
+    }
+
+    &-saved-card-info {
+      @apply flex items-center gap-2 min-w-0;
+    }
+
+    &-saved-card-brand {
+      @apply shrink-0 flex items-center;
+
+      svg {
+        @apply w-9 h-6 rounded object-contain;
+      }
+    }
+
+    &-saved-card-number {
+      @apply font-mono text-[14.5px] tracking-[0.04em] text-ink shrink-0;
+    }
+
+    &-saved-card-default {
+      @apply text-[13px] text-lime-darker underline underline-offset-2 shrink-0;
+    }
+
+    &-saved-card-meta {
+      @apply flex items-center gap-3 w-full pl-8.5 sm:w-auto sm:ml-auto sm:pl-3;
+    }
+
+    &-saved-card-name {
+      @apply font-sora text-[14.5px] font-medium text-ink;
+    }
+
+    &-saved-card-expiry {
+      @apply text-[13.5px] text-muted;
+    }
+
+    &-new-card {
+      @apply hidden;
+    }
+
+    &-card-picker:has(input[value='new']:checked) ~ &-new-card {
+      @apply block;
+    }
+
+    &-new-card .checkbox {
+      @apply mt-4.5 sm:mt-5;
+    }
+
+    &-card-number-wrap {
+      @apply relative;
+    }
+
+    &-card-brand {
+      @apply absolute right-3.5 top-1/2 -translate-y-1/2 hidden items-center pointer-events-none;
+
+      &.is-active {
+        @apply flex;
+      }
+    }
+
+    &-card-brand-img {
+      @apply w-10 h-6.75 object-contain rounded;
+    }
+
+    &-notice {
+      @apply p-4.5 bg-sage-100 border border-dashed border-[#C6D38A] rounded-xl text-[14.5px]
+        leading-[1.6] text-[#3A463C];
+    }
+  }
+}

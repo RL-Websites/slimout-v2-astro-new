@@ -1,0 +1,5 @@
+// Generic JS-toggled state class — always wins over a component's own `display`
+// utility regardless of source order, since it's meant to override on demand.
+.is-hidden {
+  display: none !important;
+}

@@ -1,0 +1,294 @@
+---
+import Button from "./utils/Button.astro";
+
+const profile = {
+	firstName: "Jordan",
+	lastName: "Ellis",
+	email: "jordan.ellis@example.com",
+	phone: "(512) 704-8891",
+	dob: "14 / 03 / 1988",
+	address: "418 Wren Street, Apt 2B",
+	city: "Austin",
+	state: "Texas",
+	zip: "78702",
+};
+
+const stats = [
+	{ label: "Member since", value: "Aug 2026" },
+	{ label: "Orders placed", value: "3" },
+	{ label: "Account status", value: "Active", accent: true },
+];
+
+const fields = [
+	{ key: "firstName", label: "First name", placeholder: "Jordan" },
+	{ key: "lastName", label: "Last name", placeholder: "Ellis" },
+	{ key: "phone", label: "Phone", placeholder: "(555) 010-4477" },
+	{ key: "dob", label: "Date of birth", placeholder: "DD / MM / YYYY" },
+	{ key: "state", label: "State", placeholder: "Texas" },
+	{ key: "address", label: "Address", placeholder: "418 Wren Street" },
+	{ key: "city", label: "City", placeholder: "Austin" },
+	{ key: "zip", label: "ZIP code", placeholder: "78702" },
+];
+
+const initials =
+	`${profile.firstName[0] ?? ""}${profile.lastName[0] ?? ""}`.toUpperCase();
+const fullName = `${profile.firstName} ${profile.lastName}`.trim();
+---
+
+<section id="top" class="account">
+	<div class="account-inner">
+		<div class="account-gate is-hidden" data-account-gate>
+			<span class="account-gate-icon">
+				<svg
+					width="22"
+					height="22"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.7"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<circle cx="12" cy="8" r="3.6"></circle><path
+						d="M4.8 20a7.4 7.4 0 0114.4 0"></path>
+				</svg>
+			</span>
+			<h1 class="account-gate-title">Sign in to view your account</h1>
+			<p class="account-gate-lead"
+				>Your profile, contact details, and shipping address live behind your
+				SlimOut login.</p
+			>
+			<div class="account-gate-actions">
+				<a href="login.html" class="account-gate-primary">
+					Log In
+					<span class="account-gate-primary-arrow">
+						<svg
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+						</svg>
+					</span>
+				</a>
+				<a href="register.html" class="account-gate-secondary">Create Account</a
+				>
+			</div>
+		</div>
+
+		<div data-account-content>
+			<div class="account-hero">
+				<svg
+					class="account-hero-decor"
+					viewBox="0 0 520 300"
+					preserveAspectRatio="xMidYMid slice"
+					aria-hidden="true"
+				>
+					<g fill="none" stroke="#BBCC46" stroke-width="1.1">
+						<ellipse
+							cx="260"
+							cy="150"
+							rx="220"
+							ry="120"
+							transform="rotate(-18 260 150)"></ellipse>
+						<ellipse
+							cx="260"
+							cy="150"
+							rx="170"
+							ry="92"
+							transform="rotate(12 260 150)"></ellipse>
+						<ellipse
+							cx="260"
+							cy="150"
+							rx="118"
+							ry="64"
+							transform="rotate(-34 260 150)"></ellipse>
+					</g>
+				</svg>
+
+				<div class="account-hero-top">
+					<span class="account-hero-avatar" data-account-initials
+						>{initials}</span
+					>
+					<div class="account-hero-info">
+						<div class="account-hero-eyebrow">Account information</div>
+						<h1 class="account-hero-name" data-account-name>{fullName}</h1>
+						<p class="account-hero-email">{profile.email}</p>
+					</div>
+					<div class="account-hero-actions">
+						<a href="my-orders.html" class="theme-btn theme-btn__primary"
+							>My Orders</a
+						>
+						<button class="theme-btn theme-btn__outline--white">
+							Sign Out</button
+						>
+					</div>
+				</div>
+
+				<div class="account-hero-stats">
+					{
+						stats.map((stat) => (
+							<div class="account-hero-stat">
+								<div class="account-hero-stat-label">{stat.label}</div>
+								<div
+									class="account-hero-stat-value account-hero-stat-value--active"
+									style={stat.accent ? "" : "color:#F7F7F0"}
+								>
+									{stat.value}
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+
+			<div class="account-details">
+				<div class="account-details-head">
+					<div class="account-details-heading">
+						<h2 class="account-details-title">Personal details</h2>
+						<p class="account-details-subtitle"
+							>Used for prescriptions and delivery.</p
+						>
+					</div>
+					<Button
+						variant="outline"
+						className="account-details-edit-toggle"
+						data-edit-toggle
+					>
+						<span class="account-details-edit-icon">
+							<svg
+								width="15"
+								height="15"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.8"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="M4 20h4l10-10-4-4L4 16z"></path><path d="M14 6l4 4"
+								></path>
+							</svg>
+						</span>
+						<span data-edit-toggle-label>Edit</span>
+					</Button>
+				</div>
+
+				<div class="account-field-grid" data-view-mode>
+					{
+						fields.map((field) => (
+							<div class="account-field-cell">
+								<span class="account-field-label">{field.label}</span>
+								<span class="account-field-value" data-field-value={field.key}>
+									{profile[field.key as keyof typeof profile] || "Not provided"}
+								</span>
+							</div>
+						))
+					}
+				</div>
+
+				<div class="account-edit is-hidden" data-edit-mode>
+					<div class="account-edit-grid">
+						{
+							fields.map((field) => (
+								<label class="account-edit-field">
+									<span class="account-edit-label">{field.label}</span>
+									<input
+										type="text"
+										class="account-edit-input"
+										placeholder={field.placeholder}
+										aria-label={field.label}
+										value={profile[field.key as keyof typeof profile] || ""}
+										data-field-input={field.key}
+									/>
+								</label>
+							))
+						}
+					</div>
+					<div class="account-edit-actions">
+						<Button className="account-edit-save" data-save>
+							Save Changes
+							<span class="account-edit-save-arrow">
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+								</svg>
+							</span>
+						</Button>
+						<Button
+							variant="link"
+							className="account-edit-cancel"
+							data-cancel
+							text="Cancel"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<div class="account-security">
+				<div class="account-security-head">
+					<span class="account-security-icon">
+						<svg
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<rect x="4.5" y="10.5" width="15" height="9.5" rx="2"></rect><path
+								d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"></path>
+						</svg>
+					</span>
+					<h2 class="account-security-title">Security</h2>
+				</div>
+				<div class="account-security-password-row">
+					<span class="account-security-password-label">Password</span>
+					<span class="account-security-password-dots">••••••••</span>
+				</div>
+				<a href="change-password.html" class="account-security-change"
+					>Change Password</a
+				>
+			</div>
+		</div>
+	</div>
+
+	<div class="account-toast is-hidden" data-toast>
+		<span class="account-toast-icon">
+			<svg
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2.6"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<path d="M4 12.5l5 5L20 6.5"></path>
+			</svg>
+		</span>
+		<span class="account-toast-text">Account details saved</span>
+	</div>
+</section>

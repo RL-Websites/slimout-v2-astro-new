@@ -1,0 +1,64 @@
+@layer components {
+  .warning-modal {
+    &-body {
+      @extend .modal-alert-body;
+    }
+
+    &-close {
+      @extend .modal-alert-close;
+    }
+
+    &-icon {
+      @extend .modal-alert-icon;
+      @apply bg-[#FBEEDC] text-[#FFCC00];
+
+      i {
+        @apply text-[#FFCC00];
+      }
+    }
+
+    &-title {
+      @extend .modal-alert-title;
+    }
+
+    &-lead {
+      @extend .modal-alert-lead;
+    }
+
+    &-lead-strong {
+      @apply text-ink font-semibold;
+    }
+
+    &-hint {
+      @apply p-5 sm:p-5.5 bg-sage-100 border border-dashed border-[#C6D38A] rounded-2xl mb-6.5;
+    }
+
+    &-hint-head {
+      @apply flex items-center gap-2.5 mb-2.25;
+    }
+
+    &-hint-icon {
+      @apply flex shrink-0 text-lime-darker;
+    }
+
+    &-hint-title {
+      @apply font-sora text-[15px] font-semibold tracking-tight text-ink;
+    }
+
+    &-hint-text {
+      @apply m-0 text-[14.5px] leading-relaxed text-muted-dark text-pretty;
+    }
+
+    &-actions {
+      @extend .modal-alert-actions;
+    }
+
+    &-cancel {
+      @extend .modal-alert-cancel;
+    }
+
+    &-confirm {
+      @extend .modal-alert-confirm;
+    }
+  }
+}

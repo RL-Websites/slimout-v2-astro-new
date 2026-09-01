@@ -1,0 +1,15 @@
+SLIMOUT — LAB REQUISITION
+
+Patient: ____________________________
+Date of birth: ______________________
+Order: ______________________________
+
+Required panels
+  - Prostate-Specific Ag
+  - Testosterone, Free, Direct
+  - CBC With Differential/Platelet
+  - CBC/Diff Ambiguous Default
+  - Estradiol, Sensitive
+
+Present this requisition at any certified laboratory.
+Results are sent directly to the SlimOut medical team.

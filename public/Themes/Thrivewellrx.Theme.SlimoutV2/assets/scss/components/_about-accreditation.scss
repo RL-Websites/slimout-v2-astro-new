@@ -1,0 +1,47 @@
+@layer components {
+  .about-accreditation {
+    @apply py-14 sm:py-18 lg:py-27.5 px-3 sm:px-4.5 lg:px-6;
+
+    &-panel {
+      @apply bg-sage-200 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] py-9 sm:py-13.5
+        lg:py-18 px-5 sm:px-8 lg:px-13;
+    }
+
+    &-inner {
+      @apply max-w-[1240px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-7 sm:gap-10 lg:gap-16
+        items-center;
+    }
+
+    &-title {
+      @apply font-sora text-[28px] sm:text-[40px] lg:text-[52px] font-medium leading-[1.02]
+        tracking-tight text-ink m-0 mb-5;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-body {
+      @apply m-0 text-[15px] sm:text-[16px] lg:text-[17px] leading-[1.75] text-[#5A6653]
+        max-w-[480px] text-pretty;
+    }
+
+    &-badges {
+      @apply min-w-0 grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-2.5;
+    }
+
+    &-badge {
+      @apply bg-[#FBFBF7] rounded-2xl py-5.5 px-4.5 text-center transition-transform
+        duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)];
+
+      &:hover {
+        @apply -translate-y-1;
+      }
+    }
+
+    &-badge-name {
+      @apply font-sora text-[15px] sm:text-[17px] lg:text-[19px] font-semibold tracking-tight
+        text-ink;
+    }
+  }
+}

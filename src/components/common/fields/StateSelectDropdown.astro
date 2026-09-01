@@ -1,0 +1,60 @@
+---
+import { usStates } from '../../../data/states';
+
+interface Props {
+	name?: string;
+	label?: string;
+	placeholder?: string;
+	required?: boolean;
+}
+
+const { name = 'state', label = 'State', placeholder = 'Select State', required = false } = Astro.props;
+---
+
+<div class="state-select" data-state-select>
+	<button
+		type="button"
+		class="state-select-trigger"
+		data-state-select-trigger
+		aria-haspopup="listbox"
+		aria-expanded="false"
+		aria-label={label}
+	>
+		<span class="state-select-value" data-state-select-value>{placeholder}</span>
+		<span class="state-select-chevron">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M6 9l6 6 6-6"></path>
+			</svg>
+		</span>
+	</button>
+
+	<input type="hidden" name={name} value="" data-state-select-input required={required} />
+
+	<div class="state-select-panel" data-state-select-panel hidden>
+		<div class="state-select-search-wrap">
+			<input
+				type="text"
+				class="state-select-search"
+				placeholder="Search state"
+				aria-label="Search state"
+				autocomplete="off"
+				data-state-select-search
+			/>
+		</div>
+		<ul class="state-select-options" role="listbox" data-state-select-options>
+			{usStates.map((state) => (
+				<li
+					class="state-select-option"
+					role="option"
+					aria-selected="false"
+					data-state-select-option
+					data-value={state.value}
+					data-label={state.label}
+				>
+					{state.label}
+				</li>
+			))}
+			<li class="state-select-empty" data-state-select-empty hidden>No matching states</li>
+		</ul>
+	</div>
+</div>

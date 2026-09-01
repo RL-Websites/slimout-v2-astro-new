@@ -1,0 +1,65 @@
+---
+const labPanels = [
+	'Prostate-Specific Ag',
+	'Testosterone, Free, Direct',
+	'CBC With Differential/Platelet',
+	'CBC/Diff Ambiguous Default',
+	'Estradiol, Sensitive',
+];
+---
+
+<div class="checkout-lab-option">
+	<div class="checkout-lab-option-inner">
+		<div class="checkout-lab-option-head">
+			<h2 class="checkout-lab-option-title">Lab Option</h2>
+			<span
+				class="checkout-lab-option-toggle"
+				data-lab-toggle
+				role="button"
+				aria-label="Toggle required lab tests"
+				aria-expanded="false"
+			>
+				<span class="checkout-lab-option-toggle-icon">
+					<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M6 9l6 6 6-6"></path>
+					</svg>
+				</span>
+			</span>
+		</div>
+
+		<div class="checkout-lab-option-box">
+			<div class="checkout-lab-option-box-row">
+				<span class="checkout-lab-option-box-icon">
+					<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M4 12.5l5 5L20 6.5"></path>
+					</svg>
+				</span>
+				<span class="checkout-lab-option-box-body">
+					<span class="checkout-lab-option-box-label">Your lab option</span>
+					<span class="checkout-lab-option-box-value">Patient's Preferred Lab (Requisition Provided)</span>
+				</span>
+				<a href="assets/slimout-lab-requisition.txt" download class="checkout-lab-option-download">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 4v11"></path><path d="M7 11l5 5 5-5"></path><path d="M4 20h16"></path>
+					</svg>
+					Download Lab Requisition
+				</a>
+			</div>
+			<p class="checkout-lab-option-box-note">
+				Lab requisition download and report upload will be available after the order is created.
+			</p>
+		</div>
+	</div>
+
+	<div class="checkout-lab-option-tests" data-lab-tests>
+		<h2 class="checkout-lab-option-tests-title">Required Lab Tests</h2>
+		<p class="checkout-lab-option-tests-lead">
+			The tests listed below are required for this program and will be included in the lab
+			requisition provided by SlimOut. The patient may take this requisition to a nearby
+			laboratory to complete the required blood work.
+		</p>
+		<div class="checkout-lab-option-tests-list">
+			{labPanels.map((text) => <span class="checkout-lab-option-tests-chip">{text}</span>)}
+		</div>
+	</div>
+</div>

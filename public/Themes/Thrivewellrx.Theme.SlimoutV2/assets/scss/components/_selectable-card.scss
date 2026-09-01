@@ -1,0 +1,60 @@
+// Generic reusable "pick one of several rich cards" control (see
+// src/components/SelectableCard.astro) — kept separate from page-level partials, same
+// spirit as _fields.scss's .input-radio/.input-checkbox but for header+detail-line cards
+// instead of a flat label. Selection styling is driven by :has(), not JS-toggled classes.
+@layer components {
+  .selectable-card {
+    @apply relative h-full flex flex-col p-3.5 sm:p-4.5 rounded-[18px] cursor-pointer
+      border-[1.5px] border-[#E4E7DA] bg-white transition-colors duration-250;
+
+    &:has(.selectable-card-input:checked) {
+      @apply border-[#C6D38A] bg-[#F6F8EE];
+    }
+
+    &--disabled {
+      @apply cursor-not-allowed opacity-50 pointer-events-none;
+    }
+
+    &-input {
+      @apply absolute w-0 h-0 opacity-0;
+    }
+
+    &-top {
+      @apply flex items-start gap-3 pb-2.75 border-b border-[#EDEFE4];
+    }
+
+    &:has(.selectable-card-input:checked) &-top {
+      @apply border-[#D9E3B4];
+    }
+
+    &-label {
+      @apply flex-1 min-w-0 font-sora text-[15px] font-semibold tracking-tight text-ink
+        text-pretty;
+    }
+
+    &-dot {
+      @apply w-5.25 h-5.25 rounded-full shrink-0 mt-px flex items-center justify-center
+        text-white border-[1.5px] border-sage-400 transition-colors duration-250;
+
+      svg {
+        @apply opacity-0 transition-opacity duration-200;
+      }
+    }
+
+    &:has(.selectable-card-input:checked) &-dot {
+      @apply border-lime-dark bg-lime-dark;
+
+      svg {
+        @apply opacity-100;
+      }
+    }
+
+    &-body {
+      @apply flex flex-col gap-2 pt-2.75;
+    }
+
+    &-line {
+      @apply text-[13.5px] leading-snug text-muted-dark text-pretty;
+    }
+  }
+}

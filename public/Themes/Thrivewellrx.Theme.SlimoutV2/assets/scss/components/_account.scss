@@ -1,0 +1,295 @@
+@layer components {
+  .account {
+    @apply bg-cream pb-12 sm:pb-16 lg:pb-[88px] px-5 sm:px-8 lg:px-13;
+    padding-top: calc(114px + clamp(12px, 2.4vw, 32px));
+
+    &-inner {
+      @apply max-w-[1180px] mx-auto;
+    }
+
+    // Logged-out gate
+    &-gate {
+      @apply max-w-[520px] mx-auto text-center;
+      margin-top: clamp(30px, 6vw, 70px);
+      margin-bottom: clamp(30px, 6vw, 70px);
+    }
+
+    &-gate-icon {
+      @apply inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage-100 text-[#5F6E1D] mb-5;
+    }
+
+    &-gate-title {
+      @apply font-sora text-[26px] sm:text-[34px] lg:text-[42px] font-medium leading-[1.05] tracking-tighter text-ink m-0 mb-3.5 text-balance;
+    }
+
+    &-gate-lead {
+      @apply mx-auto mb-7 text-[15.5px] leading-relaxed text-muted max-w-[400px] text-pretty;
+    }
+
+    &-gate-actions {
+      @apply flex flex-wrap gap-2.5 justify-center;
+    }
+
+    &-gate-primary {
+      @apply flex items-center gap-2.75 text-base font-medium text-white py-4.25 pr-4.5 pl-7.5 bg-lime rounded-full transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-[3px];
+      }
+
+      &:hover &-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-gate-primary-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-gate-secondary {
+      @apply flex items-center text-base text-ink py-4.25 px-7.5 border border-[#D6DAC8] rounded-full transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    // Dark hero card
+    &-hero {
+      @apply relative overflow-hidden bg-ink text-offwhite rounded-[22px] sm:rounded-[30px] p-6 sm:p-8 lg:p-10 mb-3.5 sm:mb-5;
+    }
+
+    &-hero-decor {
+      @apply absolute -top-[30%] -right-[4%] h-auto opacity-[0.16] pointer-events-none;
+      width: min(460px, 55%);
+    }
+
+    &-hero-top {
+      @apply relative flex flex-wrap items-center gap-4.5 sm:gap-7;
+    }
+
+    &-hero-avatar {
+      @apply rounded-full bg-lime text-ink flex items-center justify-center font-sora font-semibold tracking-tighter shrink-0;
+      width: clamp(66px, 7vw, 82px);
+      height: clamp(66px, 7vw, 82px);
+      font-size: clamp(22px, 2.6vw, 28px);
+    }
+
+    &-hero-info {
+      @apply flex-1 min-w-[240px];
+    }
+
+    &-hero-eyebrow {
+      @apply font-mono text-[10px] tracking-[0.24em] uppercase text-offwhite/50 mb-2.5;
+    }
+
+    &-hero-name {
+      @apply font-sora text-[26px] sm:text-[34px] lg:text-[44px] font-medium leading-[1.02] tracking-tighter text-offwhite m-0 mb-2 text-balance;
+    }
+
+    &-hero-email {
+      @apply m-0 text-[14.5px] text-offwhite/62 [overflow-wrap:anywhere];
+    }
+
+    &-hero-actions {
+      @apply flex flex-wrap gap-2.25;
+    }
+
+    &-hero-action {
+      @apply flex items-center text-[15px] text-offwhite py-3.5 px-6 border border-offwhite/24 rounded-full whitespace-nowrap cursor-pointer transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-offwhite text-ink border-offwhite;
+      }
+
+      &--danger:hover {
+        @apply bg-[#8A4526] text-offwhite border-[#8A4526];
+      }
+    }
+
+    &-hero-stats {
+      @apply relative grid gap-3.5 sm:gap-6.5 mt-5.5 sm:mt-7.5 pt-5 sm:pt-6.5 border-t border-offwhite/16;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+    }
+
+    &-hero-stat {
+      @apply min-w-0;
+    }
+
+    &-hero-stat-label {
+      @apply font-mono text-[9.5px] tracking-[0.18em] uppercase text-offwhite/45 mb-2;
+    }
+
+    &-hero-stat-value {
+      @apply font-sora font-medium tracking-tight;
+      font-size: clamp(16px, 1.8vw, 19px);
+      &--active {
+        @apply text-primary;
+      }
+    }
+
+    // Personal details card
+    &-details {
+      @apply min-w-0 bg-white border border-[#E4E7DA] rounded-[20px] sm:rounded-[26px] mb-3.5 sm:mb-5;
+    }
+
+    &-details-head {
+      @apply flex items-center gap-3.5 p-5 sm:p-7 border-b border-[#EDEFE4];
+    }
+
+    &-details-heading {
+      @apply min-w-0;
+    }
+
+    &-details-title {
+      @apply font-sora text-[17px] sm:text-[21px] font-semibold tracking-tight text-ink m-0 mb-1;
+    }
+
+    &-details-subtitle {
+      @apply m-0 text-[13.5px] text-[#8B9483];
+    }
+
+    &-details-edit-toggle {
+      @apply ml-auto flex items-center gap-2.25 text-sm text-ink py-2.75 px-5 border border-[#D6DAC8] rounded-full cursor-pointer whitespace-nowrap transition-colors duration-[250ms];
+
+      &.is-editing {
+        @apply bg-ink text-white border-ink;
+      }
+    }
+
+    &-details-edit-icon {
+      @apply flex shrink-0;
+    }
+
+    // View mode
+    &-field-grid {
+      @apply grid grid-cols-1 sm:grid-cols-2;
+    }
+
+    &-field-cell {
+      @apply min-w-0 p-4 sm:p-5 border-b border-[#EDEFE4] sm:border-r sm:[&:nth-child(2n)]:border-r-0;
+    }
+
+    &-field-label {
+      @apply block font-mono text-[9.5px] tracking-[0.16em] uppercase text-[#98A292] mb-2.25;
+    }
+
+    &-field-value {
+      @apply block font-sora text-[15.5px] font-medium tracking-tight text-ink text-pretty;
+
+      &--empty {
+        @apply text-[#A9B2A5];
+      }
+    }
+
+    // Edit mode
+    &-edit {
+      @apply p-5 sm:p-7;
+    }
+
+    &-edit-grid {
+      @apply grid grid-cols-3 gap-3 mb-4;
+    }
+
+    &-edit-field {
+      @apply block min-w-0;
+    }
+
+    &-edit-label {
+      @apply block text-[13px] text-muted mb-1.75;
+    }
+
+    &-edit-input {
+      @apply w-full text-[15px] text-ink py-3.5 px-4.25 bg-sage-50 border border-[#DDE1D2] rounded-[11px];
+
+      &::placeholder {
+        @apply text-[#98A292];
+      }
+    }
+
+    &-edit-actions {
+      @apply flex flex-wrap gap-2.5;
+    }
+
+    &-edit-save {
+      @apply flex items-center gap-2.75 text-[15.5px] font-medium text-white py-3.5 pr-3.75 pl-6.5 bg-lime rounded-full cursor-pointer transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-[3px];
+      }
+
+      &:hover &-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-edit-save-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-edit-cancel {
+      @apply flex items-center text-[15px] text-ink py-3.5 px-6.5 border border-[#D6DAC8] rounded-full cursor-pointer transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    // Security card
+    &-security {
+      @apply min-w-0 bg-white border border-[#E4E7DA] rounded-[20px] sm:rounded-[26px] p-5 sm:p-7;
+    }
+
+    &-security-head {
+      @apply flex items-center gap-3 mb-3.5;
+    }
+
+    &-security-icon {
+      @apply flex items-center justify-center w-9.5 h-9.5 rounded-xl bg-sage-100 text-[#5F6E1D] shrink-0;
+    }
+
+    &-security-title {
+      @apply font-sora font-semibold tracking-tight text-ink m-0;
+      font-size: clamp(16px, 1.9vw, 19px);
+    }
+
+    &-security-password-row {
+      @apply flex items-center justify-between gap-3.5 py-3.25 border-y border-[#EDEFE4] mb-3.5;
+    }
+
+    &-security-password-label {
+      @apply text-[14.5px] text-muted-dark;
+    }
+
+    &-security-password-dots {
+      @apply font-sora text-[15px] font-semibold tracking-[0.18em] text-[#A9B2A5];
+    }
+
+    &-security-change {
+      @apply flex items-center justify-center text-[15px] text-ink py-3.5 px-6 border border-[#D6DAC8] rounded-full transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    // Toast
+    &-toast {
+      @apply fixed left-1/2 -translate-x-1/2 z-[200] flex items-center gap-3 py-3.75 px-6 bg-ink text-offwhite rounded-full whitespace-nowrap;
+      bottom: clamp(22px, 3.2vw, 34px);
+      box-shadow: 0 24px 50px -22px rgba(16, 26, 20, 0.6);
+
+      &.is-visible {
+        animation: account-toast-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+    }
+
+    &-toast-icon {
+      @apply flex items-center justify-center w-6 h-6 rounded-full bg-lime-dark text-white shrink-0;
+    }
+
+    &-toast-text {
+      @apply text-[15px];
+    }
+  }
+}

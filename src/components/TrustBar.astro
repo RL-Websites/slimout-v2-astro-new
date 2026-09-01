@@ -1,0 +1,18 @@
+---
+const certifications = ['LegitScript', 'URAC', 'AAAHC', 'ATA', 'NABP'];
+---
+
+<section class="trust-bar">
+	<div class="trust-bar-inner">
+		<div class="trust-bar-label">Care, made personal</div>
+		<p class="trust-bar-statement">
+			Whether you're looking for weight management, hormone optimization, sexual wellness,
+			sleep support, longevity, peptide therapy, hair restoration, or <span
+				class="trust-bar-statement-alt">overall wellness</span
+			>—we're here to help.
+		</p>
+		<div class="trust-bar-certs">
+			{certifications.map((name) => <span class="trust-bar-cert">{name}</span>)}
+		</div>
+	</div>
+</section>

@@ -1,0 +1,15 @@
+// Generic centered logo bar (.common-logo-bar) for chromeless flows (no full header/footer) —
+// used by the quiz today; reuse for any future step flow (e.g. the intake form).
+@layer components {
+  .common-logo-bar {
+    @apply flex items-center justify-center pb-6 sm:pb-8 bg-cream;
+  }
+
+  .common-logo-link {
+    @apply flex items-center text-ink transition-colors duration-[220ms];
+
+    &:hover {
+      @apply text-lime-darker;
+    }
+  }
+}

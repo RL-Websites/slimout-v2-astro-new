@@ -1,0 +1,109 @@
+// Forgot password page shares the auth-page shell established by .register-* and extends .login-*
+// for most styling consistency.
+@layer components {
+  .forgot {
+    &-page {
+      @extend .register-page;
+    }
+
+    &-logo {
+      @extend .register-logo;
+    }
+
+    &-logo-link {
+      @extend .register-logo-link;
+    }
+
+    &-main {
+      @extend .register-main;
+    }
+
+    &-container {
+      @extend .register-container;
+    }
+
+    &-head {
+      @extend .register-head;
+    }
+
+    &-title {
+      @extend .register-title;
+    }
+
+    &-title-alt {
+      @extend .register-title-alt;
+    }
+
+    &-lead {
+      @extend .register-lead;
+    }
+
+    &-card {
+      @extend .register-card;
+    }
+
+    &-fields {
+      @apply flex flex-col gap-3.5 mb-3.5;
+    }
+
+    &-field {
+      @extend .register-field;
+    }
+
+    &-label {
+      @extend .register-label;
+    }
+
+    &-input {
+      @extend .register-input;
+    }
+
+    &-input--error {
+      @extend .register-input--error;
+    }
+
+    &-error {
+      @extend .register-error;
+    }
+
+    &-submit {
+      @extend .register-submit;
+    }
+
+    &-submit-arrow {
+      @extend .register-submit-arrow;
+    }
+
+    &-divider {
+      @apply flex items-center gap-3.5 my-5;
+    }
+
+    &-divider-line {
+      @apply flex-1 h-px bg-[#E4E7DA] block;
+    }
+
+    &-divider-label {
+      @apply font-mono text-[10px] tracking-[0.16em] uppercase text-[#A9B2A5] whitespace-nowrap;
+    }
+
+    &-secondary {
+      @apply block text-center py-2 cursor-pointer;
+    }
+
+    &-create {
+      @apply flex items-center justify-center gap-1;
+    }
+
+    &-actext {
+      @apply text-primary underline;
+    }
+
+    &-footnote {
+      @extend .register-footnote;
+    }
+
+    &-footnote-dot {
+      @extend .register-footnote-dot;
+    }
+  }
+}

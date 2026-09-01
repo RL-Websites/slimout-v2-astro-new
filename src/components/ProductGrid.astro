@@ -1,0 +1,43 @@
+---
+import type { CategoryProduct } from '../data/categories';
+import ProductCard from './common/ProductCard.astro';
+
+interface Props {
+	products: CategoryProduct[];
+	title?: string;
+	titleAlt?: string;
+	wide?: boolean;
+	enableModals?: boolean;
+	showAddToCart?: boolean;
+}
+
+const {
+	products,
+	title,
+	titleAlt,
+	wide = false,
+	enableModals = false,
+	showAddToCart = false,
+} = Astro.props;
+---
+
+<section class:list={['product-grid', { 'product-grid--wide': wide }]}>
+	{
+		title && (
+			<div class="product-grid-header">
+				<h2 class="product-grid-title">
+					{title} {titleAlt && <span class="product-grid-title-alt">{titleAlt}</span>}
+				</h2>
+			</div>
+		)
+	}
+	<div class="product-grid-list">
+		{products.map((product) => (
+			<ProductCard
+				product={product}
+				modalId={enableModals ? `product-modal-${product.slot}` : undefined}
+				showAddToCart={showAddToCart}
+			/>
+		))}
+	</div>
+</section>

@@ -1,0 +1,45 @@
+@layer components {
+  .modal-alert-body {
+    @apply relative p-6.5 sm:p-9;
+  }
+
+  .modal-alert-close {
+    @apply absolute top-4.5 right-4.5 w-8 h-8 rounded-full bg-ink text-offwhite flex items-center justify-center cursor-pointer transition-colors duration-250;
+
+    &:hover {
+      @apply bg-[#8A4526];
+    }
+  }
+
+  .modal-alert-icon {
+    @apply flex items-center justify-center w-14 h-14 rounded-full mx-auto mb-5;
+  }
+
+  .modal-alert-title {
+    @apply font-sora text-[21px] sm:text-[27px] font-semibold tracking-tight text-ink m-0 mb-3 text-center text-balance;
+  }
+
+  .modal-alert-lead {
+    @apply m-0 mb-6.5 text-[15px] leading-relaxed text-muted text-center text-pretty;
+  }
+
+  .modal-alert-actions {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-2.5;
+  }
+
+  .modal-alert-cancel {
+    @apply flex items-center justify-center text-[15.5px] font-medium text-ink py-3.75 px-6 border border-[#C6D38A] rounded-full cursor-pointer transition-colors duration-250;
+
+    &:hover {
+      @apply bg-ink text-offwhite border-ink;
+    }
+  }
+
+  .modal-alert-confirm {
+    @apply flex items-center justify-center text-[15.5px] font-medium text-white py-3.75 px-6 bg-lime-dark rounded-full cursor-pointer transition-colors duration-300;
+
+    &:hover {
+      @apply bg-lime-darker;
+    }
+  }
+}

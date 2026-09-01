@@ -1,0 +1,53 @@
+---
+import CheckoutTimeline from './CheckoutTimeline.astro';
+import CheckoutLabOption from './CheckoutLabOption.astro';
+import CheckoutSummary from './CheckoutSummary.astro';
+import CheckoutCardDetails from './CheckoutCardDetails.astro';
+import CheckoutShippingInfo from './CheckoutShippingInfo.astro';
+import CheckoutBillingInfo from './CheckoutBillingInfo.astro';
+import CheckoutTermsRow from './CheckoutTermsRow.astro';
+
+interface Props {
+	showLabOption?: boolean;
+	itemCount: string;
+	subtotal: number;
+	shipping: number;
+	fee: number;
+	discount: number;
+	total: number;
+}
+
+const { showLabOption = false, itemCount, subtotal, shipping, fee, discount, total } = Astro.props;
+---
+
+<section id="top" class="checkout-section">
+	<div class="checkout-section-inner">
+		<CheckoutTimeline />
+
+		<div class="checkout-section-head">
+			<div class="checkout-section-eyebrow">Secure checkout</div>
+			<h1 class="checkout-section-title">
+				Payment <span class="checkout-section-title-alt">method</span>
+			</h1>
+		</div>
+
+		{showLabOption && <CheckoutLabOption />}
+
+		<CheckoutSummary
+			itemCount={itemCount}
+			subtotal={subtotal}
+			shipping={shipping}
+			fee={fee}
+			discount={discount}
+			total={total}
+		/>
+
+		<div class="checkout-section-forms">
+			<CheckoutCardDetails />
+			<CheckoutShippingInfo />
+			<CheckoutBillingInfo />
+		</div>
+
+		<CheckoutTermsRow />
+	</div>
+</section>

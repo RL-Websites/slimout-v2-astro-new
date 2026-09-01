@@ -1,0 +1,141 @@
+---
+interface Product {
+	name: string;
+	desc: string;
+	price: string;
+	priceLabel?: string;
+	image: string;
+	qty?: string;
+	unit?: number;
+}
+
+interface Props {
+	product: Product;
+	variant?: "default" | "recommended";
+	modalId?: string;
+	isFromCart?: boolean;
+	showAddToCart?: boolean;
+}
+
+const {
+	product,
+	variant = "default",
+	modalId,
+	isFromCart = false,
+	showAddToCart = false,
+} = Astro.props;
+const isRecommended = variant === "recommended";
+---
+
+<div class:list={["product-card", { "product-card__alt": isRecommended }]}>
+	<div class="product-card-media">
+		{
+			product.qty && (
+				<span class="product-card-badge">
+					<svg
+						width="13"
+						height="13"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						aria-hidden="true"
+					>
+						<>
+							<circle cx="9" cy="12" r="6.2" />
+							<circle cx="15" cy="12" r="6.2" />
+						</>
+					</svg>
+					{product.qty}
+				</span>
+			)
+		}
+		<img
+			src={product.image}
+			alt={product.name}
+			class="product-card-image"
+			loading="lazy"
+		/>
+	</div>
+	<div class="product-card-body">
+		<h3 class="product-card-title">{product.name}</h3>
+		<p class="product-card-desc">{product.desc}</p>
+		<div class="product-card-price">
+			<span class="product-card-price-label">{product.priceLabel}</span>
+			<span class="product-card-price-value">{product.price}</span>
+		</div>
+		<div class="product-card-actions">
+			{
+				isRecommended ? (
+					<>
+						{isFromCart ? (
+							<>
+								<span
+									class="theme-btn theme-btn__primary"
+									data-cart-add
+									data-cart-name={product.name}
+									data-cart-unit={product.unit}
+								>
+									Add to Cart
+								</span>
+								<a
+									href="index.html#programs"
+									class="theme-btn theme-btn__outline"
+								>
+									Learn More
+								</a>
+							</>
+						) : (
+							<>
+								<a
+									href="index.html#programs"
+									class="theme-btn theme-btn__outline"
+								>
+									Learn More
+								</a>
+								<span
+									class="theme-btn theme-btn__primary"
+									data-cart-add
+									data-cart-name={product.name}
+									data-cart-unit={product.unit}
+								>
+									Add to Cart
+								</span>
+							</>
+						)}
+					</>
+				) : (
+					<>
+						{modalId ? (
+							<button
+								type="button"
+								class="theme-btn theme-btn__outline"
+								data-modal-open={modalId}
+							>
+								Learn More
+							</button>
+						) : (
+							<a href="#" class="theme-btn theme-btn__outline">
+								Learn More
+							</a>
+						)}
+						{showAddToCart ? (
+							<span
+								class="theme-btn theme-btn__primary"
+								data-cart-add
+								data-cart-name={product.name}
+								data-cart-unit={product.unit ?? 0}
+							>
+								Add to Cart
+							</span>
+						) : (
+							<a href="index.html#cta" class="theme-btn theme-btn__primary ">
+								Get Started
+							</a>
+						)}
+					</>
+				)
+			}
+		</div>
+	</div>
+</div>

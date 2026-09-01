@@ -1,0 +1,74 @@
+---
+import Button from './utils/Button.astro';
+
+const TOPICS = [
+	'Order or shipping',
+	'Prescription question',
+	'Lab results',
+	'Billing or refund',
+	'Account details',
+	'Something else',
+];
+---
+
+<div class="contact-form" data-contact-form>
+	<div class="contact-form-view" data-form-view>
+		<div class="contact-form-fields">
+			<label class="contact-form-field">
+				<span class="contact-form-label">Topic</span>
+				<div class="contact-form-select-wrap">
+					<select aria-label="Topic" class="contact-form-select" data-field="topic">
+						{TOPICS.map((topic) => <option value={topic}>{topic}</option>)}
+					</select>
+					<span class="contact-form-select-chevron">
+						<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M6 9l6 6 6-6"></path>
+						</svg>
+					</span>
+				</div>
+			</label>
+			<label class="contact-form-field">
+				<span class="contact-form-label">Order number <span class="contact-form-label-hint">(optional)</span></span>
+				<input type="text" placeholder="#ES20260700149" aria-label="Order number" class="contact-form-input" data-field="order" />
+			</label>
+			<label class="contact-form-field">
+				<span class="contact-form-label">Message</span>
+				<textarea placeholder="Tell us what you need help with..." aria-label="Message" rows="6" maxlength="1000" class="contact-form-textarea" data-field="message"></textarea>
+				<span class="contact-form-char-count" data-char-count>0/1000 characters</span>
+			</label>
+		</div>
+
+		<div class="contact-form-actions">
+			<Button className="contact-form-submit" data-submit>
+				Send Message
+				<span class="contact-form-submit-arrow">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+					</svg>
+				</span>
+			</Button>
+			<Button variant="link" className="contact-form-cancel" data-cancel text="Cancel" />
+		</div>
+	</div>
+
+	<div class="contact-form-success is-hidden" data-success-view>
+		<span class="contact-form-success-icon">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M4 12.5l5 5L20 6.5"></path>
+			</svg>
+		</span>
+		<h2 class="contact-form-success-title">Message sent</h2>
+		<p class="contact-form-success-text">A member of the care team will reply within one business day.</p>
+		<div class="contact-form-success-actions">
+			<a href="account.html" class="contact-form-success-primary">
+				Back to Account
+				<span class="contact-form-success-primary-arrow">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+					</svg>
+				</span>
+			</a>
+			<Button variant="link" className="contact-form-success-secondary" data-again text="Send Another" />
+		</div>
+	</div>
+</div>

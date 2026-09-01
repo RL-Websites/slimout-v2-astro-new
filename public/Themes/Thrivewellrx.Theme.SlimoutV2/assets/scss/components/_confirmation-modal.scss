@@ -1,0 +1,52 @@
+@layer components {
+  .confirmation-modal {
+    &-body {
+      @extend .modal-alert-body;
+    }
+
+    &-close {
+      @extend .modal-alert-close;
+    }
+
+    &-icon {
+      @extend .modal-alert-icon;
+      @apply bg-sage-100 text-ink text-2xl;
+
+      i {
+        @apply text-2xl text-red-500;
+      }
+
+      &--danger {
+        @apply bg-[#FBEAEA] text-red;
+      }
+    }
+
+    &-title {
+      @extend .modal-alert-title;
+    }
+
+    &-lead {
+      @extend .modal-alert-lead;
+    }
+
+    &-actions {
+      @extend .modal-alert-actions;
+    }
+
+    &-cancel {
+      @extend .modal-alert-cancel;
+    }
+
+    &-confirm {
+      @extend .modal-alert-confirm;
+
+      &--danger {
+        @apply bg-red;
+
+        &:hover {
+          @apply opacity-90;
+        }
+      }
+    }
+  }
+}

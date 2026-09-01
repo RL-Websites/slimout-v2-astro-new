@@ -1,0 +1,111 @@
+@layer components {
+  .cart-summary {
+    @apply border-t border-sage-300 pt-6 sm:pt-8 lg:pt-10 mt-1 sm:mt-2 lg:mt-2.5 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-14 items-start;
+
+    &-coupon {
+      @apply min-w-0 bg-white border border-[#E4E7DA] rounded-[22px] p-5 sm:p-6 lg:p-7 self-start;
+    }
+
+    &-coupon-label {
+      @apply font-mono text-[10px] tracking-[0.22em] uppercase text-muted-light mb-3.5;
+    }
+
+    &-coupon-row {
+      @apply flex gap-2.25 flex-wrap mb-4;
+    }
+
+    &-coupon-input {
+      @apply flex-1 min-w-[150px] text-[15px] text-ink px-5 py-3.75 bg-sage-50 border border-[#DDE1D2] rounded-full;
+
+      &::placeholder {
+        @apply text-[#98A292];
+      }
+    }
+
+    &-coupon-apply {
+      @apply text-[15px] text-ink px-6 py-3.75 border border-ink rounded-full cursor-pointer whitespace-nowrap transition-colors duration-[250ms] no-underline;
+
+      &:hover {
+        @apply bg-ink text-offwhite;
+      }
+    }
+
+    &-note {
+      @apply flex gap-3.25 mt-3.5 sm:mt-4 lg:mt-4.5 p-4.25 bg-sage-100 border border-dashed border-[#C6D38A] rounded-2xl;
+    }
+
+    &-note-icon {
+      @apply flex shrink-0 text-lime-darker mt-0.25;
+    }
+
+    &-note-text {
+      @apply text-sm leading-[1.6] text-[#3A463C];
+    }
+
+    &-note-link {
+      @apply text-[#5F6E1D] border-b border-[#5F6E1D]/40;
+    }
+
+    &-totals {
+      @apply min-w-0 flex flex-col gap-3.25 text-[15px];
+    }
+
+    &-row {
+      @apply flex items-baseline justify-between gap-4;
+    }
+
+    &-label {
+      @apply text-muted;
+    }
+
+    &-shiplabel {
+      @apply text-[12.5px] text-[#A9B2A5];
+    }
+
+    &-value {
+      @apply font-sora font-semibold tracking-tight text-ink;
+    }
+
+    &-row--coupon {
+      @apply items-center;
+      .coupon-label {
+         @apply text-[12.5px] text-[#f00];
+      }
+      .coupon-wrap {
+        @apply flex items-center gap-2;
+      }
+    }
+
+    &-coupon-chip {
+      @apply inline-flex items-center gap-2.25 pl-3.25 pr-1.75 py-1.5 bg-sage-100 border border-[#C6D38A] rounded-full;
+    }
+
+    &-coupon-code {
+      @apply font-mono text-[11px] tracking-[0.1em] text-[#5F6E1D];
+    }
+
+    &-coupon-clear {
+      @apply w-4.75 h-4.75 rounded-full bg-white text-ink flex items-center justify-center text-[11px] cursor-pointer transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite;
+      }
+    }
+
+    &-discount {
+      @apply font-sora font-semibold tracking-tight text-[#FF0000];
+    }
+
+    &-row--total {
+      @apply pt-3.75 border-t border-sage-300;
+    }
+
+    &-total-label {
+      @apply font-sora text-[17px] font-semibold tracking-tight text-ink;
+    }
+
+    &-total-value {
+      @apply font-sora text-[26px] sm:text-[30px] lg:text-[34px] font-semibold tracking-tight text-ink;
+    }
+  }
+}

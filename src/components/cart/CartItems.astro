@@ -1,0 +1,208 @@
+---
+import Button from "../utils/Button.astro";
+
+const ASSET_BASE = "Themes/Thrivewellrx.Theme.SlimoutV2/assets/img";
+
+interface CartItem {
+	id: number;
+	baseName: string;
+	program?: string;
+	shipping: "Regular" | "Overnight";
+	qty: number;
+	unit: number;
+	image: string;
+}
+
+interface Props {
+	items: CartItem[];
+	itemCount: string;
+	baseShip: number;
+	overnightShip: number;
+}
+
+const { items, itemCount, baseShip, overnightShip } = Astro.props;
+
+const money = (n: number) => "$" + n.toFixed(2);
+---
+
+<div class="cart-items">
+	<div class="cart-items-head">
+		<h1 class="cart-items-title">
+			Complete your <span class="cart-items-title-alt">order</span>
+		</h1>
+		<span class="cart-items-meta">
+			<span class="cart-items-count" data-cart-item-count>{itemCount}</span>
+			<a href="index.html#programs" class="cart-items-continue"
+				>Continue Shopping</a
+			>
+		</span>
+	</div>
+
+	<div
+		data-cart-rows
+		data-base-ship={baseShip}
+		data-overnight-ship={overnightShip}
+	>
+		{
+			items.map((item, i) => (
+				<div
+					class="cart-items-row"
+					data-cart-row
+					data-cart-id={item.id}
+					data-cart-unit={item.unit}
+					data-cart-shipping={item.shipping}
+				>
+					<span class="cart-items-idx" data-cart-idx>
+						{String(i + 1).padStart(2, "0")}
+					</span>
+					<div class="cart-items-img">
+						<img
+							src={`${ASSET_BASE}/${item.image}`}
+							alt={item.baseName}
+							class="cart-items-img-el"
+							loading="lazy"
+						/>
+					</div>
+					<div class="cart-items-info">
+						<h3 class="cart-items-name">{item.baseName}</h3>
+						{item.program && (
+							<div class="cart-items-program">{item.program}</div>
+						)}
+						<div class="cart-items-meta-row">
+							<span class="cart-items-shipping">{item.shipping} shipping</span>
+							<Button
+								variant="link"
+								className="cart-items-remove"
+								data-cart-remove
+							>
+								<svg
+									width="14"
+									height="14"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.8"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="cart-items-remove-icon"
+									aria-hidden="true"
+								>
+									<path d="M4 7h16" />
+									<path d="M10 4h4a1 1 0 011 1v2h-6V5a1 1 0 011-1z" />
+									<path d="M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12" />
+									<path d="M10 11v6M14 11v6" />
+								</svg>
+								Remove
+							</Button>
+						</div>
+					</div>
+					<div class="cart-items-qty">
+						<span
+							class="cart-items-qty-btn cart-items-qty-btn--dec"
+							data-cart-qty-dec
+							data-disabled={item.qty <= 1 ? "true" : "false"}
+						>
+							&#8211;
+						</span>
+						<span class="cart-items-qty-value" data-cart-qty-value>
+							{item.qty}
+						</span>
+						<Button
+							variant="outline"
+							className="cart-items-qty-btn cart-items-qty-btn--inc"
+							data-cart-qty-inc
+						>
+							+
+						</Button>
+					</div>
+					<div class="cart-items-price" data-cart-price>
+						{money(item.unit * item.qty)}
+					</div>
+				</div>
+			))
+		}
+	</div>
+
+	<template id="cart-row-template">
+		<div class="cart-items-row" data-cart-row>
+			<span class="cart-items-idx" data-cart-idx></span>
+			<div class="cart-items-img">
+				<img
+					src={`${ASSET_BASE}/product-demo.png`}
+					alt=""
+					class="cart-items-img-el"
+					loading="lazy"
+				/>
+			</div>
+			<div class="cart-items-info">
+				<h3 class="cart-items-name" data-cart-name></h3>
+				<div class="cart-items-program" data-cart-program hidden></div>
+				<div class="cart-items-meta-row">
+					<span class="cart-items-shipping" data-cart-shipping-label></span>
+					<Button variant="link" className="cart-items-remove" data-cart-remove>
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="cart-items-remove-icon"
+							aria-hidden="true"
+						>
+							<path d="M4 7h16"></path>
+							<path d="M10 4h4a1 1 0 011 1v2h-6V5a1 1 0 011-1z"></path>
+							<path d="M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12"></path>
+							<path d="M10 11v6M14 11v6"></path>
+						</svg>
+						Remove
+					</Button>
+				</div>
+			</div>
+			<div class="cart-items-qty">
+				<Button
+					variant="outline"
+					className="cart-items-qty-btn cart-items-qty-btn--dec"
+					data-cart-qty-dec
+					data-disabled="true">&#8211;</Button
+				>
+				<span class="cart-items-qty-value" data-cart-qty-value>1</span>
+				<Button
+					variant="outline"
+					className="cart-items-qty-btn cart-items-qty-btn--inc"
+					data-cart-qty-inc
+					text="+"
+				/>
+			</div>
+			<div class="cart-items-price" data-cart-price></div>
+		</div>
+	</template>
+
+	<div
+		class="cart-items-empty"
+		data-cart-empty
+		style={items.length ? "display:none" : ""}
+	>
+		<div class="cart-items-empty-text">Your cart is empty.</div>
+		<a href="index.html#programs" class="cart-items-empty-cta">
+			Browse Treatments
+			<span class="cart-items-empty-arrow">
+				<svg
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+				</svg>
+			</span>
+		</a>
+	</div>
+</div>

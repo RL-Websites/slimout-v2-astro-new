@@ -1,0 +1,66 @@
+---
+import InputRadio from '../fields/InputRadio.astro';
+import InputCheckbox from '../fields/InputCheckbox.astro';
+import GeneralTextarea from '../fields/GeneralTextarea.astro';
+
+const EXCLUSIVE_LABELS = new Set(['None', 'No known allergies']);
+
+interface Props {
+	id: string;
+	question: string;
+	options: string[];
+	multi?: boolean;
+	others?: boolean;
+	body?: string[];
+	cond?: string;
+	condNote?: string;
+}
+
+const { id, question, options, multi = false, others = false, body, cond, condNote } = Astro.props;
+
+const allOptions = others ? [...options, 'Others'] : options;
+---
+
+<h2 class="intake-question-title">{question}</h2>
+
+{
+	body && (
+		<div class="intake-question-body">
+			{body.map((text) => (
+				<div class="intake-question-body-item">
+					<span class="intake-question-body-dot" />
+					<span>{text}</span>
+				</div>
+			))}
+		</div>
+	)
+}
+
+<div class:list={['intake-question-options', multi && '--multi']}>
+	{
+		allOptions.map((label) =>
+			multi ? (
+				<InputCheckbox name={id} value={label} label={label} exclusive={EXCLUSIVE_LABELS.has(label)} />
+			) : (
+				<InputRadio name={id} value={label} label={label} />
+			),
+		)
+	}
+</div>
+
+{
+	cond && (
+		<div class="intake-question-cond" data-cond={cond} hidden>
+			{condNote}
+		</div>
+	)
+}
+
+{
+	others && (
+		<div class="intake-question-other" data-other-wrap hidden>
+			<GeneralTextarea name={`${id}-other`} placeholder="Write here..." rows={4} maxlength={300} />
+			<div class="intake-question-other-count" data-other-count>0/300 characters</div>
+		</div>
+	)
+}

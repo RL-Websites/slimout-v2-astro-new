@@ -1,0 +1,80 @@
+---
+import ContactForm from './ContactForm.astro';
+
+const channels = [
+	{
+		label: 'Email',
+		value: 'info@slimout.com',
+		note: 'Replies within one business day',
+		icon1: 'M3.5 6.5h17v11h-17z',
+		icon2: 'M3.9 7.2l8.1 6 8.1-6',
+	},
+	{
+		label: 'Phone',
+		value: '(833) 654-3553',
+		note: 'Mon–Fri, 9am–6pm CT',
+		icon1: 'M7.2 3.6l2.4 4-1.9 1.8a11 11 0 004.9 4.9l1.8-1.9 4 2.4-.6 2.8a2 2 0 01-2.2 1.5C9.6 18.1 5.9 14.4 4.5 6.4A2 2 0 016 4.2z',
+		icon2: '',
+	},
+	{
+		label: 'Portal messages',
+		value: 'Available after sign in',
+		note: 'Fastest for prescription questions',
+		icon1: 'M4 5.5h16v10H9l-5 4z',
+		icon2: 'M8 10.5h8',
+	},
+];
+---
+
+<section id="top" class="contact">
+	<div class="contact-inner">
+		<a href="account.html" class="contact-back">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M19 12H5"></path><path d="M11 6l-6 6 6 6"></path>
+			</svg>
+			Back to account
+		</a>
+
+		<div class="contact-eyebrow">Support</div>
+		<h1 class="contact-title">Contact our <span class="contact-title-alt">care team</span></h1>
+		<p class="contact-lead">Send us a message and a licensed member of the team will reply within one business day.</p>
+
+		<div class="contact-grid">
+			<ContactForm />
+
+			<div class="contact-sidebar">
+				<div class="contact-channels">
+					<h2 class="contact-channels-title">Reach us directly</h2>
+					<div class="contact-channel-list">
+						{
+							channels.map((channel) => (
+								<div class="contact-channel">
+									<span class="contact-channel-icon">
+										<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d={channel.icon1}></path>
+											{channel.icon2 && <path d={channel.icon2}></path>}
+										</svg>
+									</span>
+									<span class="contact-channel-info">
+										<span class="contact-channel-label">{channel.label}</span>
+										<span class="contact-channel-value">{channel.value}</span>
+										<span class="contact-channel-note">{channel.note}</span>
+									</span>
+								</div>
+							))
+						}
+					</div>
+				</div>
+
+				<div class="contact-notice">
+					<span class="contact-notice-icon">
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M12 3.4L1.9 20.6h20.2z"></path><path d="M12 9.6v5"></path><path d="M12 17.6h.01"></path>
+						</svg>
+					</span>
+					<p class="contact-notice-text">If this is a medical emergency, call 911 or go to your nearest emergency room. Do not use this form.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

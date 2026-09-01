@@ -1,0 +1,356 @@
+@keyframes order-confirmation-details-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer components {
+  .order-confirmation {
+    @apply bg-cream pt-[114px] pb-12 sm:pb-16 lg:pb-20 px-5 sm:px-8 lg:px-12;
+
+    &-inner {
+      @apply max-w-[1180px] mx-auto;
+    }
+
+    // Cart / Checkout / Confirmation stepper is the shared CartTimeline component/partial —
+    // see _cart-timeline.scss. Nothing to style here.
+
+    // Dark hero panel
+    &-hero {
+      @apply relative overflow-hidden bg-ink text-offwhite rounded-[22px] sm:rounded-[32px]
+        p-6 sm:p-8 lg:p-10 mb-4.5 sm:mb-7;
+    }
+
+    &-hero-decor {
+      @apply absolute -top-14 right-[-6%] h-auto opacity-50 pointer-events-none;
+      width: min(560px, 58%);
+    }
+
+    &-hero-intro {
+      @apply relative;
+    }
+
+    &-hero-title {
+      @apply font-sora text-[clamp(26px,4.2vw,52px)] font-medium leading-[1.02]
+        tracking-tighter m-0 mb-3.5 text-balance;
+    }
+
+    &-hero-title-alt {
+      @apply font-serif italic font-normal text-lime;
+    }
+
+    &-hero-lead {
+      @apply m-0 mb-6 sm:mb-7.5 text-[clamp(14px,1.25vw,16.5px)] leading-relaxed text-offwhite/70
+        text-pretty;
+    }
+
+    // Collapsible order-details panel
+    &-panel {
+      @apply relative rounded-[18px] border border-offwhite/[0.16] bg-offwhite/[0.04] overflow-hidden;
+    }
+
+    &-panel-summary {
+      @apply block w-full text-left p-5 sm:p-6.5 cursor-pointer no-underline;
+    }
+
+    &-panel-fields {
+      @apply grid grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_auto] gap-4 sm:gap-6 items-start lg:items-end;
+    }
+
+    &-panel-field {
+      @apply block min-w-0;
+    }
+
+    &-panel-field-label {
+      @apply block font-mono text-[9.5px] tracking-[0.18em] uppercase text-offwhite/45 mb-2;
+    }
+
+    &-panel-field-value {
+      @apply block font-sora text-[clamp(15px,1.7vw,18px)] font-medium tracking-tight text-offwhite
+        [overflow-wrap:anywhere];
+    }
+
+    &-panel-field:nth-last-child(2) &-panel-field-value {
+      @apply text-primary;
+    }
+
+    &-panel-pill {
+      @apply flex items-center gap-2 w-fit col-span-2 lg:col-span-1 mx-auto sm:mx-0 sm:ml-0 lg:ml-auto px-4 py-2.5
+        rounded-full bg-lime-dark font-mono text-[10px] tracking-[0.18em] uppercase text-white
+        whitespace-nowrap transition-colors duration-300;
+    }
+
+    &-panel-summary:hover &-panel-pill {
+      @apply bg-lime-darker;
+    }
+
+    &-panel-pill-icon {
+      @apply flex transition-transform duration-300;
+
+      &.is-open {
+        @apply rotate-180;
+      }
+    }
+
+    &-details {
+      @apply hidden px-5 sm:px-6.5 pb-5 sm:pb-6.5;
+
+      &.is-open {
+        @apply block;
+        animation: order-confirmation-details-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+    }
+
+    &-details-inner {
+      @apply pt-5 sm:pt-6 border-t border-offwhite/15;
+    }
+
+    &-details-label {
+      @apply font-mono text-[10px] tracking-[0.2em] uppercase text-offwhite/45 mb-3 sm:mb-4
+        [&:not(:first-child)]:pt-5 sm:[&:not(:first-child)]:pt-6;
+    }
+
+    &-product-list {
+      @apply flex flex-col;
+    }
+
+    &-product-row {
+      @apply flex items-center gap-3.5 sm:gap-6 py-[clamp(14px,2.2vw,20px)] border-b border-offwhite/[0.16]
+        last:border-b-0;
+
+      @media (max-width: 640px) {
+        display: grid;
+        grid-template-columns: 64px minmax(0, 1fr) auto;
+        grid-template-areas: "img info info" "img qty price";
+        column-gap: 14px;
+        row-gap: 8px;
+        align-items: start;
+      }
+    }
+
+    &-product-image {
+      @apply w-[clamp(64px,7vw,88px)] h-[clamp(64px,7vw,88px)] shrink-0 rounded-2xl overflow-hidden
+        bg-offwhite/[0.08];
+
+      @media (max-width: 640px) {
+        grid-area: img;
+        width: 64px;
+        height: 64px;
+        border-radius: 14px;
+      }
+
+      img {
+        @apply w-full h-full object-cover;
+      }
+    }
+
+    &-product-info {
+      @apply min-w-0 flex-1;
+
+      @media (max-width: 640px) {
+        grid-area: info;
+      }
+    }
+
+    &-product-name {
+      @apply font-sora text-[15px] sm:text-lg font-semibold tracking-tight leading-tight
+        text-offwhite mb-1 text-pretty;
+    }
+
+    &-product-program {
+      @apply text-[14.5px] text-offwhite/60;
+    }
+
+    &-product-qty {
+      @apply inline-flex items-center h-[30px] px-3.5 font-mono text-[9.5px]
+        tracking-[0.12em] uppercase text-lime bg-lime/15 border border-lime/35 rounded-full
+        whitespace-nowrap shrink-0;
+
+      @media (max-width: 640px) {
+        grid-area: qty;
+        justify-self: start;
+        align-self: center;
+      }
+    }
+
+    &-product-price {
+      @apply font-sora text-base sm:text-xl font-semibold tracking-tight text-offwhite shrink-0
+        whitespace-nowrap;
+
+      @media (max-width: 640px) {
+        grid-area: price;
+        justify-self: end;
+        align-self: center;
+      }
+    }
+
+    &-summary-list {
+      @apply flex flex-col;
+    }
+
+    &-summary-line {
+      @apply flex items-baseline justify-between gap-4 py-3 border-b border-offwhite/15;
+    }
+
+    &-summary-line-label {
+      @apply text-[14.5px] text-offwhite/60;
+    }
+
+    &-summary-line-value {
+      @apply font-sora text-[14.5px] font-medium text-offwhite shrink-0;
+    }
+
+    &-summary-total {
+      @apply flex items-baseline justify-between gap-4 pt-4 sm:pt-5;
+    }
+
+    &-summary-total-label {
+      @apply font-sora text-base font-semibold tracking-tight text-offwhite;
+    }
+
+    &-summary-total-value {
+      @apply font-sora text-[clamp(24px,3.2vw,34px)] font-semibold tracking-tighter text-lime;
+    }
+
+    // Two-column: next steps + customer info / good to know
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-5 mb-3.5 sm:mb-5 items-stretch;
+    }
+
+    &-next {
+      @apply flex flex-col h-full bg-sage-100 border border-dashed border-[#C6D38A]
+        rounded-[22px] p-6 sm:p-7.5;
+    }
+
+    &-card {
+      @apply bg-white border border-[#E4E7DA] rounded-[22px] p-6 sm:p-7.5;
+
+      &--grow {
+        @apply flex-1;
+      }
+    }
+
+    &-card-title {
+      @apply font-sora text-[17px] sm:text-xl font-semibold tracking-tight text-ink m-0 mb-4.5
+        sm:mb-6;
+    }
+
+    &-next-list {
+      @apply grid gap-3 lg:gap-0 lg:auto-rows-[72px];
+    }
+
+    &-next-step {
+      @apply relative flex gap-3.5;
+    }
+
+    &-next-step-marker {
+      @apply relative w-[26px] shrink-0 flex justify-center;
+    }
+
+    &-next-step-line {
+      @apply absolute left-1/2 -translate-x-1/2 top-[26px] bottom-0 w-px bg-[#C6D38A] block;
+    }
+
+    &-next-step-num {
+      @apply relative w-[26px] h-[26px] rounded-full bg-[#FBFBF7] border border-[#C6D38A]
+        text-[#5F6E1D] flex items-center justify-center font-sora text-[11px] font-semibold;
+    }
+
+    &-next-step-text {
+      @apply text-[14.5px] leading-relaxed text-muted-dark text-pretty pb-0.5;
+    }
+
+    &-next-cta {
+      @apply flex items-center justify-center gap-2.5 mt-auto text-[15.5px] font-medium
+        text-white px-6 py-3.5 bg-lime rounded-full transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-[3px];
+      }
+    }
+
+    &-next-cta-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-next-cta:hover &-next-cta-arrow {
+      @apply -rotate-45;
+    }
+
+    &-side {
+      @apply flex flex-col gap-3.5 sm:gap-5;
+    }
+
+    &-customer-grid {
+      @apply grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-4 sm:gap-6;
+    }
+
+    &-customer-field {
+      @apply min-w-0;
+    }
+
+    &-customer-field-label {
+      @apply font-mono text-[9.5px] tracking-[0.16em] uppercase text-muted-light mb-1.5;
+    }
+
+    &-customer-field-value {
+      @apply font-sora text-[15px] font-medium tracking-tight text-ink [overflow-wrap:anywhere];
+    }
+
+    &-note-list {
+      @apply flex flex-col gap-3 text-[14.5px] leading-relaxed text-muted-dark mb-4.5 sm:mb-5.5;
+    }
+
+    &-note {
+      @apply flex gap-2.5;
+    }
+
+    &-note-dot {
+      @apply w-[5px] h-[5px] rounded-full bg-lime-deep block shrink-0 mt-2;
+    }
+
+    &-contact {
+      @apply pt-4 border-t border-[#EDEFE4] text-[13.5px] leading-relaxed text-muted text-pretty;
+    }
+
+    &-contact-link {
+      @apply text-ink border-b border-ink/30;
+    }
+
+    // Bottom CTAs
+    &-actions {
+      @apply flex flex-wrap gap-2.5 justify-center pt-3.5 sm:pt-5.5;
+    }
+
+    &-actions-primary {
+      @apply flex items-center justify-center gap-2.5 min-w-[230px] text-base font-medium
+        text-white px-6 py-4 bg-lime rounded-full transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-[3px];
+      }
+    }
+
+    &-actions-primary-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-actions-primary:hover &-actions-primary-arrow {
+      @apply -rotate-45;
+    }
+
+    &-actions-secondary {
+      @apply flex items-center justify-center min-w-[230px] text-base text-ink px-6 py-4
+        border border-[#D6DAC8] rounded-full transition-colors duration-200;
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+  }
+}

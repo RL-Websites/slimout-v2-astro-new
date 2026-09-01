@@ -1,0 +1,98 @@
+@layer components {
+  .mobile-drawer {
+    @apply hidden fixed inset-0 z-[200] justify-start;
+
+    &.is-open {
+      @apply flex md:hidden;
+    }
+
+    &-panel {
+      @apply relative w-full h-full bg-[#FBFBF7] flex flex-col;
+    }
+
+    &-top {
+      @apply relative bg-ink text-offwhite px-5 pt-5 pb-7 shrink-0;
+    }
+
+    &-top-row {
+      @apply relative z-10 flex items-center justify-between mb-6;
+    }
+
+    &-logo {
+      @apply text-offwhite;
+    }
+
+    &-close {
+      @apply w-9 h-9 rounded-full bg-white/10 text-offwhite flex items-center justify-center no-underline;
+
+    }
+
+    &-heading {
+      @apply relative z-10 font-sora text-[22px] font-medium leading-tight tracking-tight mb-3.5 text-balance;
+    }
+
+    &-heading-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-actions {
+      @apply relative z-10 grid grid-cols-2 gap-2;
+    }
+
+    &-login {
+      @apply flex items-center justify-center text-[15px] font-medium text-white px-4 py-3 bg-lime rounded-full;
+    }
+
+    &-signup {
+      @apply flex items-center justify-center text-[15px] text-offwhite px-4 py-3 border border-white/30 rounded-full;
+    }
+
+    &-body {
+      @apply flex-1 min-h-0 overflow-y-auto px-5 pt-5 pb-5;
+    }
+
+    &-label {
+      @apply font-mono text-[9.5px] tracking-[0.22em] uppercase text-muted-light mb-3;
+    }
+
+    &-treatments {
+      @apply grid grid-cols-2 gap-2 mb-7;
+    }
+
+    &-treatment-link {
+      @apply flex items-center min-h-[56px] px-3.5 py-3 bg-white border border-sage-200 rounded-2xl font-sora text-[13.5px] font-semibold tracking-tight leading-tight text-ink transition-colors;
+
+      &:hover {
+        @apply bg-sage-100 border-[#D9E3B4];
+      }
+    }
+
+    &-menu {
+      @apply flex flex-col bg-white border border-sage-200 rounded-[18px] overflow-hidden;
+    }
+
+    &-menu-link {
+      @apply flex items-center gap-3.5 px-4 py-4 border-b border-sage-100 transition-colors;
+
+      &:hover {
+        @apply bg-sage-50;
+      }
+
+      &:last-child {
+        @apply border-b-0;
+      }
+    }
+
+    &-menu-icon {
+      @apply flex text-lime-darker shrink-0;
+    }
+
+    &-menu-text {
+      @apply flex-1 text-[15.5px] text-ink;
+    }
+
+    &-menu-arrow {
+      @apply flex text-[#A9B2A5] shrink-0;
+    }
+  }
+}

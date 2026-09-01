@@ -1,0 +1,62 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RegisterForm from "../components/RegisterForm.astro";
+
+const showCheckoutBanner = true;
+---
+
+<Layout
+	title="Create Your Account — SlimOut"
+	description="Create a SlimOut account to start your provider-guided care plan."
+>
+	<div class="register-page">
+		<div class="register-logo">
+			<a href="index.html" class="register-logo-link">
+				<!-- <Logo width={114} height={42} /> -->
+			</a>
+		</div>
+
+		<main class="register-main">
+			<div class="register-container">
+				<!-- register section start -->
+				{
+					showCheckoutBanner && (
+						<div class="register-banner">
+							<span class="register-banner-dot" />
+							<span class="register-banner-text">
+								Create an account to continue to checkout. Your cart is saved.
+							</span>
+						</div>
+					)
+				}
+
+				<div class="register-head">
+					<h1 class="register-title">
+						Create your <span class="register-title-alt">account</span>
+					</h1>
+					<p class="register-lead"
+						>A few details and your care plan travels with you.</p
+					>
+				</div>
+
+				<RegisterForm loginHref="login.html" />
+
+				{
+					showCheckoutBanner && (
+						<div class="register-back">
+							<a href="cart.html" class="register-back-link">
+								Back to cart
+							</a>
+						</div>
+					)
+				}
+
+				<div class="register-footnote">
+					<span class="register-footnote-dot"></span>
+					Secure &amp; convenient digital care
+				</div>
+				<!-- register section end -->
+			</div>
+		</main>
+	</div>
+</Layout>

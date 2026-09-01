@@ -1,0 +1,81 @@
+---
+interface Recommendation {
+  family: "semaglutide" | "tirzepatide";
+  name: string;
+  desc: string;
+  price: string;
+  image: string;
+}
+
+interface Props {
+  recommendations: Recommendation[];
+}
+
+const { recommendations } = Astro.props;
+---
+
+<div class="quiz-results">
+  <div class="quiz-results-wrapper">
+    <span class="quiz-results-eyebrow">Your results</span>
+    <h2 class="quiz-results-title">
+      Your personalized plan is <span class="quiz-results-title-alt"
+        >ready</span>
+    </h2>
+    <p class="quiz-results-lead">
+      Based on your answers, these weight loss treatments fit your goals. A
+      licensed provider reviews every order before it ships.
+    </p>
+
+    <div class="quiz-results-chips" data-quiz-chips></div>
+  </div>
+
+  <div class="quiz-results-grid" data-quiz-recommendations>
+    {
+      recommendations.map((rec, i) => (
+        <div
+          class="quiz-results-card"
+          data-quiz-rec
+          data-family={rec.family}
+          data-index={i}
+        >
+          <div class="quiz-results-card-media">
+            <img src={rec.image} alt={rec.name} loading="lazy" />
+            <span class="quiz-results-card-badge" data-quiz-badge />
+          </div>
+          <h3 class="quiz-results-card-name">{rec.name}</h3>
+          <p class="quiz-results-card-desc">{rec.desc}</p>
+          <div class="quiz-results-card-price">
+            <span class="quiz-results-card-price-label">Starting from</span>
+            <span class="quiz-results-card-price-value">{rec.price}</span>
+          </div>
+          <div class="quiz-results-card-actions">
+            <button
+              type="button"
+              class="theme-btn theme-btn__primary"
+              data-modal-open="quiz-program-modal"
+              data-quiz-buy-name={rec.name}
+              data-quiz-buy-price={rec.price}
+            >
+              Buy Now
+            </button>
+            <a href="weight-loss.html" class="quiz-results-card-learn">
+              Learn More
+            </a>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="quiz-results-banner">
+    <span class="quiz-results-banner-eyebrow">What happens next</span>
+    <p class="quiz-results-banner-text">
+      Add a treatment to your cart and check out. Our clinical team reviews your
+      intake, contacts you if anything is missing, and posts updates to your
+      portal.
+    </p>
+    <a href="index.html#programs" class="quiz-results-banner-cta"
+      >Browse all treatments</a
+    >
+  </div>
+</div>

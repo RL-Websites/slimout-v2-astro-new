@@ -1,0 +1,60 @@
+---
+const steps = [
+	{ num: 1, label: 'Cart', href: 'cart.html' },
+	{ num: 2, label: 'Checkout' },
+	{ num: 3, label: 'Confirmation' },
+];
+
+const active = 2;
+---
+
+<div class="cart-timeline">
+	<div class="cart-timeline-grid">
+		{
+			steps.map((step, i) =>
+				step.href && step.num < active ? (
+					<a
+						href={step.href}
+						class:list={[
+							'cart-timeline-label',
+							i === 0 && 'cart-timeline-label--start',
+							'cart-timeline-label--done',
+						]}
+					>
+						{step.label}
+					</a>
+				) : (
+					<span
+						class:list={[
+							'cart-timeline-label',
+							i === 0 && 'cart-timeline-label--start',
+							i === steps.length - 1 && 'cart-timeline-label--end',
+							step.num === active && 'cart-timeline-label--current',
+						]}
+					>
+						{step.label}
+					</span>
+				),
+			)
+		}
+		<div class="cart-timeline-track">
+			<span class="cart-timeline-line"></span>
+			<span class="cart-timeline-line-fill"></span>
+			{
+				steps.map((step, i) => (
+					<span
+						class:list={[
+							'cart-timeline-dot',
+							i === 0 && 'cart-timeline-dot--start',
+							i === steps.length - 1 && 'cart-timeline-dot--end',
+							step.num === active && 'cart-timeline-dot--active',
+							step.num < active && 'cart-timeline-dot--done',
+						]}
+					>
+						{step.num < active ? '✓' : step.num}
+					</span>
+				))
+			}
+		</div>
+	</div>
+</div>

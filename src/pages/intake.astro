@@ -1,0 +1,208 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CommonLogoBar from '../components/common/CommonLogoBar.astro';
+import CommonProgressBar from '../components/common/CommonProgressBar.astro';
+import CommonNavBar from '../components/common/CommonNavBar.astro';
+import CommonStepLoader from '../components/common/CommonStepLoader.astro';
+import QaIntro from '../components/common/QaIntro.astro';
+import IntakeQuestionChoice from '../components/intake/IntakeQuestionChoice.astro';
+import IntakeQuestionUnits from '../components/intake/IntakeQuestionUnits.astro';
+import IntakeReview from '../components/intake/IntakeReview.astro';
+import IntakeDone from '../components/intake/IntakeDone.astro';
+import IntakeLoadingOverlay from '../components/intake/IntakeLoadingOverlay.astro';
+import IntakePlacedModal from '../components/intake/IntakePlacedModal.astro';
+
+const QUESTIONS = [
+	{
+		id: 'nitrates',
+		type: 'choice',
+		question: 'Do you take nitrates or riociguat (Adempas)?',
+		options: ['Yes', 'No'],
+	},
+	{
+		id: 'texas',
+		type: 'choice',
+		question: 'Are you physically located in Texas right now?',
+		options: ['Yes', 'No'],
+	},
+	{
+		id: 'chest-pain',
+		type: 'choice',
+		question: 'Do you have unstable chest pain or major exertional symptoms?',
+		options: ['Yes', 'No'],
+	},
+	{
+		id: 'pcp',
+		type: 'choice',
+		question: 'Do you have a primary care provider?',
+		options: ['Yes', 'No'],
+		cond: 'Yes',
+		condNote: "If Yes, another question will appear as it's a conditional answer.",
+	},
+	{
+		id: 'priapism',
+		type: 'choice',
+		question: 'Have you had priapism before?',
+		options: ['Yes', 'No'],
+	},
+	{
+		id: 'telemedicine-consent',
+		type: 'choice',
+		question: 'Telemedicine Consent',
+		body: [
+			'Do you understand that telemedicine has limitations and that you may be asked to complete a video visit, lab testing, outside records review, or in-person evaluation before treatment?',
+			'Do you understand that completing this questionnaire does not guarantee a prescription?',
+			'Do you consent to receive follow-up messages about your care through the communication methods permitted by this practice?',
+			'If you have a PCP, do you consent to a visit summary being sent to them?',
+		],
+		options: ['Yes , I Consent', "No , I Don't Consent"],
+	},
+	{
+		id: 'curvature',
+		type: 'choice',
+		question: 'Do you have significant penile curvature or pain?',
+		options: ['Yes', 'No'],
+	},
+	{
+		id: 'vitals',
+		type: 'units',
+		question: 'Please enter your most recent blood pressure.',
+		groups: [
+			{
+				label: 'Blood pressure',
+				fields: [
+					{ key: 'sys', suffix: 'mmHg', ph: 'Systolic' },
+					{ key: 'dia', suffix: 'mmHg', ph: 'Diastolic' },
+				],
+			},
+			{
+				label: 'Resting heart rate',
+				fields: [{ key: 'hr', suffix: 'bpm', ph: 'Beats per minute' }],
+			},
+		],
+	},
+	{
+		id: 'conditions',
+		type: 'multi',
+		question: 'List all current medical conditions.',
+		others: true,
+		options: ['None', 'High blood pressure', 'High cholesterol', 'Diabetes', 'Thyroid disorder', 'Heart disease'],
+	},
+	{
+		id: 'surgeries',
+		type: 'multi',
+		question: 'List all prior surgeries or hospitalizations.',
+		others: true,
+		options: ['None', 'Appendectomy', 'Hernia repair', 'Gallbladder removal', 'Orthopedic surgery', 'Cardiac procedure'],
+	},
+	{
+		id: 'allergies',
+		type: 'multi',
+		question: 'List all medication allergies and reaction.',
+		others: true,
+		options: ['No known allergies', 'Penicillin', 'Sulfa drugs', 'NSAIDs', 'Statins', 'Latex'],
+	},
+	{
+		id: 'prescriptions',
+		type: 'multi',
+		question: 'List all prescription medications you take.',
+		others: true,
+		options: ['None', 'Blood pressure medication', 'Cholesterol medication', 'Diabetes medication', 'Thyroid medication', 'Antidepressant'],
+	},
+	{
+		id: 'otc',
+		type: 'multi',
+		question: 'List all over-the-counter medications, supplements, peptides, hormones, and performance products you use.',
+		others: true,
+		options: ['None', 'Multivitamin', 'Protein or creatine', 'Fish oil or omega-3', 'Testosterone booster', 'Peptides'],
+	},
+	{
+		id: 'substances',
+		type: 'multi',
+		question: 'Do you use nicotine, alcohol, cannabis, or other recreational drugs?',
+		others: true,
+		options: ['Yes', 'No'],
+		cond: 'Yes',
+		condNote: "If Yes, another question will appear as it's a conditional answer.",
+	},
+	{
+		id: 'side-effects',
+		type: 'multi',
+		question: 'Have you ever had a serious medication side effect or drug interaction?',
+		others: true,
+		options: ['Yes', 'No'],
+	},
+] as const;
+
+const totalQuestions = QUESTIONS.length;
+---
+
+<Layout
+	title="Medical Intake — SlimOut"
+	description="Complete your medical intake so a licensed provider can review your order."
+>
+	<main class="intake" data-intake data-intake-total={totalQuestions}>
+		<!-- intake section start -->
+		<div class="intake-bg" aria-hidden="true">
+			<span class="intake-bg-blob intake-bg-blob--1"></span>
+			<span class="intake-bg-blob intake-bg-blob--2"></span>
+			<span class="intake-bg-blob intake-bg-blob--3"></span>
+			<span class="intake-bg-ring intake-bg-ring--1"></span>
+			<span class="intake-bg-ring intake-bg-ring--2"></span>
+			<span class="intake-bg-dot intake-bg-dot--1"></span>
+			<span class="intake-bg-dot intake-bg-dot--2"></span>
+		</div>
+
+		<CommonLogoBar />
+		<CommonProgressBar eyebrow="Your medical intake" />
+
+		<div class="intake-viewport">
+			<div class="intake-step intake-step--intro is-active" data-intake-step="0" data-intake-type="intro">
+				<QaIntro />
+			</div>
+
+			{
+				QUESTIONS.map((q, i) => (
+					<div
+						class="intake-step"
+						data-intake-step={i + 1}
+						data-intake-type={q.type}
+						data-intake-question={q.question}
+					>
+						{(q.type === 'choice' || q.type === 'multi') && (
+							<IntakeQuestionChoice
+								id={q.id}
+								question={q.question}
+								options={q.options as any}
+								multi={q.type === 'multi'}
+								others={(q as any).others}
+								body={(q as any).body}
+								cond={(q as any).cond}
+								condNote={(q as any).condNote}
+							/>
+						)}
+						{q.type === 'units' && (
+							<IntakeQuestionUnits id={q.id} question={q.question} groups={(q as any).groups} />
+						)}
+					</div>
+				))
+			}
+
+			<div class="intake-step" data-intake-step={totalQuestions + 1} data-intake-type="review">
+				<IntakeReview />
+			</div>
+
+			<div class="intake-step" data-intake-step={totalQuestions + 2} data-intake-type="done">
+				<IntakeDone />
+			</div>
+
+			<CommonStepLoader />
+		</div>
+
+		<CommonNavBar />
+		<!-- intake section end -->
+	</main>
+
+	<IntakeLoadingOverlay />
+	<IntakePlacedModal />
+</Layout>

@@ -1,0 +1,19 @@
+---
+interface Props {
+	name: string;
+	placeholder?: string;
+	rows?: number;
+	maxlength?: number;
+}
+
+const { name, placeholder, rows = 4, maxlength } = Astro.props;
+---
+
+<textarea
+	class="general-textarea"
+	name={name}
+	id={name}
+	placeholder={placeholder}
+	rows={rows}
+	maxlength={maxlength}
+></textarea>

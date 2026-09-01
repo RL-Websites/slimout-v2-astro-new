@@ -1,0 +1,20 @@
+---
+import GeneralInput from '../fields/GeneralInput.astro';
+
+interface Field {
+	name: string;
+	suffix: string;
+}
+
+interface Props {
+	question: string;
+	fields: Field[];
+}
+
+const { question, fields } = Astro.props;
+---
+
+<h2 class="quiz-question-title">{question}</h2>
+<div class:list={['quiz-units', fields.length === 1 && 'quiz-units--single']}>
+	{fields.map((field) => <GeneralInput name={field.name} type="number" suffix={field.suffix} placeholder="0" />)}
+</div>

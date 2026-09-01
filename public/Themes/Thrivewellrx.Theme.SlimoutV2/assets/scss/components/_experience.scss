@@ -1,0 +1,73 @@
+@layer components {
+  .experience {
+    @apply bg-cream py-10 sm:py-16 lg:py-20;
+
+    &-inner {
+      @apply max-w-[1340px] mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-2
+        gap-8 sm:gap-16 lg:gap-20 items-center;
+    }
+
+    &-media {
+      @apply min-w-0 relative;
+    }
+
+    &-frame {
+      @apply h-[320px] sm:h-[420px] lg:h-[520px] rounded-[26px] overflow-hidden;
+    }
+
+    &-image {
+      @apply w-full h-full object-cover;
+    }
+
+    &-badge {
+      @apply absolute right-[-10px] bottom-[-28px] p-5 bg-ink text-offwhite
+        rounded-[22px];
+      width: min(268px, 72%);
+      box-shadow: 0 28px 54px -24px rgba(16, 26, 20, 0.5);
+      animation: float 7s ease-in-out infinite;
+    }
+
+    &-badge-title {
+      @apply font-serif italic text-2xl leading-none mb-2.5 text-lime;
+    }
+
+    &-badge-body {
+      @apply text-[13px] leading-snug text-offwhite/70;
+    }
+
+    &-content {
+      @apply min-w-0;
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[14px] tracking-[0.24em] uppercase text-muted-light mb-4 sm:mb-6;
+    }
+
+    &-title {
+      @apply font-sora text-[30px] sm:text-[42px] lg:text-[56px] font-medium leading-none
+        tracking-tight text-ink m-0 mb-5;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal text-lime-darker;
+    }
+
+    &-body {
+      @apply m-0 mb-7 text-[15px] sm:text-[17px] leading-[1.7] text-muted max-w-[520px]
+        text-pretty;
+    }
+
+    &-tags {
+      @apply flex flex-wrap gap-2;
+    }
+
+    &-tag {
+      @apply text-[13.5px] text-muted-dark px-4.5 py-2.5 border border-sage-300 rounded-full
+        transition-colors;
+
+      &:hover {
+        @apply bg-ink text-offwhite;
+      }
+    }
+  }
+}

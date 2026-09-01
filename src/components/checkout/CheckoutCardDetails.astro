@@ -1,0 +1,179 @@
+---
+import InputRadio from "../fields/InputRadio.astro";
+
+const savedCard = {
+	brand: "visa",
+	last4: "1111",
+	name: "Jordan Ellis",
+	expiry: "10/30",
+};
+---
+
+<div class="checkout-form">
+	<div class="checkout-form-head">
+		<div class="checkout-form-head-left">
+			<span class="checkout-form-step">1</span>
+			<h2 class="checkout-form-title">Card Details</h2>
+		</div>
+	</div>
+
+	<div class="checkout-form-card-picker">
+		<label class="input-radio checkout-form-saved-card">
+			<input
+				type="radio"
+				name="card-choice"
+				value={`${savedCard.brand}-${savedCard.last4}`}
+				aria-label={`${savedCard.brand} card ending in ${savedCard.last4}`}
+				class="input-radio-input"
+			/>
+			<span class="input-radio-dot"></span>
+			<span class="checkout-form-saved-card-brand">
+				<svg
+					width="40"
+					height="27"
+					viewBox="0 0 40 27"
+					aria-label="Visa"
+					role="img"
+				>
+					<rect width="40" height="27" rx="4" fill="#1A1F71"></rect>
+					<text
+						x="20"
+						y="17.5"
+						text-anchor="middle"
+						font-family="Arial, sans-serif"
+						font-size="10"
+						font-weight="700"
+						font-style="italic"
+						fill="#FFFFFF">VISA</text
+					>
+				</svg>
+			</span>
+			<span class="checkout-form-saved-card-number">•••• {savedCard.last4}</span
+			>
+			<span class="checkout-form-saved-card-default">Default</span>
+			<span class="checkout-form-saved-card-meta">
+				<span class="checkout-form-saved-card-name">{savedCard.name}</span>
+				<span class="checkout-form-saved-card-expiry">{savedCard.expiry}</span>
+			</span>
+		</label>
+
+		<InputRadio name="card-choice" value="new" label="Use a New Card" checked />
+	</div>
+
+	<div class="checkout-form-new-card">
+		<div class="checkout-form-grid">
+			<label class="checkout-form-field checkout-form-field--full">
+				<span class="checkout-form-label">Name on Card</span>
+				<input
+					type="text"
+					placeholder="Full name as shown on card"
+					aria-label="Name on card"
+					class="checkout-form-input"
+				/>
+			</label>
+			<label class="checkout-form-field checkout-form-field--full">
+				<span class="checkout-form-label">Card Number</span>
+				<div class="checkout-form-card-number-wrap">
+					<input
+						type="text"
+						inputmode="numeric"
+						maxlength="19"
+						placeholder="0000 0000 0000 0000"
+						aria-label="Card number"
+						class="checkout-form-input"
+						data-card-number
+					/>
+					<span class="checkout-form-card-brand" data-brand="visa">
+						<svg
+							width="40"
+							height="27"
+							viewBox="0 0 40 27"
+							class="checkout-form-card-brand-img"
+							aria-label="Visa"
+							role="img"
+						>
+							<rect width="40" height="27" rx="4" fill="#1A1F71"></rect>
+							<text
+								x="20"
+								y="17.5"
+								text-anchor="middle"
+								font-family="Arial, sans-serif"
+								font-size="10"
+								font-weight="700"
+								font-style="italic"
+								fill="#FFFFFF">VISA</text
+							>
+						</svg>
+					</span>
+					<span class="checkout-form-card-brand" data-brand="mastercard">
+						<svg
+							width="40"
+							height="27"
+							viewBox="0 0 40 27"
+							class="checkout-form-card-brand-img"
+							aria-label="Mastercard"
+							role="img"
+						>
+							<rect width="40" height="27" rx="4" fill="#16171C"></rect>
+							<circle cx="17" cy="13.5" r="7" fill="#EB001B"></circle>
+							<circle cx="25" cy="13.5" r="7" fill="#F79E1B" fill-opacity="0.92"
+							></circle>
+						</svg>
+					</span>
+					<span class="checkout-form-card-brand" data-brand="amex">
+						<svg
+							width="40"
+							height="27"
+							viewBox="0 0 40 27"
+							class="checkout-form-card-brand-img"
+							aria-label="American Express"
+							role="img"
+						>
+							<rect width="40" height="27" rx="4" fill="#006FCF"></rect>
+							<text
+								x="20"
+								y="17"
+								text-anchor="middle"
+								font-family="Arial, sans-serif"
+								font-size="7.5"
+								font-weight="700"
+								fill="#FFFFFF">AMEX</text
+							>
+						</svg>
+					</span>
+				</div>
+			</label>
+			<label class="checkout-form-field">
+				<span class="checkout-form-label">Expiry</span>
+				<input
+					type="text"
+					inputmode="numeric"
+					maxlength="7"
+					placeholder="MM / YY"
+					aria-label="Card expiry"
+					class="checkout-form-input"
+					data-card-expiry
+				/>
+			</label>
+			<label class="checkout-form-field">
+				<span class="checkout-form-label">CVC</span>
+				<input
+					type="text"
+					inputmode="numeric"
+					maxlength="4"
+					placeholder="123"
+					aria-label="Card security code"
+					class="checkout-form-input"
+					data-card-cvc
+				/>
+			</label>
+		</div>
+
+		<span class="checkbox" data-save-toggle="card">
+			<span class="checkbox__box">
+				<i class="icon-checkmark"></i>
+			</span>
+			Save Card Information
+		</span>
+	</div>
+</div>

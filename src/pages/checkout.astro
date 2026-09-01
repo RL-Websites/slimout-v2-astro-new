@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import CheckoutSection from '../components/checkout/CheckoutSection.astro';
+import CheckoutStickyBar from '../components/checkout/CheckoutStickyBar.astro';
+import CheckoutTermsModal from '../components/checkout/CheckoutTermsModal.astro';
+
+const UNIT = 299;
+const FEE = 35;
+const BASE_SHIP = 12;
+const OVERNIGHT = 39;
+
+const items = [
+	{ qty: 1, unit: UNIT, shipping: 'Regular' as const },
+	{ qty: 2, unit: UNIT, shipping: 'Overnight' as const },
+];
+
+const units = items.reduce((n, it) => n + it.qty, 0);
+const subtotal = items.reduce((n, it) => n + it.qty * it.unit, 0);
+const shipping = BASE_SHIP + (items.some((it) => it.shipping === 'Overnight') ? OVERNIGHT : 0);
+const fee = FEE;
+const discount = FEE;
+const total = Math.max(0, subtotal + shipping + fee - discount);
+const itemCount = `${units} ${units === 1 ? 'item' : 'items'}`;
+---
+
+<Layout
+	title="Payment Method — SlimOut"
+	description="Secure checkout — review your order and complete payment."
+>
+	<div class="site-header">
+		<!-- header section start -->
+		<Header />
+		<!-- header section end -->
+	</div>
+
+	<main class="checkout-page">
+		<div class="checkout-page-spacer"></div>
+
+		<!-- checkout section start -->
+		<CheckoutSection
+			showLabOption={true}
+			itemCount={itemCount}
+			subtotal={subtotal}
+			shipping={shipping}
+			fee={fee}
+			discount={discount}
+			total={total}
+		/>
+		<!-- checkout section end -->
+
+		<!-- sticky bar section start -->
+		<CheckoutStickyBar total={total} />
+		<!-- sticky bar section end -->
+	</main>
+
+	<div class="checkout-modal-root">
+		<!-- terms modal section start -->
+		<CheckoutTermsModal />
+		<!-- terms modal section end -->
+	</div>
+</Layout>

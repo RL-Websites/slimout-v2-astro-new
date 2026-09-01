@@ -1,0 +1,36 @@
+@layer components {
+  .recommended {
+    @apply bg-cream pb-12 sm:pb-16 lg:pb-24;
+
+    &--alt {
+      @apply bg-white pt-12 sm:pt-16 lg:pt-24;
+    }
+
+    &-head {
+      @apply max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-13 mb-3.5 sm:mb-4 lg:mb-5;
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[10px] tracking-[0.24em] uppercase text-muted-light mb-3.5 sm:mb-4 lg:mb-5;
+    }
+
+    &-title {
+      @apply font-sora text-[26px] sm:text-[36px] lg:text-[48px] font-semibold leading-none
+        tracking-tight text-ink m-0;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-grid {
+      @apply max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-13 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .recommended-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}

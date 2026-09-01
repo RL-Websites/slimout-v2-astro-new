@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import Account from '../components/Account.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<Layout
+	title="My Account — SlimOut"
+	description="View and manage your SlimOut profile, contact details, and account security."
+>
+	<div class="site-header">
+		<!-- header section start -->
+		<Header />
+		<!-- header section end -->
+	</div>
+
+	<main>
+		<!-- account section start -->
+		<Account />
+		<!-- account section end -->
+	</main>
+
+	<div class="site-footer">
+		<!-- footer section start -->
+		<Footer />
+		<!-- footer section end -->
+	</div>
+</Layout>

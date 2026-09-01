@@ -1,0 +1,402 @@
+@layer components {
+  .quiz {
+    @apply relative flex flex-col min-h-screen px-5 sm:px-8 pt-6 sm:pt-11 pb-[150px] bg-cream
+      overflow-x-clip;
+  }
+
+  // --- decorative background (mirrors the sitewide header treatment) ---
+  .quiz-bg {
+    @apply absolute inset-0 overflow-hidden pointer-events-none z-0;
+
+    &-blob {
+      @apply absolute rounded-full block;
+
+      &--1 {
+        top: -140px;
+        left: -120px;
+        width: min(520px, 52vw);
+        aspect-ratio: 1;
+        background: radial-gradient(circle at 32% 32%, rgba(187, 204, 70, 0.2), rgba(187, 204, 70, 0) 68%);
+      }
+      &--2 {
+        top: 16%;
+        right: -160px;
+        width: min(460px, 46vw);
+        aspect-ratio: 1;
+        background: radial-gradient(circle at 60% 40%, rgba(16, 26, 20, 0.055), rgba(16, 26, 20, 0) 70%);
+      }
+      &--3 {
+        bottom: -180px;
+        left: 8%;
+        width: min(560px, 58vw);
+        aspect-ratio: 1;
+        background: radial-gradient(circle at 50% 50%, rgba(187, 204, 70, 0.13), rgba(187, 204, 70, 0) 70%);
+      }
+    }
+
+    &-ring {
+      @apply absolute rounded-full block border;
+
+      &--1 {
+        top: 22%;
+        left: -90px;
+        width: min(300px, 30vw);
+        aspect-ratio: 1;
+        border-color: rgba(148, 167, 46, 0.16);
+      }
+      &--2 {
+        bottom: 14%;
+        right: -70px;
+        width: min(360px, 34vw);
+        aspect-ratio: 1;
+        border-color: rgba(16, 26, 20, 0.06);
+      }
+    }
+
+    &-dot {
+      @apply absolute rounded-full block;
+
+      &--1 {
+        top: 8%;
+        right: 14%;
+        width: 9px;
+        height: 9px;
+        background: rgba(148, 167, 46, 0.35);
+      }
+      &--2 {
+        bottom: 26%;
+        left: 12%;
+        width: 7px;
+        height: 7px;
+        background: rgba(16, 26, 20, 0.14);
+      }
+    }
+  }
+
+  // --- step viewport ---
+  .quiz-viewport {
+    @apply relative z-10 flex-1 flex items-start justify-center;
+  }
+
+  .quiz-step {
+    @apply hidden w-full max-w-[640px];
+
+    &.is-active {
+      @apply block animate-[quiz-fade-up_0.4s_cubic-bezier(0.2,0.8,0.2,1)_both];
+    }
+
+    &[data-quiz-type="done"] {
+      @apply max-w-[1120px];
+    }
+  }
+
+  .quiz-question-title {
+    @apply font-sora text-[26px] sm:text-[32px] font-semibold tracking-tight text-ink leading-[1.15]
+      mb-7 sm:mb-9;
+  }
+
+  .quiz-question-options {
+    @apply grid grid-cols-1 gap-2.5;
+
+    &--multi {
+      @apply sm:grid-cols-2;
+    }
+  }
+
+  // --- date step ---
+  .quiz-date {
+    @apply grid grid-cols-3 gap-2.5;
+
+    &-select {
+      @apply relative block;
+
+      select {
+        @apply w-full appearance-none px-5 py-4 rounded-2xl border-[1.5px] border-[#DDE1D2]
+          bg-white font-sans text-[15.5px] text-ink cursor-pointer;
+      }
+
+      &::after {
+        content: '';
+        @apply absolute right-4 top-1/2 -translate-y-1/2 w-2.5 h-2.5 border-r-[1.5px]
+          border-b-[1.5px] border-muted-light rotate-45 pointer-events-none;
+      }
+    }
+  }
+
+  // --- units step ---
+  .quiz-units {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-2.5;
+
+    &--single {
+      @apply sm:grid-cols-1;
+    }
+  }
+
+  // --- review step ---
+  .quiz-review {
+    &-eyebrow {
+      @apply block font-mono text-[10px] tracking-[0.22em] uppercase text-lime-darker mb-3;
+    }
+
+    &-title {
+      @apply font-sora text-[28px] sm:text-[34px] font-semibold tracking-tight text-ink mb-3;
+
+      &-alt {
+        @apply font-serif italic font-normal;
+      }
+    }
+
+    &-lead {
+      @apply text-[15px] leading-[1.6] text-muted mb-8;
+    }
+
+    &-list {
+      @apply flex flex-col gap-2.5;
+    }
+
+    &-row {
+      @apply flex items-center justify-between gap-4 px-5 sm:px-6 py-5 rounded-2xl bg-white
+        border border-[#E4E7DA];
+
+      &-body {
+        @apply flex flex-col gap-1 min-w-0;
+      }
+
+      &-eyebrow {
+        @apply font-mono text-[9.5px] tracking-[0.18em] uppercase text-muted-light;
+      }
+
+      &-question {
+        @apply font-sora text-[14.5px] font-semibold tracking-tight text-ink;
+      }
+
+      &-answer {
+        @apply text-[14px] text-muted;
+
+        &--empty {
+          @apply text-[#A9B2A5] italic;
+        }
+      }
+
+      &-edit {
+        @apply shrink-0 px-4.5 py-2.5 rounded-full border border-[#D6DAC8] font-sora text-[13px]
+          font-semibold text-ink cursor-pointer transition-colors duration-[220ms];
+
+        &:hover {
+          @apply bg-ink text-offwhite border-ink;
+        }
+      }
+    }
+  }
+
+  // --- results (done) step ---
+  .quiz-results {
+    &-wrapper {
+      @apply flex flex-col items-center text-center;
+    }
+    &-eyebrow {
+      @apply block font-mono text-[10px] tracking-[0.22em] uppercase text-lime-darker mb-3;
+    }
+
+    &-title {
+      @apply font-sora text-[28px] sm:text-[36px] font-semibold tracking-tight text-ink mb-3;
+
+      &-alt {
+        @apply font-serif italic font-normal;
+      }
+    }
+
+    &-lead {
+      @apply text-[15px] leading-[1.6] text-muted mb-6 max-w-[520px];
+    }
+
+    &-chips {
+      @apply flex flex-wrap gap-2.5 mb-9;
+    }
+
+    &-chip {
+      @apply flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-[#E4E7DA];
+
+      &-label {
+        @apply font-mono text-[9.5px] tracking-[0.14em] uppercase text-muted-light;
+      }
+
+      &-value {
+        @apply font-sora text-[13px] font-semibold text-ink;
+      }
+    }
+
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10;
+    }
+
+    &-card {
+      @apply flex flex-col bg-white border border-[#E4E7DA] rounded-3xl overflow-hidden;
+
+      &-media {
+        @apply relative aspect-[4/3] bg-sage-100;
+
+        img {
+          @apply w-full h-full object-cover;
+        }
+      }
+
+      &-badge {
+        @apply absolute top-3 left-3 px-3 py-1.5 rounded-full bg-cream text-muted-dark
+          font-mono text-[9px] tracking-[0.1em] uppercase;
+
+        &--best {
+          @apply bg-sage-100 text-ink;
+        }
+      }
+
+      &-name {
+        @apply font-sora text-[18px] sm:text-[20px] font-semibold tracking-tight text-ink
+          px-5 pt-5;
+      }
+
+      &-desc {
+        @apply text-[13px] leading-[1.55] text-muted px-5 mt-2 line-clamp-2;
+      }
+
+      &-price {
+        @apply flex items-baseline gap-2 px-5 mt-4;
+
+        &-label {
+          @apply text-[12px] text-muted-light;
+        }
+
+        &-value {
+          @apply font-sora text-[16px] font-semibold text-ink;
+        }
+      }
+
+      &-actions {
+        @apply flex gap-2 p-5 mt-auto;
+
+        a,
+        button {
+          @apply flex-1 flex items-center justify-center text-center px-4 py-3 rounded-full
+            text-[13.5px] font-semibold transition-colors duration-[220ms] cursor-pointer border-0;
+        }
+      }
+
+      &-buy {
+        @apply bg-lime-dark text-white;
+
+        &:hover {
+          @apply bg-lime-darker text-white;
+        }
+      }
+
+      &-learn {
+        @apply border border-[#D6DAC8] text-ink;
+
+        &:hover {
+          @apply bg-ink text-offwhite border-ink;
+        }
+      }
+    }
+
+    &-banner {
+      @apply bg-ink rounded-3xl px-6 sm:px-9 py-8 sm:py-10 text-center;
+
+      &-eyebrow {
+        @apply block font-mono text-[10px] tracking-[0.2em] uppercase text-lime mb-3;
+      }
+
+      &-text {
+        @apply text-[14.5px] leading-[1.65] text-offwhite/80 max-w-[520px] mx-auto mb-6;
+      }
+
+      &-cta {
+        @apply inline-flex items-center justify-center px-6 py-3.5 rounded-full border
+          border-offwhite/30 text-offwhite text-[14px] font-semibold transition-colors
+          duration-[220ms];
+
+        &:hover {
+          @apply bg-offwhite text-ink border-offwhite;
+        }
+      }
+    }
+  }
+
+  // --- quize modal ---
+   .quiz-program-modal {
+    &-body {
+      @apply p-6.5 sm:p-9;
+    }
+
+    &-eyebrow {
+      @apply block font-mono text-[10px] tracking-[0.22em] uppercase text-muted-light mb-2.5;
+    }
+
+    &-title {
+      @apply font-sora text-[23px] sm:text-[27px] font-semibold tracking-tight text-ink m-0 mb-2
+        text-pretty;
+    }
+
+    &-lead {
+      @apply m-0 mb-6.5 text-[14.5px] leading-relaxed text-muted text-pretty;
+    }
+
+    &-options {
+      @apply flex flex-col gap-2.5 mb-6.5;
+    }
+
+    &-option {
+      @extend .input-radio;
+    }
+
+    &-option-body {
+      @apply flex-1 min-w-0 flex flex-col gap-1;
+    }
+
+    &-option-note {
+      @apply font-sans text-[13px] font-normal text-muted-light;
+    }
+
+    &-option-price {
+      @apply font-sora text-[17px] font-semibold text-ink shrink-0;
+    }
+
+    &-actions {
+      @extend .modal-alert-actions;
+    }
+
+    &-cancel {
+      @extend .modal-alert-cancel;
+    }
+
+    &-confirm {
+      @extend .modal-alert-confirm;
+    }
+  }
+
+  @keyframes quiz-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .quiz-step.is-active {
+      animation: none !important;
+    }
+    .common-progress-bar-fill,
+    .input-radio,
+    .input-checkbox,
+    .input-radio-dot,
+    .input-radio-dot::after,
+    .input-checkbox-box,
+    .input-checkbox-box svg,
+    .general-input-field {
+      transition-duration: 0.001ms !important;
+    }
+  }
+}

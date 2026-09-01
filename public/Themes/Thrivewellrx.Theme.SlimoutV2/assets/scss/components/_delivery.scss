@@ -1,0 +1,66 @@
+@layer components {
+  .delivery {
+    @apply bg-cream py-10 sm:py-16 lg:py-20 px-3 sm:px-4 lg:px-6;
+
+    &-panel {
+      @apply bg-ink rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] p-6 sm:p-12 lg:p-16
+        grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center;
+    }
+
+    &-content {
+      @apply min-w-0;
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[14px] tracking-[0.24em] uppercase text-lime mb-4 sm:mb-6;
+    }
+
+    &-title {
+      @apply font-sora text-[30px] sm:text-[42px] lg:text-[56px] font-medium leading-none
+        tracking-tight text-offwhite m-0 mb-5;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal text-lime;
+    }
+
+    &-body {
+      @apply m-0 mb-8 text-[15px] sm:text-[17px] leading-[1.7] text-offwhite/68 max-w-[520px]
+        text-pretty;
+    }
+
+    &-points {
+      @apply grid grid-cols-1 sm:grid-cols-3 gap-4.5 max-w-[540px];
+    }
+
+    &-point {
+      @apply border-t border-offwhite/20 pt-3.5;
+    }
+
+    &-point-title {
+      @apply font-sora text-[15px] font-semibold tracking-tight text-offwhite mb-1.5;
+    }
+
+    &-point-body {
+      @apply text-[13.5px] leading-snug text-offwhite/60;
+    }
+
+    &-media {
+      @apply min-w-0 relative;
+    }
+
+    &-frame {
+      @apply h-[300px] sm:h-[380px] lg:h-[460px] rounded-[22px] overflow-hidden;
+    }
+
+    &-image {
+      @apply w-full h-full object-cover;
+    }
+
+    &-badge {
+      @apply absolute left-[-12px] top-[-20px] px-5 py-3 bg-lime rounded-full font-sora
+        text-[13.5px] font-semibold tracking-tight text-ink;
+      box-shadow: 0 18px 34px -16px rgba(0, 0, 0, 0.5);
+    }
+  }
+}

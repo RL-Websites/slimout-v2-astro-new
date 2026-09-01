@@ -1,0 +1,150 @@
+---
+import Button from '../utils/Button.astro';
+
+import Drawer from '../common/Drawer.astro';
+
+interface Props {
+	labRequired?: boolean;
+}
+
+const { labRequired = false } = Astro.props;
+
+const OVERNIGHT = 39;
+
+const labNotes = [
+	'The patient must complete all required panels',
+	'The report must be uploaded clearly into the SlimOut portal',
+	'Missing or incomplete values will delay treatment and doctors consultation will be charged.',
+];
+
+const labPanels = [
+	'Prostate-Specific Ag',
+	'Testosterone, Free, Direct',
+	'CBC With Differential/Platelet',
+	'CBC/Diff Ambiguous Default',
+	'Estradiol, Sensitive',
+];
+
+const labSchedule = [
+	{
+		label: 'Day 0 lab',
+		text: 'Must be completed before any prescription review or medication shipment.',
+	},
+	{
+		label: 'Day 90 lab',
+		text: 'A reminder is sent 15 days before. This lab must be completed before Day 90, allowing the doctor 2–3 days to review results. Month 4 medication will not ship without this lab.',
+	},
+	{
+		label: 'Day 120 lab',
+		text: 'Another mandatory follow-up lab to monitor hormone safety and stability.',
+	},
+];
+---
+
+<Drawer width="560px">
+	<h3 class="drawer-heading">Select Shipping Type</h3>
+	<p class="drawer-lead">Please choose how this medication should be shipped.</p>
+	<div class="drawer-options">
+		<span class="drawer-option drawer-option--active" data-cart-ship-option="Regular">
+			<span class="drawer-option-dot" data-cart-option-dot>&#10003;</span>
+			<span>
+				<span class="drawer-option-label">Regular</span>
+				<span class="drawer-option-note">Included in shipping total</span>
+			</span>
+		</span>
+		<span class="drawer-option" data-cart-ship-option="Overnight">
+			<span class="drawer-option-dot" data-cart-option-dot></span>
+			<span>
+				<span class="drawer-option-label">Overnight Shipping</span>
+				<span class="drawer-option-note">+${OVERNIGHT.toFixed(2)}</span>
+			</span>
+		</span>
+	</div>
+	<div class="drawer-warning">
+		<div class="drawer-warning-label">Please note</div>
+		<p class="drawer-warning-text">
+			Overnight shipping applies after prescription approval and pharmacy processing. It does
+			not guarantee next-day delivery from the order date.
+		</p>
+	</div>
+
+	{
+		labRequired && (
+			<>
+				<div class="drawer-lab-panel">
+					<h4 class="drawer-lab-title">
+						Lab testing is mandatory for all testosterone treatments
+					</h4>
+					<p class="drawer-lab-text">
+						Lab results are required before a doctor can approve any testosterone
+						prescription. Partners may allow the patient to use a certified lab of their
+						choice. If selecting this option:
+					</p>
+					<p class="drawer-lab-text">You have two options:</p>
+					<div class="drawer-lab-list">
+						{labNotes.map((text) => (
+							<div class="drawer-lab-item">
+								<span class="drawer-lab-dot" />
+								<span>{text}</span>
+							</div>
+						))}
+					</div>
+					<div class="drawer-lab-sublabel">Required lab panels</div>
+					<div class="drawer-lab-list">
+						{labPanels.map((text) => (
+							<div class="drawer-lab-item">
+								<span class="drawer-lab-dot" />
+								<span>{text}</span>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<div class="drawer-lab-panel">
+					<h4 class="drawer-lab-title">Important compliance requirements</h4>
+					<div class="drawer-lab-schedule">
+						{labSchedule.map((item) => (
+							<div>
+								<div class="drawer-lab-schedule-label">{item.label}</div>
+								<p class="drawer-lab-schedule-text">{item.text}</p>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<div class="drawer-lab-note">
+					<div class="drawer-lab-note-label">Important</div>
+					<p class="drawer-lab-text">
+						Without these lab results, our doctors cannot proceed with your prescription.
+					</p>
+				</div>
+			</>
+		)
+	}
+
+	<Fragment slot="footer">
+		<Button className="drawer-agree" data-cart-drawer-agree>
+			I Agree
+			<span class="drawer-agree-arrow">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+				</svg>
+			</span>
+		</Button>
+		<Button variant="link" className="drawer-decline" data-cart-drawer-close text="Do Not Proceed" />
+	</Fragment>
+</Drawer>
+
+<div class="toast-region" aria-live="polite" aria-atomic="true">
+	<div class="notification-toast notification-toast--success toast" role="status" data-cart-toast>
+		<span class="notification-toast__icon-badge">
+			<i class="notification-toast__icon icon-checkbox-filled" aria-hidden="true"></i>
+		</span>
+		<p class="notification-toast__message">Added to cart successfully!</p>
+		<button type="button" class="notification-toast__close" data-bs-dismiss="toast" aria-label="Close notification">
+			<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+				<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+</div>

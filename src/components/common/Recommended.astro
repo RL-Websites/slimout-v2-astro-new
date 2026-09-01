@@ -1,0 +1,32 @@
+---
+import ProductCard from './ProductCard.astro';
+
+interface RecommendedItem {
+	name: string;
+	desc: string;
+	priceLabel: string;
+	price: string;
+	unit?: number;
+	qty?: string;
+	image: string;
+}
+
+interface Props {
+	items: RecommendedItem[];
+	isFromCart?: boolean;
+}
+
+const { items, isFromCart = false } = Astro.props;
+---
+
+<section class:list={['recommended', { 'recommended--alt': !isFromCart }]}>
+	<div class="recommended-head">
+		{isFromCart && <div class="recommended-eyebrow">Add to your order</div>}
+		<h2 class="recommended-title">
+			Recommended <span class="recommended-title-alt">for you</span>
+		</h2>
+	</div>
+	<div class="recommended-grid">
+		{items.map((item) => <ProductCard product={item} variant="recommended" isFromCart={isFromCart} />)}
+	</div>
+</section>

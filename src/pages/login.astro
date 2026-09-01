@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
+import LoginForm from '../components/LoginForm.astro';
+
+const showBackToCart = true;
+---
+
+<Layout
+	title="Log In — SlimOut"
+	description="Sign in to your SlimOut account to track orders and manage your plan."
+>
+	<div class="login-page">
+		<div class="login-logo">
+			<a href="index.html" class="login-logo-link">
+				<Logo width={114} height={42} />
+			</a>
+		</div>
+
+		<main class="login-main">
+			<div class="login-container">
+				<!-- login section start -->
+				<div class="login-head">
+					<h1 class="login-title">
+						Welcome <span class="login-title-alt">back</span>
+					</h1>
+					<p class="login-lead">Sign in to track your orders and manage your plan.</p>
+				</div>
+
+				<LoginForm registerHref="register.html" />
+
+				{
+					showBackToCart && (
+						<div class="login-back">
+							<a href="cart.html" class="login-back-link">Back to cart</a>
+						</div>
+					)
+				}
+
+				<div class="login-footnote">
+					<span class="login-footnote-dot"></span>
+					Secure &amp; convenient digital care
+				</div>
+				<!-- login section end -->
+			</div>
+		</main>
+	</div>
+</Layout>

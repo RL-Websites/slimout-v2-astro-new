@@ -1,0 +1,44 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+	/** Relative prefix back to the site root, for pages nested one or more levels deep (e.g. "../"). */
+	base?: string;
+}
+
+const {
+	title = "SlimOut — Personalized Healthcare, Simplified",
+	description = "SlimOut connects patients with licensed healthcare providers through a seamless telehealth experience.",
+	base = "",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+		<link rel="icon" href={`${base}favicon.ico`} />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link
+			rel="stylesheet"
+			href={`${base}Themes/Thrivewellrx.Theme.SlimoutV2/assets/css/style.css`}
+		/>
+		<link
+			rel="stylesheet"
+			href={`${base}Themes/Thrivewellrx.Theme.SlimoutV2/assets/icons/style.css`}
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<title>{title}</title>
+		<script
+			type="module"
+			src={`${base}Themes/Thrivewellrx.Theme.SlimoutV2/assets/js/main.js`}></script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

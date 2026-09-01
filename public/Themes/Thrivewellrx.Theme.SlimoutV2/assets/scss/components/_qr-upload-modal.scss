@@ -1,0 +1,40 @@
+@layer components {
+  .qr-upload-modal-body {
+    @apply p-6.5 sm:p-9 text-center;
+  }
+
+  .qr-upload-modal-title {
+    @apply font-sora text-[19px] sm:text-[23px] font-semibold tracking-tight text-ink m-0 mb-2;
+  }
+
+  .qr-upload-modal-lead {
+    @apply m-0 mb-4.5 text-[14.5px] leading-relaxed text-muted text-pretty;
+  }
+
+  .qr-upload-modal-badge {
+    @apply inline-flex font-mono text-[9.5px] tracking-[0.16em] uppercase text-[#5F6E1D]
+      py-1.75 px-3.5 bg-sage-100 border border-[#D9E3B4] rounded-full mb-5;
+  }
+
+  .qr-upload-modal-qr {
+    @apply flex justify-center mb-5;
+  }
+
+  .qr-upload-modal-qr-image {
+    @apply block w-[180px] h-[180px] rounded-[14px] border border-[#E4E7DA] bg-white
+      bg-contain bg-center bg-no-repeat;
+  }
+
+  .qr-upload-modal-helper {
+    @apply m-0 mb-5.5 text-[13.5px] leading-relaxed text-[#8B9483] text-pretty;
+  }
+
+  .qr-upload-modal-cancel {
+    @apply inline-flex items-center justify-center text-[15px] text-ink py-3.5 px-6 border
+      border-[#D6DAC8] rounded-full cursor-pointer transition-colors duration-250;
+
+    &:hover {
+      @apply bg-ink text-offwhite border-ink;
+    }
+  }
+}

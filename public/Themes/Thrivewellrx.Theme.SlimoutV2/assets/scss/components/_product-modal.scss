@@ -1,0 +1,127 @@
+@layer components {
+  .product-modal {
+    @apply relative p-0;
+
+    &-close {
+      @apply absolute top-4 sm:top-6 right-4 sm:right-6 z-10 size-9 flex items-center justify-center bg-transparent !border border-sage-300 text-dark transition-all duration-200;
+
+      &:hover {
+        @apply bg-dark !text-white;
+      }
+    }
+
+    &-content {
+      @apply grid grid-cols-1 sm:grid-cols-2 w-full h-full;
+    }
+
+    &-image-side {
+      @apply flex items-center justify-center bg-[#E7E7C8] rounded-t-2xl sm:rounded-t-none sm:rounded-l-2xl p-0;
+
+    }
+
+    &-image-wrapper {
+      @apply relative flex items-center justify-center w-full max-w-[300px] sm:max-w-none aspect-square sm:aspect-[0.9];
+    }
+
+    &-image {
+      @apply w-full object-cover;
+    }
+
+    &-info-side {
+      @apply flex flex-col px-6 sm:px-8 py-5 overflow-y-auto rounded-b-2xl sm:rounded-b-none sm:rounded-r-2xl;
+    }
+
+    &-badge {
+      @apply inline-flex items-center justify-center gap-1.5 bg-sage-100 text-greenDeep px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide w-fit mb-4;
+    }
+
+    &-title {
+      @apply text-2xl sm:text-3xl font-bold text-[#101A14] m-0 mb-4 sm:mb-6 leading-tight;
+    }
+
+    &-ingredient,
+    &-prescribed {
+      @apply mb-4 sm:mb-5;
+    }
+
+    &-label {
+      @apply text-xs sm:text-sm font-semibold text-[#101A14] block mb-1.5 sm:mb-2;
+    }
+
+    &-ingredient-text,
+    &-prescribed-text {
+      @apply text-sm sm:text-base leading-relaxed text-[#4A4A47] m-0;
+    }
+
+    &-pricing {
+      @apply flex items-baseline gap-2 sm:gap-3 my-4 sm:my-6 mb-6 sm:mb-8;
+    }
+
+    &-price-intro {
+      @apply text-xs sm:text-sm text-[#7A7A76] font-medium;
+    }
+
+    &-price-value {
+      @apply text-3xl sm:text-4xl font-bold text-greenDeep leading-none;
+    }
+
+    &-actions {
+      @apply flex flex-col gap-3 sm:gap-4 mt-auto;
+    }
+
+    &-cta-primary,
+    &-cta-secondary {
+      @apply px-4 sm:px-6 py-3 sm:py-4 rounded-full text-sm sm:text-base font-semibold cursor-pointer transition-all duration-250 border border-transparent flex items-center justify-center gap-2 sm:gap-3 min-h-10 sm:min-h-12;
+    }
+
+    &-cta-primary {
+      @apply bg-[#A3C946] text-white border-[#A3C946];
+
+      &:hover {
+        @apply bg-[#95B93B] border-[#95B93B] -translate-y-0.5;
+      }
+
+      svg {
+        @apply w-4 h-4 sm:w-5 sm:h-5;
+      }
+    }
+
+    &-cta-secondary {
+      @apply bg-transparent text-[#101A14] border-[#E4E7DA];
+
+      &:hover {
+        @apply bg-[#F6F8EE] border-[#101A14];
+      }
+    }
+
+    &-qty {
+      @apply flex items-center justify-between gap-1 w-full p-1.5 rounded-full border border-[#E4E7DA];
+    }
+
+    &-qty-btn {
+      @apply w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-lg font-semibold text-[#101A14] bg-transparent border-none cursor-pointer transition-colors duration-200;
+
+      &:hover {
+        @apply bg-[#101A14] text-white;
+      }
+
+      &[data-disabled='true'] {
+        @apply text-[#C3CBBD] cursor-not-allowed;
+
+        &:hover {
+          @apply bg-transparent text-[#C3CBBD];
+        }
+      }
+    }
+
+    &-qty-value {
+      @apply flex-1 text-center font-semibold text-base text-[#101A14];
+    }
+
+    &-recommended {
+      .recommended {
+        @apply py-12 sm:py-20;
+      }
+    }
+  }
+}

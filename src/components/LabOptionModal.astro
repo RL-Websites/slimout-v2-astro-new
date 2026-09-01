@@ -1,0 +1,67 @@
+---
+import Button from './utils/Button.astro';
+
+import Modal from './Modal.astro';
+import SelectableCard from './SelectableCard.astro';
+
+const options = [
+	{
+		key: 'requisition',
+		label: "Patient's Preferred Lab (Requisition Provided)",
+		lines: [
+			'A lab requisition form will be provided that can be taken to any laboratory of choice.',
+			'Payment will be made directly to the lab at the time of the visit.',
+		],
+	},
+	{
+		key: 'upload',
+		label: 'Upload Existing Lab Results',
+		lines: [
+			'If recent lab results are available, they may be uploaded for medical review.',
+			'The lab report must be completed within the last 90 days and include the required tests based on the patient’s profile.',
+			'If required tests are missing, the order may be cancelled after doctor review. Medication will not be charged, but the doctor review fee may still apply.',
+		],
+	},
+	{
+		key: 'prepaid',
+		label: 'Prepaid Lab Setup by SlimOut',
+		lines: [
+			'SlimOut will arrange the lab order with a partner laboratory.',
+			'The lab test fee will be added during checkout. The patient simply needs to visit the lab on the scheduled day, and results will be sent directly to our medical team.',
+			'(No paperwork or report uploads required.)',
+		],
+	},
+];
+---
+
+<Modal id="lab-option-modal" size="xl" labelledBy="lab-option-modal-title">
+	<div class="modal-header">
+		<h3 class="lab-option-modal-title" id="lab-option-modal-title">Select lab option</h3>
+		<Button variant="link" className="modal-close" data-modal-close aria-label="Close">
+			<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+				<path d="M6 6l12 12M18 6L6 18"></path>
+			</svg>
+		</Button>
+	</div>
+
+	<div class="modal-body">
+		<div class="lab-option-modal-grid p-4">
+			{
+				options.map((option) => (
+					<SelectableCard name="lab-option" value={option.key} label={option.label}>
+						{option.lines.map((line) => <span class="selectable-card-line">{line}</span>)}
+					</SelectableCard>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<Button className="lab-option-modal-save" data-lab-option-save>
+			Save
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+			</svg>
+		</Button>
+	</div>
+</Modal>

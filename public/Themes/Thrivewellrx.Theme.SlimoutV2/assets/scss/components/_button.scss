@@ -1,0 +1,195 @@
+@layer components {
+
+  /* Theme Button System */
+  .theme-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-3 text-base font-semibold transition-all duration-200 no-underline !text-sm;
+    border: none;
+    cursor: pointer;
+
+
+
+    &.is-disabled {
+      @apply bg-[#E4E7DA] text-[#A9B2A5] font-medium cursor-not-allowed;
+
+      &:hover {
+        @apply -translate-y-[3px] bg-[#E4E7DA] text-[#A9B2A5];
+      }
+
+      &:hover .checkout-sticky-pay-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    /* Primary variant */
+    &__primary {
+      @apply bg-primary text-white;
+
+      &:hover {
+        @apply bg-lime-dark shadow-lg opacity-100;
+      }
+
+
+    }
+
+    /* Secondary variant */
+    &__secondary {
+      @apply bg-muted text-white;
+
+      &:hover {
+        @apply bg-muted-dark shadow-lg opacity-100;
+      }
+
+    }
+
+    /* White variant */
+    &__white {
+      @apply bg-offwhite justify-center sm:justify-start text-ink px-4 py-[15px] pl-7 transition-all duration-300;
+
+      &:hover {
+        @apply shadow-lg opacity-100;
+      }
+
+      &:active {
+        @apply scale-100;
+      }
+    }
+
+    /* White variant */
+    &__outline {
+      @apply bg-offwhite text-ink transition-all duration-300 border border-sage-300;
+
+      &:hover {
+        @apply bg-dark text-white shadow-lg opacity-100;
+      }
+
+      &:active {
+        @apply scale-100;
+      }
+
+
+      &--white {
+        @apply text-white bg-transparent transition-all duration-300 border border-offwhite;
+
+        &:hover {
+          @apply bg-offwhite text-dark shadow-lg opacity-100;
+        }
+
+        &:active {
+          @apply scale-100;
+        }
+      }
+
+    }
+
+    &__outline-dark {
+      @apply text-[15px] text-ink px-6 py-3.75 border border-ink rounded-full cursor-pointer whitespace-nowrap transition-all duration-[250ms] no-underline;
+
+      &:hover {
+        @apply bg-ink text-offwhite;
+      }
+    }
+
+    &__danger {
+      @apply bg-red-500 text-white;
+
+      &:hover {
+        @apply bg-red-800 shadow-lg opacity-90;
+      }
+    }
+
+    &__icon {
+      @apply w-11 h-11 rounded-full bg-lime flex items-center justify-center shrink-0;
+
+      i {
+        @apply transition-all duration-300;
+      }
+
+
+
+      &:hover i {
+        @apply -rotate-45;
+      }
+    }
+
+    &:hover &__arrow {
+      @apply -rotate-45;
+    }
+
+
+
+    &:hover:not(:disabled) {
+      @apply opacity-90;
+    }
+
+    &:active:not(:disabled) {
+      @apply scale-95;
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      @apply cursor-not-allowed opacity-50;
+    }
+
+    &:focus-visible {
+      @apply outline-none ring-2 ring-primary ring-offset-2;
+    }
+
+    /* Danger variant */
+
+
+    /* Link variant */
+    &__link {
+      @apply px-0 py-0 text-primary underline;
+
+      &:hover:not(:disabled) {
+        @apply text-lime-dark;
+      }
+
+      &:active:not(:disabled) {
+        @apply text-lime-darker;
+      }
+    }
+
+    /* Size variants */
+    &--sm {
+      @apply px-4 py-2 text-sm;
+    }
+
+    &--lg {
+      @apply px-8 py-4 text-lg;
+    }
+
+    /* Icon-only variant */
+    &--icon {
+      @apply rounded-full p-2;
+    }
+
+    /* Full width variant */
+    &--full {
+      @apply w-full;
+    }
+
+    &__loader {
+      @apply inline-block size-[18px] shrink-0 grow-0 rounded-[50px] border-2 border-primary border-t-white;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+      animation: spin 1.3s linear infinite;
+    }
+  }
+
+
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.w-100 {
+  width: 100%;
+}

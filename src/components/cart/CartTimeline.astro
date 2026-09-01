@@ -1,0 +1,49 @@
+---
+interface Props {
+	active?: 1 | 2 | 3;
+}
+
+const { active = 1 } = Astro.props;
+
+const steps = [
+	{ num: 1, label: 'Cart' },
+	{ num: 2, label: 'Checkout' },
+	{ num: 3, label: 'Confirmation' },
+];
+---
+
+<div class="cart-timeline">
+	<div class="cart-timeline-grid">
+		{
+			steps.map((step, i) => (
+				<span
+					class:list={[
+						'cart-timeline-label',
+						i === 0 && 'cart-timeline-label--start',
+						i === steps.length - 1 && 'cart-timeline-label--end',
+						step.num === active && 'cart-timeline-label--current',
+					]}
+				>
+					{step.label}
+				</span>
+			))
+		}
+		<div class="cart-timeline-track">
+			<span class="cart-timeline-line"></span>
+			{
+				steps.map((step, i) => (
+					<span
+						class:list={[
+							'cart-timeline-dot',
+							i === 0 && 'cart-timeline-dot--start',
+							i === steps.length - 1 && 'cart-timeline-dot--end',
+							step.num <= active && 'cart-timeline-dot--active',
+						]}
+					>
+						{step.num}
+					</span>
+				))
+			}
+		</div>
+	</div>
+</div>

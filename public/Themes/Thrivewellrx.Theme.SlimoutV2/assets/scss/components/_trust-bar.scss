@@ -1,0 +1,33 @@
+@layer components {
+  .trust-bar {
+    @apply bg-lime pt-14 sm:pt-20 lg:pt-28 pb-7 sm:pb-20 lg:pb-28 text-center;
+
+    &-inner {
+      @apply max-w-[1040px] mx-auto px-5 sm:px-8 lg:px-12;
+    }
+
+    &-label {
+      @apply font-mono text-[14px] tracking-[0.24em] uppercase text-ink/55 mb-6 sm:mb-8;
+    }
+
+    &-statement {
+      @apply m-0 mb-9 sm:mb-12 font-sora text-[22px] sm:text-[32px] lg:text-[42px] font-medium leading-[1.18] tracking-tight text-ink text-pretty;
+    }
+
+    &-statement-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-certs {
+      @apply flex flex-wrap items-center justify-center gap-5 sm:gap-8 lg:gap-11 pt-6 sm:pt-9 border-t border-ink/20 font-sora text-sm sm:text-lg lg:text-xl font-semibold tracking-tight text-ink/45;
+    }
+
+    &-cert {
+      @apply transition-colors;
+
+      &:hover {
+        @apply text-ink;
+      }
+    }
+  }
+}

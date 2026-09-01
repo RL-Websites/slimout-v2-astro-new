@@ -1,0 +1,48 @@
+---
+import Button from '../utils/Button.astro'
+
+interface Props {
+	total: number;
+}
+
+const { total } = Astro.props;
+
+const money = (n: number) => '$' + n.toFixed(2);
+---
+
+<div class="checkout-sticky">
+	<div class="checkout-sticky-inner">
+		<div class="checkout-sticky-desktop">
+			<div class="checkout-sticky-total">
+				<span class="checkout-sticky-total-label">Total</span>
+				<span class="checkout-sticky-total-value">{money(total)}</span>
+			</div>
+			<a href="cart.html" class="checkout-sticky-back">Go Back</a>
+			<Button className="checkout-sticky-pay" data-pay>
+				Place Order
+				<span class="checkout-sticky-pay-arrow">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+					</svg>
+				</span>
+			</Button>
+		</div>
+		<div class="checkout-sticky-mobile">
+			<div class="checkout-sticky-mobile-row">
+				<span class="checkout-sticky-total-label">Total</span>
+				<span class="checkout-sticky-total-value">{money(total)}</span>
+			</div>
+			<div class="checkout-sticky-mobile-grid">
+				<a href="cart.html" class="checkout-sticky-back">Go Back</a>
+				<Button className="checkout-sticky-pay" data-pay>
+					Place Order
+					<span class="checkout-sticky-pay-arrow">
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+						</svg>
+					</span>
+				</Button>
+			</div>
+		</div>
+	</div>
+</div>

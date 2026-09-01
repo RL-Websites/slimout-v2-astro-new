@@ -1,0 +1,25 @@
+---
+import Button from '../utils/Button.astro';
+import Modal from '../Modal.astro';
+
+// Program-length picker opened from QuizResults' "Buy Now" buttons (see quiz.js in common.js).
+// Product name/price and the program options are filled in at open-time since they depend on
+// which recommendation card was clicked — this component only owns the shell + static copy.
+---
+
+<Modal id="quiz-program-modal" size="sm" labelledBy="quiz-program-modal-title">
+	<div class="quiz-program-modal-body">
+		<span class="quiz-program-modal-eyebrow">Select program</span>
+		<h2 class="quiz-program-modal-title" id="quiz-program-modal-title" data-quiz-program-name></h2>
+		<p class="quiz-program-modal-lead">
+			Choose the length of your program. You can change it later from your portal.
+		</p>
+
+		<div class="quiz-program-modal-options" data-quiz-program-options></div>
+
+		<div class="quiz-program-modal-actions">
+			<Button variant="outline" className="quiz-program-modal-cancel" data-modal-close text="Cancel" />
+			<Button className="quiz-program-modal-confirm" data-quiz-program-confirm text="Confirm" />
+		</div>
+	</div>
+</Modal>

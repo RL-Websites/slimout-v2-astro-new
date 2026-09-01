@@ -1,0 +1,114 @@
+---
+const states = ["Texas", "Florida", "California", "New York"];
+const cities = ["Austin", "Houston", "Dallas"];
+---
+
+<div class="checkout-form">
+	<div class="checkout-form-head">
+		<div class="checkout-form-head-left">
+			<span class="checkout-form-step">2</span>
+			<h2 class="checkout-form-title">Shipping Info</h2>
+		</div>
+		<span class="checkbox is-checked" data-save-toggle="ship">
+			<span class="checkbox-box">
+				<i class="icon-checkmark"></i>
+			</span>
+			Save this information
+		</span>
+	</div>
+
+	<div class="checkout-form-grid checkout-form-grid--auto">
+		<label class="checkout-form-field">
+			<span class="checkout-form-label">Your Name</span>
+			<input
+				type="text"
+				placeholder="Your Name"
+				aria-label="Your name"
+				class="checkout-form-input"
+			/>
+		</label>
+		<label class="checkout-form-field">
+			<span class="checkout-form-label">Email Address</span>
+			<input
+				type="email"
+				placeholder="Your Email Address"
+				aria-label="Email address"
+				class="checkout-form-input"
+			/>
+		</label>
+		<label class="checkout-form-field">
+			<span class="checkout-form-label">State</span>
+			<div class="checkout-form-select-wrap">
+				<select aria-label="State" class="checkout-form-select">
+					<option>Select State</option>
+					{states.map((s) => <option>{s}</option>)}
+				</select>
+				<span class="checkout-form-select-chevron">
+					<svg
+						width="17"
+						height="17"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.8"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M6 9l6 6 6-6"></path>
+					</svg>
+				</span>
+			</div>
+		</label>
+		<label class="checkout-form-field">
+			<span class="checkout-form-label">Address</span>
+			<input
+				type="text"
+				placeholder="Your Address"
+				aria-label="Address"
+				class="checkout-form-input"
+			/>
+		</label>
+		<label class="checkout-form-field">
+			<span class="checkout-form-label">City</span>
+			<div class="checkout-form-select-wrap">
+				<select aria-label="City" class="checkout-form-select">
+					<option>Select City</option>
+					{cities.map((c) => <option>{c}</option>)}
+				</select>
+				<span class="checkout-form-select-chevron">
+					<svg
+						width="17"
+						height="17"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.8"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M6 9l6 6 6-6"></path>
+					</svg>
+				</span>
+			</div>
+		</label>
+		<label class="checkout-form-field">
+			<span class="checkout-form-label">Zip Code</span>
+			<input
+				type="text"
+				placeholder="Your Zip Code"
+				aria-label="Zip code"
+				class="checkout-form-input"
+			/>
+		</label>
+	</div>
+
+	<span
+		class="checkout-checkbox checkout-checkbox--mobile"
+		data-save-toggle="ship"
+	>
+		<span class="checkout-checkbox-box"></span>
+		Save this information
+	</span>
+</div>

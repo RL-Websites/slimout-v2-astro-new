@@ -1,0 +1,31 @@
+@layer components {
+  .checkbox {
+    @apply flex items-center gap-2.25 text-[13.5px] text-muted cursor-pointer select-none;
+
+    &__box {
+      @apply w-4.75 h-4.75 rounded-[5px] shrink-0 mt-0.25 flex items-center justify-center text-[11px] border-[1.5px] border-sage-400 bg-white text-ink transition-colors duration-[220ms];
+
+      i {
+        @apply opacity-0 scale-0 transition-[opacity,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
+      }
+    }
+
+    &.is-checked {
+      .checkbox__box {
+        @apply border-lime bg-lime text-white;
+
+        i {
+          @apply opacity-100 scale-100;
+        }
+      }
+    }
+
+    &--desktop {
+      @apply hidden sm:flex;
+    }
+
+    &--mobile {
+      @apply flex sm:hidden mt-4;
+    }
+  }
+}

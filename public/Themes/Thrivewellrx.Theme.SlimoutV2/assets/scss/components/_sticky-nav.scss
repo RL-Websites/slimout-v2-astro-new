@@ -1,0 +1,72 @@
+// Generic reusable fixed bottom step-nav bar (see src/components/StickyNav.astro) — kept
+// separate from page-level partials so any single-step-flow page can drop this in without
+// re-declaring the same fixed/backdrop-blur/border chrome per page.
+@layer components {
+  .sticky-nav {
+    @apply fixed left-0 right-0 bottom-0 z-[90] bg-cream/95 backdrop-blur-xl border-t
+      border-sage-300 px-5 sm:px-8 lg:px-13 py-3.5 sm:py-4.5;
+
+    &-inner {
+      @apply mx-auto flex flex-wrap items-center gap-3;
+      &__wrapper {
+        @apply max-w-[980px] mx-auto;
+      }
+    }
+
+    &-status {
+      @apply mr-auto min-w-0 text-[13.5px] text-[#8B9483];
+    }
+
+    &-back {
+      @apply flex items-center text-[15px] text-ink py-3.5 px-6.5 border border-[#D6DAC8]
+        rounded-full whitespace-nowrap cursor-pointer transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-next {
+      @apply flex items-center gap-2.75 text-[15.5px] font-medium py-3.25 pr-3.5 pl-6.5
+        rounded-full whitespace-nowrap bg-[#E4E7DA] text-[#A9B2A5] cursor-not-allowed
+        transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)];
+
+      &.is-enabled {
+        @apply bg-lime text-white cursor-pointer;
+
+        &:hover {
+          @apply -translate-y-[3px];
+        }
+      }
+
+      &.is-enabled:hover .sticky-nav-next-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-next-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+  }
+
+  @media (max-width: 47.9375rem) {
+    .sticky-nav-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      &__alt {
+        grid-template: none;
+      }
+    }
+    .sticky-nav-status {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-right: 0;
+    }
+    .sticky-nav-back,
+    .sticky-nav-next {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

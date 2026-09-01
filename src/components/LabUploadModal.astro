@@ -1,0 +1,26 @@
+---
+import Button from './utils/Button.astro';
+
+import Modal from './Modal.astro';
+import FileDropzone from './FileDropzone.astro';
+---
+
+<Modal id="lab-upload-modal" size="lg" labelledBy="lab-upload-modal-title">
+	<div class="modal-header">
+		<h3 class="lab-upload-modal-title" id="lab-upload-modal-title">Upload Lab Report</h3>
+		<Button variant="link" className="modal-close" data-modal-close aria-label="Close">
+			<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+				<path d="M6 6l12 12M18 6L6 18"></path>
+			</svg>
+		</Button>
+	</div>
+
+	<div class="modal-body">
+		<FileDropzone id="lab-report" accept=".jpg,.jpeg,.png,.pdf" maxMB={50} emptyText="Uploaded reports will be listed here." />
+	</div>
+
+	<div class="modal-footer">
+		<Button variant="link" className="lab-upload-modal-cancel" data-modal-close text="Cancel" />
+		<Button className="lab-upload-modal-save" data-lab-upload-save text="Save" />
+	</div>
+</Modal>

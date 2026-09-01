@@ -1,0 +1,179 @@
+@layer components {
+  .lab-results {
+    @apply bg-cream px-5 sm:px-8 lg:px-13;
+    padding-top: calc(114px + clamp(28px, 5vw, 64px));
+    padding-bottom: clamp(130px, 15vh, 170px);
+
+    &-inner {
+      @apply max-w-[980px] mx-auto;
+    }
+
+    &-title {
+      @apply font-sora text-[30px] sm:text-[42px] lg:text-[56px] font-medium leading-[1.02]
+        tracking-tighter text-ink text-center m-0 mb-7 sm:mb-9 lg:mb-11 text-balance;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-card {
+      @apply bg-white border border-[#E4E7DA] rounded-3xl overflow-hidden;
+    }
+
+    &-tests {
+      @apply p-6 sm:p-7 lg:p-8.5;
+    }
+
+    &-heading {
+      @apply font-sora text-[18px] sm:text-[20px] lg:text-[22px] font-semibold tracking-tight
+        text-ink m-0 mb-2.5;
+    }
+
+    &-heading-pretty {
+      @apply text-pretty;
+    }
+
+    &-tests-lead {
+      @apply m-0 mb-4.5 sm:mb-6 text-[15px] leading-relaxed text-muted text-pretty;
+    }
+
+    &-panels {
+      @extend .checkout-lab-option-tests-list;
+    }
+
+    &-panel-chip {
+      @extend .checkout-lab-option-tests-chip;
+    }
+
+    &-choice {
+      @apply p-6 sm:p-7 lg:p-8.5 border-t border-dashed border-[#D9E0CC];
+    }
+
+    &-choice-lead {
+      @apply m-0 mb-4.5 sm:mb-5.5 text-[15px] leading-relaxed text-muted;
+    }
+
+    // Empty state — no option chosen yet
+    &-empty {
+      @apply flex flex-wrap items-center gap-3.5 p-4.5 sm:p-5.5 border-[1.5px] border-dashed
+        border-lime-dark bg-sage-50 rounded-[18px] cursor-pointer transition-colors duration-250;
+
+      &:hover {
+        @apply border-lime-deep bg-sage-100;
+      }
+    }
+
+    &-empty-icon {
+      @apply flex items-center justify-center w-10 h-10 rounded-full bg-sage-100 text-[#5F6E1D]
+        shrink-0;
+    }
+
+    &-empty-body {
+      @apply flex-1 min-w-[150px];
+    }
+
+    &-empty-title {
+      @apply block font-sora text-[15.5px] font-semibold tracking-tight text-ink mb-0.75;
+    }
+
+    &-empty-text {
+      @apply block text-[13.5px] leading-snug text-[#8B9483];
+    }
+
+    &-empty-cta {
+      @apply flex items-center gap-2.5 text-[15px] font-medium text-white py-3.25 pr-3.5 pl-6
+        bg-lime-dark rounded-full whitespace-nowrap transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-[3px];
+      }
+    }
+
+    // Filled state — option chosen
+    &-filled {
+      @apply p-4.5 sm:p-5.5 border-[1.5px] border-lime-dark bg-[#F6F8EE] rounded-[18px];
+    }
+
+    &-filled-top {
+      @apply flex flex-wrap items-center gap-3.5;
+    }
+
+    &-filled-icon {
+      @apply flex items-center justify-center w-10 h-10 rounded-full bg-lime-dark text-white
+        shrink-0;
+    }
+
+    &-filled-body {
+      @apply flex-1 min-w-[150px];
+    }
+
+    &-filled-label {
+      @apply block font-mono text-[9.5px] tracking-[0.18em] uppercase text-lime-darker mb-1.25;
+    }
+
+    &-filled-value {
+      @apply block font-sora font-semibold tracking-tight
+        text-ink text-pretty;
+      font-size: clamp(15.5px, 1.7vw, 17px);
+    }
+
+    &-filled-action {
+      @apply flex items-center justify-center gap-2.25 text-[14.5px] text-ink py-3 px-5
+        border border-[#C6D38A] rounded-full cursor-pointer whitespace-nowrap transition-colors
+        duration-250 w-full sm:w-auto;
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-filled-followup {
+      @apply m-0 mt-3.5 pt-3.5 border-t border-[#D9E3B4] text-[14.5px] leading-relaxed
+        text-muted-dark text-pretty;
+    }
+
+    &-files {
+      @apply mt-3.5 pt-3.5 border-t border-[#D9E3B4];
+    }
+
+    &-files-label {
+      @apply flex items-center gap-2.5 mb-2.75 font-mono text-[9.5px] tracking-[0.18em]
+        uppercase text-lime-darker;
+    }
+
+    &-file-list {
+      @apply flex flex-col gap-2;
+    }
+
+    &-file-row {
+      @apply flex items-center gap-2.75 py-2.75 px-3.5 bg-white border border-[#E4E7DA]
+        rounded-xl;
+    }
+
+    &-file-icon {
+      @apply flex shrink-0 text-lime-darker;
+    }
+
+    &-file-name {
+      @apply flex-1 min-w-0 text-[14px] text-ink truncate;
+    }
+
+    &-file-size {
+      @apply text-[12.5px] text-[#8B9483] shrink-0 whitespace-nowrap;
+    }
+
+    &-notice {
+      @apply flex gap-3.25 mt-3 p-4.5 sm:p-5.5 bg-sage-100 border border-dashed border-[#C6D38A]
+        rounded-[18px];
+    }
+
+    &-notice-icon {
+      @apply flex shrink-0 text-lime-darker mt-px;
+    }
+
+    &-notice-text {
+      @apply m-0 text-[14.5px] leading-relaxed text-muted-dark text-pretty;
+    }
+  }
+}

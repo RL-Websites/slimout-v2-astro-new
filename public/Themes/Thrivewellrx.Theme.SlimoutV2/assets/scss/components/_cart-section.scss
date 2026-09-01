@@ -1,0 +1,17 @@
+@layer components {
+  .cart-page {
+    @apply flex flex-col bg-cream;
+
+    &-spacer {
+      @apply h-[114px] shrink-0 bg-cream;
+    }
+  }
+
+  .cart-section {
+    @apply flex-1 pt-3 sm:pt-5 lg:pt-8 px-5 sm:px-8 lg:px-13 pb-12 bg-cream;
+
+    &-inner {
+      @apply max-w-[1180px] mx-auto;
+    }
+  }
+}

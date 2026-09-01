@@ -1,0 +1,189 @@
+@layer components {
+  .cart-items {
+    &-head {
+      @apply flex flex-wrap items-end justify-between gap-5 mb-6 sm:mb-8 lg:mb-10;
+    }
+
+    &-title {
+      @apply font-sora text-[32px] sm:text-[48px] lg:text-[72px] font-medium leading-[0.96]
+        tracking-tight text-ink m-0;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-meta {
+      @apply flex items-center gap-3.5 pb-2;
+    }
+
+    &-count {
+      @apply font-mono text-[11px] tracking-[0.14em] uppercase text-muted-light whitespace-nowrap;
+    }
+
+    &-continue {
+      @apply text-sm text-lime-darker border-b border-lime-darker/35 whitespace-nowrap;
+    }
+
+    &-row {
+      @apply flex items-center gap-4 sm:gap-6 lg:gap-8.5 py-4 sm:py-5 lg:py-6.5 border-t border-sage-300;
+      animation: cart-row-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    &-idx {
+      @apply font-mono text-[11px] tracking-[0.12em] text-[#A9B2A5] shrink-0 w-6.5;
+    }
+
+    &-img {
+      @apply w-21 h-21 sm:w-26 sm:h-26 lg:w-32 lg:h-32 shrink-0 rounded-[18px] overflow-hidden bg-sage-100;
+    }
+
+    &-img-el {
+      @apply w-full h-full object-cover;
+    }
+
+    &-info {
+      @apply min-w-0 flex-1;
+    }
+
+    &-name {
+      @apply font-sora text-[18px] sm:text-[22px] lg:text-[26px] font-semibold tracking-tight
+        leading-[1.15] text-ink m-0 mb-1;
+    }
+
+    &-program {
+      @apply text-base text-muted mb-2.5;
+    }
+
+    &-meta-row {
+      @apply flex flex-wrap items-center gap-2;
+    }
+
+    &-shipping {
+      @apply flex items-center font-mono text-[10px] tracking-[0.12em] uppercase text-[#5F6E1D]
+        bg-sage-100 border border-[#D9E3B4] px-3.5 h-9 rounded-full whitespace-nowrap;
+    }
+
+    &-remove {
+      @apply flex items-center gap-1.5 text-[13.5px] text-[#8B9483] cursor-pointer px-3.5 h-9
+        border border-[#E4E7DA] rounded-full transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-[#8A4526] text-offwhite border-[#8A4526];
+      }
+    }
+
+    &-remove-icon {
+      @apply shrink-0;
+    }
+
+    &-qty {
+      @apply flex items-center gap-1 p-1.25 border border-sage-300 rounded-full shrink-0;
+    }
+
+    &-qty-btn {
+      @apply w-8.5 h-8.5 rounded-full flex items-center justify-center text-lg leading-none
+        transition-colors duration-[250ms] cursor-pointer select-none;
+
+      &--dec {
+        @apply text-ink;
+
+        &:hover {
+          @apply bg-ink text-offwhite;
+        }
+
+        &[data-disabled='true'] {
+          @apply text-[#C3CBBD] cursor-not-allowed pointer-events-none;
+        }
+      }
+
+      &--inc {
+        @apply bg-lime text-ink text-base transition-transform duration-[250ms];
+
+        &:hover {
+          @apply scale-105;
+        }
+      }
+    }
+
+    &-qty-value {
+      @apply min-w-6.5 text-center font-sora text-[15px] font-semibold text-ink;
+    }
+
+    &-price {
+      @apply font-sora text-[18px] sm:text-[21px] lg:text-[24px] font-semibold tracking-tight
+        text-ink shrink-0 min-w-24 text-right;
+    }
+
+    &-empty {
+      @apply py-10 sm:py-14 lg:py-18 border-t border-sage-300 text-center;
+    }
+
+    &-empty-text {
+      @apply font-serif italic text-[24px] sm:text-[28px] lg:text-[34px] text-[#8B9483] mb-5;
+    }
+
+    &-empty-cta {
+      @apply inline-flex items-center gap-2.5 text-[15.5px] font-medium text-white px-3.5 py-3.5 pl-6
+        bg-lime rounded-full transition-colors duration-300;
+
+      &:hover {
+        @apply bg-lime-darker;
+      }
+
+      &:hover &-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-empty-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .cart-items-row {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      grid-template-areas: 'img info' 'qty price';
+      gap: 12px 14px;
+      align-items: center;
+    }
+    .cart-items-idx {
+      display: none;
+    }
+    .cart-items-img {
+      grid-area: img;
+      width: 76px;
+      height: 76px;
+      border-radius: 14px;
+    }
+    .cart-items-info {
+      grid-area: info;
+    }
+    .cart-items-name {
+      font-size: 16px;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .cart-items-meta-row {
+      flex-wrap: nowrap;
+      gap: 6px;
+    }
+    .cart-items-shipping {
+      font-size: 9.5px;
+      padding: 0 11px;
+      height: 32px;
+    }
+    .cart-items-qty {
+      grid-area: qty;
+      justify-self: start;
+    }
+    .cart-items-price {
+      grid-area: price;
+      justify-self: end;
+      min-width: 0;
+      font-size: 18px;
+    }
+  }
+}

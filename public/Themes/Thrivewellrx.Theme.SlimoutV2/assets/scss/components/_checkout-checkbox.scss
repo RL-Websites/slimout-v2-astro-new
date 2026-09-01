@@ -1,0 +1,24 @@
+@layer components {
+  .checkout-checkbox {
+    @apply flex items-center gap-2.25 text-[13.5px] text-muted cursor-pointer select-none;
+
+    &-box {
+      @apply w-4.5 h-4.5 rounded-[5px] shrink-0 flex items-center justify-center text-[11px]
+        border-[1.5px] border-sage-400 bg-white text-ink transition-colors duration-[220ms];
+    }
+
+    &.is-checked {
+      .checkout-checkbox-box {
+        @apply border-lime bg-lime;
+      }
+    }
+
+    &--desktop {
+      @apply hidden sm:flex;
+    }
+
+    &--mobile {
+      @apply flex sm:hidden mt-4;
+    }
+  }
+}

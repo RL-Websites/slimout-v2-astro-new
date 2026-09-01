@@ -1,0 +1,268 @@
+---
+import Button from '../utils/Button.astro';
+import { STAGE_TIMELINES, FILL_PERIODS, statusSlug, findOrderBySlug } from '../../data/orders';
+
+interface Props {
+	slug: string;
+	base?: string;
+}
+
+const { slug, base = '' } = Astro.props;
+const order = findOrderBySlug(slug);
+
+// Demo shipping/billing contact — this is a UI-only prototype with no backend, so every order
+// shares the same placeholder address (mirrors the pattern already used in OrderConfirmation.astro).
+const DEMO_CONTACT = {
+	email: 'jordan.ellis@example.com',
+	state: 'Texas',
+	address: '418 Wren Street, Apt 2B',
+	city: 'Austin',
+	zip: '78702',
+};
+
+const singles = order?.items.filter((item) => !item.bundle) ?? [];
+const packages = order?.items.filter((item) => item.bundle) ?? [];
+---
+
+{
+	!order ? (
+		<section class="order-details order-details--empty">
+			<div class="order-details-notfound">
+				<h1 class="order-details-notfound-title">Order not found</h1>
+				<p class="order-details-notfound-text">We couldn't find an order with that ID.</p>
+				<Button href={`${base}my-orders.html`} variant="primary">
+					Back to My Orders
+				</Button>
+			</div>
+		</section>
+	) : (
+		<section id="top" class="order-details">
+			<div class="order-details-inner">
+				<a href={`${base}my-orders.html`} class="order-details-back">
+					<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+						<path d="M15 6l-6 6 6 6" />
+					</svg>
+					Back to My Orders
+				</a>
+
+				<div class="order-details-hero">
+					<svg
+						class="order-details-hero-decor"
+						viewBox="0 0 600 400"
+						preserveAspectRatio="none"
+						aria-hidden="true"
+					>
+						<g fill="none" stroke="rgba(187,204,70,0.3)" stroke-width="1.1">
+							<ellipse cx="330" cy="150" rx="230" ry="150" transform="rotate(-22 330 150)" />
+							<ellipse cx="360" cy="180" rx="180" ry="120" transform="rotate(-14 360 180)" />
+						</g>
+					</svg>
+
+					<div class="order-details-hero-top">
+						<div class="order-details-hero-intro">
+							<div class="order-details-hero-date">{order.date}</div>
+							<h1 class="order-details-hero-title">Order {order.id}</h1>
+						</div>
+						<div class="order-details-hero-meta">
+							<span class:list={['order-badge', `order-badge--${statusSlug(order.pay)}`]}>{order.pay}</span>
+							<span class="order-details-hero-total">${order.amount.toFixed(2)}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="order-details-grid">
+					{['Shipping Information', 'Billing Information'].map((title) => (
+						<div class="order-details-card">
+							<div class="order-details-card-head">
+								<h2 class="order-details-card-title">{title}</h2>
+							</div>
+							<div class="order-details-card-body">
+								<div class="order-details-field-row">
+									<span class="order-details-field-label">Name</span>
+									<span class="order-details-field-value">{order.billing}</span>
+								</div>
+								<div class="order-details-field-row">
+									<span class="order-details-field-label">Email Address</span>
+									<span class="order-details-field-value">{DEMO_CONTACT.email}</span>
+								</div>
+								<div class="order-details-field-row">
+									<span class="order-details-field-label">State</span>
+									<span class="order-details-field-value">{DEMO_CONTACT.state}</span>
+								</div>
+								<div class="order-details-field-row">
+									<span class="order-details-field-label">Address</span>
+									<span class="order-details-field-value">{DEMO_CONTACT.address}</span>
+								</div>
+								<div class="order-details-field-row">
+									<span class="order-details-field-label">City</span>
+									<span class="order-details-field-value">{DEMO_CONTACT.city}</span>
+								</div>
+								<div class="order-details-field-row order-details-field-row--last">
+									<span class="order-details-field-label">Zip Code</span>
+									<span class="order-details-field-value">{DEMO_CONTACT.zip}</span>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+
+				{singles.map((item, idx) => (
+					<details class="order-details-item" open={idx === 0}>
+						<summary class="order-details-item-summary">
+							<h2 class="order-details-item-name">{item.name}</h2>
+							<span class:list={['order-badge', `order-badge--${statusSlug(item.status)}`]}>{item.status}</span>
+							<span class="order-details-item-toggle">
+								Details
+								<span class="order-details-item-toggle-icon">
+									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M6 9l6 6 6-6" />
+									</svg>
+								</span>
+							</span>
+						</summary>
+
+						<div class="order-details-item-body">
+							<div class="order-details-info-grid">
+								<div class="order-details-info-field">
+									<div class="order-details-info-label">Type</div>
+									<div class="order-details-info-value">{item.type}</div>
+								</div>
+								<div class="order-details-info-field">
+									<div class="order-details-info-label">Quantity</div>
+									<div class="order-details-info-value">{item.qty}</div>
+								</div>
+								<div class="order-details-info-field">
+									<div class="order-details-info-label">Sell Price</div>
+									<div class="order-details-info-value order-details-info-value--price">{item.price}</div>
+								</div>
+								<div class="order-details-info-field">
+									<div class="order-details-info-label">Tracking ID</div>
+									<div class="order-details-info-value">{item.tracking}</div>
+								</div>
+								<div class="order-details-info-field">
+									<div class="order-details-info-label">Shipping State</div>
+									<span class="order-details-info-pill">{DEMO_CONTACT.state}</span>
+								</div>
+							</div>
+
+							<div class="order-status-timeline-label">Status Timeline</div>
+							<div class="order-status-timeline">
+								<div class="order-status-timeline-track">
+									<span class="order-status-timeline-rail" />
+									{STAGE_TIMELINES[item.status]
+										.slice()
+										.reverse()
+										.map((stage, k) => (
+											<div class="order-status-timeline-row">
+												<span class:list={['order-status-timeline-dot', k === 0 && 'order-status-timeline-dot--latest']} />
+												<div class:list={['order-status-timeline-card', k === 0 && 'order-status-timeline-card--latest']}>
+													<div class="order-status-timeline-head">
+														<span class="order-status-timeline-title">
+															{stage.label}
+															{k === 0 ? <span class="order-status-timeline-latest">Latest</span> : null}
+														</span>
+														<span class="order-status-timeline-time">
+															{order.date.split(' ').slice(0, 3).join(' ')} – {stage.time}
+														</span>
+													</div>
+													<div class="order-status-timeline-note">{stage.note}</div>
+												</div>
+											</div>
+										))}
+								</div>
+							</div>
+						</div>
+					</details>
+				))}
+
+				{packages.map((item) => (
+					<details class="order-details-package">
+						<summary class="order-details-package-summary">
+							<h2 class="order-details-item-name">{item.name}</h2>
+							<span class="order-details-package-badge">+{item.bundle}</span>
+							<span class:list={['order-badge', `order-badge--${statusSlug(item.status)}`]}>{item.status}</span>
+							<span class="order-details-item-toggle">
+								Details
+								<span class="order-details-item-toggle-icon">
+									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M6 9l6 6 6-6" />
+									</svg>
+								</span>
+							</span>
+						</summary>
+
+						<div class="order-details-package-body">
+							<div class="order-details-package-label">Products in this package</div>
+							<div class="order-details-package-contents">
+								{(item.contents ?? [item.name]).map((name) => (
+									<div class="order-details-package-content-row">
+										<span class="order-details-package-content-name">{name}</span>
+										<span class:list={['order-badge', `order-badge--${statusSlug(item.status)}`]}>{item.status}</span>
+									</div>
+								))}
+							</div>
+
+							<div class="order-details-package-label">Fill &amp; Refill</div>
+							<div class="order-details-fills">
+								{FILL_PERIODS.map((period, k) => {
+									const isFirst = k === 0;
+									const fillStatus = isFirst ? item.status : 'Delivered';
+									const fillStatusLabel = isFirst ? item.status : 'Received';
+									const fillPay = isFirst ? order.pay : 'Not Paid';
+									return (
+										<div class="order-details-fill">
+											<div class="order-details-fill-head">
+												<span class="order-details-fill-label">{isFirst ? 'Order Type: Fill' : 'Order Type: Refill'}</span>
+												<span class:list={['order-details-fill-badge', !isFirst && 'order-details-fill-badge--upcoming']}>
+													{isFirst ? 'Active' : 'Upcoming'}
+												</span>
+											</div>
+											<div class="order-details-fill-grid">
+												<div class="order-details-fill-field">
+													<div class="order-details-fill-field-label">Order Status</div>
+													<span class:list={['order-badge', `order-badge--${statusSlug(fillStatus)}`]}>{fillStatusLabel}</span>
+												</div>
+												<div class="order-details-fill-field">
+													<div class="order-details-fill-field-label">Payment Status</div>
+													<span class:list={['order-badge', `order-badge--${statusSlug(fillPay)}`]}>{fillPay}</span>
+												</div>
+												<div class="order-details-fill-field">
+													<div class="order-details-fill-field-label">Product Price</div>
+													<div class="order-details-fill-field-value">{item.price}</div>
+												</div>
+												<div class="order-details-fill-field">
+													<div class="order-details-fill-field-label">Period</div>
+													<div class="order-details-fill-field-value order-details-fill-field-value--period">{period}</div>
+												</div>
+											</div>
+										</div>
+									);
+								})}
+							</div>
+						</div>
+					</details>
+				))}
+
+				<div class="order-details-card">
+					<div class="order-details-card-head">
+						<h2 class="order-details-card-title">Order Summary</h2>
+					</div>
+					<div class="order-details-summary-body">
+						<div class="order-details-summary-line">
+							<span class="order-details-summary-label">Subtotal</span>
+							<span class="order-details-summary-value">${order.amount.toFixed(2)}</span>
+						</div>
+						<div class="order-details-summary-line order-details-summary-line--last">
+							<span class="order-details-summary-label">Shipping</span>
+							<span class="order-details-summary-value">Free</span>
+						</div>
+					</div>
+					<div class="order-details-summary-total">
+						<span class="order-details-summary-total-label">Total</span>
+						<span class="order-details-summary-total-value">${order.amount.toFixed(2)}</span>
+					</div>
+				</div>
+			</div>
+		</section>
+	)
+}

@@ -1,0 +1,29 @@
+---
+const items = [
+	'Weight Loss',
+	'Hormone Therapy',
+	'Anti-Aging',
+	'Sexual Health',
+	'Hair Regrowth',
+	'Pre Workout',
+	'Sleep',
+	'Testosterone',
+];
+---
+
+<div class="marquee">
+	<div class="marquee-track">
+		{
+			[0, 1].map(() => (
+				<>
+					{items.map((item) => (
+						<>
+							<span class="marquee-item">{item}</span>
+							<span class="marquee-dot">&#10035;</span>
+						</>
+					))}
+				</>
+			))
+		}
+	</div>
+</div>

@@ -1,0 +1,48 @@
+---
+const points = [
+	{ title: "Approved first", body: "Nothing ships without provider approval." },
+	{
+		title: "Trusted partners",
+		body: "Fulfilled by vetted partner pharmacies.",
+	},
+	{ title: "To your door", body: "Discreet delivery, straight to your home." },
+];
+---
+
+<section class="delivery">
+	<div class="delivery-panel">
+		<div class="delivery-content">
+			<div class="delivery-eyebrow">05 — Delivery</div>
+			<h2 class="delivery-title">
+				Reliable prescription <span class="delivery-title-alt">delivery</span>
+			</h2>
+			<p class="delivery-body">
+				Once your treatment plan is approved by a licensed healthcare provider,
+				your prescription is sent to one of our trusted pharmacy partners for
+				fulfillment. Your medications are then carefully prepared and delivered
+				directly to your doorstep, ensuring a safe and hassle-free experience.
+			</p>
+			<div class="delivery-points">
+				{
+					points.map((p) => (
+						<div class="delivery-point">
+							<div class="delivery-point-title">{p.title}</div>
+							<div class="delivery-point-body">{p.body}</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+		<div class="delivery-media">
+			<div class="delivery-frame">
+				<img
+					src="Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/delivery-medication.png"
+					alt="Prescription medication packaging and fulfillment"
+					class="delivery-image"
+					loading="lazy"
+				/>
+			</div>
+			<div class="delivery-badge">Shipped to your door</div>
+		</div>
+	</div>
+</section>

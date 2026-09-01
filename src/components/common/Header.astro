@@ -1,0 +1,296 @@
+---
+import { categories } from "../../data/categories";
+
+interface Props {
+	/** Relative prefix back to the site root, for pages nested one or more levels deep (e.g. "../"). */
+	base?: string;
+}
+
+const { base = "" } = Astro.props;
+---
+
+<div class="header-scrollbar">
+	<div id="scroll-bar" class="header-scrollbar-fill"></div>
+</div>
+
+<div class="header">
+	<a href="#top" class="header-logo">
+		<img
+			src={`${base}Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/logo.svg`}
+			alt="SlimOut"
+		/>
+	</a>
+
+	<nav class="header-nav">
+		<button
+			id="treatments-toggle"
+			type="button"
+			class="theme-btn theme-btn__link header-nav-link--treatments"
+			aria-expanded="false"
+			aria-controls="treatments-panel"
+		>
+			Treatments
+			<span id="treatments-plus" class="header-nav-plus">+</span>
+		</button>
+		<a href={`${base}about.html`} class="header-nav-link">About Us</a>
+	</nav>
+
+	<div class="header-actions">
+		<a href={`${base}cart.html`} aria-label="Cart" class="header-cart">
+			<i class="icon-cart text-xl/none"></i>
+			<span class="header-cart-badge is-hidden">0</span>
+		</a>
+		<a href={`${base}login.html`} class="header-login">Log In</a>
+		<button
+			id="mobile-menu-toggle"
+			type="button"
+			aria-label="Menu"
+			class="theme-btn header-menu-toggle"
+		>
+			<i class="icon-humburger"></i>
+		</button>
+	</div>
+
+	<div id="treatments-panel" class="header-treatments-panel">
+		<div class="header-treatments-col">
+			<div class="header-treatments-label">All treatments</div>
+			<div class="header-treatments-grid">
+				{
+					categories.map((category, i) => (
+						<a
+							href={`${base}${category.slug}.html`}
+							class:list={["header-treatments-link", i === 0 && "is-active"]}
+						>
+							{category.name}
+							<span class="header-treatments-arrow">&rarr;</span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+		<div class="header-treatments-preview">
+			{
+				categories.map((category, i) => (
+					<div
+						class:list={[
+							"header-treatments-preview-item",
+							i === 0 && "is-active",
+						]}
+					>
+						<img
+							src={`${base}${category.heroImage}`}
+							alt={category.name}
+							class="header-treatments-preview-image"
+							loading="lazy"
+						/>
+						<span class="header-treatments-preview-overlay" />
+						<div class="header-treatments-preview-text">
+							<span class="header-treatments-preview-tag">{category.tag}</span>
+							<span class="header-treatments-preview-name">
+								{category.name}
+							</span>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</div>
+
+<div id="mobile-drawer" class="mobile-drawer">
+	<div class="mobile-drawer-panel">
+		<div class="mobile-drawer-top">
+			<div class="mobile-drawer-top-row">
+				<a href="#top" class="header-logo">
+					<img
+						src={`${base}Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/logo.svg`}
+						alt="SlimOut"
+					/>
+				</a>
+
+				<button
+					id="mobile-drawer-close"
+					type="button"
+					aria-label="Close menu"
+					class="theme-btn theme-btn__link mobile-drawer-close"
+				>
+					<i class="icon-cross"></i>
+				</button>
+			</div>
+			<p class="mobile-drawer-heading">
+				Provider-guided care, <span class="mobile-drawer-heading-alt"
+					>delivered</span
+				>
+			</p>
+			<div class="mobile-drawer-actions">
+				<a href={`${base}login.html`} class="mobile-drawer-login">Log In</a>
+				<a href={`${base}register.html`} class="mobile-drawer-signup">Sign Up</a
+				>
+			</div>
+		</div>
+
+		<div class="mobile-drawer-body">
+			<div class="mobile-drawer-label">Treatments</div>
+			<div class="mobile-drawer-treatments">
+				{
+					categories.map((category) => (
+						<a
+							href={`${base}${category.slug}.html`}
+							class="mobile-drawer-treatment-link"
+						>
+							{category.name}
+						</a>
+					))
+				}
+			</div>
+
+			<div class="mobile-drawer-label">Menu</div>
+			<div class="mobile-drawer-menu">
+				<a href={`${base}about.html`} class="mobile-drawer-menu-link">
+					<span class="mobile-drawer-menu-icon">
+						<svg
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.7"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"
+							></path><path d="M12 7.6h.01"></path>
+						</svg>
+					</span>
+					<span class="mobile-drawer-menu-text">About Us</span>
+					<span class="mobile-drawer-menu-arrow">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.9"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<path d="M9 6l6 6-6 6"></path>
+						</svg>
+					</span>
+				</a>
+				<a href={`${base}contact.html`} class="mobile-drawer-menu-link">
+					<span class="mobile-drawer-menu-icon">
+						<svg
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.7"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<path d="M4 5.5h16v10H9l-5 4z"></path><path d="M8 10.5h8"></path>
+						</svg>
+					</span>
+					<span class="mobile-drawer-menu-text">Talk to Our Team</span>
+					<span class="mobile-drawer-menu-arrow">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.9"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<path d="M9 6l6 6-6 6"></path>
+						</svg>
+					</span>
+				</a>
+
+				<a href={`${base}account.html`} class="mobile-drawer-menu-link">
+					<span class="mobile-drawer-menu-icon">
+						<svg
+							data-dc-tpl="136"
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.7"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+							data-om-id="022f9318:140"
+							style="display: block;"
+							><circle
+								data-dc-tpl="137"
+								cx="12"
+								cy="8"
+								r="3.6"
+								data-om-id="022f9318:141"></circle><path
+								data-dc-tpl="138"
+								d="M4.8 20a7.4 7.4 0 0114.4 0"
+								data-om-id="022f9318:142"></path></svg
+						>
+					</span>
+					<span class="mobile-drawer-menu-text">Account Information</span>
+					<span class="mobile-drawer-menu-arrow">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.9"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<path d="M9 6l6 6-6 6"></path>
+						</svg>
+					</span>
+				</a>
+
+				<a
+					href={`${base}register.html`}
+					class="mobile-drawer-menu-link text-[#8a4526]"
+				>
+					<span class="mobile-drawer-menu-icon">
+						<svg
+							data-dc-tpl="145"
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.7"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+							data-om-id="022f9318:149"
+							style="display: block;"
+							><path
+								data-dc-tpl="146"
+								d="M14 4.5H6.5v15H14"
+								data-om-id="022f9318:150"></path><path
+								data-dc-tpl="147"
+								d="M12 12h8"
+								data-om-id="022f9318:151"></path><path
+								data-dc-tpl="148"
+								d="M17 9l3 3-3 3"
+								data-om-id="022f9318:152"></path></svg
+						>
+					</span>
+					<span class="mobile-drawer-menu-text">Logout</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

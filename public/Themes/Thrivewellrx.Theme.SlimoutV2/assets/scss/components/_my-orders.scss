@@ -1,0 +1,332 @@
+@layer components {
+  .my-orders {
+    @apply bg-cream pb-12 sm:pb-16 lg:pb-[88px] px-5 sm:px-8 lg:px-13;
+    padding-top: calc(114px + clamp(12px, 2.4vw, 32px));
+
+    &-inner {
+      @apply max-w-[1240px] mx-auto;
+    }
+
+    &-head {
+      @apply flex flex-wrap items-end justify-between gap-5 mb-6 sm:mb-8 lg:mb-9.5;
+    }
+
+    &-heading {
+      @apply min-w-0;
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[10px] tracking-[0.24em] uppercase text-muted-light mb-3 sm:mb-4;
+    }
+
+    &-title {
+      @apply font-sora text-[30px] sm:text-[44px] lg:text-[60px] font-medium leading-[0.98] tracking-tighter text-ink m-0;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-filters {
+      @apply flex flex-wrap gap-2;
+    }
+
+    &-filter {
+      @apply text-[13.5px] py-2.5 px-4.5 rounded-full cursor-pointer whitespace-nowrap border border-[#DDE1D2] bg-white text-muted-dark transition-all duration-[220ms];
+
+      &:hover {
+        @apply -translate-y-0.5;
+      }
+
+      &.is-active {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    // Card + table
+    &-card {
+      @apply bg-white border border-[#E4E7DA] rounded-[22px] overflow-hidden mb-4.5 sm:mb-6;
+
+      &--table {
+        @apply hidden lg:block;
+      }
+    }
+
+    &-scroll {
+      @apply overflow-x-auto;
+    }
+
+    &-table {
+      @apply min-w-[1080px];
+    }
+
+    &-table-head,
+    &-row {
+      @apply grid gap-4 items-center;
+      grid-template-columns: minmax(170px, 1.15fr) minmax(190px, 1.5fr) minmax(120px, 1fr) minmax(110px, 0.85fr) minmax(130px, 1fr) minmax(120px, 0.9fr) minmax(120px, 0.9fr);
+    }
+
+    &-table-head {
+      @apply py-3.5 px-4.5 sm:px-6.5 bg-[#dce6a8] border-b border-[#E4E7DA];
+    }
+
+    &-table-head-cell {
+      @apply font-mono text-[9.5px] tracking-[0.14em] uppercase text-muted;
+    }
+
+    &-row {
+      @apply py-3.5 px-4.5 sm:px-6.5 border-b border-[#EDEFE4] bg-white transition-colors;
+
+      &:hover {
+        @apply bg-sage-50;
+      }
+
+      &--alt {
+        @apply bg-[#FCFDFA];
+      }
+
+      &--last {
+        @apply border-b-0;
+      }
+
+      &.is-hidden {
+        @apply hidden;
+      }
+    }
+
+    &-cell-id {
+      @apply min-w-0;
+    }
+
+    &-cell-id-link {
+      @apply block font-sora text-sm font-semibold tracking-tight text-ink border-b border-sage-400 w-fit;
+    }
+
+    &-cell-id-date {
+      @apply block text-[12.5px] text-[#8B9483] mt-1;
+    }
+
+    &-cell-product {
+      @apply min-w-0 flex flex-col gap-1.25;
+    }
+
+    &-line {
+      @apply flex items-center gap-1.75 min-w-0;
+    }
+
+    &-line-name {
+      @apply font-sora text-sm font-medium tracking-tight text-ink truncate;
+    }
+
+    &-package-badge {
+      @apply font-mono text-[10px] text-offwhite bg-ink py-0.75 px-1.75 rounded-md cursor-pointer shrink-0 transition-colors;
+
+      &:hover {
+        @apply bg-[#2A3A2F];
+      }
+    }
+
+    &-amount {
+      @apply block text-[12.5px] text-[#8B9483] mt-0.25;
+    }
+
+    &-cell-billing {
+      @apply min-w-0 text-[13.5px] text-muted-dark truncate;
+    }
+
+    &-cell-status,
+    &-cell-pay,
+    &-cell-intake {
+      @apply justify-self-start;
+    }
+
+    &-view-status {
+      @apply inline-flex items-center gap-1.5 cursor-pointer font-mono text-[9.5px] tracking-[0.1em] uppercase py-1.5 px-2.75 rounded-full whitespace-nowrap text-ink border border-[#D6DAC8] bg-white transition-colors;
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-cell-docs {
+      @apply flex flex-col gap-1.5 items-start;
+    }
+
+    &-empty {
+      @apply hidden text-center p-8 sm:p-12 lg:p-14 bg-white border border-[#E4E7DA] rounded-[18px] lg:rounded-[22px] mb-4.5 sm:mb-6;
+
+      &.is-visible {
+        @apply block;
+      }
+    }
+
+    &-empty-text {
+      @apply font-serif italic text-[22px] sm:text-[26px] lg:text-[30px] text-[#8B9483];
+    }
+
+    &-pager {
+      @apply flex flex-wrap items-center justify-end gap-3 sm:gap-4.5 lg:gap-5.5;
+    }
+
+    &-pager-range {
+      @apply font-mono text-[11.5px] tracking-[0.06em] text-[#8B9483];
+    }
+
+    &-pager-btns {
+      @apply flex gap-2;
+    }
+
+    &-pager-btn {
+      @apply w-[38px] h-[38px] rounded-full border border-[#DDE1D2] flex items-center justify-center bg-white text-ink transition-colors;
+
+      &:hover:not(:disabled) {
+        @apply border-ink;
+      }
+
+      &:disabled {
+        @apply text-[#C3CBBD] cursor-not-allowed;
+      }
+    }
+  }
+
+  // Mobile/tablet order list — swaps in for .my-orders-card--table below lg.
+  .my-orders-cards {
+    @apply flex flex-col gap-3.5 mb-4.5 sm:mb-6 lg:hidden;
+  }
+
+  .my-orders-mobile-card {
+    @apply bg-white border border-[#E4E7DA] rounded-[18px] p-4 flex flex-col gap-3;
+
+    &.is-hidden {
+      @apply hidden;
+    }
+
+    &-head {
+      @apply flex items-start justify-between gap-3 pb-3 border-b border-[#EDEFE4];
+    }
+
+    &-id {
+      @apply min-w-0;
+    }
+
+    &-badge {
+      @apply shrink-0;
+    }
+
+    &-row {
+      @apply flex items-center justify-between gap-3;
+
+      &--top {
+        @apply items-start;
+      }
+    }
+
+    &-label {
+      @apply font-mono text-[9.5px] tracking-[0.14em] uppercase text-muted-light shrink-0;
+    }
+
+    &-value {
+      @apply text-[13.5px] text-muted-dark text-right truncate max-w-[60%];
+    }
+
+    &-row--product {
+      @apply flex-col items-stretch gap-1.25;
+    }
+
+    &-lines {
+      @apply flex flex-col gap-1.25 mt-0.5;
+    }
+
+    &-docs {
+      @apply flex flex-col gap-1.5 items-end;
+    }
+  }
+
+  // Status / payment pill — one shared shape, colors set per value via modifier.
+  .order-badge {
+    @apply inline-flex font-mono text-[9.5px] tracking-[0.1em] uppercase py-1.5 px-2.75 rounded-full whitespace-nowrap;
+
+    &--shipped,
+    &--payment-on-hold {
+      @apply bg-[#FBF0D4] text-[#7A5A11];
+    }
+
+    &--processing {
+      @apply bg-[#DFEEF6] text-[#1D5872];
+    }
+
+    &--delivered,
+    &--paid {
+      @apply bg-[#E4F1DA] text-[#3D6B24];
+    }
+
+    &--cancelled,
+    &--payment-failed {
+      @apply bg-[#FBE3DA] text-[#8A4526];
+    }
+
+    &--in-review,
+    &--not-paid {
+      @apply bg-[#EFF1E6] text-[#5A6653];
+    }
+  }
+
+  // Document (lab / license) mini action-button, table + modal share the same shape.
+  .order-doc-btn {
+    @apply flex items-center justify-center w-[106px] gap-1.5 font-mono text-[9px] tracking-[0.08em] uppercase py-1.5 px-2.5 rounded-full whitespace-nowrap transition-colors;
+
+    &--done {
+      @apply text-[#5F6E1D] bg-sage-100 border border-[#D9E3B4];
+
+      &:hover {
+        @apply bg-[#E2E9C9];
+      }
+    }
+
+    &--pending {
+      @apply text-offwhite bg-ink border border-ink cursor-pointer;
+
+      &:hover {
+        @apply bg-[#2A3A2F];
+      }
+    }
+  }
+
+  .order-intake-btn {
+    @apply flex items-center justify-center w-24 font-mono text-[9px] tracking-[0.08em] uppercase text-offwhite py-1.75 px-2.5 bg-ink rounded-full whitespace-nowrap transition-colors;
+
+    &:hover {
+      @apply bg-[#2A3A2F];
+    }
+  }
+
+  .order-intake-done {
+    @apply flex items-center justify-center gap-1.5 w-24 font-mono text-[9px] tracking-[0.08em] uppercase py-1.75 px-2.5 rounded-full whitespace-nowrap bg-sage-100 text-[#5F6E1D];
+  }
+
+  .order-intake-none {
+    @apply flex items-center justify-center w-24 text-sm text-[#C3CBBD];
+  }
+
+  // Package-contents popover, positioned via JS (fixed, escapes the table's scroll clip).
+  .order-popover {
+    @apply hidden fixed z-[200] min-w-[210px] font-sans bg-ink rounded-2xl py-3 px-3.5;
+    box-shadow: 0 20px 44px -20px rgba(16, 26, 20, 0.55);
+
+    &.is-open {
+      @apply block;
+    }
+
+    &-label {
+      @apply font-mono text-[9px] tracking-[0.14em] uppercase text-offwhite/45 mb-2.25;
+    }
+
+    &-list {
+      @apply flex flex-col gap-1.5;
+    }
+
+    &-item {
+      @apply text-[13px] leading-[1.4] text-offwhite whitespace-nowrap;
+    }
+  }
+}

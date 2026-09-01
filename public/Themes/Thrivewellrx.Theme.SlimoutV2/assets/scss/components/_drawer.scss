@@ -1,0 +1,194 @@
+@layer components {
+  .drawer {
+    @apply hidden fixed inset-0 z-[160] justify-end;
+
+    &.is-open {
+      @apply flex;
+    }
+
+    &-scrim {
+      @apply absolute inset-0 bg-[rgba(12,20,15,0.5)] backdrop-blur-sm opacity-0
+        transition-opacity duration-300;
+    }
+
+    &.is-open &-scrim {
+      @apply opacity-100;
+    }
+
+    &-panel {
+      @apply relative w-full h-full bg-offwhite
+        flex flex-col
+        translate-x-full transition-transform duration-[400ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
+      max-width: min(var(--drawer-width, 560px), 100%);
+      box-shadow: -30px 0 70px -30px rgba(12, 20, 15, 0.5);
+    }
+
+    &.is-open &-panel {
+      @apply translate-x-0;
+    }
+
+    &-head {
+      @apply flex items-center gap-3.5 px-5 sm:px-8 py-5 sm:py-7 border-b border-[#E4E7DA];
+    }
+
+    &-back,
+    &-close {
+      @apply w-9 h-9 rounded-full border border-sage-300 text-ink flex items-center justify-center
+        text-[15px] cursor-pointer shrink-0 transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-close {
+      @apply ml-auto;
+    }
+
+    &-name {
+      @apply font-sora text-[20px] sm:text-[26px] font-semibold tracking-tight text-ink;
+    }
+
+    &-body {
+      @apply flex-1 overflow-y-auto px-5 sm:px-8 py-6 sm:py-9;
+    }
+
+    &-heading {
+      @apply font-sora text-[21px] sm:text-[28px] font-semibold tracking-tight text-ink m-0 mb-2.5;
+    }
+
+    &-lead {
+      @apply m-0 mb-6 text-[15px] leading-[1.6] text-muted;
+    }
+
+    &-options {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5.5;
+    }
+
+    &-option {
+      @apply relative flex items-center gap-2.5 px-5 py-4.5 rounded-2xl cursor-pointer
+        border-[1.5px] border-[#E4E7DA] bg-white
+        transition-all duration-[250ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
+
+      &:hover {
+        @apply -translate-y-0.5;
+      }
+
+      &--active {
+        @apply border-lime bg-sage-100;
+      }
+    }
+
+    &-option-dot {
+      @apply w-5 h-5 rounded-full border-[1.5px] border-sage-400 flex items-center justify-center
+        text-[11px] text-ink shrink-0 transition-colors duration-[250ms];
+    }
+
+    &-option--active &-option-dot {
+      @apply border-lime bg-lime;
+    }
+
+    &-option-label {
+      @apply block font-sora text-[15.5px] font-semibold tracking-tight text-ink;
+    }
+
+    &-option-note {
+      @apply block text-[12.5px] text-muted mt-0.75;
+    }
+
+    &-warning {
+      @apply px-5.5 py-5 bg-sage-100 border border-dashed border-[#C6D38A] rounded-2xl mb-2;
+    }
+
+    &-warning-label {
+      @apply font-mono text-[9.5px] tracking-[0.16em] uppercase text-lime-darker mb-2.5;
+    }
+
+    &-warning-text {
+      @apply m-0 text-[14.5px] leading-[1.65] text-[#3A463C];
+    }
+
+    &-footer {
+      @apply px-5 sm:px-8 py-4.5 sm:py-6 border-t border-[#E4E7DA] flex flex-col gap-2.5;
+    }
+
+    &-agree {
+      @apply flex items-center justify-center gap-2.75 text-base font-medium text-white
+        px-4.25 py-4 pl-7 bg-lime rounded-full cursor-pointer transition-transform duration-300
+        ease-[cubic-bezier(0.2,0.8,0.2,1)];
+
+      &:hover {
+        @apply -translate-y-[3px];
+      }
+
+      &:hover &-arrow {
+        @apply -rotate-45;
+      }
+    }
+
+    &-agree-arrow {
+      @apply flex items-center justify-center shrink-0 transition-transform duration-300;
+    }
+
+    &-decline {
+      @apply text-center text-base text-ink py-4.25 border border-[#D6DAC8] rounded-full
+        cursor-pointer transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    // Testosterone-only lab disclosure content, shown below the shipping warning (see
+    // ShippingDrawer.astro's `labRequired` prop).
+    &-lab-panel {
+      @apply mt-3 p-5 sm:p-6.5 bg-white border border-[#E4E7DA] rounded-[18px];
+    }
+
+    &-lab-title {
+      @apply font-sora text-[17px] sm:text-[20px] font-semibold tracking-tight text-ink m-0 mb-3
+        text-pretty;
+    }
+
+    &-lab-text {
+      @apply m-0 mb-3.5 text-[14.5px] leading-[1.65] text-muted-dark text-pretty;
+    }
+
+    &-lab-list {
+      @apply flex flex-col gap-2.25 mb-5;
+    }
+
+    &-lab-item {
+      @apply flex gap-2.75 text-[14.5px] leading-[1.6] text-muted-dark text-pretty;
+    }
+
+    &-lab-dot {
+      @apply block w-1.25 h-1.25 rounded-full bg-lime-deep shrink-0 mt-2;
+    }
+
+    &-lab-sublabel {
+      @apply font-sora text-sm font-semibold tracking-tight text-ink mb-2.5;
+    }
+
+    &-lab-schedule {
+      @apply flex flex-col gap-4;
+    }
+
+    &-lab-schedule-label {
+      @apply font-sora text-sm font-semibold tracking-tight text-ink mb-1.25;
+    }
+
+    &-lab-schedule-text {
+      @apply text-[14.5px] leading-[1.65] text-muted-dark text-pretty;
+    }
+
+    &-lab-note {
+      @apply mt-3 py-4.5 px-4.5 sm:px-6 bg-sage-100 border border-dashed border-[#C6D38A]
+        rounded-[18px];
+    }
+
+    &-lab-note-label {
+      @apply font-sora text-sm font-semibold tracking-tight text-ink mb-1.5;
+    }
+  }
+}

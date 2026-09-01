@@ -1,0 +1,67 @@
+---
+const ASSET_BASE = "Themes/Thrivewellrx.Theme.SlimoutV2/assets/img";
+
+const steps = [
+	{
+		num: "01",
+		title: "Share your",
+		titleAlt: "history",
+		file: "step-1-history.png",
+		body: "Choose a program and complete an intake covering your medical history, health goals and individual needs.",
+	},
+	{
+		num: "02",
+		title: "A provider",
+		titleAlt: "reviews it",
+		file: "step-2-review.png",
+		body: "A licensed healthcare provider reviews your intake and, where appropriate, recommends a treatment plan built around you.",
+	},
+	{
+		num: "03",
+		title: "Care arrives",
+		titleAlt: "at home",
+		file: "step-3-delivery.png",
+		body: "Your prescription goes to a trusted pharmacy partner for fulfillment, then ships directly to your doorstep with ongoing support.",
+	},
+];
+---
+
+<section id="how" class="how-it-works">
+	<div class="how-it-works-inner">
+		<div class="how-it-works-header">
+			<div class="how-it-works-eyebrow">02 — How it works</div>
+			<h2 class="how-it-works-title">Understand the process</h2>
+		</div>
+		<div class="how-it-works-list">
+			{
+				steps.map((step, i) => (
+					<div
+						class:list={[
+							"how-it-works-step",
+							i % 2 !== 0 && "how-it-works-step--reverse",
+						]}
+					>
+						<div class="how-it-works-step-media">
+							<div class="how-it-works-step-frame">
+								<img
+									src={`${ASSET_BASE}/${step.file}`}
+									alt={`Step ${step.num}: ${step.title} ${step.titleAlt}`}
+									class="how-it-works-step-image"
+									loading="lazy"
+								/>
+							</div>
+						</div>
+						<div class="how-it-works-step-content">
+							<div class="how-it-works-step-eyebrow">Step {step.num}</div>
+							<h3 class="how-it-works-step-title">
+								{step.title}{" "}
+								<span class="how-it-works-step-title-alt">{step.titleAlt}</span>
+							</h3>
+							<p class="how-it-works-step-body">{step.body}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

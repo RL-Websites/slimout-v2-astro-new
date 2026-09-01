@@ -1,0 +1,73 @@
+@layer components {
+  .how-it-works {
+    @apply bg-cream py-14 sm:py-20 lg:py-28;
+
+    &-inner {
+      @apply max-w-[1340px] mx-auto px-5 sm:px-8 lg:px-12;
+    }
+
+    &-header {
+      @apply text-center mb-10 sm:mb-16 lg:mb-[72px];
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[14px] tracking-[0.24em] uppercase text-muted-light mb-4 sm:mb-5;
+    }
+
+    &-title {
+      @apply font-sora text-[28px] sm:text-[40px] lg:text-[54px] font-medium leading-[1.04]
+        tracking-tight text-ink m-0;
+    }
+
+    &-list {
+      @apply flex flex-col gap-9 sm:gap-16 lg:gap-24;
+    }
+
+    &-step {
+      @apply grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-14 lg:gap-18 items-center;
+
+      &--reverse {
+        .how-it-works-step-media {
+          @apply lg:order-2;
+        }
+        .how-it-works-step-content {
+          @apply lg:order-1;
+        }
+      }
+    }
+
+    &-step-media {
+      @apply min-w-0 lg:order-1;
+    }
+
+    &-step-content {
+      @apply min-w-0 lg:order-2;
+    }
+
+    &-step-frame {
+      @apply h-[240px] sm:h-[340px] lg:h-[400px] rounded-3xl overflow-hidden bg-sage-200;
+    }
+
+    &-step-image {
+      @apply w-full h-full object-cover;
+    }
+
+    &-step-eyebrow {
+      @apply font-mono text-[14px] tracking-[0.2em] uppercase text-muted-light mb-4;
+    }
+
+    &-step-title {
+      @apply font-sora text-[30px] sm:text-[44px] lg:text-[58px] font-medium leading-[1.06]
+        tracking-tight text-ink m-0 mb-5;
+    }
+
+    &-step-title-alt {
+      @apply font-serif italic font-normal block text-lime-darker;
+    }
+
+    &-step-body {
+      @apply m-0 text-[15px] sm:text-[17px] leading-[1.7] text-muted max-w-[460px]
+        text-pretty;
+    }
+  }
+}

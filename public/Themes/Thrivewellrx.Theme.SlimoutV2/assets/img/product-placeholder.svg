@@ -1,0 +1,8 @@
+<svg width="400" height="480" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Product placeholder">
+  <rect width="400" height="480" fill="#EFF1E6" />
+  <g transform="translate(200 210)" fill="none" stroke="#B9C08A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="-46" y="-70" width="92" height="140" rx="46" />
+    <line x1="-46" y1="0" x2="46" y2="0" />
+  </g>
+  <text x="200" y="330" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="15" fill="#8B9483">Product photo</text>
+</svg>

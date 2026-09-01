@@ -1,0 +1,35 @@
+---
+import Button from './utils/Button.astro';
+
+import Modal from './Modal.astro';
+
+// Generic "scan to continue on your phone" dialog — open it with openQrModal(id, { badge,
+// value }) from the global qr-modal.js, which fills in the badge label and QR image before
+// showing it. The component itself only owns the static copy/layout.
+interface Props {
+	id?: string;
+	title?: string;
+	lead?: string;
+	helperText?: string;
+}
+
+const {
+	id = 'qr-upload-modal',
+	title = 'Upload using mobile device',
+	lead = 'Scan this QR code with your phone to upload your document.',
+	helperText = 'Open your phone camera and scan the code to continue. This link expires in 10 minutes.',
+} = Astro.props;
+---
+
+<Modal id={id} size="sm" labelledBy={`${id}-title`}>
+	<div class="qr-upload-modal-body">
+		<h3 class="qr-upload-modal-title" id={`${id}-title`}>{title}</h3>
+		<p class="qr-upload-modal-lead">{lead}</p>
+		<span class="qr-upload-modal-badge" data-qr-badge></span>
+		<div class="qr-upload-modal-qr">
+			<span class="qr-upload-modal-qr-image" data-qr-image role="img" aria-label="QR code for mobile upload"></span>
+		</div>
+		<p class="qr-upload-modal-helper">{helperText}</p>
+		<Button variant="link" className="qr-upload-modal-cancel" data-modal-close text="Cancel" />
+	</div>
+</Modal>

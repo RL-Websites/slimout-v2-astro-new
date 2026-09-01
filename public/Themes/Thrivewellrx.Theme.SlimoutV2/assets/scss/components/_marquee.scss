@@ -1,0 +1,15 @@
+@layer components {
+  .marquee {
+    @apply bg-ink overflow-hidden py-3.5;
+
+    &-track {
+      @apply flex gap-8 whitespace-nowrap font-mono text-[11.5px] tracking-[0.16em] uppercase
+        text-offwhite/45;
+      animation: marquee 34s linear infinite;
+    }
+
+    &-dot {
+      @apply text-lime;
+    }
+  }
+}

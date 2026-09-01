@@ -1,0 +1,27 @@
+{
+	"name": "slimout-v2",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "node scripts/dev.mjs  astro:dev watch",
+		"astro:dev": "astro dev --port 1080 --host --watch",
+		"watch": "sass --watch public/Themes/Thrivewellrx.Theme.SlimoutV2/assets/scss/styles.scss:public/Themes/Thrivewellrx.Theme.SlimoutV2/assets/css/style.css",
+		"build:css": "node scripts/build-css.mjs",
+		"build": "npm run build:css && astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"astro": "^7.2.2"
+	},
+	"devDependencies": {
+		"@tailwindcss/postcss": "^4.3.3",
+		"autoprefixer": "^10.5.4",
+		"postcss": "^8.5.26",
+		"sass": "^1.102.0",
+		"tailwindcss": "^4.3.3"
+	}
+}

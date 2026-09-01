@@ -1,0 +1,63 @@
+---
+const solutions = [
+	{
+		title: 'Comprehensive Telehealth Solutions',
+		body: 'Consultations, provider reviews, prescriptions, fulfillment and support in one place.',
+		dark: true,
+		dot: 'why-slimout-card-dot--round',
+	},
+	{
+		title: 'Licensed Provider Consultations',
+		body: 'Every plan is reviewed and approved by a licensed provider.',
+		dot: 'why-slimout-card-dot--round',
+	},
+	{
+		title: 'Prescription & Medication Management',
+		body: 'Refills, adjustments and records tracked in one account.',
+		dot: 'why-slimout-card-dot--sm',
+	},
+	{
+		title: 'Fast & Reliable Home Delivery',
+		body: 'Prepared by trusted pharmacy partners and shipped to you.',
+		dot: 'why-slimout-card-dot--round',
+	},
+	{
+		title: 'Ongoing Patient Support',
+		body: 'Questions answered between visits, for as long as you need.',
+		dot: 'why-slimout-card-dot--md',
+	},
+	{
+		title: 'Secure & Convenient Digital Care',
+		body: 'Your records, plan and messages, private and always to hand.',
+		dot: 'why-slimout-card-dot--xs',
+	},
+];
+---
+
+<section id="solutions" class="why-slimout">
+	<div class="why-slimout-panel">
+		<div class="why-slimout-inner">
+			<div class="why-slimout-header">
+				<div class="why-slimout-eyebrow">03 — Why SlimOut</div>
+				<h2 class="why-slimout-title">
+					Comprehensive <span class="why-slimout-title-alt">telehealth</span> solutions
+				</h2>
+			</div>
+			<div class="why-slimout-grid">
+				{
+					solutions.map((s) => (
+						<div class:list={['why-slimout-card', s.dark && 'why-slimout-card--dark']}>
+							<span class="why-slimout-card-icon">
+								<span class:list={['why-slimout-card-dot', s.dot]} />
+							</span>
+							<div>
+								<h3 class="why-slimout-card-title">{s.title}</h3>
+								<p class="why-slimout-card-body">{s.body}</p>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>

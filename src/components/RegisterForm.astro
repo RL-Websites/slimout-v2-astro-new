@@ -1,0 +1,178 @@
+---
+import Button from './utils/Button.astro';
+import StateSelectDropdown from './common/fields/StateSelectDropdown.astro';
+
+interface Props {
+	loginHref?: string;
+}
+
+const { loginHref = '#' } = Astro.props;
+
+const pad = (n: number) => String(n).padStart(2, '0');
+const days = Array.from({ length: 31 }, (_, i) => ({ value: pad(i + 1), label: String(i + 1) }));
+const months = [
+	'January', 'February', 'March', 'April', 'May', 'June',
+	'July', 'August', 'September', 'October', 'November', 'December',
+].map((label, i) => ({ value: pad(i + 1), label }));
+const thisYear = new Date().getFullYear();
+const years = Array.from({ length: 104 }, (_, i) => ({
+	value: String(thisYear - i),
+	label: String(thisYear - i),
+}));
+---
+
+<div class="register-card">
+	<div class="register-fields">
+		<label class="register-field">
+			<span class="register-label">Email Address</span>
+			<input
+				type="email"
+				placeholder="you@example.com"
+				aria-label="Email Address"
+				class="register-input"
+				data-field="email"
+			/>
+		</label>
+		<label class="register-field">
+			<span class="register-label">First Name</span>
+			<input
+				type="text"
+				placeholder="Jordan"
+				aria-label="First Name"
+				class="register-input"
+				data-field="first"
+			/>
+		</label>
+		<label class="register-field">
+			<span class="register-label">Last Name</span>
+			<input
+				type="text"
+				placeholder="Reyes"
+				aria-label="Last Name"
+				class="register-input"
+				data-field="last"
+			/>
+		</label>
+		<div class="register-field">
+			<span class="register-label">Date of Birth</span>
+			<div class="register-dob-grid">
+				<div class="register-dob-field">
+					<select aria-label="Day" class="register-select" data-field="dob-day">
+						<option value="">Day</option>
+						{days.map((d) => <option value={d.value}>{d.label}</option>)}
+					</select>
+					<span class="register-select-chevron">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M6 9l6 6 6-6"></path>
+						</svg>
+					</span>
+				</div>
+				<div class="register-dob-field">
+					<select aria-label="Month" class="register-select" data-field="dob-month">
+						<option value="">Month</option>
+						{months.map((m) => <option value={m.value}>{m.label}</option>)}
+					</select>
+					<span class="register-select-chevron">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M6 9l6 6 6-6"></path>
+						</svg>
+					</span>
+				</div>
+				<div class="register-dob-field">
+					<select aria-label="Year" class="register-select" data-field="dob-year">
+						<option value="">Year</option>
+						{years.map((y) => <option value={y.value}>{y.label}</option>)}
+					</select>
+					<span class="register-select-chevron">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M6 9l6 6 6-6"></path>
+						</svg>
+					</span>
+				</div>
+			</div>
+		</div>
+		<label class="register-field">
+			<span class="register-label">Phone</span>
+			<input
+				type="tel"
+				inputmode="tel"
+				placeholder="(555) 000-0000"
+				aria-label="Phone"
+				class="register-input"
+				data-field="phone"
+			/>
+		</label>
+		<div class="register-field">
+			<span class="register-label">State</span>
+			<StateSelectDropdown name="state" label="State" />
+		</div>
+		<div class="register-field">
+			<span class="register-label">Gender</span>
+			<span class="register-gender-options">
+				<Button variant="link" className="register-gender-option" data-gender="Male">
+					<span class="register-gender-ring">
+						<span class="register-gender-dot"></span>
+					</span>
+					Male
+				</Button>
+				<Button variant="link" className="register-gender-option" data-gender="Female">
+					<span class="register-gender-ring">
+						<span class="register-gender-dot"></span>
+					</span>
+					Female
+				</Button>
+			</span>
+		</div>
+		<label class="register-field">
+			<span class="register-label">Password</span>
+			<span class="register-password-wrap">
+				<input
+					type="password"
+					placeholder="At least 8 characters"
+					aria-label="Password"
+					class="register-input register-password-input"
+					data-field="password"
+				/>
+				<Button variant="link" className="register-password-toggle" data-password-toggle aria-label="Show password">
+					<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"></path>
+						<circle cx="12" cy="12" r="2.6"></circle>
+					</svg>
+				</Button>
+			</span>
+		</label>
+		<label class="register-field">
+			<span class="register-label">Confirm Password</span>
+			<span class="register-password-wrap">
+				<input
+					type="password"
+					placeholder="Re-enter password"
+					aria-label="Confirm Password"
+					class="register-input register-password-input"
+					data-field="confirm"
+				/>
+				<Button variant="link" className="register-password-toggle" data-password-toggle aria-label="Show password">
+					<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"></path>
+						<circle cx="12" cy="12" r="2.6"></circle>
+					</svg>
+				</Button>
+			</span>
+		</label>
+	</div>
+
+	<div class="register-error is-hidden" data-error></div>
+
+	<Button className="register-submit" data-submit>
+		Create Account
+		<span class="register-submit-arrow">
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+			</svg>
+		</span>
+	</Button>
+
+	<div class="register-login-row">
+		Already have an account? <a href={loginHref} class="register-login-link">Log in</a>
+	</div>
+</div>

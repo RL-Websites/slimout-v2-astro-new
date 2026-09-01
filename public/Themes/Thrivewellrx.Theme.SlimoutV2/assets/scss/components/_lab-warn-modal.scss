@@ -1,0 +1,71 @@
+@layer components {
+  .lab-warn-modal {
+    &-body {
+      @apply relative p-6.5 sm:p-9;
+    }
+
+    &-close {
+      @apply absolute top-4.5 right-4.5 w-8 h-8 rounded-full bg-ink text-offwhite flex
+        items-center justify-center cursor-pointer transition-colors duration-250;
+
+      &:hover {
+        @apply bg-[#8A4526];
+      }
+    }
+
+    &-title {
+      @apply font-sora text-[21px] sm:text-[27px] font-semibold tracking-tight text-ink m-0
+        mb-3 text-center text-balance;
+    }
+
+    &-lead {
+      @apply m-0 mb-6.5 text-[15px] leading-relaxed text-muted text-center text-pretty;
+    }
+
+    &-lead-strong {
+      @apply text-ink font-semibold;
+    }
+
+    &-hint {
+      @apply p-5 sm:p-5.5 bg-sage-100 border border-dashed border-[#C6D38A] rounded-2xl mb-6.5;
+    }
+
+    &-hint-head {
+      @apply flex items-center gap-2.5 mb-2.25;
+    }
+
+    &-hint-icon {
+      @apply flex shrink-0 text-lime-darker;
+    }
+
+    &-hint-title {
+      @apply font-sora text-[15px] font-semibold tracking-tight text-ink;
+    }
+
+    &-hint-text {
+      @apply m-0 text-[14.5px] leading-relaxed text-muted-dark text-pretty;
+    }
+
+    &-actions {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-2.5;
+    }
+
+    &-upload {
+      @apply flex items-center justify-center text-[15.5px] font-medium text-ink py-3.75 px-6
+        border border-[#C6D38A] rounded-full cursor-pointer transition-colors duration-250;
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-continue {
+      @apply flex items-center justify-center text-[15.5px] font-medium text-white py-3.75 px-6
+        bg-lime-dark rounded-full cursor-pointer transition-colors duration-300;
+
+      &:hover {
+        @apply bg-lime-darker;
+      }
+    }
+  }
+}

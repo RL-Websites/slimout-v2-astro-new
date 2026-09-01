@@ -1,0 +1,29 @@
+---
+interface Props {
+	name: string;
+	type?: 'text' | 'number';
+	placeholder?: string;
+	suffix?: string;
+	min?: number;
+	max?: number;
+	error?: string;
+}
+
+const { name, type = 'text', placeholder, suffix, min, max, error } = Astro.props;
+---
+
+<span class="general-input" data-error={error ? 'true' : undefined}>
+	<input
+		class="general-input-field"
+		type={type}
+		name={name}
+		id={name}
+		placeholder={placeholder}
+		inputmode={type === 'number' ? 'numeric' : undefined}
+		min={min}
+		max={max}
+		aria-invalid={error ? 'true' : undefined}
+	/>
+	{suffix && <span class="general-input-suffix">{suffix}</span>}
+</span>
+{error && <span class="general-input-error">{error}</span>}

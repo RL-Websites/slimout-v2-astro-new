@@ -1,0 +1,100 @@
+@layer components {
+  .contact {
+    @apply bg-cream pb-12 sm:pb-16 lg:pb-[88px]
+      px-5 sm:px-8 lg:px-13;
+    padding-top: calc(114px + clamp(12px, 2.4vw, 32px));
+
+    &-inner {
+      @apply max-w-[1080px] mx-auto;
+    }
+
+    &-back {
+      @apply inline-flex items-center gap-2.25 text-[14.5px] text-muted mb-4.5 sm:mb-6.5
+        transition-colors duration-200;
+
+      &:hover {
+        @apply text-ink;
+      }
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[10px] tracking-[0.24em] uppercase text-muted-light mb-2.5 sm:mb-3.5;
+    }
+
+    &-title {
+      @apply font-sora text-[28px] sm:text-[38px] lg:text-[50px] font-medium leading-[1.02]
+        tracking-tighter text-ink m-0 mb-3 text-balance;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-lead {
+      @apply m-0 mb-6 sm:mb-8.5 text-[15px] sm:text-base lg:text-[17px] leading-relaxed
+        text-muted max-w-[560px] text-pretty;
+    }
+
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4.5 items-start;
+    }
+
+    &-sidebar {
+      @apply flex flex-col gap-3 sm:gap-4.5;
+    }
+
+    &-channels {
+      @apply bg-ink text-offwhite rounded-[20px] sm:rounded-[26px] p-5.5 sm:p-7.5;
+    }
+
+    &-channels-title {
+      @apply font-sora text-[17px] sm:text-xl font-semibold tracking-tight text-offwhite m-0
+        mb-4;
+    }
+
+    &-channel-list {
+      @apply flex flex-col gap-3.5;
+    }
+
+    &-channel {
+      @apply flex gap-3.25 pb-3.5 border-b border-offwhite/16;
+
+      &:last-child {
+        @apply border-b-0 pb-0;
+      }
+    }
+
+    &-channel-icon {
+      @apply flex shrink-0 text-lime mt-0.5;
+    }
+
+    &-channel-info {
+      @apply min-w-0;
+    }
+
+    &-channel-label {
+      @apply block font-mono text-[9.5px] tracking-[0.18em] uppercase text-offwhite/45 mb-1.5;
+    }
+
+    &-channel-value {
+      @apply block text-[15px] text-offwhite [overflow-wrap:anywhere];
+    }
+
+    &-channel-note {
+      @apply block mt-1 text-[13px] text-offwhite/55;
+    }
+
+    &-notice {
+      @apply flex gap-3 p-5 sm:p-6 bg-sage-100 border border-dashed border-[#C6D38A]
+        rounded-[20px] sm:rounded-[26px];
+    }
+
+    &-notice-icon {
+      @apply flex shrink-0 text-lime-darker mt-px;
+    }
+
+    &-notice-text {
+      @apply m-0 text-sm leading-relaxed text-muted-dark text-pretty;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+---
+import InputRadio from '../fields/InputRadio.astro';
+
+interface Option {
+	value: string;
+	label: string;
+}
+
+interface Props {
+	id: string;
+	question: string;
+	options: Option[];
+}
+
+const { id, question, options } = Astro.props;
+---
+
+<h2 class="quiz-question-title">{question}</h2>
+<div class="quiz-question-options">
+	{options.map((option) => <InputRadio name={id} value={option.value} label={option.label} />)}
+</div>

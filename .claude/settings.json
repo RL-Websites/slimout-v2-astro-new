@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(astro dev *)",
+      "Bash(chromium-cli --version)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(npx --no-install playwright install chromium --dry-run)",
+      "Bash(node -e \"const {chromium} = require\\('playwright'\\); console.log\\('ok'\\)\")",
+      "Bash(npx --no-install playwright screenshot --viewport-size=900,1400 \"http://localhost:4323/checkout\" \"C:/Users/obaed/AppData/Local/Temp/claude/d--Projects-Official-Developed-OQTANE-slimout-v2/f0c89768-7ba8-4c5b-9830-b2368ac99189/scratchpad/checkout-full.png\")",
+      "Bash(netstat -ano)",
+      "Bash(nohup npx astro dev --port 4321)",
+      "Bash(disown)",
+      "Bash(cp \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--github-slimout-v2\\\\719fda46-ed55-4c8e-a584-cac684577c71\\\\scratchpad\\\\smoke.mjs\" \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\e41f203b7505f1fb\\\\smoke.mjs\")",
+      "Bash(node smoke.mjs)",
+      "Bash(cd \"d:\\\\github\\\\slimout-v2\" && npx astro dev stop 2>&1 | tail -5; rm -f \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\e41f203b7505f1fb\\\\smoke.mjs\")",
+      "Bash(python3 -c ' *)",
+      "Bash(npx --yes playwright@latest install chromium --with-deps)",
+      "Bash(node scripts/build-css.mjs)",
+      "Bash(curl -s http://localhost:4321/ -o /tmp/out.html -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:4321/Themes/Thrivewellrx.Theme.SlimoutV2/assets/scss/main.scss -o /dev/null -w \"scss direct: %{http_code}\\\\n\")",
+      "Bash(which chromium-cli *)",
+      "Read(//d//**)",
+      "Bash(command -v chromium-cli)",
+      "Bash(node toast_shot.mjs)",
+      "Bash(npx playwright *)",
+      "Bash(rm -rf \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--github-slimout-v2\\\\c0973559-60cb-4027-b32b-fb3a03846350\\\\scratchpad\\\\node_modules\" \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--github-slimout-v2\\\\c0973559-60cb-4027-b32b-fb3a03846350\\\\scratchpad\\\\package-lock.json\")",
+      "Bash(xargs grep -liE \"cart|drawer|modal|toast\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\User\\AppData\\Local\\npm-cache\\_npx\\e41f203b7505f1fb",
+      "C:\\Users\\User\\AppData\\Local\\Temp\\claude\\d--github-slimout-v2\\c0973559-60cb-4027-b32b-fb3a03846350\\scratchpad\\node_modules"
+    ]
+  }
+}

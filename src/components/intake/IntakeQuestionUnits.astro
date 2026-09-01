@@ -1,0 +1,43 @@
+---
+import GeneralInput from '../fields/GeneralInput.astro';
+
+interface Field {
+	key: string;
+	suffix: string;
+	ph: string;
+}
+
+interface Group {
+	label: string;
+	fields: Field[];
+}
+
+interface Props {
+	id: string;
+	question: string;
+	groups: Group[];
+}
+
+const { id, question, groups } = Astro.props;
+---
+
+<h2 class="intake-question-title">{question}</h2>
+<div class="intake-units">
+	{
+		groups.map((group) => (
+			<div class="intake-units-group">
+				<span class="intake-units-group-label">{group.label}</span>
+				<div class="intake-units-group-fields">
+					{group.fields.map((field) => (
+						<GeneralInput
+							name={`${id}-${field.key}`}
+							type="text"
+							suffix={field.suffix}
+							placeholder={field.ph}
+						/>
+					))}
+				</div>
+			</div>
+		))
+	}
+</div>

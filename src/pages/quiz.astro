@@ -1,0 +1,249 @@
+---
+import CommonLogoBar from "../components/common/CommonLogoBar.astro";
+import CommonNavBar from "../components/common/CommonNavBar.astro";
+import CommonProgressBar from "../components/common/CommonProgressBar.astro";
+import CommonStepLoader from "../components/common/CommonStepLoader.astro";
+import ConfirmationModal from "../components/ConfirmationModal.astro";
+import QuizProgramModal from "../components/quiz/QuizProgramModal.astro";
+import QuizQuestionChoice from "../components/quiz/QuizQuestionChoice.astro";
+import QuizQuestionDate from "../components/quiz/QuizQuestionDate.astro";
+import QuizQuestionMulti from "../components/quiz/QuizQuestionMulti.astro";
+import QuizQuestionUnits from "../components/quiz/QuizQuestionUnits.astro";
+import QuizResults from "../components/quiz/QuizResults.astro";
+import QuizReview from "../components/quiz/QuizReview.astro";
+import WarningModal from "../components/WarningModal.astro";
+import Layout from "../layouts/Layout.astro";
+
+const QUESTIONS = [
+	{
+		id: "customer-type",
+		type: "choice",
+		question: "Are you new or an existing SlimOut customer?",
+		options: [
+			{ value: "new", label: "New" },
+			{ value: "existing", label: "Existing" },
+		],
+	},
+	{
+		id: "sex",
+		type: "choice",
+		question: "Biological sex",
+		options: [
+			{ value: "male", label: "Male" },
+			{ value: "female", label: "Female" },
+		],
+	},
+	{
+		id: "dob",
+		type: "date",
+		question: "What is your date of birth?",
+	},
+	{
+		id: "weight-current",
+		type: "units",
+		question: "What is your current weight?",
+		fields: [{ name: "weight-current", suffix: "lb" }],
+	},
+	{
+		id: "height",
+		type: "units",
+		question: "What is your current height?",
+		fields: [
+			{ name: "height-feet", suffix: "Feet" },
+			{ name: "height-inch", suffix: "Inch" },
+		],
+	},
+	{
+		id: "glp1",
+		type: "choice",
+		question: "Are you currently or have you ever taken GLP-1 medication?",
+		options: [
+			{ value: "yes", label: "Yes" },
+			{ value: "no", label: "No" },
+		],
+	},
+	{
+		id: "weight-goal",
+		type: "units",
+		question: "What is your ideal weight in lbs?",
+		fields: [{ name: "weight-goal", suffix: "lb" }],
+	},
+	{
+		id: "preference",
+		type: "choice",
+		question: "Are you interested in Semaglutide or Tirzepatide?",
+		options: [
+			{ value: "semaglutide", label: "Semaglutide" },
+			{ value: "tirzepatide", label: "Tirzepatide" },
+		],
+	},
+	{
+		id: "conditions",
+		type: "multi",
+		question: "Do you have or have had any of the following?",
+		options: [
+			{ value: "mtc", label: "Medullary Thyroid Carcinoma (MTC)" },
+			{ value: "men2", label: "Multiple Endocrine Neoplasia Type 2 (MEN2)" },
+			{ value: "pancreatitis", label: "Pancreatitis" },
+			{ value: "kidney", label: "Kidney disease" },
+			{ value: "liver", label: "Liver disease" },
+			{ value: "gi", label: "Severe GI disorders" },
+			{ value: "retinopathy", label: "Diabetic retinopathy" },
+			{ value: "type1", label: "Type 1 Diabetes" },
+			{ value: "cancer", label: "Active cancer (undergoing treatment)" },
+			{ value: "eating-disorder", label: "History of eating disorders" },
+			{
+				value: "substance-abuse",
+				label: "History of substance abuse or addiction",
+			},
+			{ value: "none", label: "None of the above", exclusive: true },
+		],
+	},
+] as const;
+
+const PRODUCT_IMAGE =
+	"Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/product-demo.png";
+
+const RECOMMENDATIONS = [
+	{
+		family: "semaglutide" as const,
+		name: "Semaglutide Oral Tablets",
+		desc: "Sema 0.25mg/0.5ml, Sema 0.5mg/0.5ml, Sema 1mg/0.5ml, Sema 1.7mg/0.5ml, Sema 2.5mg/0.5ml",
+		price: "$299.00",
+		image: PRODUCT_IMAGE,
+	},
+	{
+		family: "semaglutide" as const,
+		name: "Semaglutide Injection",
+		desc: "Compounded semaglutide with B12. Inject 25 units SQ once weekly, titrated monthly.",
+		price: "$349.00",
+		image: PRODUCT_IMAGE,
+	},
+	{
+		family: "tirzepatide" as const,
+		name: "Tirzepatide Oral Tablets",
+		desc: "Tirzepatide 3mg - 240mg, Tirzepatide 4mg - 240mg, Tirzepatide 5mg - 240mg",
+		price: "$699.00",
+		image: PRODUCT_IMAGE,
+	},
+	{
+		family: "tirzepatide" as const,
+		name: "Tirzemelt 20",
+		desc: "Tirzepatide 20mg/0.5ml with methylcobalamin. Inject 50 units SQ once weekly.",
+		price: "$299.00",
+		image: PRODUCT_IMAGE,
+	},
+];
+
+const totalQuestions = QUESTIONS.length;
+---
+
+<Layout
+	title="Health Assessment — SlimOut"
+	description="Take our quick health assessment to find your personalized treatment plan."
+>
+	<main class="quiz" data-quiz data-quiz-total={totalQuestions}>
+		<!-- quiz section start -->
+		<div class="quiz-bg" aria-hidden="true">
+			<span class="quiz-bg-blob quiz-bg-blob--1"></span>
+			<span class="quiz-bg-blob quiz-bg-blob--2"></span>
+			<span class="quiz-bg-blob quiz-bg-blob--3"></span>
+			<span class="quiz-bg-ring quiz-bg-ring--1"></span>
+			<span class="quiz-bg-ring quiz-bg-ring--2"></span>
+			<span class="quiz-bg-dot quiz-bg-dot--1"></span>
+			<span class="quiz-bg-dot quiz-bg-dot--2"></span>
+		</div>
+
+		<CommonLogoBar />
+
+		<CommonProgressBar />
+
+		<div class="quiz-viewport">
+			{
+				QUESTIONS.map((q, i) => (
+					<div
+						class="quiz-step"
+						data-quiz-step={i}
+						data-quiz-type={q.type}
+						data-quiz-question={q.question}
+					>
+						{q.type === "choice" && (
+							<QuizQuestionChoice
+								id={q.id}
+								question={q.question}
+								options={q.options as any}
+							/>
+						)}
+						{q.type === "date" && (
+							<QuizQuestionDate id={q.id} question={q.question} />
+						)}
+						{q.type === "units" && (
+							<QuizQuestionUnits
+								question={q.question}
+								fields={q.fields as any}
+							/>
+						)}
+						{q.type === "multi" && (
+							<QuizQuestionMulti
+								id={q.id}
+								question={q.question}
+								options={q.options as any}
+							/>
+						)}
+					</div>
+				))
+			}
+
+			<div
+				class="quiz-step"
+				data-quiz-step={totalQuestions}
+				data-quiz-type="review"
+			>
+				<QuizReview />
+			</div>
+
+			<div
+				class="quiz-step"
+				data-quiz-step={totalQuestions + 1}
+				data-quiz-type="done"
+			>
+				<QuizResults recommendations={RECOMMENDATIONS} />
+			</div>
+
+			<CommonStepLoader />
+		</div>
+
+		<CommonNavBar />
+		<!-- quiz section end -->
+	</main>
+
+	<WarningModal
+		id="quiz-age-warning-modal"
+		title="We're Unable to Proceed with Your Treatment"
+		messageStrong="You are under 18."
+		message="Based on the information you've provided, you are not eligible to continue with this treatment at this time. For your safety, we recommend consulting with your personal healthcare provider before pursuing treatment."
+		cancelText="Back"
+		confirmText="Next"
+	/>
+
+	<WarningModal
+		id="quiz-eligibility-warning-modal"
+		title="This May Affect Your Eligibility"
+		message="Based on the condition(s) you selected, you may not be a candidate for GLP-1 treatment."
+		hintTitle="Before You Continue"
+		hintText="Selecting these conditions doesn't disqualify you automatically — a licensed provider will still review your intake before any prescription is approved."
+		cancelText="Go Back and Edit"
+		confirmText="Continue Anyway"
+	/>
+
+	<ConfirmationModal
+		id="quiz-exit-modal"
+		title="Leave Health Assessment?"
+		message="You haven't finished your assessment yet. If you leave now, your answers won't be saved and you'll need to start over."
+		cancelText="Stay on This Page"
+		confirmText="Exit Assessment"
+		tone="danger"
+	/>
+
+	<QuizProgramModal />
+</Layout>

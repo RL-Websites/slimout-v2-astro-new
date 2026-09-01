@@ -1,0 +1,58 @@
+@layer components {
+  .footer {
+    @apply relative bg-ink pt-10 sm:pt-14 lg:pt-16 pb-5 sm:pb-6.5 overflow-hidden;
+
+    &-glow {
+      @apply absolute -top-28 -right-20 w-[340px] h-[340px] rounded-full pointer-events-none;
+      background: radial-gradient(circle, rgba(187, 204, 70, 0.16) 0%, rgba(187, 204, 70, 0) 70%);
+    }
+
+    &-inner {
+      @apply max-w-[1340px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10;
+    }
+
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-3 gap-7 sm:gap-11 pb-7 sm:pb-9;
+    }
+
+    &-brand {
+      @apply min-w-0;
+    }
+
+    &-logo-link {
+      @apply block w-fit mb-3.5;
+    }
+
+    &-logo {
+      @apply text-offwhite max-w-[120px];
+
+      img {
+        @apply w-full;
+      }
+    }
+
+    &-tagline {
+      @apply m-0 text-sm leading-relaxed text-offwhite/55 max-w-[260px];
+    }
+
+    &-col {
+      @apply min-w-0;
+    }
+
+    &-col-title {
+      @apply font-mono text-[10px] tracking-[0.2em] uppercase text-offwhite/40 mb-4;
+    }
+
+    &-links {
+      @apply flex flex-col gap-2.5 text-[14.5px];
+    }
+
+    &-link {
+      @apply text-offwhite/75;
+    }
+
+    &-bottom {
+      @apply pt-5 border-t border-offwhite/10 text-[13px] text-offwhite/40;
+    }
+  }
+}

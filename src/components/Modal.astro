@@ -1,0 +1,32 @@
+---
+// Generic animated overlay shell — scrim + centered panel, open/close driven entirely by
+// the shared modal mechanics in common.js via data attributes (no per-page glue script needed):
+//   - any trigger anywhere on the page: `data-modal-open="<id>"`
+//   - any element inside this modal that should close it: `data-modal-close`
+//   - Escape closes the top-most open modal; body scroll locks while any modal is open
+//
+// This component only owns the shell (scrim, panel, sizing, open/close animation). Header,
+// body, and footer content — and any scrollable region within it — are authored by the
+// consumer inside the default slot, using that feature's own BEM classes.
+interface Props {
+	/** Unique id this modal is opened/closed by — see data-modal-open/data-modal-close above. */
+	id: string;
+	size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+	labelledBy?: string;
+}
+
+const { id, size = 'md', labelledBy } = Astro.props;
+---
+
+<div
+	class:list={['modal', `modal--${size}`]}
+	data-modal={id}
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby={labelledBy}
+>
+	<div class="modal-scrim" data-modal-close></div>
+	<div class="modal-panel" tabindex="-1">
+		<slot />
+	</div>
+</div>

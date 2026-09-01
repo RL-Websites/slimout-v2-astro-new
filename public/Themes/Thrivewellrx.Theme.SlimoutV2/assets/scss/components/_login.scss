@@ -1,0 +1,176 @@
+// Login shares the auth-page shell established by .register-* (Register was built first).
+// These extend rather than duplicate, per the project's @extend convention for identical
+// styling under a different semantic block name.
+@layer components {
+  .login {
+    &-page {
+      @extend .register-page;
+    }
+
+    &-logo {
+      @extend .register-logo;
+    }
+
+    &-logo-link {
+      @extend .register-logo-link;
+    }
+
+    &-main {
+      @extend .register-main;
+    }
+
+    &-container {
+      @extend .register-container;
+    }
+
+    &-head {
+      @extend .register-head;
+    }
+
+    &-title {
+      @extend .register-title;
+    }
+
+    &-title-alt {
+      @extend .register-title-alt;
+    }
+
+    &-lead {
+      @extend .register-lead;
+    }
+
+    &-card {
+      @extend .register-card;
+    }
+
+    &-fields {
+      @apply flex flex-col gap-3.5 mb-5;
+    }
+
+    &-field {
+      @extend .register-field;
+    }
+
+    &-label {
+      @extend .register-label;
+    }
+
+    &-input {
+      @extend .register-input;
+    }
+
+    &-input--error {
+      @extend .register-input--error;
+    }
+
+    &-password-wrap {
+      @extend .register-password-wrap;
+    }
+
+    &-password-input {
+      @extend .register-password-input;
+    }
+
+    &-password-toggle {
+      @extend .register-password-toggle;
+    }
+
+    &-remember-row {
+      @apply flex items-center justify-between gap-3 mb-5;
+    }
+
+    &-remember {
+      @apply flex items-center gap-2.5 text-[13.5px] text-muted cursor-pointer select-none;
+    }
+
+    &-remember-box {
+      @apply w-4.5 h-4.5 rounded-[5px] shrink-0 flex items-center justify-center text-[11px]
+        border-[1.5px] border-sage-400 bg-white text-ink transition-colors duration-[220ms];
+    }
+
+    &-remember.is-checked {
+      .login-remember-box {
+        @apply border-lime bg-lime;
+      }
+    }
+
+    &-forgot {
+      @apply text-[12.5px] text-lime-darker;
+    }
+
+    &-error {
+      @extend .register-error;
+    }
+
+    &-submit {
+      @extend .register-submit;
+    }
+
+    &-submit-arrow {
+      @extend .register-submit-arrow;
+    }
+
+    &-divider {
+      @apply flex items-center gap-3.5 my-5;
+    }
+
+    &-divider-line {
+      @apply flex-1 h-px bg-[#E4E7DA] block;
+    }
+
+    &-divider-label {
+      @apply font-mono text-[10px] tracking-[0.16em] uppercase text-[#A9B2A5] whitespace-nowrap;
+    }
+
+    &-secondary {
+      @apply block text-center text-[15.5px] text-ink py-3.75 border border-[#D6DAC8]
+        rounded-full transition-colors duration-[250ms];
+
+      &:hover {
+        @apply bg-ink text-offwhite border-ink;
+      }
+    }
+
+    &-back {
+      @extend .register-back;
+    }
+
+    &-back-link {
+      @extend .register-back-link;
+    }
+
+    &-demo {
+      @apply flex gap-3 mt-4.5 py-3.5 px-4 bg-white border border-dashed border-[#DDE1D2]
+        rounded-xl;
+    }
+
+    &-demo-label {
+      @apply font-mono text-[9.5px] tracking-[0.14em] uppercase text-muted-light shrink-0 pt-0.5;
+    }
+
+    &-demo-body {
+      @apply min-w-0 text-[13px] leading-[1.65] text-[#5A6653];
+    }
+
+    &-demo-key {
+      @apply text-[#8B9483];
+    }
+
+    &-demo-value {
+      @apply font-mono font-normal text-ink;
+    }
+
+    &-demo-fill {
+      @apply inline-block mt-1.5 text-[12.5px] text-lime-darker cursor-pointer border-b
+        border-lime-darker/35;
+    }
+
+    &-footnote {
+      @extend .register-footnote;
+    }
+
+    &-footnote-dot {
+      @extend .register-footnote-dot;
+    }
+  }
+}

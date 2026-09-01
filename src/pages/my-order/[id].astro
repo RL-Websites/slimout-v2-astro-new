@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/common/Header.astro';
+import OrderDetails from '../../components/my-orders/OrderDetails.astro';
+import Footer from '../../components/common/Footer.astro';
+import { ORDERS, orderSlug } from '../../data/orders';
+
+export function getStaticPaths() {
+	return ORDERS.map((order) => ({ params: { id: orderSlug(order.id) } }));
+}
+
+const { id } = Astro.params;
+---
+
+<Layout
+	title={`Order #${id} — SlimOut`}
+	description="View shipping, billing, and status details for your SlimOut order."
+	base="../"
+>
+	<div class="site-header">
+		<!-- header section start -->
+		<Header base="../" />
+		<!-- header section end -->
+	</div>
+
+	<main>
+		<!-- order details section start -->
+		<OrderDetails slug={id} base="../" />
+		<!-- order details section end -->
+	</main>
+
+	<div class="site-footer">
+		<!-- footer section start -->
+		<Footer base="../" />
+		<!-- footer section end -->
+	</div>
+</Layout>

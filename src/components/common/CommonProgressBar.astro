@@ -1,0 +1,21 @@
+---
+interface Props {
+	eyebrow?: string;
+}
+
+const { eyebrow = 'Your health assessment' } = Astro.props;
+---
+
+<div class="common-progress-bar">
+	<button type="button" class="theme-btn theme-btn__link common-progress-bar-back" data-progress-back aria-label="Back to previous step">
+		<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<path d="M15 6l-6 6 6 6"></path>
+		</svg>
+		Back
+	</button>
+	<span class="common-progress-bar-eyebrow" data-progress-eyebrow>{eyebrow}</span>
+	<span class="common-progress-bar-counter" data-progress-counter></span>
+</div>
+<div class="common-progress-bar-track">
+	<div class="common-progress-bar-fill" data-progress-fill></div>
+</div>

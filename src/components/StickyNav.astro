@@ -1,0 +1,24 @@
+---
+// Generic fixed bottom step-nav bar — status text + an optional back/skip action + a
+// primary next/submit action. Used by any page that's a standalone step in a flow (not the
+// quiz/intake question engine, which has its own chrome — see CommonNavBar.astro for that).
+// This component only owns the fixed bar's chrome; each slot's content (href, click handler,
+// data attributes, enabled/disabled state) is entirely up to the page, styled via the shared
+// `.sticky-nav-back` / `.sticky-nav-next` / `.sticky-nav-next-arrow` classes below.
+interface Props {
+	/** Matches the page's own content max-width so the bar's contents line up with it. */
+	maxWidth?: number;
+}
+
+const { maxWidth = 980 } = Astro.props;
+---
+
+<div class="sticky-nav">
+	<div class="sticky-nav-inner" style={`max-width:${maxWidth}px`}>
+		<div class="sticky-nav-status">
+			<slot name="status" />
+		</div>
+		<slot name="back" />
+		<slot name="next" />
+	</div>
+</div>

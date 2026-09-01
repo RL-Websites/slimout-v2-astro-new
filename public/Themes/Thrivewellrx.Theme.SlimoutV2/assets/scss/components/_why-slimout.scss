@@ -1,0 +1,93 @@
+@layer components {
+  .why-slimout {
+    @apply bg-cream px-3 sm:px-4 lg:px-6 pb-6 sm:pb-10 lg:pb-14;
+
+    &-panel {
+      @apply bg-sage-200 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] py-9 sm:py-14
+        lg:py-20 px-5 sm:px-8 lg:px-12;
+    }
+
+    &-inner {
+      @apply max-w-[1240px] mx-auto;
+    }
+
+    &-header {
+      @apply max-w-[860px] mb-8 sm:mb-11;
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[14px] tracking-[0.24em] uppercase text-muted mb-4 sm:mb-6;
+    }
+
+    &-title {
+      @apply font-sora text-[30px] sm:text-[46px] lg:text-[64px] font-medium leading-none
+        tracking-tight text-ink m-0;
+    }
+
+    &-title-alt {
+      @apply font-serif italic font-normal;
+    }
+
+    &-grid {
+      @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3;
+
+      @media (min-width: 1024px) {
+        > *:nth-child(4) {
+          grid-column-start: 2;
+        }
+      }
+    }
+
+    &-card {
+      @apply bg-cream text-ink rounded-3xl p-6 sm:p-8 min-h-[230px] sm:min-h-[260px]
+        lg:min-h-[290px] flex flex-col justify-between gap-6 transition-transform duration-300;
+
+      &:hover {
+        @apply -translate-y-1.5;
+      }
+
+      &--dark {
+        @apply bg-ink text-offwhite;
+
+        .why-slimout-card-icon {
+          @apply bg-lime;
+        }
+        .why-slimout-card-dot {
+          @apply bg-ink;
+        }
+        .why-slimout-card-body {
+          @apply text-offwhite/60;
+        }
+      }
+    }
+
+    &-card-icon {
+      @apply w-10 h-10 rounded-xl bg-sage-200 flex items-center justify-center;
+    }
+
+    &-card-dot {
+      @apply w-3 h-3 block bg-lime;
+
+      &--round {
+        @apply rounded-full;
+      }
+      &--sm {
+        border-radius: 3px;
+      }
+      &--md {
+        border-radius: 4px;
+      }
+      &--xs {
+        border-radius: 2px;
+      }
+    }
+
+    &-card-title {
+      @apply font-sora text-lg font-semibold tracking-tight m-0 mb-2.5;
+    }
+
+    &-card-body {
+      @apply m-0 text-sm leading-relaxed text-muted text-pretty;
+    }
+  }
+}

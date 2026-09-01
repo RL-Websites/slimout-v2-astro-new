@@ -1,0 +1,80 @@
+@layer components {
+	.state-select {
+		@apply relative min-w-0;
+
+		&-trigger {
+			@apply flex items-center justify-between gap-2 w-full font-sans text-[15px]
+				text-[#8B9483] py-3.75 pr-4.25 pl-4.25 bg-sage-50 border border-[#DDE1D2]
+				rounded-xl cursor-pointer transition-colors duration-[200ms] text-left;
+
+			&:hover {
+				@apply border-sage-400;
+			}
+		}
+
+		&.is-open &-trigger {
+			@apply border-lime bg-white;
+		}
+
+		&-value {
+			@apply truncate;
+
+			&--filled {
+				@apply text-ink;
+			}
+		}
+
+		&-chevron {
+			@apply flex shrink-0 text-[#8B9483] transition-transform duration-[200ms];
+		}
+
+		&.is-open &-chevron {
+			@apply -rotate-180 text-ink;
+		}
+
+		&-panel {
+			@apply absolute left-0 right-0 top-[calc(100%+8px)] z-20 bg-white border
+				border-[#E4E7DA] rounded-xl shadow-[0_12px_28px_rgba(16,26,20,0.12)]
+				overflow-hidden;
+		}
+
+		&-search-wrap {
+			@apply p-2.5 border-b border-[#E4E7DA];
+		}
+
+		&-search {
+			@apply w-full text-sm text-ink py-2.25 px-3 bg-sage-50 border border-[#DDE1D2]
+				rounded-lg;
+
+			&::placeholder {
+				@apply text-[#98A292];
+			}
+		}
+
+		&-options {
+			@apply max-h-[240px] overflow-y-auto py-1.5 list-none m-0 pl-0;
+		}
+
+		&-option {
+			@apply py-2.25 px-4.25 text-[14.5px] text-[#3A463C] cursor-pointer
+				transition-colors duration-150;
+
+			&:hover,
+			&.is-active {
+				@apply bg-sage-100 text-ink;
+			}
+
+			&.is-selected {
+				@apply text-lime-darker font-medium;
+			}
+
+			&[hidden] {
+				@apply hidden;
+			}
+		}
+
+		&-empty {
+			@apply py-3 px-4.25 text-[14px] text-[#98A292];
+		}
+	}
+}

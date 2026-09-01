@@ -1,0 +1,98 @@
+---
+import Button from './utils/Button.astro';
+
+// Generic click-or-drag-drop file picker with a live file list — validates extension and
+// size client-side, renders added/removed files itself, and reports changes both as a
+// `files-change` CustomEvent (detail.files) and via the global dropzone.js's registry, so a
+// page only has to react to "what files are selected now", never reimplement the picker UI.
+interface Props {
+	/** Unique id — used to read/set this dropzone's files via dropzone.js. */
+	id: string;
+	/** Passed straight to the native file input's accept attribute, e.g. ".jpg,.jpeg,.png,.pdf". */
+	accept?: string;
+	maxMB?: number;
+	multiple?: boolean;
+	title?: string;
+	hint?: string;
+	browseLabel?: string;
+	emptyTitle?: string;
+	emptyText?: string;
+	statusLabel?: string;
+}
+
+const {
+	id,
+	accept = '.jpg,.jpeg,.png,.pdf',
+	maxMB = 50,
+	multiple = true,
+	title = 'Choose a file or drag and drop here',
+	hint,
+	browseLabel = 'Browse Files',
+	emptyTitle = 'No files yet',
+	emptyText = 'Uploaded files will be listed here.',
+	statusLabel = 'Completed',
+} = Astro.props;
+
+const extensions = accept
+	.split(',')
+	.map((ext) => ext.trim().replace(/^\./, ''))
+	.filter(Boolean);
+const acceptPattern = extensions.join('|');
+const defaultHint = `${extensions.map((ext) => ext.toUpperCase()).join(', ')}, up to ${maxMB} MB.`;
+---
+
+<div class="file-dropzone" data-file-dropzone={id} data-accept-pattern={acceptPattern} data-max-mb={maxMB}>
+	<div class="file-dropzone-grid p-4">
+		<div class="file-dropzone-drop" data-dropzone role="button" tabindex="0">
+			<span class="file-dropzone-drop-icon">
+				<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"></path>
+				</svg>
+			</span>
+			<div class="file-dropzone-drop-title">{title}</div>
+			<div class="file-dropzone-drop-hint">{hint ?? defaultHint}</div>
+			<span class="file-dropzone-drop-browse">{browseLabel}</span>
+			<input type="file" accept={accept} multiple={multiple} class="is-hidden" data-file-input />
+		</div>
+
+		<div class="file-dropzone-files">
+			<div class="file-dropzone-file-list is-hidden" data-file-list></div>
+			<div class="file-dropzone-empty" data-file-empty>
+				<span class="file-dropzone-empty-icon">
+					<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"></path><path d="M14 3v5h5"></path><path d="M4.6 3.6l14.8 16.8"></path>
+					</svg>
+				</span>
+				<span class="file-dropzone-empty-title">{emptyTitle}</span>
+				<span class="file-dropzone-empty-text">{emptyText}</span>
+			</div>
+		</div>
+	</div>
+
+	<template data-file-row-template>
+		<div class="file-dropzone-file-row">
+			<span class="file-dropzone-file-icon">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"></path><path d="M14 3v5h5"></path>
+				</svg>
+			</span>
+			<span class="file-dropzone-file-info">
+				<span class="file-dropzone-file-name" data-row-name></span>
+				<span class="file-dropzone-file-meta">
+					<span data-row-size></span>
+					<span class="file-dropzone-file-status">
+						<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<circle cx="12" cy="12" r="9.5"></circle><path d="M7.6 12.3l3 3 5.8-6.2"></path>
+						</svg>
+						{statusLabel}
+					</span>
+				</span>
+			</span>
+			<Button variant="link" className="file-dropzone-file-remove" aria-label="Remove file" data-row-remove>
+				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M4 7h16"></path><path d="M10 4h4a1 1 0 011 1v2h-6V5a1 1 0 011-1z"></path><path d="M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12"></path><path d="M10 11v6M14 11v6"></path>
+				</svg>
+			</Button>
+		</div>
+	</template>
+</div>

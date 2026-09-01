@@ -1,0 +1,151 @@
+---
+import Button from '../utils/Button.astro';
+
+import Modal from '../Modal.astro';
+import { ORDERS, STAGE_TIMELINES, FILL_PERIODS, statusSlug } from '../../data/orders';
+
+const multiStatusOrders = ORDERS.filter((o) => !(o.items.length === 1 && !o.items[0].bundle));
+---
+
+<Modal id="order-status-modal" size="xl" labelledBy="order-status-modal-title">
+	<div class="modal-header">
+		<div>
+			<h3 class="order-status-modal-title" id="order-status-modal-title">My Order Details</h3>
+			<div class="order-status-modal-meta">
+				<strong data-order-status-id></strong>
+			</div>
+		</div>
+				<Button variant="link" className="modal-close" data-modal-close aria-label="Close">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+				<path d="M6 6l12 12M18 6L6 18" />
+			</svg>
+				</Button>
+	</div>
+
+	<div class="modal-body">
+		{
+			multiStatusOrders.map((order) => (
+				<div class="order-status-modal-order" data-order-status-block data-order-id={order.id}>
+					{order.items.map((item, idx) => (
+						<details class="order-status-item" open={idx === 0}>
+							<summary class="order-status-item-summary">
+								<span class="order-status-item-name">{item.name}</span>
+								{item.bundle ? <span class="order-status-item-badge">+{item.bundle}</span> : null}
+								<span class="order-status-item-chevron">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M6 9l6 6 6-6" />
+									</svg>
+								</span>
+							</summary>
+
+							<div class="order-status-item-body">
+								{item.bundle ? (
+									<div class="order-status-fills">
+										{FILL_PERIODS.map((period, k) => {
+											const isFirst = k === 0;
+											const meds = item.contents && item.contents.length ? item.contents : [item.name];
+											const fillStatus = isFirst ? item.status : 'Delivered';
+											const fillStatusLabel = isFirst ? item.status : 'Received';
+											const fillPay = isFirst ? order.pay : 'Not Paid';
+											const canLab = isFirst && item.status !== 'Cancelled';
+											return (
+												<details class="order-status-fill" open={isFirst}>
+													<summary class="order-status-fill-summary">
+														<span class="order-status-fill-label">{isFirst ? 'Order Type: Fill' : 'Order Type: Refill'}</span>
+														{isFirst ? <span class="order-status-fill-active-badge">Active</span> : null}
+														<span class="order-status-fill-chevron">
+															<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+																<path d="M6 9l6 6 6-6" />
+															</svg>
+														</span>
+													</summary>
+
+													<div class="order-status-fill-grid">
+														<div>
+															<span class="order-status-fill-grid-label">Order Status</span>
+															<span class:list={['order-badge', `order-badge--${statusSlug(fillStatus)}`]}>{fillStatusLabel}</span>
+														</div>
+														<div>
+															<span class="order-status-fill-grid-label">Payment Status</span>
+															<span class:list={['order-badge', `order-badge--${statusSlug(fillPay)}`]}>{fillPay}</span>
+														</div>
+														<div>
+															<span class="order-status-fill-grid-label">Product Price</span>
+															<span class="order-status-fill-grid-value">${order.amount.toFixed(2)}</span>
+														</div>
+														<div>
+															<span class="order-status-fill-grid-label">Lab Report</span>
+															{canLab ? (
+																<a href="lab-results.html" class="order-status-fill-grid-action order-status-fill-grid-action--active">Upload</a>
+															) : (
+																<span class="order-status-fill-grid-action order-status-fill-grid-action--inactive">—</span>
+															)}
+														</div>
+														<div>
+															<span class="order-status-fill-grid-label">Action</span>
+															{!isFirst ? (
+																<a href="checkout.html" class="order-status-fill-grid-action order-status-fill-grid-action--active">Request Refill</a>
+															) : (
+																<span class="order-status-fill-grid-action order-status-fill-grid-action--inactive">—</span>
+															)}
+														</div>
+														<div>
+															<span class="order-status-fill-grid-label">Period</span>
+															<span class="order-status-fill-grid-period">{period}</span>
+														</div>
+													</div>
+
+													<div class="order-status-meds">
+														<div class="order-status-meds-head">
+															<span>Medication</span><span>Strength</span><span>Direction</span><span>Qty</span><span>Status</span>
+														</div>
+														{meds.map((name) => (
+															<div class="order-status-meds-row">
+																<span class="order-status-meds-name">{name}</span>
+																<span class="order-status-meds-strength">1 unit</span>
+																<span class="order-status-meds-direction">Take as directed by your provider.</span>
+																<span class="order-status-meds-qty">1</span>
+																<span class:list={['order-badge', `order-badge--${statusSlug(fillStatus)}`]}>{fillStatusLabel}</span>
+															</div>
+														))}
+													</div>
+												</details>
+											);
+										})}
+									</div>
+								) : (
+									<div>
+										<div class="order-status-timeline-label">Status Timeline</div>
+										<div class="order-status-timeline">
+											<div class="order-status-timeline-track">
+												<span class="order-status-timeline-rail" />
+												{STAGE_TIMELINES[item.status]
+													.slice()
+													.reverse()
+													.map((stage, k) => (
+														<div class="order-status-timeline-row">
+															<span class:list={['order-status-timeline-dot', k === 0 && 'order-status-timeline-dot--latest']} />
+															<div class:list={['order-status-timeline-card', k === 0 && 'order-status-timeline-card--latest']}>
+																<div class="order-status-timeline-head">
+																	<span class="order-status-timeline-title">
+																		{stage.label}
+																		{k === 0 ? <span class="order-status-timeline-latest">Latest</span> : null}
+																	</span>
+																	<span class="order-status-timeline-time">Aug 14, 2026 – {stage.time}</span>
+																</div>
+																<div class="order-status-timeline-note">{stage.note}</div>
+															</div>
+														</div>
+													))}
+											</div>
+										</div>
+									</div>
+								)}
+							</div>
+						</details>
+					))}
+				</div>
+			))
+		}
+	</div>
+</Modal>

@@ -1,0 +1,99 @@
+---
+import CartSection from "../components/cart/CartSection.astro";
+import CartStickyBar from "../components/cart/CartStickyBar.astro";
+import ShippingDrawer from "../components/cart/ShippingDrawer.astro";
+import Footer from "../components/common/Footer.astro";
+import Header from "../components/common/Header.astro";
+import Recommended from "../components/common/Recommended.astro";
+import Layout from "../layouts/Layout.astro";
+
+const ASSET_BASE = "Themes/Thrivewellrx.Theme.SlimoutV2/assets/img";
+const PRODUCT_IMAGE = "product-demo.png";
+
+const PRODUCT = {
+	name: "Tirzemelt 20",
+	desc: "Sema 0.25mg/0.5mg/0.5ml, Sema 0.5mg/0.5mg/0.5ml, Sema 1mg/0.5mg/0.5ml, Sema 1.7mg/0.5mg/0.5ml, Sema 2.5mg/0.5mg/0.5ml",
+	priceLabel: "Starting from",
+	price: "$299.00",
+	unit: 299,
+};
+
+const BASE_SHIP = 12;
+const OVERNIGHT = 39;
+
+const items = [
+	{
+		id: 1,
+		baseName: PRODUCT.name,
+		program: "3 Month Program",
+		shipping: "Regular" as const,
+		qty: 1,
+		unit: PRODUCT.unit,
+		image: PRODUCT_IMAGE,
+	},
+	{
+		id: 2,
+		baseName: PRODUCT.name,
+		program: "1 Month Program",
+		shipping: "Overnight" as const,
+		qty: 2,
+		unit: PRODUCT.unit,
+		image: PRODUCT_IMAGE,
+	},
+];
+
+const recommended = Array.from({ length: 4 }).map(() => ({
+	name: PRODUCT.name,
+	desc: PRODUCT.desc,
+	priceLabel: PRODUCT.priceLabel,
+	price: PRODUCT.price,
+	unit: PRODUCT.unit,
+	image: `${ASSET_BASE}/${PRODUCT_IMAGE}`,
+}));
+
+const units = items.reduce((n, it) => n + it.qty, 0);
+const subtotal = items.reduce((n, it) => n + it.qty * it.unit, 0);
+const shipping = items.length
+	? BASE_SHIP +
+		(items.some((it) => it.shipping === "Overnight") ? OVERNIGHT : 0)
+	: 0;
+const total = subtotal + shipping;
+const shipLabel = items.length
+	? Array.from(new Set(items.map((it) => it.shipping))).join(" + ")
+	: "no items";
+const itemCount = `${units} ${units === 1 ? "item" : "items"}`;
+---
+
+<Layout
+	title="Your Cart — SlimOut"
+	description="Review your treatment programs and complete your order."
+>
+	<div class="site-header">
+		<Header />
+	</div>
+
+	<main class="cart-page">
+		<div class="cart-page-spacer"></div>
+
+		<CartSection
+			items={items}
+			itemCount={itemCount}
+			subtotal={subtotal}
+			shipping={shipping}
+			shipLabel={shipLabel}
+			total={total}
+			baseShip={BASE_SHIP}
+			overnightShip={OVERNIGHT}
+		/>
+
+		<CartStickyBar total={total} itemCount={itemCount} shipLabel={shipLabel} />
+
+		<Recommended items={recommended} isFromCart />
+	</main>
+
+	<div class="site-footer">
+		<Footer />
+	</div>
+
+	<ShippingDrawer />
+</Layout>

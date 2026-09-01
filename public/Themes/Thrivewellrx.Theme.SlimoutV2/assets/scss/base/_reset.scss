@@ -1,0 +1,25 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  @apply bg-cream font-sans text-ink antialiased overflow-x-hidden;
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #bbcc46;
+  color: #101a14;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #bbcc46;
+  outline-offset: 1px;
+}
+
+.logo {
+  display: block;
+}

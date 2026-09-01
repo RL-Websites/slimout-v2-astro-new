@@ -1,0 +1,25 @@
+---
+interface Props {
+	name?: string;
+	width?: string;
+}
+
+const { name = 'Product', width = '560px' } = Astro.props;
+---
+
+<div class="drawer" data-cart-drawer hidden style={`--drawer-width: ${width}`}>
+	<div class="drawer-scrim" data-cart-drawer-close></div>
+	<div class="drawer-panel">
+		<div class="drawer-head">
+			<span class="drawer-back" data-cart-drawer-close aria-label="Back">&larr;</span>
+			<span class="drawer-name" data-cart-drawer-name>{name}</span>
+			<span class="drawer-close" data-cart-drawer-close aria-label="Close">&times;</span>
+		</div>
+		<div class="drawer-body">
+			<slot />
+		</div>
+		<div class="drawer-footer">
+			<slot name="footer" />
+		</div>
+	</div>
+</div>

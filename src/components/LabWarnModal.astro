@@ -1,0 +1,37 @@
+---
+import Button from './utils/Button.astro';
+
+import Modal from './Modal.astro';
+---
+
+<Modal id="lab-warn-modal" size="sm" labelledBy="lab-warn-modal-title">
+	<div class="lab-warn-modal-body">
+		<Button variant="link" className="lab-warn-modal-close" data-modal-close aria-label="Close">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+				<path d="M6 6l12 12M18 6L6 18"></path>
+			</svg>
+		</Button>
+
+		<h3 class="lab-warn-modal-title" id="lab-warn-modal-title">Continue Without Lab Files?</h3>
+		<p class="lab-warn-modal-lead">
+			You selected <strong class="lab-warn-modal-lead-strong" data-lab-warn-label>your lab option</strong>, but no lab files have been uploaded yet.
+		</p>
+
+		<div class="lab-warn-modal-hint">
+			<div class="lab-warn-modal-hint-head">
+				<span class="lab-warn-modal-hint-icon">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 3.4L1.9 20.6h20.2z"></path><path d="M12 9.6v5"></path><path d="M12 17.6h.01"></path>
+					</svg>
+				</span>
+				<span class="lab-warn-modal-hint-title">Before You Continue</span>
+			</div>
+			<p class="lab-warn-modal-hint-text">If lab results are required for review, submitting now without files may slow down the order process.</p>
+		</div>
+
+		<div class="lab-warn-modal-actions">
+			<Button variant="outline" className="lab-warn-modal-upload" data-lab-warn-upload text="Upload Files" />
+			<Button className="lab-warn-modal-continue" data-lab-warn-continue text="Continue Anyway" />
+		</div>
+	</div>
+</Modal>
