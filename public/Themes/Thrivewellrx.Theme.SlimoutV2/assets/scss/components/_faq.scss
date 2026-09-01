@@ -1,88 +1,108 @@
 @layer components {
   .faq {
-    @apply bg-cream py-14 sm:py-20 lg:py-28;
+    @apply bg-cream py-14 sm:py-20 lg:py-28 px-5 sm:px-8 lg:px-16;
 
     &-inner {
-      @apply max-w-[1340px] mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-2
-        gap-8 sm:gap-14 lg:gap-18 items-start;
+      @apply max-w-[1440px] mx-auto;
     }
 
-    &-intro {
-      @apply min-w-0;
+    &-header {
+      @apply flex flex-wrap items-end justify-between gap-6 mb-9 sm:mb-14;
     }
 
     &-eyebrow {
-      @apply font-mono text-[14px] tracking-[0.24em] uppercase text-muted-light mb-4 sm:mb-6;
+      @apply font-mono text-[13px] tracking-[0.14em] uppercase text-muted mb-3;
+
+      &::before {
+        content: "";
+        @apply inline-block w-[7px] h-[7px] rounded-full bg-primary mr-2 align-middle;
+      }
     }
 
     &-title {
-      @apply font-sora text-[30px] sm:text-[42px] lg:text-[56px] font-medium leading-none
-        tracking-tight text-ink m-0 mb-6.5;
+      @apply font-sora text-[30px] sm:text-[42px] lg:text-[54px] font-semibold leading-[1.06]
+        tracking-tight text-ink m-0;
     }
 
     &-title-alt {
-      @apply font-serif italic font-normal block text-lime-darker;
+      @apply font-serif italic font-normal text-lime-dark;
     }
 
     &-contact {
-      @apply bg-lime rounded-[26px] py-8 px-[34px] max-w-[480px];
+      @apply flex items-center gap-3.5 py-4 px-5.5 rounded-full bg-sage-100 border border-sage-200;
     }
 
-    &-contact-title {
-      @apply font-sora text-[23px] font-semibold tracking-tight text-ink mb-4.5;
-    }
-
-    &-contact-body {
-      @apply flex flex-col gap-[11px] text-lg leading-relaxed text-ink/75;
+    &-contact-label {
+      @apply text-sm text-muted;
     }
 
     &-contact-link {
-      @apply text-ink border-b border-ink/40;
+      @apply text-sm font-semibold text-ink underline underline-offset-[3px];
     }
 
-    &-panel {
-      @apply min-w-0;
+    &-contact-dot {
+      @apply w-1 h-1 rounded-full bg-sage-200 block;
+    }
+
+    &-list {
+      @apply flex flex-col gap-4;
     }
 
     &-item {
-      @apply border-b border-sage-300;
+      @apply rounded-card sm:rounded-panel bg-sage-100 border border-sage-200 transition-[background,border-color] duration-500;
 
-      &.is-hidden {
-        @apply hidden;
-      }
+      &.is-open {
+        @apply bg-primary border-primary;
 
-      &.is-open .faq-icon {
-        @apply bg-lime;
+        .faq-icon {
+          @apply bg-white/15 text-white rotate-0;
+        }
+
+        .faq-num {
+          @apply text-white;
+        }
+
+        .faq-question {
+          @apply text-white;
+        }
+
+        .faq-answer {
+          @apply text-white/80;
+        }
       }
     }
 
     &-question-row {
-      @apply w-full text-left bg-transparent border-0 flex items-start justify-between gap-5 py-6
-        cursor-pointer transition-[padding-left] duration-300;
+      @apply w-full text-left bg-transparent border-0 flex items-start justify-between gap-6
+        py-6.5 px-6.5 sm:py-8.5 sm:px-9 cursor-pointer;
+    }
 
-      &:hover {
-        @apply pl-2;
-      }
+    &-question-group {
+      @apply flex items-baseline gap-4;
+    }
+
+    &-num {
+      @apply font-mono text-[13px] font-bold tracking-[0.04em] text-muted transition-colors duration-500;
     }
 
     &-question {
-      @apply font-sora text-[17px] sm:text-[19px] lg:text-[21px] font-medium tracking-tight
-        leading-snug text-ink;
+      @apply font-sora text-[18px] sm:text-[22px] font-semibold tracking-tight leading-snug
+        text-ink transition-colors duration-500;
     }
 
     &-icon {
-      @apply w-[34px] h-[34px] rounded-full bg-sage-200 text-ink flex items-center
-        justify-center text-lg shrink-0 transition-colors duration-300;
+      @apply w-9 h-9 rounded-full bg-cream text-ink flex items-center justify-center shrink-0
+        rotate-[135deg] transition-[transform,background,color] duration-500;
     }
 
     &-answer-wrap {
-      @apply overflow-hidden transition-[height] duration-300 ease-in-out;
+      @apply overflow-hidden transition-[height] duration-500 ease-in-out;
       height: 0;
     }
 
     &-answer {
-      @apply pb-6.5 pr-0 sm:pr-[60px] text-[19px] leading-[1.7] text-muted text-pretty;
+      @apply m-0 pb-6.5 px-6.5 sm:pb-8.5 sm:px-9 ml-0 sm:ml-[70px] text-[15.5px] leading-relaxed
+        text-muted text-pretty transition-colors duration-500;
     }
-
   }
 }

@@ -1,55 +1,44 @@
 ---
 import { categories } from "../data/categories";
-const ASSET_BASE = "Themes/Thrivewellrx.Theme.SlimoutV2/assets/img";
-
-const programs = [
-	{ name: "Weight Loss", file: "category-weight-loss.webp" },
-	{ name: "Hormone Therapy", file: "category-hormone-therapy.webp" },
-	{ name: "Anti-Aging", file: "category-anti-aging.webp" },
-	{ name: "Sexual Health", file: "category-sexual-health.webp" },
-	{ name: "Hair Regrowth", file: "category-hair-regrowth.webp" },
-	{ name: "Pre Workout", file: "category-pre-workout.webp" },
-	{ name: "Sleep", file: "category-sleep.webp" },
-	{ name: "Testosterone", file: "category-testosterone.webp" },
-];
 ---
 
 <section id="programs" class="programs">
-	<div class="programs-panel">
-		<div class="programs-header">
-			<div class="programs-eyebrow">01 — Care programs</div>
-			<h2 class="programs-title">
-				Explore SlimOut's <span class="programs-title-alt">personalized</span> care
-				programs
-			</h2>
-			<p class="programs-lead">
-				Eight provider-led programs. Pick the one that matches what brought you
-				here —
-				<a href="#cta" class="programs-lead-link">Get Started Today.</a>
-			</p>
-		</div>
-		<div class="programs-grid">
-			{
-				categories.map((category) => (
-					<a href={`${category.slug}.html`} class="programs-card">
-						<span class="programs-card-media">
-							<img
-								src={category.heroImage}
-								alt={category.name}
-								class="programs-card-image"
-								loading="lazy"
-							/>
+	<div class="programs-header">
+		<div class="programs-eyebrow">Getting started</div>
+		<h2 class="programs-title">
+			Explore SlimOut's <span class="programs-title-alt">personalized</span> care
+			programs
+		</h2>
+		<p class="programs-lead">
+			Six provider-led programs. Pick the one that matches what brought you
+			here —
+			<a href="#cta" class="programs-lead-link">Get Started Today.</a>
+		</p>
+	</div>
+	<div class="programs-grid" data-exp-row data-rvl>
+		{
+			categories
+				.filter((category) => category.slug !== 'weight-loss' && category.slug !== 'sexual-health')
+				.map((category) => (
+				<a href={`${category.slug}.html`} class="programs-card" data-exp>
+					<span class="programs-card-media">
+						<img
+							src={category.heroImage}
+							alt={category.name}
+							class="programs-card-image"
+							data-exp-img
+							loading="lazy"
+						/>
+					</span>
+					<span class="programs-card-overlay" />
+					<span class="programs-card-footer">
+						<span class="programs-card-name" data-exp-title>{category.name}</span>
+						<span class="programs-card-arrow" data-exp-arrow>
+							<i class="icon-arrow-right" />
 						</span>
-						<span class="programs-card-overlay" />
-						<span class="programs-card-footer">
-							<span class="programs-card-name">{category.name}</span>
-							<span class="theme-btn theme-btn__icon">
-								<i class="icon-arrow-right" />
-							</span>
-						</span>
-					</a>
-				))
-			}
-		</div>
+					</span>
+				</a>
+			))
+		}
 	</div>
 </section>

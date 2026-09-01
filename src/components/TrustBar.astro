@@ -1,15 +1,21 @@
 ---
 const certifications = ['LegitScript', 'URAC', 'AAAHC', 'ATA', 'NABP'];
+const statement =
+	"Whether you're looking for weight management, hormone optimization, sexual wellness, sleep support, longevity, peptide therapy, hair restoration, or overall wellness—we're here to help.";
+const words = statement.split(' ');
 ---
 
-<section class="trust-bar">
+<section id="platform" class="trust-bar">
 	<div class="trust-bar-inner">
-		<div class="trust-bar-label">Care, made personal</div>
-		<p class="trust-bar-statement">
-			Whether you're looking for weight management, hormone optimization, sexual wellness,
-			sleep support, longevity, peptide therapy, hair restoration, or <span
-				class="trust-bar-statement-alt">overall wellness</span
-			>—we're here to help.
+		<div class="trust-bar-label">
+			<span class="trust-bar-dot"></span>Care, made personal
+		</div>
+		<p class="trust-bar-statement" data-word-reveal>
+			{words.map((word, i) => (
+				<span class="trust-bar-word" data-word style={`--word-index:${i}`}>
+					{word}{' '}
+				</span>
+			))}
 		</p>
 		<div class="trust-bar-certs">
 			{certifications.map((name) => <span class="trust-bar-cert">{name}</span>)}

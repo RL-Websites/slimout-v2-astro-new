@@ -1,21 +1,59 @@
 @layer components {
   .trust-bar {
-    @apply bg-lime pt-14 sm:pt-20 lg:pt-28 pb-7 sm:pb-20 lg:pb-28 text-center;
+    @apply bg-cream text-center;
+    padding: clamp(80px, 14vh, 180px) clamp(20px, 4vw, 64px) clamp(40px, 6vh, 80px);
+    padding-bottom: clamp(140px, 6vh, 200px);
+
+    @media (max-width: 1024px) {
+      padding-top: clamp(56px, 9vh, 110px);
+      padding-bottom: clamp(64px, 10vh, 120px);
+    }
 
     &-inner {
-      @apply max-w-[1040px] mx-auto px-5 sm:px-8 lg:px-12;
+      @apply max-w-[1440px] mx-auto;
     }
 
     &-label {
-      @apply font-mono text-[14px] tracking-[0.24em] uppercase text-ink/55 mb-6 sm:mb-8;
+      @apply flex items-center justify-center gap-[9px] font-mono text-[13px] font-semibold tracking-[0.14em] uppercase text-ink;
+    }
+
+    &-dot {
+      @apply w-1.75 h-1.75 rounded-full bg-accent block;
     }
 
     &-statement {
-      @apply m-0 mb-9 sm:mb-12 font-sora text-[22px] sm:text-[32px] lg:text-[42px] font-medium leading-[1.18] tracking-tight text-ink text-pretty;
+      @apply font-sora font-semibold text-pretty;
+      margin-top: 26px;
+      margin-bottom: 36px;
+      font-size: clamp(24px, 3.6vw, 54px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+
+      @media (min-width: 640px) {
+        margin-bottom: 48px;
+      }
+
+      @media (max-width: 1024px) {
+        font-size: clamp(28px, 4.4vw, 40px);
+        line-height: 1.2;
+        margin-top: 20px;
+      }
+
+      @media (max-width: 640px) {
+        font-size: clamp(25px, 6.4vw, 30px);
+        line-height: 1.26;
+        letter-spacing: -0.02em;
+      }
     }
 
-    &-statement-alt {
-      @apply font-serif italic font-normal;
+    &-word {
+      @apply text-ink transition-colors duration-300;
+
+      // JS-only dimmed state before the scroll-reveal threshold passes each word;
+      // without JS (or before it runs) every word simply renders fully lit.
+      &.is-dim {
+        @apply text-sage-300;
+      }
     }
 
     &-certs {

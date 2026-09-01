@@ -3,6 +3,15 @@
 // Password). Each section below guards itself against its own markup, so it's safe for every
 // page to load this file once via main.js.
 
+// This project's JS (assets/js/*.js) is loaded as plain browser <script type="module"> files —
+// there is no Vite/webpack bundling step for it (only the SCSS pipeline is prebuilt, see
+// scripts/build-css.mjs). A bare `import $ from "jquery"` can't resolve in that model (native
+// ESM doesn't do bare-specifier resolution without an import map), so jQuery's own standalone
+// ESM build is vendored here instead of pulled from node_modules at request time. It's still
+// installed as a real npm dependency (see package.json) for version tracking/`npm install`;
+// this file is a synced copy of node_modules/jquery/dist-module/jquery.module.min.js.
+import $ from "./vendor/jquery.js";
+
 // ===== Drawer mechanics =====
 // Shared slide-in drawer / bottom-sheet mechanics: open/close with a body-scroll lock, and an
 // optional close delay so a panel can finish its exit transition before being re-hidden. Backs
@@ -1774,7 +1783,6 @@ if (toastShowAllBtn && notificationToasts.length) {
 function closeFaqItem(item) {
   const trigger = item.querySelector("[data-faq-trigger]");
   const panel = item.querySelector("[data-faq-panel]");
-  const icon = item.querySelector("[data-faq-icon]");
   if (!panel) return;
 
   panel.style.height = panel.scrollHeight + "px";
@@ -1782,18 +1790,15 @@ function closeFaqItem(item) {
   panel.style.height = "0px";
   item.classList.remove("is-open");
   trigger?.setAttribute("aria-expanded", "false");
-  if (icon) icon.textContent = "+";
 }
 
 function openFaqItem(item) {
   const trigger = item.querySelector("[data-faq-trigger]");
   const panel = item.querySelector("[data-faq-panel]");
-  const icon = item.querySelector("[data-faq-icon]");
   if (!panel) return;
 
   item.classList.add("is-open");
   trigger?.setAttribute("aria-expanded", "true");
-  if (icon) icon.textContent = "−";
   panel.style.height = panel.scrollHeight + "px";
 }
 
@@ -1941,3 +1946,298 @@ if (stateSelectEls.length) {
     openStateSelects.forEach((root) => closeStateSelect(root));
   });
 }
+
+// ===== Homepage scroll/parallax effects (jQuery) =====
+// A small set of tasteful, scroll-linked effects for the redesigned homepage: reveal-on-scroll,
+// a hero/CTA parallax drift, the "CARE, MADE PERSONAL" word-by-word color reveal, and simple
+// horizontal-rail arrow controls. Every block below guards itself on its own markup (same
+// convention as the rest of this file) so it's a no-op on any page without that markup, and
+// every effect degrades to "just show the content" if JS doesn't run — see the CSS in
+// _animations.scss for the `.reveal-pending` fallback contract.
+const reducedMotionQuery =
+  typeof window.matchMedia === "function"
+    ? window.matchMedia("(prefers-reduced-motion: reduce)")
+    : { matches: false };
+
+// --- Generic reveal-on-scroll: [data-reveal], optionally staggered by [data-reveal-delay] ---
+
+const $revealEls = $("[data-reveal]");
+if ($revealEls.length && "IntersectionObserver" in window) {
+  $revealEls.addClass("reveal-pending");
+
+  if (reducedMotionQuery.matches) {
+    $revealEls.addClass("is-in");
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const delay = Number(el.dataset.revealDelay || 0);
+          window.setTimeout(() => el.classList.add("is-in"), delay);
+          observer.unobserve(el);
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+    );
+    $revealEls.each(function () {
+      revealObserver.observe(this);
+    });
+  }
+}
+
+// --- "Curtain" reveal for CareSection's [data-curtain] panel ---
+
+const $curtainEls = $("[data-curtain]");
+if ($curtainEls.length && "IntersectionObserver" in window) {
+  if (reducedMotionQuery.matches) {
+    $curtainEls.addClass("is-in");
+  } else {
+    const curtainObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.2 },
+    );
+    $curtainEls.each(function () {
+      curtainObserver.observe(this);
+    });
+  }
+}
+
+// --- "Understand the process" step crossfade: [data-move-grid] ---
+// The image column is a plain CSS `position:sticky` block (see _how-it-works.scss) — a
+// deliberately simpler stand-in for the design's scroll-pinned 300vh crossfade, with no
+// scroll-jacking or manual scroll-offset math. This just swaps which stacked image is visible,
+// and dims the inactive step text, as each step block crosses the viewport's vertical center.
+// Desktop (lg) only; below that the SCSS mobile fallback already shows every image/step pair
+// as a static stacked block, so no JS is needed there.
+
+const $moveGrids = $("[data-move-grid]");
+if ($moveGrids.length && "IntersectionObserver" in window) {
+  $moveGrids.each(function () {
+    const grid = this;
+    const images = Array.from(grid.querySelectorAll("[data-move-img]"));
+    const stepEls = Array.from(grid.querySelectorAll("[data-move-step]"));
+    if (!images.length || !stepEls.length) return;
+
+    function setActiveStep(index) {
+      images.forEach((img) => {
+        img.classList.toggle("is-active", Number(img.dataset.moveImg) === index);
+      });
+      stepEls.forEach((step) => {
+        step.classList.toggle("is-active", Number(step.dataset.moveStep) === index);
+      });
+    }
+
+    setActiveStep(0);
+
+    if (reducedMotionQuery.matches || window.innerWidth < 1024) return;
+
+    grid.classList.add("is-ready");
+
+    const stepObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          setActiveStep(Number(entry.target.dataset.moveStep));
+        });
+      },
+      { threshold: 0, rootMargin: "-45% 0px -45% 0px" },
+    );
+    stepEls.forEach((step) => stepObserver.observe(step));
+  });
+}
+
+// --- "Care designed around you" scroll-linked grow-to-full-bleed: [data-expand] ---
+// Desktop (lg) only — a real scroll-pinned effect (300vh track, sticky viewport), unlike
+// [data-move-grid]'s deliberately simpler class-swap crossfade. Every frame, for each
+// [data-expand] section still in view, this computes how far the user has scrolled through
+// its 300vh height (0 at the top, 1 once the section's bottom reaches the viewport bottom)
+// and writes it as the `--p` custom property on [data-expand-frame] (drives width/height/
+// border-radius/scrim-opacity in _care.scss via calc()), plus a `--tp` "text progress" that
+// only starts once the frame is mostly grown, on [data-expand-text]. Below 1024px, or with
+// prefers-reduced-motion, this never runs — the plain CSS (var(--p,1) / var(--tp,1) fallbacks)
+// already renders the fully-grown end state, so it degrades to a normal static section.
+
+const $expandSections = $("[data-expand]");
+if (
+  $expandSections.length &&
+  !reducedMotionQuery.matches &&
+  window.innerWidth >= 1024
+) {
+  let expandTicking = false;
+
+  function applyExpand() {
+    $expandSections.each(function () {
+      const rect = this.getBoundingClientRect();
+      const trackable = rect.height - window.innerHeight;
+      const p =
+        trackable > 0
+          ? Math.min(1, Math.max(0, -rect.top / trackable))
+          : 1;
+      const tp = Math.min(1, Math.max(0, (p - 0.55) / 0.45));
+
+      const frame = this.querySelector("[data-expand-frame]");
+      if (frame) frame.style.setProperty("--p", p.toFixed(4));
+
+      const text = this.querySelector("[data-expand-text]");
+      if (text) {
+        text.style.setProperty("--tp", tp.toFixed(4));
+        text.classList.toggle("is-in", tp > 0.5);
+      }
+    });
+    expandTicking = false;
+  }
+
+  function queueExpand() {
+    if (expandTicking) return;
+    expandTicking = true;
+    window.requestAnimationFrame(applyExpand);
+  }
+
+  window.addEventListener("scroll", queueExpand, { passive: true });
+  window.addEventListener("resize", queueExpand, { passive: true });
+  applyExpand();
+}
+
+// --- Parallax drift: [data-hero-parallax] / [data-parallax], strength via [data-parallax-strength] ---
+// rAF-batched so every parallax element is read/written together, once per frame, instead of
+// causing layout thrashing across separate scroll handlers.
+
+const $parallaxEls = $("[data-hero-parallax], [data-parallax]");
+if ($parallaxEls.length && !reducedMotionQuery.matches) {
+  let parallaxTicking = false;
+
+  function applyParallax() {
+    const viewportMid = window.innerHeight / 2;
+    $parallaxEls.each(function () {
+      const strength = Number(this.dataset.parallaxStrength || 0.16);
+      const rect = this.getBoundingClientRect();
+      const elMid = rect.top + rect.height / 2;
+      const offset = (viewportMid - elMid) * strength;
+      this.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+    });
+    parallaxTicking = false;
+  }
+
+  function queueParallax() {
+    if (parallaxTicking) return;
+    parallaxTicking = true;
+    window.requestAnimationFrame(applyParallax);
+  }
+
+  window.addEventListener("scroll", queueParallax, { passive: true });
+  window.addEventListener("resize", queueParallax, { passive: true });
+  applyParallax();
+}
+
+// --- "CARE, MADE PERSONAL" word-by-word scroll-tied reveal: [data-word-reveal] ---
+// Desktop only (matches the source design, which freezes this as static dark text on
+// tablet/mobile); every word is dark by default (see _trust-bar.scss), JS only dims the
+// not-yet-reached ones, so a JS failure just leaves the whole sentence lit.
+
+const $wordReveal = $("[data-word-reveal]");
+if ($wordReveal.length && !reducedMotionQuery.matches) {
+  let wordTicking = false;
+
+  function applyWordReveal() {
+    const isDesktop = window.innerWidth > 1024;
+    $wordReveal.each(function () {
+      const $words = $(this).find("[data-word]");
+      if (!isDesktop) {
+        $words.removeClass("is-dim");
+        return;
+      }
+      const rect = this.getBoundingClientRect();
+      const start = window.innerHeight * 0.85;
+      const end = window.innerHeight * 0.3;
+      const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
+      const litCount = Math.round(progress * $words.length);
+      $words.each(function (i) {
+        $(this).toggleClass("is-dim", i >= litCount);
+      });
+    });
+    wordTicking = false;
+  }
+
+  function queueWordReveal() {
+    if (wordTicking) return;
+    wordTicking = true;
+    window.requestAnimationFrame(applyWordReveal);
+  }
+
+  window.addEventListener("scroll", queueWordReveal, { passive: true });
+  window.addEventListener("resize", queueWordReveal, { passive: true });
+  applyWordReveal();
+}
+
+// --- Programs tile hover-grow: [data-exp-row] / [data-exp] ---
+// The hovered tile grows (flex-grow 2.2), its siblings contract (0.95), and a short pointer-enter
+// delay absorbs quick passes so adjacent tiles don't fight each other mid-transition. Desktop
+// (>1024px) only — below that every tile stays equal-width (flex-grow reset to 1) and stacked
+// per the responsive CSS, matching the design's own tablet/mobile fallback.
+
+$("[data-exp-row]").each(function () {
+  const row = this;
+  const $panels = $(row).find("[data-exp]");
+  if (!$panels.length) return;
+
+  const REST = 1;
+  const OPEN = 2.2;
+  const SHRUNK = 0.95;
+
+  function apply(active) {
+    $panels.each(function () {
+      const isActive = this === active;
+      this.style.flexGrow = active == null ? REST : isActive ? OPEN : SHRUNK;
+      this.classList.toggle("is-active", isActive);
+      this.classList.toggle("is-dim", active != null && !isActive);
+    });
+  }
+
+  let hoverTimer;
+  $panels.on("pointerenter", function () {
+    if (window.innerWidth <= 1024) return;
+    const target = this;
+    clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => apply(target), 130);
+  });
+  $panels.on("focusin", function () {
+    if (window.innerWidth <= 1024) return;
+    clearTimeout(hoverTimer);
+    apply(this);
+  });
+  $(row).on("pointerleave", () => {
+    clearTimeout(hoverTimer);
+    apply(null);
+  });
+});
+
+// --- Horizontal product rail arrows: [data-rail] / [data-rail-track] / [data-rail-prev,next] ---
+// Native overflow-x scrolling + snap already makes the rail usable by touch/trackpad/scrollbar;
+// the arrow buttons are a progressive-enhancement convenience that page by ~2 cards using
+// jQuery's animate() for a smooth, interruptible scroll (no custom easing loop needed).
+
+$("[data-rail]").each(function () {
+  const $rail = $(this);
+  const $track = $rail.find("[data-rail-track]").first();
+  if (!$track.length) return;
+
+  function step() {
+    const $card = $track.children().first();
+    const cardWidth = $card.length ? $card.outerWidth(true) : 280;
+    return cardWidth * 2;
+  }
+
+  $rail.find("[data-rail-prev]").on("click", () => {
+    $track.stop(true, false).animate({ scrollLeft: "-=" + step() }, 420);
+  });
+  $rail.find("[data-rail-next]").on("click", () => {
+    $track.stop(true, false).animate({ scrollLeft: "+=" + step() }, 420);
+  });
+});

@@ -1,0 +1,103 @@
+@layer components {
+  .sexual-health {
+    @apply relative bg-ink overflow-hidden;
+
+    &-media {
+      @apply absolute inset-0 z-0 overflow-hidden will-change-transform;
+    }
+
+    &-img {
+      @apply w-full h-full object-cover;
+    }
+
+    &-scrim {
+      @apply absolute inset-0 z-0 pointer-events-none;
+      background:
+        linear-gradient(180deg, rgba(7, 20, 42, 0.52) 0%, rgba(7, 20, 42, 0.24) 30%, rgba(7, 20, 42, 0.58) 72%, rgba(7, 20, 42, 0.82) 100%),
+        linear-gradient(96deg, rgba(7, 20, 42, 0.74) 0%, rgba(7, 20, 42, 0.2) 46%, rgba(7, 20, 42, 0.34) 100%);
+    }
+
+    &-row {
+      @apply relative z-10 max-w-[1440px] mx-auto flex flex-wrap items-center gap-8 lg:gap-16
+        px-5 sm:px-8 lg:px-16 pt-14 sm:pt-20 lg:pt-28 pb-5 sm:pb-8;
+    }
+
+    &-content {
+      @apply flex-1 basis-[380px] max-w-[640px] lg:max-w-[58%];
+    }
+
+    &-eyebrow {
+      @apply font-mono text-[13px] tracking-[0.16em] uppercase text-[#cfe0f8]/85;
+    }
+
+    &-title {
+      @apply font-sora mt-4 mb-0 font-semibold text-white text-[clamp(30px,4.2vw,66px)]
+        leading-[1.04] tracking-[-0.038em] text-pretty;
+    }
+
+    &-body {
+      @apply mt-5 sm:mt-7 mb-0 max-w-[44ch] text-white/80 text-[clamp(15px,1.15vw,18px)]
+        leading-relaxed text-pretty;
+    }
+
+    &-content a.theme-btn {
+      @apply mt-6 sm:mt-8;
+    }
+
+    &-stat {
+      @apply relative shrink-0 w-full sm:w-[min(330px,22vw)] ml-0 lg:ml-auto rounded-panel
+        p-6 sm:p-7 text-center border border-white/[0.14] backdrop-blur-xl;
+      background: rgba(11, 30, 60, 0.42);
+      box-shadow: 0 34px 80px rgba(2, 8, 20, 0.5);
+    }
+
+    &-stat-img {
+      @apply mx-auto aspect-square w-[70%] object-contain
+        drop-shadow-[0_22px_34px_rgba(3,10,24,0.55)];
+    }
+
+    &-stat-note {
+      @apply mt-4 text-[12.5px] text-white/65;
+    }
+
+    &-stat-headline {
+      @apply mt-1 font-sora text-[clamp(20px,1.9vw,28px)] font-semibold tracking-tight text-white;
+    }
+
+    // --- horizontal product rail ---
+
+    &-rail {
+      @apply relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 pb-14 sm:pb-20 lg:pb-24;
+    }
+
+    &-rail-track {
+      @apply flex gap-3 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-1;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &-rail-item {
+      @apply shrink-0 w-[248px] sm:w-[272px] snap-start;
+
+      .product-card {
+        @apply bg-primary border-primary h-full;
+      }
+
+      .product-card-title,
+      .product-card-price-value {
+        @apply text-offwhite;
+      }
+
+      .product-card-desc {
+        @apply text-offwhite/60;
+      }
+
+      .product-card-price-label {
+        @apply text-offwhite/45;
+      }
+    }
+  }
+}

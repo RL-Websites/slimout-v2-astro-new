@@ -1,18 +1,15 @@
 @layer components {
   .why-slimout {
-    @apply bg-cream px-3 sm:px-4 lg:px-6 pb-6 sm:pb-10 lg:pb-14;
-
-    &-panel {
-      @apply bg-sage-200 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] py-9 sm:py-14
-        lg:py-20 px-5 sm:px-8 lg:px-12;
-    }
+    @apply bg-cream;
+    padding: clamp(48px, 7vh, 90px) clamp(20px, 4vw, 64px);
+    overflow: hidden;
 
     &-inner {
-      @apply max-w-[1240px] mx-auto;
+      @apply max-w-[1440px] mx-auto;
     }
 
     &-header {
-      @apply max-w-[860px] mb-8 sm:mb-11;
+      @apply mx-auto mb-0 text-center;
     }
 
     &-eyebrow {
@@ -20,8 +17,13 @@
     }
 
     &-title {
-      @apply font-sora text-[30px] sm:text-[46px] lg:text-[64px] font-medium leading-none
-        tracking-tight text-ink m-0;
+      @apply font-sora font-semibold tracking-tight text-ink;
+      margin: 16px auto 0;
+      max-width: 16ch;
+      text-align: center;
+      font-size: clamp(30px, 4vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
     }
 
     &-title-alt {
@@ -29,65 +31,74 @@
     }
 
     &-grid {
-      @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(16px, 1.8vw, 22px);
+      margin-top: clamp(36px, 6vh, 64px);
 
-      @media (min-width: 1024px) {
-        > *:nth-child(4) {
-          grid-column-start: 2;
-        }
+      @media (max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr;
       }
     }
 
     &-card {
-      @apply bg-cream text-ink rounded-3xl p-6 sm:p-8 min-h-[230px] sm:min-h-[260px]
-        lg:min-h-[290px] flex flex-col justify-between gap-6 transition-transform duration-300;
+      @apply relative overflow-hidden text-ink rounded-3xl p-6 sm:p-8 min-h-[230px] sm:min-h-[260px]
+        lg:min-h-[290px] flex flex-col justify-between gap-6 border border-primary/[0.16]
+        bg-gradient-to-br from-sage-100 to-sage-200 transition-[transform,background,border-color] duration-500;
 
       &:hover {
-        @apply -translate-y-1.5;
-      }
+        @apply -translate-y-1.5 border-lime/35;
+        background: linear-gradient(155deg, #123163, #0b1e3c);
 
-      &--dark {
-        @apply bg-ink text-offwhite;
-
-        .why-slimout-card-icon {
-          @apply bg-lime;
+        .why-slimout-card-num {
+          @apply text-white/20;
         }
-        .why-slimout-card-dot {
-          @apply bg-ink;
+        .why-slimout-card-icon {
+          @apply bg-white/15 border-white/25 text-white;
+        }
+        .why-slimout-card-title {
+          @apply text-offwhite;
         }
         .why-slimout-card-body {
-          @apply text-offwhite/60;
+          @apply text-offwhite/70;
         }
       }
+    }
+
+    &-card-num {
+      @apply absolute top-6 right-7 font-serif text-[46px] sm:text-[56px] font-normal leading-none
+        text-primary/[0.14] pointer-events-none transition-colors duration-500;
     }
 
     &-card-icon {
-      @apply w-10 h-10 rounded-xl bg-sage-200 flex items-center justify-center;
+      @apply relative w-[52px] h-[52px] rounded-2xl bg-primary/[0.14] border border-primary/30
+        flex items-center justify-center text-primary transition-colors duration-500;
     }
 
     &-card-dot {
-      @apply w-3 h-3 block bg-lime;
-
-      &--round {
-        @apply rounded-full;
-      }
-      &--sm {
-        border-radius: 3px;
-      }
-      &--md {
-        border-radius: 4px;
-      }
-      &--xs {
-        border-radius: 2px;
-      }
+      @apply w-3 h-3 rounded-full bg-current block;
     }
 
     &-card-title {
-      @apply font-sora text-lg font-semibold tracking-tight m-0 mb-2.5;
+      @apply font-sora text-lg font-semibold tracking-tight m-0 mb-2.5 transition-colors duration-500;
     }
 
     &-card-body {
-      @apply m-0 text-sm leading-relaxed text-muted text-pretty;
+      @apply m-0 text-sm leading-relaxed text-muted text-pretty transition-colors duration-500;
+    }
+
+    // Only ever visible against the card's dark hover background (width grows from 0 on
+    // hover — see below), so this needs the lighter accent blue for contrast, not primary.
+    &-card-line {
+      @apply block h-0.5 w-0 mt-4.5 bg-gradient-to-r from-accent to-transparent transition-[width] duration-500;
+    }
+
+    &-card:hover &-card-line {
+      @apply w-14;
     }
   }
 }

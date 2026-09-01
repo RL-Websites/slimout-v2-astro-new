@@ -1,26 +1,24 @@
 ---
-const ASSET_BASE = "Themes/Thrivewellrx.Theme.SlimoutV2/assets/img";
+const ABOUT_US =
+	"https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/Home_Page/About_Us";
 
 const steps = [
 	{
 		num: "01",
-		title: "Share your",
-		titleAlt: "history",
-		file: "step-1-history.png",
+		title: "Share Your History",
+		file: "woman-stretching-park+1-converted-from-png.webp",
 		body: "Choose a program and complete an intake covering your medical history, health goals and individual needs.",
 	},
 	{
 		num: "02",
-		title: "A provider",
-		titleAlt: "reviews it",
-		file: "step-2-review.png",
+		title: "A Provider Reviews It",
+		file: "male-doctor-nurse-cooperating-while-examining-electronic-medical-records-patient-doctor-s-office+1-converted-from-png.webp",
 		body: "A licensed healthcare provider reviews your intake and, where appropriate, recommends a treatment plan built around you.",
 	},
 	{
 		num: "03",
-		title: "Care arrives",
-		titleAlt: "at home",
-		file: "step-3-delivery.png",
+		title: "Care Arrives",
+		file: "ChatGPT+Image+Aug+27%2C+2026%2C+11_28_54+AM+1-converted-from-png.webp",
 		body: "Your prescription goes to a trusted pharmacy partner for fulfillment, then ships directly to your doorstep with ongoing support.",
 	},
 ];
@@ -29,39 +27,37 @@ const steps = [
 <section id="how" class="how-it-works">
 	<div class="how-it-works-inner">
 		<div class="how-it-works-header">
-			<div class="how-it-works-eyebrow">02 — How it works</div>
+			<div class="how-it-works-eyebrow">03 — How it works</div>
 			<h2 class="how-it-works-title">Understand the process</h2>
 		</div>
-		<div class="how-it-works-list">
-			{
-				steps.map((step, i) => (
-					<div
-						class:list={[
-							"how-it-works-step",
-							i % 2 !== 0 && "how-it-works-step--reverse",
-						]}
-					>
-						<div class="how-it-works-step-media">
-							<div class="how-it-works-step-frame">
-								<img
-									src={`${ASSET_BASE}/${step.file}`}
-									alt={`Step ${step.num}: ${step.title} ${step.titleAlt}`}
-									class="how-it-works-step-image"
-									loading="lazy"
-								/>
+		<div class="how-it-works-grid" data-move-grid>
+			<div class="how-it-works-media" data-move-media>
+				{
+					steps.map((step, i) => (
+						<img
+							src={`${ABOUT_US}/${step.file}`}
+							alt={`Step ${step.num}: ${step.title}`}
+							class="how-it-works-media-img"
+							data-move-img={i}
+							loading="lazy"
+						/>
+					))
+				}
+			</div>
+			<div class="how-it-works-steps" data-move-text>
+				{
+					steps.map((step, i) => (
+						<div class="how-it-works-step" data-move-step={i}>
+							<div class="how-it-works-step-eyebrow">
+								<span class="how-it-works-step-dot" />
+								{step.num}
 							</div>
-						</div>
-						<div class="how-it-works-step-content">
-							<div class="how-it-works-step-eyebrow">Step {step.num}</div>
-							<h3 class="how-it-works-step-title">
-								{step.title}{" "}
-								<span class="how-it-works-step-title-alt">{step.titleAlt}</span>
-							</h3>
+							<h3 class="how-it-works-step-title">{step.title}</h3>
 							<p class="how-it-works-step-body">{step.body}</p>
 						</div>
-					</div>
-				))
-			}
+					))
+				}
+			</div>
 		</div>
 	</div>
 </section>

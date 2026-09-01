@@ -5,12 +5,12 @@ import Footer from "../components/common/Footer.astro";
 import Header from "../components/common/Header.astro";
 import Toast from "../components/common/Toast.astro";
 import CtaSection from "../components/CtaSection.astro";
-import DeliverySection from "../components/DeliverySection.astro";
-import ExperienceSection from "../components/ExperienceSection.astro";
+import ShippingDrawer from "../components/cart/ShippingDrawer.astro";
+import ExploreSection from "../components/ExploreSection.astro";
 import Hero from "../components/Hero.astro";
 import HowItWorks from "../components/HowItWorks.astro";
-import Marquee from "../components/Marquee.astro";
 import ProgramsSection from "../components/ProgramsSection.astro";
+import SexualHealthSection from "../components/SexualHealthSection.astro";
 import TrustBar from "../components/TrustBar.astro";
 import WhySlimOut from "../components/WhySlimOut.astro";
 import Layout from "../layouts/Layout.astro";
@@ -32,9 +32,17 @@ import Layout from "../layouts/Layout.astro";
 		<TrustBar />
 		<!-- trust bar section end -->
 
+		<!-- explore section start -->
+		<ExploreSection />
+		<!-- explore section end -->
+
 		<!-- programs section start -->
 		<ProgramsSection />
 		<!-- programs section end -->
+
+		<!-- sexual health section start -->
+		<SexualHealthSection />
+		<!-- sexual health section end -->
 
 		<!-- how it works section start -->
 		<HowItWorks />
@@ -44,21 +52,9 @@ import Layout from "../layouts/Layout.astro";
 		<WhySlimOut />
 		<!-- why slimout section end -->
 
-		<!-- experience section start -->
-		<ExperienceSection />
-		<!-- experience section end -->
-
-		<!-- delivery section start -->
-		<DeliverySection />
-		<!-- delivery section end -->
-
 		<!-- care section start -->
 		<CareSection />
 		<!-- care section end -->
-
-		<!-- marquee section start -->
-		<Marquee />
-		<!-- marquee section end -->
 
 		<!-- faq section start -->
 		<FaqSection />
@@ -76,4 +72,7 @@ import Layout from "../layouts/Layout.astro";
 		<!-- footer section end -->
 	</footer>
 	<Toast />
+	<!-- Powers the Sexual Health rail's "Add to Cart" buttons in SexualHealthSection (same shipping
+		 drawer + cart-add flow used on category pages; see common.js's Shipping Drawer Handler). -->
+	<ShippingDrawer />
 </Layout>

@@ -1,0 +1,83 @@
+---
+// "Sexual Health" — design's separate, later `data-spk` section (after ProgramsSection's
+// #care-programs grid, before HowItWorks). Full-bleed category image + scrim, intro copy with a
+// decorative stat card, and its own horizontal product rail. Reuses ProductCard/ProductDetailModal
+// and the category's real product data, same as the weight-loss rail in ExploreSection.
+import { getCategory } from "../data/categories";
+import ProductCard from "./common/ProductCard.astro";
+import ProductDetailModal from "./ProductDetailModal.astro";
+
+const sexualHealth = getCategory("sexual-health")!;
+---
+
+<section class="sexual-health">
+	<div class="sexual-health-media" data-parallax data-parallax-strength="0.08">
+		<video
+			class="sexual-health-img"
+			autoplay
+			muted
+			loop
+			playsinline
+			webkit-playsinline
+		>
+			<source
+				src="https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/Home_Page/Category/0_Couple_Beach_1280x720.mp4"
+				type="video/mp4"
+			/>
+		</video>
+	</div>
+	<span class="sexual-health-scrim"></span>
+
+	<div class="sexual-health-row">
+		<div class="sexual-health-content" data-reveal>
+			<div class="sexual-health-eyebrow">Sexual health</div>
+			<h2 class="sexual-health-title">
+				Better intimacy, without the awkward appointment
+			</h2>
+			<p class="sexual-health-body">
+				A private online consultation, treatment options reviewed by a licensed
+				provider, and refills that arrive at your door.
+			</p>
+			<a href={`${sexualHealth.slug}.html`} class="theme-btn theme-btn__white">
+				View All
+			</a>
+		</div>
+
+		<div class="sexual-health-stat" data-reveal data-reveal-delay="120">
+			<img
+				src={sexualHealth.products[0]?.image}
+				alt=""
+				class="sexual-health-stat-img"
+				loading="lazy"
+			/>
+			<div class="sexual-health-stat-note">Reviewed by a licensed provider</div>
+			<div class="sexual-health-stat-headline">Discreet delivery</div>
+		</div>
+	</div>
+
+	<div class="sexual-health-rail" data-rail>
+		<div class="sexual-health-rail-track" data-rail-track>
+			{
+				sexualHealth.products.map((product) => (
+					<div class="sexual-health-rail-item">
+						<ProductCard
+							product={product}
+							showAddToCart
+							modalId={`spk-modal-${product.slot}`}
+						/>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+{
+	sexualHealth.products.map((product) => (
+		<ProductDetailModal
+			product={product}
+			modalId={`spk-modal-${product.slot}`}
+			recommendedItems={sexualHealth.recommended}
+		/>
+	))
+}

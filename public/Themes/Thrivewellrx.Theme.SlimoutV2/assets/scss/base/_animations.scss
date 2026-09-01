@@ -63,3 +63,27 @@
     transform: translateY(0);
   }
 }
+
+// Generic scroll-reveal: [data-reveal] elements are visible by default (safe fallback if JS
+// never runs). common.js adds `.reveal-pending` to every [data-reveal] element up front, then
+// an IntersectionObserver adds `.is-in` once each one enters the viewport — only that combo
+// animates in, so a JS failure/block simply leaves the content statically visible instead of
+// hiding it.
+[data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.16, 0.8, 0.24, 1), transform 0.7s cubic-bezier(0.16, 0.8, 0.24, 1);
+
+  &.is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal].reveal-pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

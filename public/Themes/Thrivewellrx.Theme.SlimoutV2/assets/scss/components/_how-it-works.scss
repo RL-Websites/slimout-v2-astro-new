@@ -3,7 +3,7 @@
     @apply bg-cream py-14 sm:py-20 lg:py-28;
 
     &-inner {
-      @apply max-w-[1340px] mx-auto px-5 sm:px-8 lg:px-12;
+      @apply max-w-[1440px] mx-auto px-[clamp(20px,4vw,64px)];
     }
 
     &-header {
@@ -19,55 +19,112 @@
         tracking-tight text-ink m-0;
     }
 
-    &-list {
-      @apply flex flex-col gap-9 sm:gap-16 lg:gap-24;
-    }
+    // Two-column layout matching the design's `grid-template-columns:minmax(0,1fr) minmax(0,1fr)`,
+    // `gap:clamp(28px,5vw,80px)` at lg+. Below lg, the media/step wrappers switch to
+    // `display:contents` (see mobile block below) so their children interleave into one
+    // stacked column, mirroring the design's own mobile fallback (data-move rules) exactly.
+    &-grid {
+      @apply flex flex-col gap-8 sm:gap-10 lg:grid lg:grid-cols-2
+        lg:gap-[clamp(28px,5vw,80px)] lg:items-start;
 
-    &-step {
-      @apply grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-14 lg:gap-18 items-center;
-
-      &--reverse {
-        .how-it-works-step-media {
-          @apply lg:order-2;
-        }
-        .how-it-works-step-content {
-          @apply lg:order-1;
+      // Once JS confirms the step observer is running, dim inactive steps so the current one
+      // reads clearly — never applied without JS, so a script failure just leaves every step
+      // fully readable at rest.
+      &.is-ready {
+        .how-it-works-step:not(.is-active) {
+          @apply lg:opacity-50;
         }
       }
     }
 
-    &-step-media {
-      @apply min-w-0 lg:order-1;
+    // Sticky image column at lg+: stays pinned while the taller step column scrolls past it,
+    // an intentionally simpler stand-in for the design's scroll-pinned 300vh crossfade —
+    // no scroll-jacking/JS scroll math, just `position:sticky` + an IntersectionObserver
+    // toggling which stacked image is visible (see common.js).
+    &-media {
+      @apply relative rounded-3xl overflow-hidden bg-sage-200 h-[320px] sm:h-[420px]
+        lg:h-[70vh] lg:sticky lg:top-28;
     }
 
-    &-step-content {
-      @apply min-w-0 lg:order-2;
+    &-media-img {
+      @apply absolute inset-0 w-full h-full object-cover transition-opacity duration-700
+        ease-out opacity-0;
+
+      &.is-active {
+        @apply opacity-100;
+      }
     }
 
-    &-step-frame {
-      @apply h-[240px] sm:h-[340px] lg:h-[400px] rounded-3xl overflow-hidden bg-sage-200;
+    // No-JS fallback only: if the crossfade script never runs, [data-move-grid] never gets
+    // `.is-ready` (see common.js), so the first image stays visible instead of every image
+    // sitting at opacity:0. Once JS runs, `.is-active` (added on load, before the JS
+    // width/reduced-motion checks) takes over and this rule no longer matches.
+    &-grid:not(.is-ready) .how-it-works-media-img[data-move-img="0"] {
+      @apply opacity-100;
     }
 
-    &-step-image {
-      @apply w-full h-full object-cover;
+    &-steps {
+      @apply flex flex-col gap-9 sm:gap-10 lg:gap-16;
+    }
+
+    &-step {
+      @apply min-w-0 transition-opacity duration-700 ease-out;
     }
 
     &-step-eyebrow {
-      @apply font-mono text-[14px] tracking-[0.2em] uppercase text-muted-light mb-4;
+      @apply flex items-center gap-[9px] font-mono text-[13px] font-semibold tracking-[0.14em]
+        uppercase text-muted-light mb-4;
+    }
+
+    &-step-dot {
+      @apply block w-[7px] h-[7px] rounded-full bg-accent;
     }
 
     &-step-title {
-      @apply font-sora text-[30px] sm:text-[44px] lg:text-[58px] font-medium leading-[1.06]
-        tracking-tight text-ink m-0 mb-5;
-    }
-
-    &-step-title-alt {
-      @apply font-serif italic font-normal block text-lime-darker;
+      @apply font-sora text-[26px] sm:text-[32px] lg:text-[40px] font-semibold leading-[1.08]
+        tracking-tight text-ink m-0 mb-4;
     }
 
     &-step-body {
-      @apply m-0 text-[15px] sm:text-[17px] leading-[1.7] text-muted max-w-[460px]
-        text-pretty;
+      @apply m-0 text-[15px] sm:text-[17px] leading-[1.6] text-muted max-w-[48ch] text-pretty;
+    }
+  }
+
+  // Mobile/tablet fallback (<lg): reuses the design's own `data-move` mobile pattern — the
+  // media/step wrappers become `display:contents` so each image sits directly above its own
+  // step text, in image/step/image/step order, instead of two separate columns.
+  @media (max-width: 1023px) {
+    .how-it-works-media,
+    .how-it-works-steps {
+      display: contents;
+    }
+
+    .how-it-works-media-img {
+      position: static;
+      width: 100%;
+      height: clamp(260px, 42vw, 380px);
+      border-radius: 24px;
+      object-fit: cover;
+      opacity: 1;
+    }
+
+    .how-it-works-media-img[data-move-img="0"] {
+      order: 1;
+    }
+    .how-it-works-step[data-move-step="0"] {
+      order: 2;
+    }
+    .how-it-works-media-img[data-move-img="1"] {
+      order: 3;
+    }
+    .how-it-works-step[data-move-step="1"] {
+      order: 4;
+    }
+    .how-it-works-media-img[data-move-img="2"] {
+      order: 5;
+    }
+    .how-it-works-step[data-move-step="2"] {
+      order: 6;
     }
   }
 }

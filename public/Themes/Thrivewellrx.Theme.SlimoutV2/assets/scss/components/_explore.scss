@@ -1,0 +1,262 @@
+@layer components {
+  .explore {
+    @apply relative bg-ink overflow-hidden pb-5;
+
+    // --- hero: headline + absolute image cluster + copy callout ---
+
+    &-hero {
+      @apply relative;
+    }
+
+    &-wrap {
+      @apply relative mx-auto w-full max-w-[1180px] flex flex-col items-center gap-9
+        px-5 py-14 text-center
+        lg:block lg:gap-0 lg:px-0 lg:py-0 lg:text-left;
+      // design: --brkTop:clamp(104px,17vh,240px) — headline offset from the top of the stage
+      // (desktop only; mobile stacks the headline inline via flex above). The floor/vh/cap here
+      // are raised from a first-pass clamp(720px,82vh,900px) because that formula let the
+      // absolutely-positioned cluster (top:210px + up to min(640px,62vh) tall) overflow past the
+      // wrap's own bottom edge at common viewport heights (~800-1100px), clipping into the rail
+      // title below it — this clamp keeps the cluster fully contained across that range.
+      @media (min-width: 1024px) {
+        min-height: clamp(820px, 88vh, 940px);
+      }
+    }
+
+    &-head {
+      @apply font-sora m-0 font-semibold text-white text-[clamp(30px,8vw,44px)] leading-[1.02]
+        tracking-[-0.038em]
+        lg:absolute lg:inset-x-0 lg:top-0 lg:text-[clamp(34px,5.4vw,86px)] lg:whitespace-nowrap
+        lg:pointer-events-none;
+      // desktop headline sits pinned to --brkTop, above the cluster/copy which are
+      // absolutely positioned relative to .explore-wrap
+      @media (min-width: 1024px) {
+        top: clamp(104px, 17vh, 240px);
+      }
+    }
+
+    &-head-line {
+      @apply block;
+    }
+
+    &-head-line--alt {
+      @apply text-[#91B2D6];
+    }
+
+    &-head-accent {
+      @apply font-serif italic font-normal;
+    }
+
+    &-cluster {
+      @apply relative mx-auto w-full max-w-[300px] h-[290px]
+        lg:absolute lg:mx-0 lg:max-w-none lg:z-[2];
+      // design: left:-11%;top:210px;height:min(640px,62vh);width:min(720px,88vw)
+      @media (min-width: 1024px) {
+        left: -11%;
+        top: 210px;
+        height: min(640px, 62vh);
+        width: min(720px, 88vw);
+      }
+    }
+
+    &-cluster-img {
+      @apply absolute w-auto drop-shadow-[0_30px_50px_rgba(3,10,24,0.6)] select-none;
+
+      &--a {
+        @apply right-[14%] top-[60px] left-auto bottom-auto h-[230px] z-[1]
+          lg:left-[231px] lg:top-[266px] lg:right-auto lg:h-full;
+      }
+
+      &--b {
+        @apply left-[22%] bottom-[6%] top-auto right-auto h-[150px] z-[2]
+          lg:left-[255px] lg:top-[408px] lg:bottom-auto lg:h-[52%];
+      }
+    }
+
+    // Idle float drift, echoing the design's continuous brkFloat orb motion — a subtle,
+    // perpetually-running cue that the cluster isn't a static image. Off under
+    // prefers-reduced-motion (see the media query at the bottom of this block).
+    &-cluster-img--a {
+      animation: float 8s ease-in-out infinite;
+    }
+
+    &-cluster-img--b {
+      animation: float 9s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+
+    &-copy {
+      @apply relative w-full max-w-[420px] text-center px-5
+        lg:absolute lg:right-0 lg:top-[470px] lg:z-[3] lg:w-[min(400px,38%)] lg:max-w-none
+        lg:text-left lg:px-0;
+    }
+
+    &-copy-text {
+      @apply m-0 text-white/90 text-[clamp(18px,1.7vw,26px)] leading-[1.34] tracking-[-0.022em]
+        text-pretty;
+    }
+
+    &-copy a.theme-btn {
+      @apply mt-6 mx-auto lg:mx-0;
+    }
+
+    // --- horizontal product rail ("Access our full care programs") ---
+
+    &-rail {
+      @apply relative max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 pt-8 sm:pt-10 lg:pt-12
+        pb-14 sm:pb-20 lg:pb-24;
+    }
+
+    &-rail-head {
+      @apply flex flex-wrap items-center justify-between gap-4 mb-6 sm:mb-11;
+    }
+
+    &-rail-title {
+      @apply font-sora text-[20px] sm:text-[26px] lg:text-[32px] font-semibold tracking-tight
+        text-offwhite m-0;
+    }
+
+    &-rail-arrows {
+      @apply flex gap-2;
+    }
+
+    &-rail-track {
+      @apply flex gap-3 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-1;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &-rail-item {
+      @apply shrink-0 w-[248px] sm:w-[272px] snap-start;
+
+      .product-card {
+        @apply bg-primary border-primary h-full;
+      }
+
+      .product-card-title,
+      .product-card-price-value {
+        @apply text-offwhite;
+      }
+
+      .product-card-desc {
+        @apply text-offwhite/60;
+      }
+
+      .product-card-price-label {
+        @apply text-offwhite/45;
+      }
+    }
+
+    // --- dark "science" / "care" feature panels ---
+
+    &-hims {
+      @apply max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 pb-14 sm:pb-20 lg:pb-24
+        grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6;
+    }
+
+    &-hims-panel {
+      @apply relative overflow-hidden rounded-[28px] p-6 sm:p-8 lg:p-9
+        min-h-[460px] lg:min-h-[700px];
+
+      &--science {
+        // mobile fallback (design's media query) centers this panel's content; desktop is
+        // left-aligned as authored (no text-align set)
+        @apply flex flex-col items-center text-center lg:block lg:text-left;
+        background: radial-gradient(120% 90% at 20% 0%, #123163 0%, #07142a 60%);
+      }
+
+      &--care {
+        // design keeps this panel's content centered at every breakpoint; only the mobile
+        // fallback (media query 122-152 in the design) stacks it as flex column, matching here
+        @apply flex flex-col items-center justify-center gap-6 text-center lg:block;
+        background-color: rgba(47, 72, 106, 0.6);
+      }
+    }
+
+    &-hims-head {
+      @apply font-sora m-0 font-semibold text-white leading-[1.02] tracking-[-0.035em]
+        text-[clamp(30px,3.4vw,52px)];
+    }
+
+    &-hims-head-line {
+      @apply block;
+    }
+
+    &-hims-head-line--alt {
+      @apply text-[#91B2D6];
+    }
+
+    &-hims-head--care {
+      @apply leading-[1.06];
+    }
+
+    &-hims-notes {
+      @apply hidden lg:block;
+    }
+
+    &-hims-note {
+      @apply absolute m-0 max-w-[46%] text-[clamp(13px,1.05vw,16px)] leading-[1.34]
+        text-white/55;
+
+      // design: note-a sits inside a callout box at top:28%..bottom:10% of the panel, itself
+      // top:16% within that box → ~40% of the panel's own height
+      &--a {
+        left: 51px;
+        top: 40%;
+        max-width: 34%;
+      }
+
+      // design: note-b is 320px into the same callout box (434px tall on a 700px panel) → ~74%
+      &--b {
+        left: 46%;
+        top: 74%;
+        max-width: 40%;
+      }
+    }
+
+    &-hims-note-strong {
+      @apply text-white font-semibold;
+    }
+
+    &-hims-tablet {
+      @apply relative mt-9 mx-auto w-fit max-w-[60%] h-[190px]
+        lg:absolute lg:bottom-[96px] lg:mt-0 lg:mx-0 lg:max-w-none lg:h-[272px]
+        lg:left-1/2 lg:-translate-x-1/2;
+    }
+
+    &-hims-tablet-img {
+      @apply relative block h-full w-auto max-w-[82vw] object-contain
+        drop-shadow-[0_46px_62px_rgba(3,10,24,0.62)];
+      animation: float 10s ease-in-out infinite;
+    }
+
+    &-hims-badge {
+      @apply inline-flex px-4 py-1.5 rounded-full border border-[#91B2D6] text-[12.5px]
+        font-semibold text-[#91B2D6];
+    }
+
+    &-hims-pen {
+      @apply relative mt-2 w-auto h-[180px] lg:absolute lg:top-0 lg:mt-0
+        lg:h-[26%] lg:left-1/2 lg:-translate-x-1/2;
+    }
+
+    &-hims-pen-img {
+      @apply relative block h-full w-auto max-w-[60vw] lg:max-w-[74vw] -rotate-[18deg]
+        drop-shadow-[0_34px_50px_rgba(3,10,24,0.6)];
+      animation: float 9s ease-in-out infinite;
+      animation-delay: -2s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .explore-cluster-img--a,
+    .explore-cluster-img--b,
+    .explore-hims-tablet-img,
+    .explore-hims-pen-img {
+      animation: none;
+    }
+  }
+}

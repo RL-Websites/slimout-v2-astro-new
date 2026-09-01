@@ -2,8 +2,42 @@
   .care {
     @apply bg-cream px-3 sm:px-4 lg:px-6 py-3 sm:py-5 lg:py-6;
 
-    &-panel {
-      @apply relative rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] overflow-hidden bg-ink min-h-[440px] sm:min-h-[520px] lg:min-h-[620px] flex items-end;
+    // Desktop (>=1024px): a real scroll-linked "grow to full-bleed" track — 300vh tall so the
+    // sticky viewport below has room to animate through. common.js's `[data-expand]` handler
+    // drives `--p` (0 → 1 grow progress) on .care-frame and `--tp` (0 → 1 text-fade progress,
+    // reaching 1 well before --p does) on .care-content as inline custom properties each frame;
+    // every visual change below is a pure function of those two variables. No JS/reduced-motion →
+    // the plain (non-media-query) rules already render the fully-grown end state, so it never
+    // looks broken without script.
+    @media (min-width: 1024px) {
+      @apply px-0 py-0;
+      height: 300vh;
+    }
+
+    &-viewport {
+      @apply relative rounded-[22px] overflow-hidden bg-ink h-[1049px];
+
+      @media (min-width: 1024px) {
+        @apply rounded-none bg-cream h-auto;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+    }
+
+    &-frame {
+      @apply absolute inset-0 rounded-[22px] overflow-hidden;
+
+      @media (min-width: 1024px) {
+        position: relative;
+        width: calc(56% + (100% - 56%) * var(--p, 1));
+        height: calc(52vh + (100vh - 52vh) * var(--p, 1));
+        border-radius: calc(22px * (1 - var(--p, 1)));
+        will-change: width, height, border-radius;
+      }
     }
 
     &-media {
@@ -12,14 +46,44 @@
 
     &-image {
       @apply w-full h-full object-cover md:object-[0%_-120px];
+
+      @media (min-width: 1024px) {
+        object-position: center;
+      }
     }
 
-    &-overlay {
-      @apply absolute inset-0 bg-gradient-to-br from-ink/95 via-ink/55 to-ink/5;
+    // Flat scrim (not a gradient): rgba(7,15,30,.42) matches the design's explicit
+    // mobile/tablet fallback; rgba(7,15,30,.62) matches the desktop "pinned" rest state,
+    // faded in on desktop as the frame grows (opacity = --p).
+    &-scrim {
+      @apply absolute inset-0 pointer-events-none;
+      background: rgba(7, 15, 30, 0.42);
+
+      @media (min-width: 1024px) {
+        background: rgba(7, 15, 30, 0.62);
+        opacity: var(--p, 1);
+      }
     }
 
+    // Centered overlay text (not bottom-anchored) to match the design's
+    // `place-items:center;text-align:center` treatment at every breakpoint. On desktop this
+    // fades/lifts in via --tp only once the frame is most of the way grown.
     &-content {
-      @apply relative z-10 p-6 sm:p-12 lg:p-16 max-w-[720px];
+      @apply absolute inset-0 z-10 flex flex-col items-center justify-center text-center max-w-[900px] mx-auto;
+      padding: 0 clamp(20px, 6vw, 60px);
+
+      @media (min-width: 1024px) {
+        padding: 0 clamp(20px, 6vw, 120px);
+        opacity: var(--tp, 1);
+        transform: translateY(calc((1 - var(--tp, 1)) * 16px));
+        pointer-events: none;
+      }
+
+      &.is-in {
+        @media (min-width: 1024px) {
+          pointer-events: auto;
+        }
+      }
     }
 
     &-eyebrow {
@@ -31,11 +95,11 @@
     }
 
     &-body {
-      @apply m-0 mb-7 text-[15px] sm:text-[17px] leading-[1.7] text-offwhite/80 max-w-[560px] text-pretty;
+      @apply m-0 mb-7 text-[15px] sm:text-[17px] leading-[1.7] text-offwhite/80 max-w-[560px] mx-auto text-pretty;
     }
 
     &-cta {
-      @apply inline-flex w-full sm:w-auto items-center justify-center gap-3 text-base font-medium text-white px-4 py-[15px] pl-7 bg-lime rounded-full transition-transform duration-300;
+      @apply inline-flex items-center justify-center gap-3 text-base font-medium text-white px-4 py-[15px] pl-7 bg-lime rounded-full transition-transform duration-300;
 
       &:hover {
         @apply -translate-y-1;

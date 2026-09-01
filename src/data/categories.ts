@@ -27,6 +27,12 @@ export interface Category {
 const PLACEHOLDER_PRODUCT =
 	"Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/product-placeholder.svg";
 
+// Real hosted product/category photography from the client's own S3 bucket (see SKILLS.md
+// "Image & Video Assets" — reference these URLs directly, never download into the repo).
+const S3 = "https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout";
+const MEDICINE = `${S3}/Slimout_v2/Medicine`;
+const CATEGORY_V2 = `${S3}/Slimout_v2/Home_Page/Category`;
+
 const weightLoss: Category = {
 	slug: "weight-loss",
 	name: "Weight Loss",
@@ -38,30 +44,39 @@ const weightLoss: Category = {
 	products: [
 		{
 			slot: "wl-p1",
-			name: "GLP-1 Program",
-			desc: "A provider-managed injectable program with dosage adjustments as you progress.",
-			qty: "1 month supply",
-			priceLabel: "Starting at",
-			price: "$249/mo",
-			image: PLACEHOLDER_PRODUCT,
+			name: "Semaglutide Injection 0.25 mg",
+			desc: "Sema 0.25mg/0.5mg/0.5ml, Sema 0.5mg/0.5mg/0.5ml, Sema 1mg/0.5mg/0.5ml, Sema 1.7mg/0.5mg/0.5ml, Sema 2.5mg/0.5mg/0.5ml",
+			qty: "15 vials",
+			priceLabel: "Starting from",
+			price: "$299.00",
+			image: `${MEDICINE}/ChatGPT+Image+Aug+27%2C+2026%2C+10_50_39+AM.webp`,
 		},
 		{
 			slot: "wl-p2",
-			name: "Metabolic Support Kit",
-			desc: "Daily oral support formulated to complement your primary treatment plan.",
-			qty: "30-day supply",
-			priceLabel: "Starting at",
-			price: "$89/mo",
-			image: PLACEHOLDER_PRODUCT,
+			name: "Semaglutide Oral Tablets 1mg",
+			desc: "Semaglutide 1mg/Pyridoxine 10mg - 240mg / Semaglutide 2mg/Pyridoxine 10mg - 240mg / Semaglutide 4mg/Pyridoxine 10mg - 240mg / Semaglutide 6mg/Pyridoxine 10mg - 240mg",
+			qty: "8 tablets",
+			priceLabel: "Starting from",
+			price: "$299.00",
+			image: `${MEDICINE}/Nude.webp`,
 		},
 		{
 			slot: "wl-p3",
-			name: "Appetite Control Add-On",
-			desc: "An optional add-on for patients who need extra support between doses.",
-			qty: "30-day supply",
-			priceLabel: "Starting at",
-			price: "$59/mo",
-			image: PLACEHOLDER_PRODUCT,
+			name: "Tirzepatide Injection 2.5mg",
+			desc: "Tirz 2.5mg/0.5mg/0.5ml, Tirz 5mg/0.5mg/0.5ml, Tirz 7.5mg/0.5mg/0.5ml, Tirz 10mg/0.5mg/0.5ml, Tirz 12.5mg/0.5mg/0.5ml, Tirz 15mg/0.5mg/0.5ml",
+			qty: "18 vials",
+			priceLabel: "Starting from",
+			price: "$397.00",
+			image: `${MEDICINE}/ChatGPT+Image+Aug+27%2C+2026%2C+10_57_32+AM.webp`,
+		},
+		{
+			slot: "wl-p4",
+			name: "Tirzepatide Oral Tablets 3mg",
+			desc: "Tirzepatide 3mg - 240mg / Tirzepatide 4mg - 240mg / Tirzepatide 5mg - 240mg / Tirzepatide 6mg - 240mg",
+			qty: "4 tablets",
+			priceLabel: "Starting from",
+			price: "$172.55",
+			image: `${MEDICINE}/Deep+blue.webp`,
 		},
 	],
 	recommended: [
@@ -217,15 +232,75 @@ function stubCategory(slug: string, name: string, tag: string): Category {
 	};
 }
 
+const sexualHealth: Category = {
+	...stubCategory("sexual-health", "Sexual Health", "Hormonal"),
+	products: [
+		{
+			slot: "sh-p1",
+			name: "Epiq Chew 0",
+			desc: "Tadalafil 5mg / Vardenafil HCl 5mg / Vit D3 2000IU / Vit K2 1mg (GUM)",
+			qty: "3 doses",
+			priceLabel: "Starting from",
+			price: "$25.00",
+			image: `${MEDICINE}/Blue+chew.webp`,
+		},
+		{
+			slot: "sh-p2",
+			name: "Red Pill-18",
+			desc: "Tadalafil 20mg / Pycnogenol 25mg",
+			qty: "3 doses",
+			priceLabel: "Starting from",
+			price: "$31.00",
+			image: `${MEDICINE}/Red+Pill.webp`,
+		},
+		{
+			slot: "sh-p3",
+			name: "Mach 1-12",
+			desc: "Tadalafil 20mg / Sildenafil 70mg",
+			qty: "3 doses",
+			priceLabel: "Starting from",
+			price: "$48.00",
+			image: `${MEDICINE}/mint.webp`,
+		},
+		{
+			slot: "sh-p4",
+			name: "Ignite4-6",
+			desc: "Tadalafil 20mg / Sildenafil 70mg / Apomorphine 4mg",
+			qty: "2 doses",
+			priceLabel: "Starting from",
+			price: "$36.00",
+			image: `${MEDICINE}/Light+blue.webp`,
+		},
+	],
+};
+
 export const categories: Category[] = [
 	weightLoss,
-	stubCategory("hormone-therapy", "Hormone Therapy", "Hormonal"),
-	stubCategory("anti-aging", "Anti-Aging", "Longevity"),
-	stubCategory("sexual-health", "Sexual Health", "Hormonal"),
-	stubCategory("hair-regrowth", "Hair Regrowth", "Everyday"),
-	stubCategory("pre-workout", "Pre Workout", "Everyday"),
-	stubCategory("sleep", "Sleep", "Everyday"),
-	stubCategory("testosterone", "Testosterone", "Hormonal"),
+	{
+		...stubCategory("hormone-therapy", "Hormone Therapy", "Hormonal"),
+		heroImage: `${CATEGORY_V2}/Hormone+Therapy.webp`,
+	},
+	{
+		...stubCategory("anti-aging", "Anti-Aging", "Longevity"),
+		heroImage: `${CATEGORY_V2}/Anti+Aging.webp`,
+	},
+	sexualHealth,
+	{
+		...stubCategory("hair-regrowth", "Hair Regrowth", "Everyday"),
+		heroImage: `${CATEGORY_V2}/Hair+Regrowth.webp`,
+	},
+	{
+		...stubCategory("pre-workout", "Pre Workout", "Everyday"),
+		heroImage: `${CATEGORY_V2}/Preworkout.webp`,
+	},
+	{
+		...stubCategory("sleep", "Sleep", "Everyday"),
+		heroImage: `${CATEGORY_V2}/Sleep.webp`,
+	},
+	{
+		...stubCategory("testosterone", "Testosterone", "Hormonal"),
+		heroImage: `${CATEGORY_V2}/Testosterone.webp`,
+	},
 ];
 
 export function getCategory(slug: string): Category | undefined {

@@ -4,7 +4,7 @@
     min-height: min(94vh, 940px);
 
     &-media {
-      @apply absolute inset-0;
+      @apply absolute inset-y-[-6%] inset-x-0 will-change-transform;
     }
 
     &-image {

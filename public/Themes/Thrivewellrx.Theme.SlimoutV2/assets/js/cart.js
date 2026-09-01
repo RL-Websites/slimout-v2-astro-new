@@ -1,6 +1,6 @@
 // Cart page: line-item quantity/removal, coupon apply/clear, totals, and the shipping-option
-// drawer (open/close mechanics shared via drawer.js). No-op on any other page.
-import { initDrawer } from './drawer.js';
+// drawer (open/close mechanics shared via common.js). No-op on any other page.
+import { initDrawer } from './common.js';
 
 const rowsContainer = document.querySelector('[data-cart-rows]');
 

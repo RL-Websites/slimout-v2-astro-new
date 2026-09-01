@@ -1,0 +1,143 @@
+---
+// "Explore Weight Loss Options" — design's #breakthrough section: an absolutely-positioned
+// product-image collage + headline, a horizontal rail of the weight-loss care programs, and two
+// dark "science"/"care" feature panels. Sexual Health is its own later section — see
+// SexualHealthSection.astro — matching the design's actual document order.
+import { getCategory } from "../data/categories";
+import ProductCard from "./common/ProductCard.astro";
+import ProductDetailModal from "./ProductDetailModal.astro";
+
+const MEDICINE =
+	"https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/Medicine";
+const weightLoss = getCategory("weight-loss")!;
+---
+
+<section id="breakthrough" class="explore">
+	<div class="explore-hero">
+		<div class="explore-wrap">
+			<h2 class="explore-head" data-reveal>
+				<span class="explore-head-line">Explore</span>
+				<span class="explore-head-line explore-head-line--alt">
+					Weight Loss <em class="explore-head-accent">Options</em>
+				</span>
+			</h2>
+
+			<div class="explore-cluster" data-reveal data-reveal-delay="120" aria-hidden="true">
+				<img
+					src={`${MEDICINE}/ChatGPT+Image+Aug+19%2C+2026%2C+10_47_13+AM+2.webp`}
+					alt=""
+					class="explore-cluster-img explore-cluster-img--a"
+					loading="lazy"
+				/>
+				<img
+					src={`${MEDICINE}/hjj.webp`}
+					alt=""
+					class="explore-cluster-img explore-cluster-img--b"
+					loading="lazy"
+				/>
+			</div>
+
+			<div class="explore-copy" data-reveal data-reveal-delay="220">
+				<p class="explore-copy-text">
+					Personalized weight loss solutions designed to support your goals and
+					lasting results.
+				</p>
+				<a
+					href={`${weightLoss.slug}.html`}
+					class="theme-btn theme-btn__white"
+				>
+					View All
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="explore-rail" data-rail>
+		<div class="explore-rail-head">
+			<h3 class="explore-rail-title">Access our full care programs</h3>
+			<div class="explore-rail-arrows">
+				<button
+					type="button"
+					class="theme-btn theme-btn__icon"
+					data-rail-prev
+					aria-label="Scroll left"
+				>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+				</button>
+				<button
+					type="button"
+					class="theme-btn theme-btn__icon"
+					data-rail-next
+					aria-label="Scroll right"
+				>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+				</button>
+			</div>
+		</div>
+		<div class="explore-rail-track" data-rail-track>
+			{
+				weightLoss.products.map((product) => (
+					<div class="explore-rail-item">
+						<ProductCard product={product} modalId={`explore-modal-${product.slot}`} />
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="explore-hims">
+		<div class="explore-hims-panel explore-hims-panel--science" data-reveal>
+			<h3 class="explore-hims-head">
+				<span class="explore-hims-head-line">The science</span>
+				<span class="explore-hims-head-line explore-hims-head-line--alt">behind SlimOut</span>
+			</h3>
+
+			<div class="explore-hims-notes">
+				<p class="explore-hims-note explore-hims-note--a" data-reveal data-reveal-delay="80">
+					Supports appetite signalling<br />
+					<span class="explore-hims-note-strong">handled by your provider</span>
+				</p>
+				<p class="explore-hims-note explore-hims-note--b" data-reveal data-reveal-delay="200">
+					<span class="explore-hims-note-strong">Absorption technology</span><br />
+					designed for consistent daily dosing
+				</p>
+			</div>
+
+			<div class="explore-hims-tablet">
+				<img
+					src={`${MEDICINE}/ChatGPT+Image+Aug+7%2C+2026%2C+12_35_54+PM+1.webp`}
+					alt="SlimOut tablets"
+					class="explore-hims-tablet-img"
+					loading="lazy"
+				/>
+			</div>
+		</div>
+
+		<div class="explore-hims-panel explore-hims-panel--care" data-reveal data-reveal-delay="120">
+			<span class="explore-hims-badge">New dose available</span>
+			<h3 class="explore-hims-head explore-hims-head--care">
+				<span class="explore-hims-head-line">Care built around</span>
+				<span class="explore-hims-head-line">your progress</span>
+			</h3>
+
+			<div class="explore-hims-pen">
+				<img
+					src={`${MEDICINE}/ChatGPT+Image+Aug+19%2C+2026%2C+10_47_13+AM+2.webp`}
+					alt="Injection pen"
+					class="explore-hims-pen-img"
+					loading="lazy"
+				/>
+			</div>
+		</div>
+	</div>
+</section>
+
+{
+	weightLoss.products.map((product) => (
+		<ProductDetailModal
+			product={product}
+			modalId={`explore-modal-${product.slot}`}
+			recommendedItems={weightLoss.recommended}
+		/>
+	))
+}

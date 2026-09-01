@@ -267,6 +267,8 @@ No light/dark theme switch exists — the site is single-theme (`cream`/`ink`), 
 
 **Pass 2** (site-wide consistency audit, still the old lime-green palette): ~50 raw hex colors that exactly duplicated an existing token were swapped to the token class; `field` radius token corrected 11px→16px to match the real canonical input; `.modal-panel` converged onto `rounded-panel`; shadow tokens corrected to real source values; missing hover/focus states added to `.selectable-card` and several legacy checkbox/disclosure components.
 
+**Pass 4 — homepage content/asset sync** (2026-09-01, this pass): pulled the latest `SlimOut Homepage.dc.html` from the same Claude Design project via the `DesignSync` MCP and synced `index.astro`'s section components to it — real hosted photography/video from the client's S3 bucket replacing local placeholders (see the Asset Management exception above), updated copy (TrustBar/Programs/Care/CTA), a real product catalog (`categories.ts` weight-loss/sexual-health `products[]`), a restyled Programs section (flex-grow tile strip) and WhySlimOut grid (numbered corner + hover-to-dark), and a real scroll-linked "grow to full-bleed" effect for Care (`[data-expand]` in common.js/`_care.scss`) — the `[data-curtain]` scale-up reveal moved from Care to CTA to match. `Marquee`, `ExperienceSection`, and `DeliverySection` are no longer rendered on the homepage (not present in the new design) — their component/SCSS files were left on disk, unused, not deleted.
+
 **Pass 3 — full rebrand** (2026-09-01, explicit user decision, this pass): `tailwind.config.js` colors and `fontFamily.sans` were redefined in place — same token *names*, new hex/font values, per the PDF's palette (navy `primary #032C59`, `accent #4B8BD1`, `ink #0B1220`, `cream #F5F6F8`, etc. — see Color Tokens above) and typography (Plus Jakarta Sans replacing DM Sans, loaded via `_font-file.scss`'s Google Fonts `@import`). Because every SCSS partial already referenced colors by semantic class name, this cascaded automatically with no `.astro` or class-name changes. What still had to be hand-fixed: raw hex/`rgba(...)` literals that bypassed the semantic classes (decorative gradients in `_footer.scss`/`_get-started.scss`/`_intake.scss`/`_quiz.scss`, a handful of `bg-[#oldhex]` one-offs in `_header.scss`/`_order-details.scss`/`_order-status-modal.scss`/`_cart-sticky.scss`) — swept via grep for every old-palette hex/RGB tuple until none remained. The global focus ring and `::selection` were moved from `primary` to the new `accent` token to match the PDF's role split (primary = buttons only, accent = focus/selection) — see States above. `npm run build` (36 pages) and `build:css` both verified clean after every step.
 
 ## Styling Guidelines
@@ -375,9 +377,9 @@ Wrap every top-level page section: `<!-- x section start -->` / `<!-- x section 
 
 - No `astro:assets` optimization — anything in `public/` ships as-is. Pre-optimize (compress, WebP/AVIF) before adding.
 
-- No external hotlinks — download images into the project.
+- No external hotlinks in general — download images into the project. **Exception**: when a Claude Design mockup (or other design source) specifies real, already-hosted photography/video from the client's own asset bucket (e.g. `wellnesplusrx-s3.s3.us-east-1.amazonaws.com`, used by the homepage's hero/category/product imagery — see `src/data/categories.ts`, `Hero.astro`, `SexualHealthSection.astro`), reference that `https://` URL directly in `src`/`<video src>` — do **not** download it into `public/`. This keeps the design's real photography in sync without vendoring binary assets nobody re-optimizes. Never substitute a placeholder/dummy/stock image or video when the design provides a real URL — if a design spec is missing an asset for some slot, ask rather than inventing one. Local relative paths (per the rule below) remain the default for everything else — icons, fonts, and any image/video that doesn't come from a design's own hosted bucket.
 
-- Reference by relative path, never import:
+- Reference by relative path, never import (external design-asset URLs above are the one exception):
 
 ```astro
 

@@ -1,101 +1,107 @@
+---
+interface Faq {
+	q: string;
+	a: string;
+}
+
+interface Props {
+	faqs?: Faq[];
+	eyebrow?: string;
+}
+
+const DEFAULT_FAQS: Faq[] = [
+	{
+		q: "How does a patient get started with SlimOut?",
+		a: "Choose a care program and complete an intake covering your medical history, health goals and individual needs. A licensed healthcare provider reviews it and, where appropriate, recommends a treatment plan.",
+	},
+	{
+		q: "How are medications shipped?",
+		a: "Once your treatment plan is approved, your prescription is sent to one of our trusted pharmacy partners for fulfillment. Medications are carefully prepared and delivered directly to your doorstep.",
+	},
+	{
+		q: "Can a patient speak with a pharmacist for consultation?",
+		a: "Yes, our licensed pharmacists are available for consultations. You can schedule a call through your patient dashboard during our standard business hours.",
+	},
+	{
+		q: "What states is SlimOut licensed in?",
+		a: "We are currently licensed in a majority of states and are constantly expanding our reach. Please check our availability during the sign-up process.",
+	},
+	{
+		q: "Contact information for SlimOut?",
+		a: "Call us at (833) 654-3556 or email info@slimout.com and our team will point you to the right place.",
+	},
+];
+
+const { faqs = DEFAULT_FAQS, eyebrow = "09 — FAQ" } = Astro.props;
+---
+
 <!--===|| FAQ Section Start ||===-->
-				<section id="faq" class="faq">
-					<div class="faq-inner">
-						<div class="faq-intro">
-							<div class="faq-eyebrow">09 — FAQ</div>
-							<h2 class="faq-title">
-								Any questions? <span class="faq-title-alt">We've got answers.</span>
-							</h2>
-							<div class="faq-contact">
-								<div class="faq-contact-title">Still stuck? Talk to us.</div>
-								<div class="faq-contact-body">
-									Call <a href="tel:8336543556" class="faq-contact-link">(833) 654-3556</a> or
-									email <a href="mailto:info@slimout.com" class="faq-contact-link">info@slimout.com</a>.
-								</div>
-							</div>
-						</div>
-						<div class="faq-panel">
-							<div id="faq-list">
-								<div class="faq-item is-open">
-									<button type="button" class="faq-question-row" data-faq-trigger aria-expanded="true"
-											aria-controls="faq-panel-1">
-										<span class="faq-question">Contact Information For Slimout?</span>
-										<span class="faq-icon" data-faq-icon>−</span>
-									</button>
-									<div class="faq-answer-wrap" data-faq-panel id="faq-panel-1" style="height: auto;">
-										<div class="faq-answer">
-											You can reach our support team via email or phone. Our
-											experts are available Monday through Friday to assist with
-											your weight loss journey and medication questions.
-										</div>
-									</div>
-								</div>
-								<div class="faq-item">
-									<button type="button" class="faq-question-row" data-faq-trigger aria-expanded="false"
-											aria-controls="faq-panel-2">
-										<span class="faq-question">
-											How Does A Patient Get Started With Slimout
-											Pharmacy?
-										</span>
-										<span class="faq-icon" data-faq-icon>+</span>
-									</button>
-									<div class="faq-answer-wrap" data-faq-panel id="faq-panel-2">
-										<div class="faq-answer">
-											Getting started is simple. Choose your program, complete a
-											brief online evaluation, and our medical team will review
-											your health profile to determine the best treatment plan
-											for you.
-										</div>
-									</div>
-								</div>
-								<div class="faq-item">
-									<button type="button" class="faq-question-row" data-faq-trigger aria-expanded="false"
-											aria-controls="faq-panel-3">
-										<span class="faq-question">
-											Can A Patient Speak With A Pharmacist For Consultation
-											Regarding Prescriptions? What Are The Hours Of
-											Availability?
-										</span>
-										<span class="faq-icon" data-faq-icon>+</span>
-									</button>
-									<div class="faq-answer-wrap" data-faq-panel id="faq-panel-3">
-										<div class="faq-answer">
-											Yes, our licensed pharmacists are available for
-											consultations. You can schedule a call through your
-											patient dashboard during our standard business hours.
-										</div>
-									</div>
-								</div>
-								<div class="faq-item">
-									<button type="button" class="faq-question-row" data-faq-trigger aria-expanded="false"
-											aria-controls="faq-panel-4">
-										<span class="faq-question">How Are Medications Shipped?</span>
-										<span class="faq-icon" data-faq-icon>+</span>
-									</button>
-									<div class="faq-answer-wrap" data-faq-panel id="faq-panel-4">
-										<div class="faq-answer">
-											All medications are shipped discreetly and securely to
-											your preferred address. We use temperature-controlled
-											packaging where necessary to ensure product integrity.
-										</div>
-									</div>
-								</div>
-								<div class="faq-item">
-									<button type="button" class="faq-question-row" data-faq-trigger aria-expanded="false"
-											aria-controls="faq-panel-5">
-										<span class="faq-question">What States Is Slimout Licensed In?</span>
-										<span class="faq-icon" data-faq-icon>+</span>
-									</button>
-									<div class="faq-answer-wrap" data-faq-panel id="faq-panel-5">
-										<div class="faq-answer">
-											We are currently licensed in a majority of states and are
-											constantly expanding our reach. Please check our
-											availability during the sign-up process.
-										</div>
-									</div>
-								</div>
-							</div>
+<section id="faq" class="faq">
+	<div class="faq-inner">
+		<div class="faq-header">
+			<div>
+				<div class="faq-eyebrow">{eyebrow}</div>
+				<h2 class="faq-title">
+					Any questions?<br />
+					<span class="faq-title-alt">We've got answers.</span>
+				</h2>
+			</div>
+			<div class="faq-contact" data-reveal data-reveal-delay="160">
+				<span class="faq-contact-label">Still stuck?</span>
+				<a href="tel:8336543556" class="faq-contact-link">(833) 654-3556</a>
+				<span class="faq-contact-dot"></span>
+				<a href="mailto:info@slimout.com" class="faq-contact-link"
+					>info@slimout.com</a
+				>
+			</div>
+		</div>
+
+		<div class="faq-list" id="faq-list">
+			{
+				faqs.map((item, i) => (
+					<div
+						class:list={["faq-item", { "is-open": i === 0 }]}
+						data-reveal
+						data-reveal-delay={i * 60}
+					>
+						<button
+							type="button"
+							class="faq-question-row"
+							data-faq-trigger
+							aria-expanded={i === 0 ? "true" : "false"}
+							aria-controls={`faq-panel-${i + 1}`}
+						>
+							<span class="faq-question-group">
+								<span class="faq-num">{String(i + 1).padStart(2, "0")}</span>
+								<span class="faq-question">{item.q}</span>
+							</span>
+							<span class="faq-icon" data-faq-icon>
+								<svg
+									width="14"
+									height="14"
+									viewBox="0 0 14 14"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.8"
+									stroke-linecap="round"
+									aria-hidden="true"
+								>
+									<path d="M7 1v12M1 7h12" />
+								</svg>
+							</span>
+						</button>
+						<div
+							class="faq-answer-wrap"
+							data-faq-panel
+							id={`faq-panel-${i + 1}`}
+							style={i === 0 ? "height: auto;" : ""}
+						>
+							<p class="faq-answer">{item.a}</p>
 						</div>
 					</div>
-				</section>
-				<!--===|| FAQ Section End ||===-->
+				))
+			}
+		</div>
+	</div>
+</section>
+<!--===|| FAQ Section End ||===-->
