@@ -16,21 +16,21 @@
         left: -120px;
         width: min(520px, 52vw);
         aspect-ratio: 1;
-        background: radial-gradient(circle at 32% 32%, rgba(187, 204, 70, 0.2), rgba(187, 204, 70, 0) 68%);
+        background: radial-gradient(circle at 32% 32%, rgba(75, 139, 209, 0.2), rgba(75, 139, 209, 0) 68%);
       }
       &--2 {
         top: 16%;
         right: -160px;
         width: min(460px, 46vw);
         aspect-ratio: 1;
-        background: radial-gradient(circle at 60% 40%, rgba(16, 26, 20, 0.055), rgba(16, 26, 20, 0) 70%);
+        background: radial-gradient(circle at 60% 40%, rgba(11, 18, 32, 0.055), rgba(11, 18, 32, 0) 70%);
       }
       &--3 {
         bottom: -180px;
         left: 8%;
         width: min(560px, 58vw);
         aspect-ratio: 1;
-        background: radial-gradient(circle at 50% 50%, rgba(187, 204, 70, 0.13), rgba(187, 204, 70, 0) 70%);
+        background: radial-gradient(circle at 50% 50%, rgba(75, 139, 209, 0.13), rgba(75, 139, 209, 0) 70%);
       }
     }
 
@@ -42,14 +42,14 @@
         left: -90px;
         width: min(300px, 30vw);
         aspect-ratio: 1;
-        border-color: rgba(148, 167, 46, 0.16);
+        border-color: rgba(75, 139, 209, 0.16);
       }
       &--2 {
         bottom: 14%;
         right: -70px;
         width: min(360px, 34vw);
         aspect-ratio: 1;
-        border-color: rgba(16, 26, 20, 0.06);
+        border-color: rgba(11, 18, 32, 0.06);
       }
     }
 
@@ -61,14 +61,14 @@
         right: 14%;
         width: 9px;
         height: 9px;
-        background: rgba(148, 167, 46, 0.35);
+        background: rgba(75, 139, 209, 0.35);
       }
       &--2 {
         bottom: 26%;
         left: 12%;
         width: 7px;
         height: 7px;
-        background: rgba(16, 26, 20, 0.14);
+        background: rgba(11, 18, 32, 0.14);
       }
     }
   }
@@ -118,7 +118,7 @@
 
   .intake-question-cond {
     @apply mt-2 px-4.5 py-3.5 border border-dashed border-[#C6D38A] bg-sage-100 rounded-xl
-      text-[13px] leading-[1.55] text-[#5F6E1D]
+      text-[13px] leading-[1.55] text-greenDeep
       animate-[intake-cond-in_0.3s_cubic-bezier(0.2,0.8,0.2,1)_both];
 
     &[hidden] {
@@ -228,7 +228,7 @@
 
     &-box {
       @apply flex flex-col gap-2.5 text-left p-4.5 sm:p-5.5 mb-7 rounded-2xl border border-dashed
-        border-[#D6DAC8] bg-white text-[14.5px] leading-[1.6] text-[#3A463C];
+        border-[#D6DAC8] bg-white text-[14.5px] leading-[1.6] text-muted-dark;
 
       &--accent {
         @apply bg-sage-100 border-[#C6D38A];
@@ -249,8 +249,7 @@
     }
 
     &-spinner {
-      @apply block w-11 h-11 rounded-full border-[3px] border-sage-200;
-      border-top-color: #a8c22f;
+      @apply block w-11 h-11 rounded-full border-[3px] border-sage-200 border-t-lime-dark;
       animation: intake-spin 0.8s linear infinite;
     }
 
@@ -273,15 +272,14 @@
     }
 
     &-panel {
-      @apply relative bg-[#FBFBF7] rounded-3xl p-7 sm:p-9 text-center
+      @apply relative bg-[#FBFBF7] rounded-3xl p-7 sm:p-9 text-center shadow-modal
         animate-[intake-modal-in_0.32s_cubic-bezier(0.2,0.8,0.2,1)_both];
       width: min(520px, 100%);
-      box-shadow: 0 40px 90px -40px rgba(16, 26, 20, 0.55);
     }
 
     &-icon {
       @apply inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage-100
-        text-[#5F6E1D] mb-4.5;
+        text-greenDeep mb-4.5;
     }
 
     &-title {

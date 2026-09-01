@@ -71,7 +71,7 @@
 
     &-box-note {
       @apply m-0 mt-3.5 pt-3.5 border-t border-lime-dark text-[14.5px] leading-[1.65]
-        text-[#3A463C] text-pretty;
+        text-muted-dark text-pretty;
     }
 
     &-tests {
@@ -96,7 +96,7 @@
     }
 
     &-tests-chip {
-      @apply font-sora text-[12.5px] font-semibold tracking-tight text-[#5F6E1D] px-4 py-2.25
+      @apply font-sora text-[12.5px] font-semibold tracking-tight text-greenDeep px-4 py-2.25
         bg-sage-100 border border-[#D9E3B4] rounded-full whitespace-nowrap;
     }
   }

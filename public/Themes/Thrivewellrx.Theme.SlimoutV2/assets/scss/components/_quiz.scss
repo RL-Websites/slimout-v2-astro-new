@@ -16,21 +16,21 @@
         left: -120px;
         width: min(520px, 52vw);
         aspect-ratio: 1;
-        background: radial-gradient(circle at 32% 32%, rgba(187, 204, 70, 0.2), rgba(187, 204, 70, 0) 68%);
+        background: radial-gradient(circle at 32% 32%, rgba(75, 139, 209, 0.2), rgba(75, 139, 209, 0) 68%);
       }
       &--2 {
         top: 16%;
         right: -160px;
         width: min(460px, 46vw);
         aspect-ratio: 1;
-        background: radial-gradient(circle at 60% 40%, rgba(16, 26, 20, 0.055), rgba(16, 26, 20, 0) 70%);
+        background: radial-gradient(circle at 60% 40%, rgba(11, 18, 32, 0.055), rgba(11, 18, 32, 0) 70%);
       }
       &--3 {
         bottom: -180px;
         left: 8%;
         width: min(560px, 58vw);
         aspect-ratio: 1;
-        background: radial-gradient(circle at 50% 50%, rgba(187, 204, 70, 0.13), rgba(187, 204, 70, 0) 70%);
+        background: radial-gradient(circle at 50% 50%, rgba(75, 139, 209, 0.13), rgba(75, 139, 209, 0) 70%);
       }
     }
 
@@ -42,14 +42,14 @@
         left: -90px;
         width: min(300px, 30vw);
         aspect-ratio: 1;
-        border-color: rgba(148, 167, 46, 0.16);
+        border-color: rgba(75, 139, 209, 0.16);
       }
       &--2 {
         bottom: 14%;
         right: -70px;
         width: min(360px, 34vw);
         aspect-ratio: 1;
-        border-color: rgba(16, 26, 20, 0.06);
+        border-color: rgba(11, 18, 32, 0.06);
       }
     }
 
@@ -61,14 +61,14 @@
         right: 14%;
         width: 9px;
         height: 9px;
-        background: rgba(148, 167, 46, 0.35);
+        background: rgba(75, 139, 209, 0.35);
       }
       &--2 {
         bottom: 26%;
         left: 12%;
         width: 7px;
         height: 7px;
-        background: rgba(16, 26, 20, 0.14);
+        background: rgba(11, 18, 32, 0.14);
       }
     }
   }

@@ -20,7 +20,7 @@
 
     &-drop-icon {
       @apply inline-flex items-center justify-center w-13 h-13 rounded-full bg-sage-100
-        text-[#5F6E1D] mb-3.5;
+        text-greenDeep mb-3.5;
     }
 
     &-drop-title {
@@ -62,7 +62,7 @@
     }
 
     &-file-icon {
-      @apply flex items-center justify-center w-10 h-10 rounded-xl bg-sage-100 text-[#5F6E1D]
+      @apply flex items-center justify-center w-10 h-10 rounded-xl bg-sage-100 text-greenDeep
         shrink-0;
     }
 
@@ -97,7 +97,7 @@
 
     &-empty-icon {
       @apply inline-flex items-center justify-center w-13 h-13 rounded-full bg-sage-100
-        text-[#5F6E1D] mb-3.5;
+        text-greenDeep mb-3.5;
     }
 
     &-empty-title {

@@ -18,7 +18,7 @@
       @apply flex-1 min-w-[150px] text-[15px] text-ink px-5 py-3.75 bg-sage-50 border border-[#DDE1D2] rounded-full;
 
       &::placeholder {
-        @apply text-[#98A292];
+        @apply text-muted-light;
       }
     }
 
@@ -39,11 +39,11 @@
     }
 
     &-note-text {
-      @apply text-sm leading-[1.6] text-[#3A463C];
+      @apply text-sm leading-[1.6] text-muted-dark;
     }
 
     &-note-link {
-      @apply text-[#5F6E1D] border-b border-[#5F6E1D]/40;
+      @apply text-greenDeep border-b border-greenDeep/40;
     }
 
     &-totals {
@@ -81,7 +81,7 @@
     }
 
     &-coupon-code {
-      @apply font-mono text-[11px] tracking-[0.1em] text-[#5F6E1D];
+      @apply font-mono text-[11px] tracking-[0.1em] text-greenDeep;
     }
 
     &-coupon-clear {

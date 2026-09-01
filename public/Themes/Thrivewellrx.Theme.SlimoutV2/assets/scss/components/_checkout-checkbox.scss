@@ -7,6 +7,10 @@
         border-[1.5px] border-sage-400 bg-white text-ink transition-colors duration-[220ms];
     }
 
+    &:hover .checkout-checkbox-box {
+      @apply border-lime;
+    }
+
     &.is-checked {
       .checkout-checkbox-box {
         @apply border-lime bg-lime;

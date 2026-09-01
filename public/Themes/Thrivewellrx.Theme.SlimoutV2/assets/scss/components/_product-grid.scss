@@ -27,8 +27,7 @@
     @apply bg-white border border-sage-300 rounded-3xl p-3.5 flex flex-col transition-transform duration-300;
 
     &:hover {
-      @apply -translate-y-1.5;
-      box-shadow: 0 28px 54px -26px rgba(16, 26, 20, 0.3);
+      @apply -translate-y-1.5 shadow-card;
     }
 
     &-media {

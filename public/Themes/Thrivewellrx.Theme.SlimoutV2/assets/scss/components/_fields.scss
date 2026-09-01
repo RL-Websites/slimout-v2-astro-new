@@ -5,7 +5,7 @@
     @apply relative flex items-center w-full;
 
     &-field {
-      @apply w-full px-5 py-4 rounded-2xl border-[1.5px] border-[#DDE1D2] bg-white
+      @apply w-full px-5 py-4 rounded-field border-[1.5px] border-[#DDE1D2] bg-white
         font-sans text-[15.5px] text-ink transition-colors duration-[220ms];
 
       &::placeholder {
@@ -44,7 +44,7 @@
   }
 
   .general-textarea {
-    @apply w-full px-5 py-4 rounded-2xl border-[1.5px] border-[#DDE1D2] bg-white
+    @apply w-full px-5 py-4 rounded-field border-[1.5px] border-[#DDE1D2] bg-white
       font-sans text-[15.5px] text-ink transition-colors duration-[220ms] resize-y;
 
     &::placeholder {
@@ -54,7 +54,7 @@
 
   .input-radio,
   .input-checkbox {
-    @apply relative flex items-center gap-3.5 px-5 py-4.25 rounded-2xl cursor-pointer
+    @apply relative flex items-center gap-3.5 px-5 py-4.25 rounded-field cursor-pointer
       border-[1.5px] border-[#E4E9DE] bg-white
       transition-all duration-[220ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
 
@@ -78,6 +78,13 @@
   .input-radio:has(.input-radio-input:checked),
   .input-checkbox:has(.input-checkbox-input:checked) {
     @apply border-lime bg-sage-100;
+  }
+
+  // The real input is visually hidden (0x0, opacity 0), so its own focus-visible
+  // ring would be invisible — move it to the visible label instead.
+  .input-radio:has(.input-radio-input:focus-visible),
+  .input-checkbox:has(.input-checkbox-input:focus-visible) {
+    @apply outline-none ring-2 ring-accent ring-offset-2;
   }
 
   .input-radio:has(.input-radio-input:checked) .input-radio-label,
@@ -105,7 +112,7 @@
   }
 
   .input-checkbox-box {
-    @apply relative w-5 h-5 rounded-[6px] border-[1.5px] border-[#C3CBBD] shrink-0
+    @apply relative w-5 h-5 rounded-[5px] border-[1.5px] border-[#C3CBBD] shrink-0
       flex items-center justify-center text-white transition-colors duration-[220ms];
 
     svg {

@@ -57,11 +57,11 @@
 
       &--active {
         @apply border-none bg-lime-dark text-white font-semibold text-xs;
-        box-shadow: 0 0 0 5px rgba(168, 194, 47, 0.22);
+        box-shadow: 0 0 0 5px rgba(18, 83, 154, 0.22);
       }
 
       &--done {
-        @apply bg-sage-100 border-lime-dark text-[#5F6E1D] text-xs;
+        @apply bg-sage-100 border-lime-dark text-greenDeep text-xs;
       }
     }
   }

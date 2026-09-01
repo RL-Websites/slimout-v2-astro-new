@@ -9,15 +9,17 @@ body {
   scroll-behavior: smooth;
 }
 
+// Accent (not primary) is the design system's dedicated focus/selection color —
+// bg-primary is now a dark navy, which would put dark ink text on a dark bg.
 ::selection {
-  background: #bbcc46;
-  color: #101a14;
+  @apply bg-accent text-white;
 }
 
-input:focus,
-select:focus {
-  outline: 2px solid #bbcc46;
-  outline-offset: 1px;
+// Single global keyboard-focus ring, same accent-ring pattern .theme-btn already
+// uses — covers every native/custom interactive element site-wide instead of the
+// input/select-only outline this used to be.
+:focus-visible {
+  @apply outline-none ring-2 ring-accent ring-offset-2;
 }
 
 .logo {

@@ -11,9 +11,7 @@
 }
 
 .notification-toast {
-  @apply hidden items-center gap-3 whitespace-nowrap lg:rounded-full rounded-2xl bg-dark px-6 py-[15px] text-offwhite;
-
-  box-shadow: 0 24px 50px -22px rgba(16, 26, 20, 0.6);
+  @apply hidden items-center gap-3 whitespace-nowrap lg:rounded-full rounded-2xl bg-dark px-6 py-[15px] text-offwhite shadow-toast;
 
   &.is-visible {
     animation: toast-fade-in-top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -46,7 +44,7 @@
     }
 
     &:focus-visible {
-      @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-dark;
+      @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-dark;
     }
   }
 

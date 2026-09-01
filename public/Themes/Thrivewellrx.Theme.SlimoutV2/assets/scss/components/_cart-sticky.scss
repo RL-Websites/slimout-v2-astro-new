@@ -1,6 +1,6 @@
 @layer components {
   .cart-sticky {
-    @apply fixed left-3 right-3 sm:left-4 sm:right-4 lg:left-6 lg:right-6 bottom-3 sm:bottom-4 lg:bottom-5 z-[90] bg-ink text-offwhite rounded-full flex flex-wrap items-center gap-3 sm:gap-5 lg:gap-7 p-3 pl-5 sm:pl-6 lg:pl-8 border border-[#f7f7f024] shadow-[0_22px_50px_-18px_rgba(0,0,0,0.55),inset_0_2px_0_rgba(247,247,240,0.06)];
+    @apply fixed left-3 right-3 sm:left-4 sm:right-4 lg:left-6 lg:right-6 bottom-3 sm:bottom-4 lg:bottom-5 z-[90] bg-ink text-offwhite rounded-full flex flex-wrap items-center gap-3 sm:gap-5 lg:gap-7 p-3 pl-5 sm:pl-6 lg:pl-8 border border-[#f7f7fa24] shadow-[0_22px_50px_-18px_rgba(11,18,32,0.55),inset_0_2px_0_rgba(247,247,250,0.06)];
 
 
     &-total {

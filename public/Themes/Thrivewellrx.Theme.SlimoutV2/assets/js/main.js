@@ -16,5 +16,5 @@ import "./common.js";
 import "./lab-results.js";
 // import "./verify-identity.js";
 import "./my-orders.js";
-// import "./cart.js";
+import "./cart.js";
 // import "./checkout.js";

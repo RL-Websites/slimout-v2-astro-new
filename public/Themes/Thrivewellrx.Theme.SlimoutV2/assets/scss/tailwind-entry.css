@@ -1,0 +1,10 @@
+/* Not part of the real build (see scripts/build-css.mjs — it injects this same
+   @import/@config pair in-memory instead). This file exists purely so editor tooling
+   (Tailwind CSS IntelliSense, and the bare `@tailwindcss/postcss` in postcss.config.js)
+   can resolve custom theme.extend tokens (colors, borderRadius, boxShadow) when
+   validating @apply in the SCSS partials, instead of falling back to vanilla Tailwind
+   and flagging every custom class (bg-primary, rounded-field, shadow-card, ...) as
+   unknown. Never imported by main.scss or referenced at build time — do not import it
+   from Sass, it would fail the same way a bare `@import "tailwindcss"` does there. */
+@import "tailwindcss";
+@config "../../../../../tailwind.config.js";

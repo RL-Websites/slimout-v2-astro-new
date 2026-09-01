@@ -11,9 +11,8 @@
     }
 
     &-spinner {
-      @apply block w-[34px] h-[34px] rounded-full border-[3px] border-[#E4E7DA]
+      @apply block w-[34px] h-[34px] rounded-full border-[3px] border-[#E4E7DA] border-t-lime-dark
         animate-[common-nav-spin_0.7s_linear_infinite];
-      border-top-color: #a8c22f;
     }
 
     &-label {

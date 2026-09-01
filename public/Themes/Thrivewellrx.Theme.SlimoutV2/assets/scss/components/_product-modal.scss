@@ -36,7 +36,7 @@
     }
 
     &-title {
-      @apply text-2xl sm:text-3xl font-bold text-[#101A14] m-0 mb-4 sm:mb-6 leading-tight;
+      @apply text-2xl sm:text-3xl font-bold text-ink m-0 mb-4 sm:mb-6 leading-tight;
     }
 
     &-ingredient,
@@ -45,7 +45,7 @@
     }
 
     &-label {
-      @apply text-xs sm:text-sm font-semibold text-[#101A14] block mb-1.5 sm:mb-2;
+      @apply text-xs sm:text-sm font-semibold text-ink block mb-1.5 sm:mb-2;
     }
 
     &-ingredient-text,
@@ -87,10 +87,10 @@
     }
 
     &-cta-secondary {
-      @apply bg-transparent text-[#101A14] border-[#E4E7DA];
+      @apply bg-transparent text-ink border-[#E4E7DA];
 
       &:hover {
-        @apply bg-[#F6F8EE] border-[#101A14];
+        @apply bg-[#F6F8EE] border-ink;
       }
     }
 
@@ -99,10 +99,10 @@
     }
 
     &-qty-btn {
-      @apply w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-lg font-semibold text-[#101A14] bg-transparent border-none cursor-pointer transition-colors duration-200;
+      @apply w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-lg font-semibold text-ink bg-transparent border-none cursor-pointer transition-colors duration-200;
 
       &:hover {
-        @apply bg-[#101A14] text-white;
+        @apply bg-ink text-white;
       }
 
       &[data-disabled='true'] {
@@ -115,7 +115,7 @@
     }
 
     &-qty-value {
-      @apply flex-1 text-center font-semibold text-base text-[#101A14];
+      @apply flex-1 text-center font-semibold text-base text-ink;
     }
 
     &-recommended {

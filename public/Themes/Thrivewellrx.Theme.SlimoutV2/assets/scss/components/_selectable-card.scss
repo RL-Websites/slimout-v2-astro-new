@@ -7,8 +7,19 @@
     @apply relative h-full flex flex-col p-3.5 sm:p-4.5 rounded-[18px] cursor-pointer
       border-[1.5px] border-[#E4E7DA] bg-white transition-colors duration-250;
 
+    &:hover {
+      @apply border-lime;
+    }
+
     &:has(.selectable-card-input:checked) {
       @apply border-[#C6D38A] bg-[#F6F8EE];
+    }
+
+    // The real input is visually hidden (0x0, opacity 0), so its own focus-visible
+    // ring would be invisible — move it to the visible card, same pattern as
+    // .input-radio/.input-checkbox in _fields.scss.
+    &:has(.selectable-card-input:focus-visible) {
+      @apply outline-none ring-2 ring-accent ring-offset-2;
     }
 
     &--disabled {

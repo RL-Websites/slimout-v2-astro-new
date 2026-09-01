@@ -21,9 +21,8 @@
 
     &-badge {
       @apply absolute right-[-10px] bottom-[-28px] p-5 bg-ink text-offwhite
-        rounded-[22px];
+        rounded-[22px] shadow-card;
       width: min(268px, 72%);
-      box-shadow: 0 28px 54px -24px rgba(16, 26, 20, 0.5);
       animation: float 7s ease-in-out infinite;
     }
 

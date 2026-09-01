@@ -34,7 +34,7 @@
 
 		&-panel {
 			@apply absolute left-0 right-0 top-[calc(100%+8px)] z-20 bg-white border
-				border-[#E4E7DA] rounded-xl shadow-[0_12px_28px_rgba(16,26,20,0.12)]
+				border-[#E4E7DA] rounded-xl shadow-dropdown
 				overflow-hidden;
 		}
 
@@ -47,7 +47,7 @@
 				rounded-lg;
 
 			&::placeholder {
-				@apply text-[#98A292];
+				@apply text-muted-light;
 			}
 		}
 
@@ -56,7 +56,7 @@
 		}
 
 		&-option {
-			@apply py-2.25 px-4.25 text-[14.5px] text-[#3A463C] cursor-pointer
+			@apply py-2.25 px-4.25 text-[14.5px] text-muted-dark cursor-pointer
 				transition-colors duration-150;
 
 			&:hover,
@@ -74,7 +74,7 @@
 		}
 
 		&-empty {
-			@apply py-3 px-4.25 text-[14px] text-[#98A292];
+			@apply py-3 px-4.25 text-[14px] text-muted-light;
 		}
 	}
 }

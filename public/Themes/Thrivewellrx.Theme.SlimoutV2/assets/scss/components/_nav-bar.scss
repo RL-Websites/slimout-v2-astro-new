@@ -10,7 +10,7 @@
 
     &--framed {
       @apply p-2.5 bg-white border border-[#E4E7DA] rounded-full
-        shadow-[0_22px_50px_-22px_rgba(16,26,20,0.32)];
+        shadow-[0_22px_50px_-22px_rgba(11,18,32,0.32)];
       width: min(640px, calc(100% - 32px));
     }
 
@@ -66,8 +66,7 @@
     }
 
     &-next--secondary &-next-spinner {
-      @apply border-ink/25;
-      border-top-color: #101a14;
+      @apply border-ink/25 border-t-ink;
     }
 
     &-save {

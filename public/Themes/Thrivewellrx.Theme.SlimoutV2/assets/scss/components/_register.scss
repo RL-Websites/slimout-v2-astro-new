@@ -31,7 +31,7 @@
     }
 
     &-banner-text {
-      @apply text-sm leading-[1.6] text-[#3A463C] text-pretty;
+      @apply text-sm leading-[1.6] text-muted-dark text-pretty;
     }
 
     &-head {
@@ -72,7 +72,7 @@
         rounded-xl transition-colors duration-[200ms];
 
       &::placeholder {
-        @apply text-[#98A292];
+        @apply text-muted-light;
       }
 
       &--error {
@@ -121,6 +121,10 @@
 
     &-gender-dot {
       @apply w-2.25 h-2.25 rounded-full bg-transparent transition-colors duration-[200ms];
+    }
+
+    &-gender-option:hover .register-gender-ring {
+      @apply border-lime;
     }
 
     &-gender-option.is-active {

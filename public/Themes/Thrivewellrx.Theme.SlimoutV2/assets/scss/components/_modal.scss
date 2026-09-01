@@ -16,10 +16,9 @@
     }
 
     &-panel {
-      @apply relative w-full bg-[#FBFBF7] rounded-[26px] flex flex-col overflow-hidden scale-95 transition-transform duration-300;
+      @apply relative w-full bg-[#FBFBF7] rounded-panel flex flex-col overflow-hidden scale-95 transition-transform duration-300 shadow-modal;
       transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
       max-height: calc(100vh - 200px);
-      box-shadow: 0 40px 90px -40px rgba(16, 26, 20, 0.55);
 
       &:focus-visible {
         outline: 0;

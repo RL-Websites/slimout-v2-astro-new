@@ -24,7 +24,11 @@
     @apply border border-[#E4E7DA] rounded-2xl overflow-hidden bg-white;
 
     &-summary {
-      @apply flex items-center gap-3 py-3.5 px-4 cursor-pointer list-none;
+      @apply flex items-center gap-3 py-3.5 px-4 cursor-pointer list-none transition-colors duration-150;
+
+      &:hover {
+        @apply bg-sage-50;
+      }
 
       &::-webkit-details-marker {
         display: none;
@@ -73,7 +77,7 @@
 
     &-dot {
       @apply w-[9px] h-[9px] rounded-full shrink-0 relative z-[1] bg-sage-400;
-      box-shadow: 0 0 0 3px #F2F2EA;
+      box-shadow: 0 0 0 3px #F5F6F8;
 
       &--latest {
         @apply bg-lime-dark;
@@ -98,7 +102,7 @@
     }
 
     &-latest {
-      @apply font-mono text-[8px] tracking-[0.1em] uppercase text-[#5F6E1D] bg-sage-100
+      @apply font-mono text-[8px] tracking-[0.1em] uppercase text-greenDeep bg-sage-100
         py-0.5 px-1.75 rounded-full;
     }
 
@@ -120,7 +124,11 @@
     @apply border border-dashed border-[#E4E7DA] rounded-[14px] p-3.5;
 
     &-summary {
-      @apply flex items-center gap-2 mb-3 cursor-pointer list-none flex-wrap;
+      @apply flex items-center gap-2 mb-3 cursor-pointer list-none flex-wrap transition-opacity duration-150;
+
+      &:hover {
+        @apply opacity-70;
+      }
 
       &::-webkit-details-marker {
         display: none;
@@ -151,7 +159,7 @@
     }
 
     &-grid-label {
-      @apply block font-mono text-[8.5px] tracking-[0.12em] uppercase text-[#98A292] mb-1.25;
+      @apply block font-mono text-[8.5px] tracking-[0.12em] uppercase text-muted-light mb-1.25;
     }
 
     &-grid-value {

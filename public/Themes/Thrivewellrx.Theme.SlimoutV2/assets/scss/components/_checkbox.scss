@@ -10,6 +10,10 @@
       }
     }
 
+    &:hover .checkbox__box {
+      @apply border-lime;
+    }
+
     &.is-checked {
       .checkbox__box {
         @apply border-lime bg-lime text-white;

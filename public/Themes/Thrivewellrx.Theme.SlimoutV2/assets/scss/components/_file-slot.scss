@@ -20,7 +20,7 @@
     @apply ml-auto font-mono text-[9.5px] tracking-[0.14em] uppercase text-[#C88B5A];
 
     &--done {
-      @apply text-[#5F6E1D];
+      @apply text-greenDeep;
     }
   }
 
@@ -37,7 +37,7 @@
 
   .file-slot-empty-icon {
     @apply inline-flex items-center justify-center w-10 h-10 rounded-full bg-sage-100
-      text-[#5F6E1D] mb-2.5;
+      text-greenDeep mb-2.5;
   }
 
   .file-slot-empty-title {
@@ -63,7 +63,7 @@
 
   .file-slot-preview-doc {
     @apply flex flex-col items-center gap-2 font-mono text-[11px] tracking-[0.1em]
-      text-[#5F6E1D];
+      text-greenDeep;
   }
 
   .file-slot-reupload,
@@ -71,7 +71,7 @@
     @apply absolute top-2.5 z-[2] w-8 h-8 rounded-full bg-[rgba(251,251,247,0.94)] text-ink
       flex items-center justify-center cursor-pointer
       transition-colors duration-250;
-    box-shadow: 0 6px 16px -8px rgba(16, 26, 20, 0.5);
+    box-shadow: 0 6px 16px -8px rgba(11, 18, 32, 0.5);
   }
 
   .file-slot-reupload {

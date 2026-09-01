@@ -15,7 +15,7 @@
     }
 
     &-gate-icon {
-      @apply inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage-100 text-[#5F6E1D] mb-5;
+      @apply inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage-100 text-greenDeep mb-5;
     }
 
     &-gate-title {
@@ -171,7 +171,7 @@
     }
 
     &-field-label {
-      @apply block font-mono text-[9.5px] tracking-[0.16em] uppercase text-[#98A292] mb-2.25;
+      @apply block font-mono text-[9.5px] tracking-[0.16em] uppercase text-muted-light mb-2.25;
     }
 
     &-field-value {
@@ -200,10 +200,10 @@
     }
 
     &-edit-input {
-      @apply w-full text-[15px] text-ink py-3.5 px-4.25 bg-sage-50 border border-[#DDE1D2] rounded-[11px];
+      @apply w-full text-[15px] text-ink py-3.5 px-4.25 bg-sage-50 border border-[#DDE1D2] rounded-field;
 
       &::placeholder {
-        @apply text-[#98A292];
+        @apply text-muted-light;
       }
     }
 
@@ -245,7 +245,7 @@
     }
 
     &-security-icon {
-      @apply flex items-center justify-center w-9.5 h-9.5 rounded-xl bg-sage-100 text-[#5F6E1D] shrink-0;
+      @apply flex items-center justify-center w-9.5 h-9.5 rounded-xl bg-sage-100 text-greenDeep shrink-0;
     }
 
     &-security-title {
@@ -275,9 +275,8 @@
 
     // Toast
     &-toast {
-      @apply fixed left-1/2 -translate-x-1/2 z-[200] flex items-center gap-3 py-3.75 px-6 bg-ink text-offwhite rounded-full whitespace-nowrap;
+      @apply fixed left-1/2 -translate-x-1/2 z-[200] flex items-center gap-3 py-3.75 px-6 bg-ink text-offwhite rounded-full whitespace-nowrap shadow-toast;
       bottom: clamp(22px, 3.2vw, 34px);
-      box-shadow: 0 24px 50px -22px rgba(16, 26, 20, 0.6);
 
       &.is-visible {
         animation: account-toast-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;

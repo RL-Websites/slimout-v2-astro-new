@@ -40,7 +40,7 @@ const steps = [
 							step.num <= active && 'cart-timeline-dot--active',
 						]}
 					>
-						{step.num}
+						{step.num < active ? <i class="icon-checkmark" /> : step.num}
 					</span>
 				))
 			}

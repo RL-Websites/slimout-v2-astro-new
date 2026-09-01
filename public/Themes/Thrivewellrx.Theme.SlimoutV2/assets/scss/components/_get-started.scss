@@ -9,14 +9,14 @@
 
     &-grid-bg {
       @apply absolute inset-0 pointer-events-none
-        [background-image:linear-gradient(rgba(187,204,70,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(187,204,70,0.09)_1px,transparent_1px)]
+        [background-image:linear-gradient(rgba(75,139,209,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(75,139,209,0.09)_1px,transparent_1px)]
         [background-size:56px_56px]
         [mask-image:radial-gradient(120%_90%_at_50%_0%,#000_12%,transparent_72%)];
     }
 
     &-glow {
       @apply absolute top-[-1px] left-1/2 block pointer-events-none h-0.5
-        [background:linear-gradient(90deg,transparent,#BBCC46,transparent)];
+        [background:linear-gradient(90deg,transparent,#4B8BD1,transparent)];
       width: min(560px, 88%);
       margin-left: min(-280px, -44%);
     }

@@ -3,13 +3,17 @@
     @apply bg-white border border-[#E4E7DA] rounded-[18px] p-4.5 sm:p-5 lg:p-6 mt-3;
 
     &-inner {
-      @apply flex items-start gap-2.75 text-[14px] leading-[1.55] text-[#3A463C] cursor-pointer;
+      @apply flex items-start gap-2.75 text-[14px] leading-[1.55] text-muted-dark cursor-pointer;
     }
 
     &-box {
       @apply w-4.75 h-4.75 rounded-[5px] shrink-0 mt-0.25 flex items-center justify-center
         text-[11px] border-[1.5px] border-sage-400 bg-white text-ink transition-colors
         duration-[220ms];
+    }
+
+    &-inner:hover .checkout-terms-row-box {
+      @apply border-lime;
     }
 
     &-inner.is-checked {

@@ -10,7 +10,7 @@
   .header {
     @apply fixed top-4 left-1/2 -translate-x-1/2 max-w-[1340px] z-[100] bg-cream/90 backdrop-blur-xl rounded-full flex items-center gap-4 sm:gap-6 lg:gap-8 px-3 sm:pl-6 h-16;
     width: calc(100% - 2rem);
-    box-shadow: 0 14px 34px -18px rgba(16, 26, 20, 0.4);
+    box-shadow: 0 14px 34px -18px rgba(11, 18, 32, 0.4);
 
     &-logo {
       @apply max-w-[120px] flex items-center shrink-0 text-ink;
@@ -34,7 +34,7 @@
         bottom: 0;
         height: 1.5px;
         width: 100%;
-        background: #94a72e;
+        @apply bg-lime-deep;
         transform: scaleX(0);
         transform-origin: right;
         transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -70,7 +70,7 @@
     }
 
     &-cart {
-      @apply relative flex items-center justify-center w-[38px] h-[38px] border border-[#cbd1c0] text-ink shrink-0 transition-colors rounded-full;
+      @apply relative flex items-center justify-center w-[38px] h-[38px] border border-[#AAB8C7] text-ink shrink-0 transition-colors rounded-full;
 
       &:hover {
         @apply text-lime-darker;
@@ -97,7 +97,7 @@
       @apply hidden absolute left-0 right-0 mx-auto w-max bg-[#FBFBF7] rounded-3xl p-4 sm:p-5;
       top: calc(100% + 12px);
       max-width: calc(100vw - 2.5rem);
-      box-shadow: 0 34px 70px -28px rgba(16, 26, 20, 0.4);
+      box-shadow: 0 34px 70px -28px rgba(11, 18, 32, 0.4);
 
       &.is-open {
         @apply flex flex-wrap gap-4 sm:gap-5 lg:gap-6;

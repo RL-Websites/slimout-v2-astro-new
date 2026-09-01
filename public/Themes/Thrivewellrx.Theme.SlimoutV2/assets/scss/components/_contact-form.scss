@@ -42,7 +42,7 @@
         border-[#DDE1D2] rounded-xl;
 
       &::placeholder {
-        @apply text-[#98A292];
+        @apply text-muted-light;
       }
     }
 
@@ -95,7 +95,7 @@
 
     &-success-icon {
       @apply inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage-100
-        text-[#5F6E1D] mb-5;
+        text-greenDeep mb-5;
     }
 
     &-success-title {

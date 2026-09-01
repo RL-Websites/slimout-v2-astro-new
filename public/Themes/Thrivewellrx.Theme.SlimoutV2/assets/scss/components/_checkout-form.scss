@@ -47,11 +47,11 @@
     &-input,
     &-select {
       @apply w-full text-[15px] tracking-[0.02em] text-ink py-3.5 px-4.25 bg-sage-50
-        border border-[#DDE1D2] rounded-[11px];
+        border border-[#DDE1D2] rounded-field;
     }
 
     &-input::placeholder {
-      @apply text-[#98A292] tracking-normal;
+      @apply text-muted-light tracking-normal;
     }
 
     &-select-wrap {
@@ -140,7 +140,7 @@
 
     &-notice {
       @apply p-4.5 bg-sage-100 border border-dashed border-[#C6D38A] rounded-xl text-[14.5px]
-        leading-[1.6] text-[#3A463C];
+        leading-[1.6] text-muted-dark;
     }
   }
 }

@@ -17,7 +17,7 @@
     &-panel {
       @apply relative w-full max-w-[860px] bg-[#FBFBF7] rounded-3xl flex flex-col overflow-hidden opacity-0 scale-95 transition-all duration-[380ms] ease-[cubic-bezier(0.2,0.8,0.2,1)];
       max-height: min(88vh, 900px);
-      box-shadow: 0 40px 90px -40px rgba(12, 20, 15, 0.6);
+      box-shadow: 0 40px 90px -40px rgba(11, 18, 32, 0.6);
     }
 
     &.is-open &-panel {
