@@ -69,6 +69,18 @@ function updateScrollBar() {
 window.addEventListener("scroll", updateScrollBar, { passive: true });
 updateScrollBar();
 
+// Homepage-only `[data-header-scroll]` header (see Header.astro's `variant="transparent"`):
+// starts fully transparent over the hero, gets a blurred dark bg + shadow once the page
+// scrolls past the hero. No-op (empty NodeList) on every other page.
+const $headerScroll = $("[data-header-scroll]");
+if ($headerScroll.length) {
+  function updateHeaderScroll() {
+    $headerScroll.toggleClass("is-scrolled", window.scrollY > 40);
+  }
+  window.addEventListener("scroll", updateHeaderScroll, { passive: true });
+  updateHeaderScroll();
+}
+
 const treatToggle = document.getElementById("treatments-toggle");
 const treatPanel = document.getElementById("treatments-panel");
 const treatPlus = document.getElementById("treatments-plus");
@@ -2105,6 +2117,121 @@ if (
   applyExpand();
 }
 
+// --- "Explore Weight Loss Options" scroll-pinned headline/cluster reveal: [data-brk-track] ---
+// Desktop (lg) only — a real 190vh scroll-pinned track (see _explore.scss's .explore-hero /
+// .explore-hero-viewport), matching the design's own [data-brk-track] engine: as the user scrolls
+// through it, each headline line slides up out of its clip wrapper, the two cluster images settle
+// in from an offset/rotated/scaled entry state toward their resting transform (which itself is a
+// small permanent offset/rotation, not "upright" — ported directly from the design's per-image
+// data-dx/dy/r/s/py/pr authored values) with a continuous idle float composited on top, and the
+// copy block fades/slides in. Below 1024px, or with prefers-reduced-motion, this never runs — the
+// plain CSS renders every element at rest (no transform, full opacity), so it degrades to a
+// normal static section.
+
+const $brkTracks = $("[data-brk-track]");
+if ($brkTracks.length && !reducedMotionQuery.matches && window.innerWidth >= 1024) {
+  const brkClamp01 = (v) => Math.min(1, Math.max(0, v));
+  const brkEaseOut = (t) => 1 - Math.pow(1 - brkClamp01(t), 2.6);
+  const brkLerp = (a, b, t) => a + (b - a) * t;
+
+  const brkTracks = $brkTracks
+    .map(function () {
+      return {
+        track: this,
+        words: Array.from(this.querySelectorAll("[data-brk-w]")),
+        items: Array.from(this.querySelectorAll("[data-brk-i]")),
+        cluster: this.querySelector("[data-brk-cluster]"),
+        copy: this.querySelector("[data-brk-copy]"),
+      };
+    })
+    .get();
+
+  let brkTicking = false;
+
+  function applyBrk() {
+    const vh = window.innerHeight;
+    brkTracks.forEach(({ track, words, items, cluster, copy }) => {
+      const r = track.getBoundingClientRect();
+      if (r.bottom < -vh || r.top > vh * 2) return;
+      const p = brkClamp01(-r.top / Math.max(1, r.height - vh));
+
+      words.forEach((w) => {
+        const off = parseFloat(w.dataset.o || 0);
+        const e = brkEaseOut((p - off) / 0.26);
+        w.style.transform = "translate3d(0," + ((1 - e) * 108).toFixed(2) + "%,0)";
+        w.style.opacity = (0.15 + e * 0.85).toFixed(3);
+      });
+
+      items.forEach((it) => {
+        const off = parseFloat(it.dataset.o || 0);
+        const e = brkEaseOut((p - off) / (0.72 - off));
+        const dx = parseFloat(it.dataset.dx || 0) * (1 - e);
+        const dy = 40 * (1 - e) + parseFloat(it.dataset.dy || 0) * e;
+        const r0 = parseFloat(it.dataset.r || 0);
+        const rot = brkLerp(r0 * 3.4 - 26, r0, e);
+        const sc = brkLerp(parseFloat(it.dataset.s || 0.55), 1, e);
+        const settle = brkClamp01((p - 0.62) / 0.38);
+        it._brkBase = {
+          dx: dx,
+          dy: dy + settle * parseFloat(it.dataset.py || 0),
+          rot: rot + settle * parseFloat(it.dataset.pr || 0),
+          sc: sc * (1 + settle * 0.012),
+        };
+        it.style.opacity = (0.06 + e * 0.94).toFixed(3);
+      });
+
+      if (cluster) {
+        const clusterE = brkEaseOut(brkClamp01(p / 0.72));
+        cluster.style.transform =
+          "translate3d(0," + (clusterE * -0.8).toFixed(2) + "vh,0) scale(" + (1 + clusterE * 0.04).toFixed(3) + ")";
+      }
+
+      if (copy) {
+        const ct = brkEaseOut((p - 0.14) / 0.26);
+        copy.style.opacity = ct.toFixed(3);
+        copy.style.transform = "translate3d(0," + ((1 - ct) * 26).toFixed(1) + "px,0)";
+      }
+    });
+    brkTicking = false;
+  }
+
+  function queueBrk() {
+    if (brkTicking) return;
+    brkTicking = true;
+    window.requestAnimationFrame(applyBrk);
+  }
+
+  window.addEventListener("scroll", queueBrk, { passive: true });
+  window.addEventListener("resize", queueBrk, { passive: true });
+  applyBrk();
+
+  // Continuous idle float, composited on top of each cluster image's scroll-derived base
+  // transform — a perpetually-running cue that the cluster isn't a static image, matching the
+  // design's own floaters loop (a couple of gentle, phase-offset sine waves per image).
+  const brkFloaters = [];
+  brkTracks.forEach(({ items }) => items.forEach((it, i) => brkFloaters.push({ it, i })));
+  if (brkFloaters.length) {
+    const brkT0 = performance.now();
+    const brkFloatTick = (now) => {
+      const t = (now - brkT0) / 1000;
+      brkFloaters.forEach(({ it, i }) => {
+        const b = it._brkBase;
+        if (!b) return;
+        const ph = i * 2.1;
+        const fy = Math.sin(t * 0.46 + ph) * 1.9 + Math.sin(t * 0.19 + ph * 1.7) * 1.1;
+        const fx = Math.cos(t * 0.33 + ph * 1.3) * 1.3;
+        const fr = Math.sin(t * 0.29 + ph * 0.8) * 1.5;
+        const fs = 1 + Math.sin(t * 0.37 + ph) * 0.008;
+        it.style.transform =
+          "translate3d(" + (b.dx + fx).toFixed(2) + "%," + (b.dy + fy).toFixed(2) + "%,0) rotate(" +
+          (b.rot + fr).toFixed(2) + "deg) scale(" + (b.sc * fs).toFixed(4) + ")";
+      });
+      window.requestAnimationFrame(brkFloatTick);
+    };
+    window.requestAnimationFrame(brkFloatTick);
+  }
+}
+
 // --- Parallax drift: [data-hero-parallax] / [data-parallax], strength via [data-parallax-strength] ---
 // rAF-batched so every parallax element is read/written together, once per frame, instead of
 // causing layout thrashing across separate scroll handlers.
@@ -2154,12 +2281,17 @@ if ($wordReveal.length && !reducedMotionQuery.matches) {
         return;
       }
       const rect = this.getBoundingClientRect();
-      const start = window.innerHeight * 0.85;
-      const end = window.innerHeight * 0.3;
-      const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      const litCount = Math.round(progress * $words.length);
+      const vh = window.innerHeight;
+      // Progress is tied to the paragraph's own height (not a fixed viewport band), matching
+      // the design: a taller/shorter wrapped paragraph reveals at the same felt pace either way.
+      const progress = Math.min(
+        1,
+        Math.max(0, (vh * 0.82 - rect.top) / (rect.height + vh * 0.32)),
+      );
+      const n = $words.length;
       $words.each(function (i) {
-        $(this).toggleClass("is-dim", i >= litCount);
+        const lit = progress > ((i + 0.6) / n) * 0.92;
+        $(this).toggleClass("is-dim", !lit);
       });
     });
     wordTicking = false;
@@ -2221,12 +2353,17 @@ $("[data-exp-row]").each(function () {
 // --- Horizontal product rail arrows: [data-rail] / [data-rail-track] / [data-rail-prev,next] ---
 // Native overflow-x scrolling + snap already makes the rail usable by touch/trackpad/scrollbar;
 // the arrow buttons are a progressive-enhancement convenience that page by ~2 cards using
-// jQuery's animate() for a smooth, interruptible scroll (no custom easing loop needed).
+// jQuery's animate() for a smooth, interruptible scroll (no custom easing loop needed). Edge
+// state (an arrow dims + stops accepting clicks once the rail is scrolled all the way to that
+// side) mirrors the design's own rail sync().
 
 $("[data-rail]").each(function () {
   const $rail = $(this);
   const $track = $rail.find("[data-rail-track]").first();
   if (!$track.length) return;
+
+  const $prev = $rail.find("[data-rail-prev]");
+  const $next = $rail.find("[data-rail-next]");
 
   function step() {
     const $card = $track.children().first();
@@ -2234,10 +2371,22 @@ $("[data-rail]").each(function () {
     return cardWidth * 2;
   }
 
-  $rail.find("[data-rail-prev]").on("click", () => {
-    $track.stop(true, false).animate({ scrollLeft: "-=" + step() }, 420);
+  function syncEdges() {
+    const el = $track[0];
+    const max = el.scrollWidth - el.clientWidth - 1;
+    const atStart = el.scrollLeft <= 2;
+    const atEnd = el.scrollLeft >= max;
+    $prev.css({ opacity: atStart ? 0.32 : 1, pointerEvents: atStart ? "none" : "auto" });
+    $next.css({ opacity: atEnd ? 0.32 : 1, pointerEvents: atEnd ? "none" : "auto" });
+  }
+
+  $prev.on("click", () => {
+    $track.stop(true, false).animate({ scrollLeft: "-=" + step() }, 420, syncEdges);
   });
-  $rail.find("[data-rail-next]").on("click", () => {
-    $track.stop(true, false).animate({ scrollLeft: "+=" + step() }, 420);
+  $next.on("click", () => {
+    $track.stop(true, false).animate({ scrollLeft: "+=" + step() }, 420, syncEdges);
   });
+  $track.on("scroll", syncEdges);
+  window.addEventListener("resize", syncEdges, { passive: true });
+  syncEdges();
 });

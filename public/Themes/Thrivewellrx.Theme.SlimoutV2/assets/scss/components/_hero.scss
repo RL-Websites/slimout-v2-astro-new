@@ -16,25 +16,31 @@
     }
 
     &-content {
-      @apply relative z-10 w-full max-w-[1340px] mx-auto px-5 sm:px-8 lg:px-12
-        pt-[130px] sm:pt-[170px] pb-16 sm:pb-20 lg:pb-24;
+      @apply relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-13
+        pb-12 sm:pb-16 lg:pb-24;
+    }
+
+    // Two-column grid — the design's own `data-hero-grid`: headline in the wider left column,
+    // copy + CTA bottom-aligned in the narrower right column. Below lg they stack instead.
+    &-grid {
+      @apply grid grid-cols-1 lg:grid-cols-[1.25fr_.8fr] gap-6 sm:gap-10 lg:gap-18 lg:items-end;
     }
 
     &-title {
-      @apply font-serif italic text-[52px] sm:text-[76px] lg:text-[110px] xl:text-[128px]
-        font-normal leading-[0.9] tracking-tight text-offwhite mb-6 sm:mb-8 max-w-[1060px];
+      @apply font-sora font-semibold text-[40px] sm:text-[64px] lg:text-[80px] xl:text-[96px]
+        leading-[0.98] tracking-tight text-offwhite m-0;
     }
 
     &-title-alt {
-      @apply font-sora not-italic font-medium text-[0.7em] tracking-tighter;
+      @apply font-serif italic font-normal;
     }
 
     &-body {
-      @apply flex flex-wrap items-end gap-6 sm:gap-10 lg:gap-16;
+      @apply pb-1 lg:pb-3.5;
     }
 
     &-lead {
-      @apply m-0 text-[15px] sm:text-[17px] leading-relaxed text-white/85 max-w-[520px];
+      @apply m-0 mb-6 text-[15px] sm:text-[17px] leading-relaxed text-white/85 max-w-[46ch];
     }
 
     &-actions {

@@ -3,31 +3,44 @@
     @apply relative bg-ink overflow-hidden pb-5;
 
     // --- hero: headline + absolute image cluster + copy callout ---
+    // Desktop (lg) is a real scroll-pinned track, matching the design's own 190vh
+    // [data-brk-track]: .explore-hero is the tall track, .explore-hero-viewport is the sticky
+    // 100vh window, and .explore-wrap is what actually holds the headline/cluster/copy — every
+    // frame, common.js's `[data-brk-track]` handler computes scroll progress through the track
+    // and writes the headline-line/cluster-image/copy transforms directly as inline styles (see
+    // the JS for the exact easing). Below 1024px, or with prefers-reduced-motion, none of that
+    // JS runs — .explore-wrap falls back to its plain stacked-column layout below, and every
+    // element just renders at its resting (fully visible, untransformed) state.
 
     &-hero {
       @apply relative;
+
+      @media (min-width: 1024px) {
+        height: 190vh;
+      }
+    }
+
+    &-hero-viewport {
+      @media (min-width: 1024px) {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
     }
 
     &-wrap {
       @apply relative mx-auto w-full max-w-[1180px] flex flex-col items-center gap-9
         px-5 py-14 text-center
-        lg:block lg:gap-0 lg:px-0 lg:py-0 lg:text-left;
+        lg:block lg:gap-0 lg:px-0 lg:py-0 lg:text-left lg:h-full;
       // design: --brkTop:clamp(104px,17vh,240px) — headline offset from the top of the stage
-      // (desktop only; mobile stacks the headline inline via flex above). The floor/vh/cap here
-      // are raised from a first-pass clamp(720px,82vh,900px) because that formula let the
-      // absolutely-positioned cluster (top:210px + up to min(640px,62vh) tall) overflow past the
-      // wrap's own bottom edge at common viewport heights (~800-1100px), clipping into the rail
-      // title below it — this clamp keeps the cluster fully contained across that range.
-      @media (min-width: 1024px) {
-        min-height: clamp(820px, 88vh, 940px);
-      }
     }
 
     &-head {
       @apply font-sora m-0 font-semibold text-white text-[clamp(30px,8vw,44px)] leading-[1.02]
         tracking-[-0.038em]
         lg:absolute lg:inset-x-0 lg:top-0 lg:text-[clamp(34px,5.4vw,86px)] lg:whitespace-nowrap
-        lg:pointer-events-none;
+        lg:pointer-events-none lg:text-center;
       // desktop headline sits pinned to --brkTop, above the cluster/copy which are
       // absolutely positioned relative to .explore-wrap
       @media (min-width: 1024px) {
@@ -35,8 +48,15 @@
       }
     }
 
+    // Overflow-hidden clip wrapper each headline line slides up out of — JS sets the inner
+    // [data-brk-w]'s translateY/opacity every frame; without JS the line just sits at rest
+    // (translateY(0), opacity 1, per the plain .explore-head-line rule below).
+    &-head-clip {
+      @apply block overflow-hidden pb-[0.06em];
+    }
+
     &-head-line {
-      @apply block;
+      @apply inline-block;
     }
 
     &-head-line--alt {
@@ -71,18 +91,6 @@
         @apply left-[22%] bottom-[6%] top-auto right-auto h-[150px] z-[2]
           lg:left-[255px] lg:top-[408px] lg:bottom-auto lg:h-[52%];
       }
-    }
-
-    // Idle float drift, echoing the design's continuous brkFloat orb motion — a subtle,
-    // perpetually-running cue that the cluster isn't a static image. Off under
-    // prefers-reduced-motion (see the media query at the bottom of this block).
-    &-cluster-img--a {
-      animation: float 8s ease-in-out infinite;
-    }
-
-    &-cluster-img--b {
-      animation: float 9s ease-in-out infinite;
-      animation-delay: -3s;
     }
 
     &-copy {
@@ -252,8 +260,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .explore-cluster-img--a,
-    .explore-cluster-img--b,
     .explore-hims-tablet-img,
     .explore-hims-pen-img {
       animation: none;

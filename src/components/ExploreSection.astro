@@ -13,41 +13,68 @@ const weightLoss = getCategory("weight-loss")!;
 ---
 
 <section id="breakthrough" class="explore">
-	<div class="explore-hero">
-		<div class="explore-wrap">
-			<h2 class="explore-head" data-reveal>
-				<span class="explore-head-line">Explore</span>
-				<span class="explore-head-line explore-head-line--alt">
-					Weight Loss <em class="explore-head-accent">Options</em>
-				</span>
-			</h2>
+	<div class="explore-hero" data-brk-track>
+		<div class="explore-hero-viewport">
+			<div class="explore-wrap">
+				<h2 class="explore-head">
+					<span class="explore-head-clip"
+						><span class="explore-head-line" data-brk-w data-o="0"
+							>Explore</span
+						></span
+					>
+					<span class="explore-head-clip"
+						><span
+							class="explore-head-line explore-head-line--alt"
+							data-brk-w
+							data-o="0.06"
+							>Weight Loss <em class="explore-head-accent">Options</em></span
+						></span
+					>
+				</h2>
 
-			<div class="explore-cluster" data-reveal data-reveal-delay="120" aria-hidden="true">
-				<img
-					src={`${MEDICINE}/ChatGPT+Image+Aug+19%2C+2026%2C+10_47_13+AM+2.webp`}
-					alt=""
-					class="explore-cluster-img explore-cluster-img--a"
-					loading="lazy"
-				/>
-				<img
-					src={`${MEDICINE}/hjj.webp`}
-					alt=""
-					class="explore-cluster-img explore-cluster-img--b"
-					loading="lazy"
-				/>
-			</div>
+				<div class="explore-cluster" data-brk-cluster aria-hidden="true">
+					<img
+						data-brk-i
+						data-o="0"
+						data-dx="3"
+						data-dy="-4"
+						data-r="-9"
+						data-s="0.6"
+						data-py="-2.2"
+						data-pr="1.6"
+						src={`${MEDICINE}/ChatGPT+Image+Aug+19%2C+2026%2C+10_47_13+AM+2.webp`}
+						alt=""
+						class="explore-cluster-img explore-cluster-img--a"
+						loading="lazy"
+					/>
+					<img
+						data-brk-i
+						data-o="0.12"
+						data-dx="-4"
+						data-dy="6"
+						data-r="7"
+						data-s="0.56"
+						data-py="2.4"
+						data-pr="-1.6"
+						src={`${MEDICINE}/hjj.webp`}
+						alt=""
+						class="explore-cluster-img explore-cluster-img--b"
+						loading="lazy"
+					/>
+				</div>
 
-			<div class="explore-copy" data-reveal data-reveal-delay="220">
-				<p class="explore-copy-text">
-					Personalized weight loss solutions designed to support your goals and
-					lasting results.
-				</p>
-				<a
-					href={`${weightLoss.slug}.html`}
-					class="theme-btn theme-btn__white"
-				>
-					View All
-				</a>
+				<div class="explore-copy" data-brk-copy>
+					<p class="explore-copy-text">
+						Personalized weight loss solutions designed to support your goals and
+						lasting results.
+					</p>
+					<a
+						href={`${weightLoss.slug}.html`}
+						class="theme-btn theme-btn__white"
+					>
+						View All
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -76,8 +103,8 @@ const weightLoss = getCategory("weight-loss")!;
 		</div>
 		<div class="explore-rail-track" data-rail-track>
 			{
-				weightLoss.products.map((product) => (
-					<div class="explore-rail-item">
+				weightLoss.products.map((product, i) => (
+					<div class="explore-rail-item" data-reveal data-reveal-delay={i * 60}>
 						<ProductCard product={product} modalId={`explore-modal-${product.slot}`} />
 					</div>
 				))

@@ -13,10 +13,55 @@
     box-shadow: 0 14px 34px -18px rgba(11, 18, 32, 0.4);
 
     &-logo {
-      @apply max-w-[120px] flex items-center shrink-0 text-ink;
+      @apply max-w-[120px] flex items-center shrink-0 text-ink transition-colors duration-300;
 
-      img {
-        @apply w-full;
+      svg {
+        @apply w-full h-auto;
+      }
+    }
+
+    // Homepage-only transparent-over-hero treatment (see Header.astro's `variant` prop):
+    // full-width, no floating gap/pill, transparent + white text until scrolled, then a
+    // blurred dark bg + shadow fades in (toggled by common.js's [data-header-scroll] handler,
+    // which flips .is-scrolled — the design keeps white text/logo in both states, only the
+    // background changes).
+    &--transparent {
+      @apply top-0 left-0 translate-x-0 max-w-none w-full rounded-none bg-transparent backdrop-blur-none shadow-none px-4 sm:px-8 lg:px-13;
+      transition: background-color 0.45s ease, box-shadow 0.45s ease, backdrop-filter 0.45s ease;
+
+      .header-logo,
+      .header-nav-link,
+      .header-login,
+      .header-cart,
+      .header-menu-toggle {
+        @apply text-white;
+      }
+
+      .header-login {
+        @apply border-white/30;
+
+        &:hover {
+          @apply bg-white text-ink border-white;
+        }
+      }
+
+      .header-cart {
+        @apply border-transparent;
+
+        &:hover {
+          @apply text-white/70;
+        }
+      }
+
+      .header-menu-toggle {
+        @apply border-white/30;
+      }
+
+      &.is-scrolled {
+        background: rgba(11, 18, 32, 0.55);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 14px 34px -18px rgba(3, 44, 89, 0.35);
       }
     }
 
