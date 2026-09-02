@@ -1,6 +1,11 @@
 @layer components {
   .explore {
-    @apply relative bg-ink overflow-hidden pb-5;
+    // overflow must stay visible on lg+: .explore-hero-viewport below is `position: sticky`,
+    // and any ancestor with overflow other than visible breaks sticky positioning entirely
+    // (the pinned scroll-track collapses and everything just scrolls past unpinned).
+    // .explore-hero-viewport clips its own bleed (cluster images, headline lines) itself, so
+    // this only needs to hide overflow on the mobile/tablet stacked layout.
+    @apply relative bg-ink overflow-hidden pb-5 lg:overflow-visible;
 
     // --- hero: headline + absolute image cluster + copy callout ---
     // Desktop (lg) is a real scroll-pinned track, matching the design's own 190vh
