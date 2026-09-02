@@ -2288,28 +2288,40 @@ if ($brkTracks.length && !reducedMotionQuery.matches && window.innerWidth >= 102
   }
 }
 
-// --- Hims panel art (tablet/pen): scroll-tied rise + settle + slow drift: [data-hims-art] ---
-// Ported from the design's [data-hims-tablet]/[data-hims-pen] scroll animation — a rise+scale
-// reveal over the first third of the panel's scroll-through, then a slow continued drift for the
-// rest. Applied to the art's wrapping container (not the <img> itself), so it composes with —
-// rather than fights over `transform` with — the image's own idle CSS float animation. The
-// container also carries the Tailwind `-translate-x-1/2` horizontal-centering transform, which
-// this preserves explicitly since writing `transform` here replaces it outright. Desktop only,
-// like every other scroll-pinned effect in this file; below 1024px the art sits in normal flow
-// (see _explore.scss's mobile fallback), so no transform/opacity is needed there.
+// --- Hims panel art: tablet dissolve-to-powder loop + pen float bounce ---
+// Ported from the design's [data-hims-tablet]/[data-hims-canvas]/[data-hims-pen] engine:
+//   - both art wrappers get a scroll-tied rise+scale reveal over the first third of the panel's
+//     scroll-through, then a slow continued drift for the rest (stored as `_base` on the
+//     wrapper rather than written straight to `transform`, so the continuous loops below can
+//     compose their own motion on top without the two fighting over the same style property)
+//   - the tablet photo is sampled once (per-pixel, into a canvas) into a particle field, then
+//     looped through an autonomous solid -> disperse -> powder -> reassemble -> solid cycle,
+//     independent of scroll — the "medicine -> powder -> medicine" dissolve from the design
+//   - the pen gets a damped up/down float bounce (ease-out rise, ease-in fall, settle wobble)
+// Desktop only, like every other scroll-pinned effect in this file; below 1024px the art sits
+// in normal flow with the plain static photo (see _explore.scss's mobile fallback) — writing a
+// `translateX(-50%)`-based transform there would fight the mobile centering layout.
 
-const $himsArt = $("[data-hims-art]");
-if ($himsArt.length && !reducedMotionQuery.matches && window.innerWidth >= 1024) {
+const $himsTablets = $("[data-hims-tablet]");
+const $himsPens = $("[data-hims-pen]");
+if (
+  ($himsTablets.length || $himsPens.length) &&
+  !reducedMotionQuery.matches &&
+  window.innerWidth >= 1024
+) {
   const himsClamp01 = (v) => Math.min(1, Math.max(0, v));
   const himsEaseOut = (t) => 1 - Math.pow(1 - himsClamp01(t), 2.8);
-  const himsArt = $himsArt.get();
+  const himsTablets = $himsTablets.get();
+  const himsPens = $himsPens.get();
+  const himsWraps = himsTablets.concat(himsPens);
 
-  let himsTicking = false;
+  // --- scroll-tied rise + settle + slow drift, shared base for both art types ---
+  let himsScrollTicking = false;
 
-  function applyHims() {
+  function applyHimsScroll() {
     const vh = window.innerHeight;
-    himsArt.forEach((art) => {
-      const panel = art.closest("[data-hims-panel]") || art.parentElement;
+    himsWraps.forEach((wrap) => {
+      const panel = wrap.closest("[data-hims-panel]") || wrap.parentElement;
       const r = panel.getBoundingClientRect();
       if (r.bottom < -vh * 0.4 || r.top > vh * 1.4) return;
       const p = himsClamp01((vh - r.top) / (vh + r.height));
@@ -2319,21 +2331,263 @@ if ($himsArt.length && !reducedMotionQuery.matches && window.innerWidth >= 1024)
       const y = (1 - rev) * 60 - drift * 10;
       const sc = 0.92 + rev * 0.08 + drift * 0.02;
 
-      art.style.opacity = (0.15 + rev * 0.85).toFixed(3);
-      art.style.transform = "translate3d(-50%," + y.toFixed(1) + "px,0) scale(" + sc.toFixed(4) + ")";
+      wrap._base = { y: y, sc: sc };
+      wrap.style.opacity = (0.15 + rev * 0.85).toFixed(3);
+      // Once a continuous RAF loop owns this wrapper (pen bounce or tablet dissolve), it writes
+      // `transform` every frame instead — writing it here too would just be clobbered next frame.
+      if (!wrap._himsRaf) {
+        // only the tablet is `position:absolute; left:50%` (so it needs the translateX(-50%)
+        // centering trick) — the pen sits centered in normal flow via the panel's flex layout
+        const center = wrap.hasAttribute("data-hims-tablet") ? "translateX(-50%) " : "";
+        wrap.style.transform = center + "translate3d(0," + y.toFixed(1) + "px,0) scale(" + sc.toFixed(4) + ")";
+      }
     });
-    himsTicking = false;
+    himsScrollTicking = false;
   }
 
-  function queueHims() {
-    if (himsTicking) return;
-    himsTicking = true;
-    window.requestAnimationFrame(applyHims);
+  function queueHimsScroll() {
+    if (himsScrollTicking) return;
+    himsScrollTicking = true;
+    window.requestAnimationFrame(applyHimsScroll);
   }
 
-  window.addEventListener("scroll", queueHims, { passive: true });
-  window.addEventListener("resize", queueHims, { passive: true });
-  applyHims();
+  window.addEventListener("scroll", queueHimsScroll, { passive: true });
+  window.addEventListener("resize", queueHimsScroll, { passive: true });
+  applyHimsScroll();
+
+  // --- pen: up (ease-out) -> down (ease-in) -> damped bounce -> repeat ---
+  if (himsPens.length) {
+    himsPens.forEach((pen) => {
+      pen._himsRaf = true;
+    });
+    const PEN_T = 3.1;
+    const PEN_AMP = 34;
+    const penT0 = performance.now();
+
+    function penTick(now) {
+      const ph = (((now - penT0) / 1000) % PEN_T) / PEN_T;
+      let lift = 0;
+      let squash = 0;
+      if (ph < 0.4) {
+        lift = 1 - Math.pow(1 - ph / 0.4, 2.2);
+      } else if (ph < 0.7) {
+        lift = 1 - Math.pow((ph - 0.4) / 0.3, 2.1);
+      } else if (ph < 0.92) {
+        const k = (ph - 0.7) / 0.22;
+        lift = Math.abs(Math.sin(k * Math.PI * 2)) * 0.18 * (1 - k);
+        squash = Math.max(0, Math.sin(k * Math.PI * 2)) * -0.012 * (1 - k);
+      }
+      himsPens.forEach((pen) => {
+        const b = pen._base || { y: 0, sc: 1 };
+        pen.style.transform =
+          "translate3d(0," + (b.y - lift * PEN_AMP).toFixed(2) + "px,0) rotate(" +
+          (lift * 1.6).toFixed(2) + "deg) scale(" + (b.sc * (1 + lift * 0.018 + squash)).toFixed(4) + ")";
+      });
+      window.requestAnimationFrame(penTick);
+    }
+    window.requestAnimationFrame(penTick);
+  }
+
+  // --- tablet: sample the product photo into a particle field, loop the dissolve cycle ---
+  if (himsTablets.length) {
+    const dissolvers = [];
+
+    himsTablets.forEach((wrap) => {
+      const art = wrap.querySelector("[data-hims-img]");
+      const canvas = wrap.querySelector("[data-hims-canvas]");
+      if (!art || !canvas) return;
+      const ctx = canvas.getContext("2d", { alpha: true });
+      const st = { canvas: canvas, ctx: ctx, art: art, wrap: wrap, buckets: null, B: 0, ready: false };
+
+      function build() {
+        if (!art.naturalWidth) return;
+        const W = 210;
+        const H = Math.round((W * art.naturalHeight) / art.naturalWidth);
+        const off = document.createElement("canvas");
+        off.width = W;
+        off.height = H;
+        const octx = off.getContext("2d");
+        octx.drawImage(art, 0, 0, W, H);
+        let data;
+        try {
+          data = octx.getImageData(0, 0, W, H).data;
+        } catch (e) {
+          return; // cross-origin-tainted canvas — degrade to the plain static photo
+        }
+        const step = W > 170 ? 2 : 1;
+        const pts = [];
+        let cx = 0;
+        let cy = 0;
+        let n = 0;
+        for (let y = 0; y < H; y += step) {
+          for (let x = 0; x < W; x += step) {
+            const i = (y * W + x) * 4;
+            if (data[i + 3] < 40) continue;
+            cx += x;
+            cy += y;
+            n++;
+          }
+        }
+        if (!n) return;
+        cx /= n;
+        cy /= n;
+        let maxR = 1;
+        for (let y = 0; y < H; y += step) {
+          for (let x = 0; x < W; x += step) {
+            const i = (y * W + x) * 4;
+            if (data[i + 3] < 40) continue;
+            const dx = x - cx;
+            const dy = y - cy;
+            const r = Math.sqrt(dx * dx + dy * dy);
+            if (r > maxR) maxR = r;
+            const lum = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114) / 255;
+            pts.push({
+              x: x / W,
+              y: y / H,
+              ang: Math.atan2(dy, dx),
+              r: r,
+              lum: lum,
+              a: data[i + 3] / 255,
+              dep: 0.45 + Math.random() * 0.55,
+              ph: Math.random() * Math.PI * 2,
+              sz: 0.7 + Math.random() * 0.9,
+              j: (Math.random() - 0.5) * 0.5,
+              // patchy noise so the break-up starts from surface areas, not a clean radial ring
+              nz: (Math.sin(x * 0.31 + y * 0.17) * 0.5 + Math.sin(x * 0.11 - y * 0.43) * 0.5) * 0.5 + 0.5,
+            });
+          }
+        }
+        pts.forEach((pt) => {
+          pt.er = Math.min(1, pt.r / maxR);
+        });
+        // luminance buckets keep fillStyle switches to a handful per frame
+        const B = 6;
+        const buckets = [];
+        for (let b = 0; b < B; b++) buckets.push([]);
+        pts.forEach((pt) => buckets[Math.min(B - 1, Math.floor(pt.lum * B))].push(pt));
+        st.buckets = buckets;
+        st.B = B;
+        st.ready = true;
+      }
+
+      if (art.complete) build();
+      else art.addEventListener("load", build, { once: true });
+      wrap._himsRaf = true;
+      dissolvers.push(st);
+    });
+
+    if (dissolvers.length) {
+      const t0 = performance.now();
+      // autonomous 8.4s cycle: solid hold -> disperse -> powder hold -> reassemble -> solid hold
+      const CYCLE = 8.4;
+      function phase(s) {
+        const k = (s % CYCLE) / CYCLE;
+        if (k < 0.14) return 0;
+        if (k < 0.42) {
+          const u = (k - 0.14) / 0.28;
+          return u * u * (3 - 2 * u);
+        }
+        if (k < 0.58) return 1;
+        if (k < 0.86) {
+          const u = 1 - (k - 0.58) / 0.28;
+          return u * u * (3 - 2 * u);
+        }
+        return 0;
+      }
+
+      function draw(now) {
+        const time = (now - t0) / 1000;
+        dissolvers.forEach((st) => {
+          if (!st.ready) return;
+          const d = phase(time);
+
+          // continuous idle float composed on top of the scroll-tied base
+          const b = st.wrap._base || { y: 0, sc: 1 };
+          const fy = Math.sin(time * 0.5) * 7 + Math.sin(time * 0.23) * 3;
+          const fx = Math.cos(time * 0.37) * 4;
+          const fr = Math.sin(time * 0.31) * 1.3;
+          const fs = 1 + Math.sin(time * 0.44) * 0.008;
+          st.wrap.style.transform =
+            "translateX(-50%) translate3d(" + fx.toFixed(2) + "px," + (b.y + fy).toFixed(2) + "px,0) rotate(" +
+            fr.toFixed(2) + "deg) scale(" + (b.sc * fs).toFixed(4) + ")";
+
+          const canvas = st.canvas;
+          const ctx = st.ctx;
+          if (d < 0.004) {
+            if (canvas._himsPainted) {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              canvas._himsPainted = false;
+              canvas.style.opacity = "0";
+              st.art.style.opacity = "1";
+            }
+            return;
+          }
+
+          const dpr = Math.min(1.6, window.devicePixelRatio || 1);
+          const w = canvas.clientWidth;
+          const h = canvas.clientHeight;
+          if (canvas._himsW !== w || canvas._himsH !== h) {
+            canvas._himsW = w;
+            canvas._himsH = h;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+          }
+          const CW = canvas.width;
+          const CH = canvas.height;
+          ctx.clearRect(0, 0, CW, CH);
+          // the art box occupies the middle of the oversized canvas
+          const bw = CW / 2.6;
+          const bh = CH / 2.1;
+          const ox = (CW - bw) / 2;
+          const oy = (CH - bh) / 2;
+          const spread = Math.min(bw, bh) * 0.72;
+          const size = Math.max(1, dpr * 1.15);
+          canvas.style.opacity = "1";
+          st.art.style.opacity = "0"; // particles reproduce the art exactly — no crossfade
+          canvas._himsPainted = true;
+
+          for (let bi = 0; bi < st.B; bi++) {
+            const list = st.buckets[bi];
+            if (!list.length) continue;
+            const l = list[0].lum;
+            const c = Math.round(200 + l * 55);
+            let prevA = -1;
+            for (let i = 0; i < list.length; i++) {
+              const pt = list[i];
+              // edge particles leave first, centre last
+              const gate = (1 - pt.er) * 0.3 + pt.nz * 0.26;
+              const lp = himsClamp01((d - gate) / (1 - gate * 0.75));
+              if (lp <= 0.001) {
+                const a = pt.a;
+                if (a !== prevA) {
+                  ctx.fillStyle = "rgba(" + c + "," + Math.round(c * 0.98) + ",255," + a.toFixed(2) + ")";
+                  prevA = a;
+                }
+                ctx.fillRect(ox + pt.x * bw, oy + pt.y * bh, size * pt.sz, size * pt.sz);
+                continue;
+              }
+              const e = 1 - Math.pow(1 - lp, 2.2);
+              const dist = e * spread * pt.dep * (0.35 + pt.er * 0.65);
+              const sway = Math.sin(time * 0.7 + pt.ph) * 6 * dpr * e;
+              const rise = -e * spread * 0.34 * pt.dep;
+              const px = ox + pt.x * bw + Math.cos(pt.ang + pt.j) * dist + sway;
+              const py =
+                oy + pt.y * bh + Math.sin(pt.ang + pt.j) * dist * 0.8 + rise +
+                Math.cos(time * 0.5 + pt.ph) * 4 * dpr * e;
+              const a = pt.a * (1 - e * 0.45);
+              if (Math.abs(a - prevA) > 0.02) {
+                ctx.fillStyle = "rgba(" + c + "," + Math.round(c * 0.98) + ",255," + a.toFixed(2) + ")";
+                prevA = a;
+              }
+              ctx.fillRect(px, py, size * pt.sz, size * pt.sz);
+            }
+          }
+        });
+        window.requestAnimationFrame(draw);
+      }
+      window.requestAnimationFrame(draw);
+    }
+  }
 }
 
 // --- Parallax drift: [data-hero-parallax] / [data-parallax], strength via [data-parallax-strength] ---

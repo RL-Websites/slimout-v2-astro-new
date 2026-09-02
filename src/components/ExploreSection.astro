@@ -112,8 +112,16 @@ const weightLoss = getCategory("weight-loss")!;
 				</p>
 			</div>
 
-			<div class="explore-hims-tablet" data-hims-art>
+			<div class="explore-hims-tablet" data-hims-tablet>
+				<span class="explore-hims-tablet-halo" aria-hidden="true"></span>
+				<canvas
+					data-hims-canvas
+					aria-hidden="true"
+					class="explore-hims-tablet-canvas"
+				></canvas>
 				<img
+					data-hims-img
+					crossorigin="anonymous"
 					src={`${MEDICINE}/ChatGPT+Image+Aug+7%2C+2026%2C+12_35_54+PM+1.webp`}
 					alt="SlimOut tablets"
 					class="explore-hims-tablet-img"
@@ -129,7 +137,7 @@ const weightLoss = getCategory("weight-loss")!;
 				<span class="explore-hims-head-line">your progress</span>
 			</h3>
 
-			<div class="explore-hims-pen" data-hims-art>
+			<div class="explore-hims-pen" data-hims-pen>
 				<img
 					src={`${MEDICINE}/ChatGPT+Image+Aug+19%2C+2026%2C+10_47_13+AM+2.webp`}
 					alt="Injection pen"

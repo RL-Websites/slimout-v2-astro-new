@@ -176,12 +176,22 @@
         // left-aligned as authored (no text-align set)
         @apply flex flex-col items-center text-center lg:block lg:text-left;
         background: radial-gradient(120% 90% at 20% 0%, #123163 0%, #07142a 60%);
+
+        // design layers a semi-transparent wash (#2F486A99) directly over the radial gradient,
+        // between the background and the headline/notes/art — ported here as a ::before so no
+        // extra markup is needed. z-0 keeps it under the art (z-1) and copy (z-2) above.
+        &::before {
+          content: '';
+          @apply absolute inset-0 z-0 pointer-events-none;
+          background-color: rgba(47, 72, 106, 0.6);
+        }
       }
 
       &--care {
-        // design keeps this panel's content centered at every breakpoint; only the mobile
-        // fallback (media query 122-152 in the design) stacks it as flex column, matching here
-        @apply flex flex-col items-center justify-center gap-6 text-center lg:block;
+        // design keeps this panel's content centered at every breakpoint — badge, headline,
+        // pen stacked and centered — so this stays a flex column at every size (unlike the
+        // science panel's desktop layout, this one has no absolutely-positioned art to clear).
+        @apply flex flex-col items-center justify-center gap-6 lg:gap-9 text-center;
         background-color: rgba(47, 72, 106, 0.6);
       }
     }
@@ -206,27 +216,39 @@
       @apply leading-[1.06];
     }
 
+    // design's own mobile media query keeps these visible (just repositioned to the panel's
+    // corners) rather than removing them — flow layout here instead of the design's absolute
+    // corner-pinning, but the copy stays on-screen at every breakpoint.
+    // `lg:absolute lg:inset-0` gives this a definite height (= the full panel) at desktop, so
+    // the notes' own `top: 40%/74%` (below) resolve against that instead of collapsing to 0 —
+    // an absolutely-positioned child contributes nothing to an auto-height parent's size, so
+    // without this the parent had zero height and both notes' percentage `top` landed on 0.
     &-hims-notes {
-      @apply relative z-2 hidden lg:block;
+      @apply relative z-2 mt-6 flex flex-col items-center gap-2.5 text-center
+        lg:mt-0 lg:absolute lg:inset-0 lg:block lg:items-stretch lg:text-left;
     }
 
     &-hims-note {
-      @apply absolute m-0 max-w-[46%] text-[clamp(13px,1.05vw,16px)] leading-[1.34]
-        text-white/55;
+      @apply relative m-0 max-w-[36ch] text-[13px] leading-[1.4] text-white/55
+        lg:absolute lg:max-w-[46%] lg:text-[clamp(13px,1.05vw,16px)] lg:leading-[1.34];
 
       // design: note-a sits inside a callout box at top:28%..bottom:10% of the panel, itself
       // top:16% within that box → ~40% of the panel's own height
       &--a {
-        left: 51px;
-        top: 40%;
-        max-width: 34%;
+        @media (min-width: 1024px) {
+          left: 51px;
+          top: 40%;
+          max-width: 34%;
+        }
       }
 
       // design: note-b is 320px into the same callout box (434px tall on a 700px panel) → ~74%
       &--b {
-        left: 46%;
-        top: 74%;
-        max-width: 40%;
+        @media (min-width: 1024px) {
+          left: 46%;
+          top: 74%;
+          max-width: 40%;
+        }
       }
     }
 
@@ -240,8 +262,31 @@
         lg:left-1/2 lg:-translate-x-1/2;
     }
 
+    // soft ambient glow sitting behind the tablet photo/particle field
+    &-hims-tablet-halo {
+      @apply absolute left-1/2 z-0 pointer-events-none;
+      top: 6%;
+      width: 150%;
+      height: 84%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(127, 170, 232, 0.36), rgba(127, 170, 232, 0) 70%);
+      filter: blur(32px);
+    }
+
+    // JS (common.js's "medicine -> powder -> medicine" loop) samples the tablet photo into a
+    // particle field once loaded, then paints it here on an autonomous dissolve/reassemble
+    // cycle, swapping opacity with the plain <img> below — see [data-hims-canvas]. Sits inert
+    // (opacity 0) until that JS takes over; degrades to just the static photo without it.
+    &-hims-tablet-canvas {
+      @apply absolute left-1/2 top-1/2 z-1 opacity-0 pointer-events-none;
+      width: 260%;
+      height: 210%;
+      transform: translate(-50%, -50%);
+    }
+
     &-hims-tablet-img {
-      @apply relative block h-full w-auto max-w-[82vw] object-contain
+      @apply relative z-1 block h-full w-auto max-w-[82vw] object-contain
         drop-shadow-[0_46px_62px_rgba(3,10,24,0.62)];
       animation: float 10s ease-in-out infinite;
     }
@@ -251,9 +296,11 @@
         font-semibold text-[#91B2D6];
     }
 
+    // normal flow, centered by the panel's flex layout — not absolutely positioned, so the JS
+    // float/bounce loop (common.js) only ever writes a translate/rotate/scale here, no
+    // translateX(-50%) centering trick (that's the tablet's job, which does stay absolute).
     &-hims-pen {
-      @apply relative z-1 mt-2 w-auto h-[180px] lg:absolute lg:top-0 lg:mt-0
-        lg:h-[26%] lg:left-1/2 lg:-translate-x-1/2;
+      @apply relative z-1 mt-2 w-auto h-45 lg:mt-0 lg:h-70;
     }
 
     &-hims-pen-img {
