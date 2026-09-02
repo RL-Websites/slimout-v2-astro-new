@@ -10994,10 +10994,9 @@ body {
   font-weight: var(--font-weight-medium);
   text-wrap: wrap;
   color: #F7F7FA;
-}
-@screen md {
-  .notification-toast__message {
-    font-size: 15px;
+  @media (width >= 40rem) {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
   }
 }
 .notification-toast__close {

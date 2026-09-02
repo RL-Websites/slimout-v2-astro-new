@@ -28,11 +28,7 @@
   }
 
   &__message {
-    @apply m-0 text-sm font-medium text-offwhite max-w-[250px] text-wrap;
-
-    @screen md {
-      @apply text-[15px];
-    }
+    @apply m-0 text-sm sm:text-base font-medium text-offwhite max-w-[250px] text-wrap;
   }
 
   &__close {
