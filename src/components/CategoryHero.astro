@@ -1,37 +1,39 @@
 ---
+import { categories } from '../data/categories';
+
 interface Props {
 	category: string;
+	slug: string;
 	blurb: string;
-	heroImage: string;
 }
 
-const { category, blurb, heroImage } = Astro.props;
+const { category, slug, blurb } = Astro.props;
+
+const words = category.trim().split(' ');
+const lead = words.slice(0, -1).join(' ');
+const accent = words.slice(-1).join(' ');
 ---
 
 <section id="top" class="category-hero">
-	<div class="category-hero-banner">
-		<div class="category-hero-media">
-			<img src={heroImage} alt={category} class="category-hero-image" />
-		</div>
-		<div class="category-hero-overlay"></div>
-		<div class="category-hero-content">
-			<div class="category-hero-crumbs">
-				<a href="index.html#programs" class="category-hero-crumb-link">Treatments</a>
-				<span class="category-hero-crumb-sep">/</span>
-				<span class="category-hero-crumb-current">{category}</span>
-			</div>
-			<h1 class="category-hero-title">{category}</h1>
-			<p class="category-hero-blurb">{blurb}</p>
-			<div class="category-hero-actions">
-				<a href="#faq" class="category-hero-cta">
-					Read the FAQ
-					<span class="category-hero-cta-arrow">
-						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-							<path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
-						</svg>
-					</span>
+	<div class="category-hero-pills">
+		{
+			categories.map((c) => (
+				<a
+					href={`${c.slug}.html`}
+					class:list={['category-hero-pill', { 'is-active': c.slug === slug }]}
+				>
+					{c.name}
 				</a>
-			</div>
-		</div>
+			))
+		}
 	</div>
+	<div class="category-hero-crumbs">
+		<a href="index.html#programs" class="category-hero-crumb-link">Treatments</a>
+		<span class="category-hero-crumb-sep">/</span>
+		<span class="category-hero-crumb-current">{category}</span>
+	</div>
+	<h1 class="category-hero-title">
+		{lead && `${lead} `}<em class="category-hero-title-accent">{accent}</em>
+	</h1>
+	<p class="category-hero-blurb">{blurb}</p>
 </section>

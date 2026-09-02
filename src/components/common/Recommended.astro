@@ -14,19 +14,25 @@ interface RecommendedItem {
 interface Props {
 	items: RecommendedItem[];
 	isFromCart?: boolean;
+	/** Category-page treatment: dark navy cards on a light section, matching the Suggested Products design. */
+	dark?: boolean;
+	title?: string;
+	titleAlt?: string;
 }
 
-const { items, isFromCart = false } = Astro.props;
+const { items, isFromCart = false, dark = false, title = 'Recommended', titleAlt = 'for you' } = Astro.props;
 ---
 
-<section class:list={['recommended', { 'recommended--alt': !isFromCart }]}>
+<section class:list={['recommended', { 'recommended--alt': !isFromCart && !dark, 'recommended--dark': dark }]}>
 	<div class="recommended-head">
 		{isFromCart && <div class="recommended-eyebrow">Add to your order</div>}
 		<h2 class="recommended-title">
-			Recommended <span class="recommended-title-alt">for you</span>
+			{title} <span class="recommended-title-alt">{titleAlt}</span>
 		</h2>
 	</div>
 	<div class="recommended-grid">
-		{items.map((item) => <ProductCard product={item} variant="recommended" isFromCart={isFromCart} />)}
+		{items.map((item) => (
+			<ProductCard product={item} variant="recommended" isFromCart={isFromCart} onDark={dark} />
+		))}
 	</div>
 </section>

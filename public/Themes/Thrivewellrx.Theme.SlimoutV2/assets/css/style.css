@@ -1852,79 +1852,62 @@ body {
     animation: scroll-dot 2s ease-in-out infinite;
   }
   .category-hero {
+    margin-inline: auto;
     display: block;
+    max-width: 1340px;
     background-color: #F5F6F8;
-    padding-inline: calc(var(--spacing) * 3);
+    padding-inline: calc(var(--spacing) * 5);
     padding-top: 114px;
+    padding-bottom: calc(var(--spacing) * 6);
     @media (width >= 40rem) {
-      padding-inline: calc(var(--spacing) * 4);
+      padding-inline: calc(var(--spacing) * 8);
+    }
+    @media (width >= 40rem) {
+      padding-bottom: calc(var(--spacing) * 8);
     }
     @media (width >= 64rem) {
-      padding-inline: calc(var(--spacing) * 6);
-    }
-  }
-  .category-hero-banner {
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    background-color: #0F1D33;
-    @media (width >= 40rem) {
-      border-radius: 28px;
+      padding-inline: calc(var(--spacing) * 12);
     }
     @media (width >= 64rem) {
-      border-radius: 32px;
+      padding-bottom: calc(var(--spacing) * 9);
     }
   }
-  .category-hero-media {
-    position: absolute;
-    inset: 0px;
-    -webkit-mask-image: linear-gradient(90deg, transparent 6%, rgba(0, 0, 0, 0.35) 34%, #000 68%);
-            mask-image: linear-gradient(90deg, transparent 6%, rgba(0, 0, 0, 0.35) 34%, #000 68%);
-  }
-  .category-hero-image {
-    height: 100%;
-    width: 100%;
-    -o-object-fit: cover;
-       object-fit: cover;
-    -o-object-position: right top;
-       object-position: right top;
-    @media (width >= 48rem) {
-      -o-object-position: center;
-         object-position: center;
-    }
-  }
-  .category-hero-overlay {
-    position: absolute;
-    inset: 0px;
-    --tw-gradient-position: to right in oklab;
-    background-image: linear-gradient(var(--tw-gradient-stops));
-    --tw-gradient-from: #0B1220;
-    --tw-gradient-via: color-mix(in oklab, #0B1220 40%, transparent);
-    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-via-stops);
-    --tw-gradient-to: transparent;
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .category-hero-content {
-    position: relative;
+  .category-hero-pills {
+    margin-bottom: calc(var(--spacing) * 6);
     display: flex;
-    min-height: 360px;
-    max-width: 640px;
-    flex-direction: column;
-    justify-content: center;
-    padding: calc(var(--spacing) * 7);
+    flex-wrap: wrap;
+    gap: calc(var(--spacing) * 2);
     @media (width >= 40rem) {
-      padding: calc(var(--spacing) * 12);
+      margin-bottom: calc(var(--spacing) * 7);
     }
     @media (width >= 64rem) {
-      min-height: 440px;
+      margin-bottom: calc(var(--spacing) * 8);
     }
-    @media (width >= 64rem) {
-      padding: 72px;
-    }
+  }
+  .category-hero-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: calc(infinity * 1px);
+    background-color: #EAF0F7;
+    padding-inline: calc(var(--spacing) * 5);
+    padding-block: calc(var(--spacing) * 2.75);
+    font-size: 14.5px;
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    color: #0B1220;
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+    --tw-duration: 300ms;
+    transition-duration: 300ms;
+  }
+  .category-hero-pill.is-active {
+    background-color: #032C59;
+    color: var(--color-white);
   }
   .category-hero-crumbs {
-    margin-bottom: calc(var(--spacing) * 4);
+    margin-bottom: clamp(18px, 2.4vw, 26px);
     display: flex;
     align-items: center;
     gap: calc(var(--spacing) * 2.5);
@@ -1932,104 +1915,44 @@ body {
     font-size: 10px;
     --tw-tracking: 0.22em;
     letter-spacing: 0.22em;
-    color: color-mix(in srgb, #fff 70%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-white) 70%, transparent);
-    }
+    color: #6C7787;
     text-transform: uppercase;
-    @media (width >= 40rem) {
-      margin-bottom: calc(var(--spacing) * 6);
-    }
   }
   .category-hero-crumb-link {
-    color: color-mix(in srgb, #fff 70%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-white) 70%, transparent);
-    }
+    color: #6C7787;
   }
   .category-hero-crumb-current {
-    color: var(--color-white);
+    color: #032C59;
   }
   .category-hero-title {
     margin: 0px;
-    margin-bottom: calc(var(--spacing) * 4.5);
-    font-family: Sora, sans-serif;
-    font-size: 38px;
-    --tw-leading: 0.94;
-    line-height: 0.94;
+    margin-bottom: calc(var(--spacing) * 5);
+    font-family: Plus Jakarta Sans, system-ui, sans-serif;
+    font-size: clamp(38px, 6vw, 78px);
+    --tw-leading: 0.98;
+    line-height: 0.98;
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
-    --tw-tracking: var(--tracking-tighter);
-    letter-spacing: var(--tracking-tighter);
-    color: #F7F7FA;
-    @media (width >= 40rem) {
-      font-size: 58px;
-    }
-    @media (width >= 64rem) {
-      font-size: 84px;
-    }
+    --tw-tracking: -0.04em;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+    color: #0B1220;
+  }
+  .category-hero-title-accent {
+    font-family: Instrument Serif, Georgia, serif;
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+    color: #12539A;
+    font-style: italic;
   }
   .category-hero-blurb {
     margin: 0px;
-    margin-bottom: calc(var(--spacing) * 6.5);
-    max-width: 440px;
-    font-size: 15px;
+    max-width: 560px;
+    font-size: clamp(16px, 1.4vw, 19px);
     --tw-leading: var(--leading-relaxed);
     line-height: var(--leading-relaxed);
     text-wrap: pretty;
-    color: color-mix(in srgb, #fff 80%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-white) 80%, transparent);
-    }
-    @media (width >= 40rem) {
-      font-size: 17px;
-    }
-  }
-  .category-hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: calc(var(--spacing) * 2.5);
-  }
-  .category-hero-cta {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--spacing) * 2.5);
-    border-radius: calc(infinity * 1px);
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-    border-color: color-mix(in srgb, #fff 45%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-white) 45%, transparent);
-    }
-    padding-block: calc(var(--spacing) * 3);
-    padding-right: calc(var(--spacing) * 3.5);
-    padding-left: calc(var(--spacing) * 6);
-    font-size: 15.5px;
-    color: #F7F7FA;
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-    --tw-duration: 300ms;
-    transition-duration: 300ms;
-  }
-  .category-hero-cta:hover {
-    border-color: #F7F7FA;
-    background-color: #F7F7FA;
-    color: #0B1220;
-  }
-  .category-hero-cta:hover .category-hero-cta-arrow {
-    rotate: calc(45deg * -1);
-  }
-  .category-hero-cta-arrow {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    transition-property: transform, translate, scale, rotate;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-    --tw-duration: 300ms;
-    transition-duration: 300ms;
+    color: #6C7787;
   }
   .product-grid {
     margin-inline: auto;
@@ -2100,6 +2023,33 @@ body {
     .product-grid--wide .product-grid-list {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+  }
+  .product-grid-list .product-card {
+    border-color: #032C59;
+    background-color: #032C59;
+  }
+  .product-grid-list .product-card-media {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    background-color: #F5F8FB;
+  }
+  .product-grid-list .product-card-badge {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+    background-color: color-mix(in oklab, #0B1220 55%, transparent);
+    color: var(--color-white);
+    --tw-backdrop-blur: blur(var(--blur-sm));
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .product-grid-list .product-card-title,
+  .product-grid-list .product-card-price-value {
+    color: #F7F7FA;
+  }
+  .product-grid-list .product-card-desc {
+    color: color-mix(in oklab, #F7F7FA 60%, transparent);
+  }
+  .product-grid-list .product-card-price-label {
+    color: color-mix(in oklab, #F7F7FA 50%, transparent);
   }
   .product-card {
     display: flex;
@@ -3795,7 +3745,6 @@ body {
     display: none;
   }
   .sexual-health-rail-item {
-    width: clamp(232px, 22vw, 320px);
     flex-shrink: 0;
     scroll-snap-align: start;
   }
@@ -7299,6 +7248,33 @@ body {
     @media (width >= 64rem) {
       padding-inline: calc(var(--spacing) * 13);
     }
+  }
+  .recommended--dark .product-card {
+    border-color: #032C59;
+    background-color: #032C59;
+  }
+  .recommended--dark .product-card-media {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    background-color: #F5F8FB;
+  }
+  .recommended--dark .product-card-badge {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+    background-color: color-mix(in oklab, #0B1220 55%, transparent);
+    color: var(--color-white);
+    --tw-backdrop-blur: blur(var(--blur-sm));
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .recommended--dark .product-card-title,
+  .recommended--dark .product-card-price-value {
+    color: #F7F7FA;
+  }
+  .recommended--dark .product-card-desc {
+    color: color-mix(in oklab, #F7F7FA 60%, transparent);
+  }
+  .recommended--dark .product-card-price-label {
+    color: color-mix(in oklab, #F7F7FA 50%, transparent);
   }
   @media (max-width: 900px) {
     .recommended-grid {

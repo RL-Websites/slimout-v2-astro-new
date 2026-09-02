@@ -28,6 +28,35 @@
     }
   }
 
+  // Category-page "Suggested Products" treatment: dark navy cards on the light section,
+  // matching product-grid's dark cards (see _product-grid.scss).
+  .recommended--dark {
+    .product-card {
+      @apply bg-primary border-primary;
+    }
+
+    .product-card-media {
+      @apply aspect-square h-auto bg-sage-50;
+    }
+
+    .product-card-badge {
+      @apply bg-ink/55 backdrop-blur-sm border-0 text-white;
+    }
+
+    .product-card-title,
+    .product-card-price-value {
+      @apply text-offwhite;
+    }
+
+    .product-card-desc {
+      @apply text-offwhite/60;
+    }
+
+    .product-card-price-label {
+      @apply text-offwhite/50;
+    }
+  }
+
   @media (max-width: 900px) {
     .recommended-grid {
       grid-template-columns: minmax(0, 1fr);

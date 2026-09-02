@@ -21,6 +21,35 @@
     &--wide &-list {
       @apply lg:grid-cols-4;
     }
+
+    // Category-page product cards render on a dark navy surface — the ProductCard's
+    // `onDark` prop already flips its buttons; these overrides handle the card itself.
+    &-list {
+      .product-card {
+        @apply bg-primary border-primary;
+      }
+
+      .product-card-media {
+        @apply aspect-square h-auto bg-sage-50;
+      }
+
+      .product-card-badge {
+        @apply bg-ink/55 backdrop-blur-sm border-0 text-white;
+      }
+
+      .product-card-title,
+      .product-card-price-value {
+        @apply text-offwhite;
+      }
+
+      .product-card-desc {
+        @apply text-offwhite/60;
+      }
+
+      .product-card-price-label {
+        @apply text-offwhite/50;
+      }
+    }
   }
 
   .product-card {

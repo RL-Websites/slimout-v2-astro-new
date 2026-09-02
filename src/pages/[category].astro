@@ -34,7 +34,7 @@ const isTestosterone = category.slug === 'testosterone';
 
 	<main>
 		<!-- category hero section start -->
-		<CategoryHero category={category.name} blurb={category.blurb} heroImage={category.heroImage} />
+		<CategoryHero category={category.name} slug={category.slug} blurb={category.blurb} />
 		<!-- category hero section end -->
 
 		<!-- category products section start -->
@@ -42,6 +42,7 @@ const isTestosterone = category.slug === 'testosterone';
 			products={category.products}
 			enableModals={true}
 			showAddToCart={isTestosterone}
+			wide
 		/>
 		<!-- category products section end -->
 
@@ -50,7 +51,7 @@ const isTestosterone = category.slug === 'testosterone';
 		<!-- marquee section end -->
 
 		<!-- category recommended section start -->
-		<Recommended items={category.recommended} />
+		<Recommended items={category.recommended} title="Suggested" titleAlt="Products" dark />
 		<!-- category recommended section end -->
 
 		<!-- faq section start -->

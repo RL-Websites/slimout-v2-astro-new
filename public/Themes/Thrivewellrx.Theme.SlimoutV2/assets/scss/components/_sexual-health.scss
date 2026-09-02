@@ -104,7 +104,7 @@
     }
 
     &-rail-item {
-      @apply shrink-0 w-[clamp(232px,22vw,320px)] snap-start;
+      @apply shrink-0 snap-start;
 
       .product-card {
         @apply bg-primary border-primary h-full;

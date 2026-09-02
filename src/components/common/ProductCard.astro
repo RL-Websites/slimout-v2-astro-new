@@ -65,7 +65,7 @@ const primaryClass = onDark ? "theme-btn__primary--alt" : "theme-btn__primary";
 						{isFromCart ? (
 							<>
 								<span
-									class="theme-btn theme-btn__primary"
+									class:list={['theme-btn', primaryClass]}
 									data-cart-add
 									data-cart-name={product.name}
 									data-cart-unit={product.unit}
@@ -74,7 +74,7 @@ const primaryClass = onDark ? "theme-btn__primary--alt" : "theme-btn__primary";
 								</span>
 								<a
 									href="index.html#programs"
-									class="theme-btn theme-btn__outline"
+									class:list={['theme-btn', outlineClass]}
 								>
 									Learn More
 								</a>
@@ -83,12 +83,12 @@ const primaryClass = onDark ? "theme-btn__primary--alt" : "theme-btn__primary";
 							<>
 								<a
 									href="index.html#programs"
-									class="theme-btn theme-btn__outline"
+									class:list={['theme-btn', outlineClass]}
 								>
 									Learn More
 								</a>
 								<span
-									class="theme-btn theme-btn__primary"
+									class:list={['theme-btn', primaryClass]}
 									data-cart-add
 									data-cart-name={product.name}
 									data-cart-unit={product.unit}
