@@ -213,6 +213,9 @@
   .pointer-events-none {
     pointer-events: none;
   }
+  .collapse {
+    visibility: collapse;
+  }
   .visible {
     visibility: visible;
   }
@@ -284,6 +287,9 @@
   }
   .w-full {
     width: 100%;
+  }
+  .shrink {
+    flex-shrink: 1;
   }
   .grow {
     flex-grow: 1;
@@ -3778,14 +3784,23 @@ body {
       padding-block: calc(var(--spacing) * 28);
     }
   }
+  @media (min-width: 1024px) {
+    .how-it-works {
+      height: 450vh;
+    }
+  }
   .how-it-works-inner {
     margin-inline: auto;
     max-width: 1440px;
     padding-inline: clamp(20px, 4vw, 64px);
   }
+  @media (min-width: 1024px) {
+    .how-it-works-inner {
+      height: 100%;
+    }
+  }
   .how-it-works-header {
     margin-bottom: calc(var(--spacing) * 10);
-    text-align: center;
     @media (width >= 40rem) {
       margin-bottom: calc(var(--spacing) * 16);
     }
@@ -3837,15 +3852,28 @@ body {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     @media (width >= 64rem) {
-      align-items: flex-start;
+      align-items: center;
     }
     @media (width >= 64rem) {
       gap: clamp(28px, 5vw, 80px);
     }
   }
-  @media (width >= 64rem) {
-    .how-it-works-grid.is-ready .how-it-works-step:not(.is-active) {
-      opacity: 50%;
+  @media (min-width: 1024px) {
+    .how-it-works-grid {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      align-content: center;
+    }
+    .how-it-works-grid.is-ready .how-it-works-step {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .how-it-works-grid.is-ready .how-it-works-step.is-active {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
   .how-it-works-media {
@@ -3856,12 +3884,6 @@ body {
     background-color: #E2E6EC;
     @media (width >= 40rem) {
       height: 420px;
-    }
-    @media (width >= 64rem) {
-      position: sticky;
-    }
-    @media (width >= 64rem) {
-      top: calc(var(--spacing) * 28);
     }
     @media (width >= 64rem) {
       height: 70vh;
@@ -3878,8 +3900,8 @@ body {
     transition-property: opacity;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
-    --tw-duration: 700ms;
-    transition-duration: 700ms;
+    --tw-duration: 1000ms;
+    transition-duration: 1000ms;
     --tw-ease: var(--ease-out);
     transition-timing-function: var(--ease-out);
   }
@@ -3896,17 +3918,21 @@ body {
     @media (width >= 40rem) {
       gap: calc(var(--spacing) * 10);
     }
-    @media (width >= 64rem) {
-      gap: calc(var(--spacing) * 16);
+  }
+  @media (min-width: 1024px) {
+    .how-it-works-steps {
+      position: relative;
+      gap: 0;
+      height: 220px;
     }
   }
   .how-it-works-step {
     min-width: 0px;
-    transition-property: opacity;
+    transition-property: opacity,transform;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
-    --tw-duration: 700ms;
-    transition-duration: 700ms;
+    --tw-duration: 1000ms;
+    transition-duration: 1000ms;
     --tw-ease: var(--ease-out);
     transition-timing-function: var(--ease-out);
   }
@@ -4896,7 +4922,7 @@ body {
     background-color: #032C59;
   }
   .faq-item.is-open .faq-icon {
-    rotate: 0deg;
+    rotate: 45deg;
     background-color: color-mix(in srgb, #fff 15%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-white) 15%, transparent);
@@ -4978,7 +5004,7 @@ body {
     height: calc(var(--spacing) * 9);
     width: calc(var(--spacing) * 9);
     flex-shrink: 0;
-    rotate: 135deg;
+    rotate: 0deg;
     align-items: center;
     justify-content: center;
     border-radius: calc(infinity * 1px);

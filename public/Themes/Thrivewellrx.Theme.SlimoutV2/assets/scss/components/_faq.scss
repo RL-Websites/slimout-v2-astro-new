@@ -55,7 +55,7 @@
         @apply bg-primary border-primary;
 
         .faq-icon {
-          @apply bg-white/15 text-white rotate-0;
+          @apply bg-white/15 text-white rotate-45;
         }
 
         .faq-num {
@@ -92,7 +92,7 @@
 
     &-icon {
       @apply w-9 h-9 rounded-full bg-cream text-ink flex items-center justify-center shrink-0
-        rotate-[135deg] transition-[transform,background,color] duration-500;
+        rotate-0 transition-[transform,background,color] duration-500;
     }
 
     &-answer-wrap {

@@ -2021,23 +2021,31 @@ if ($curtainEls.length && "IntersectionObserver" in window) {
   }
 }
 
-// --- "Understand the process" step crossfade: [data-move-grid] ---
-// The image column is a plain CSS `position:sticky` block (see _how-it-works.scss) — a
-// deliberately simpler stand-in for the design's scroll-pinned 300vh crossfade, with no
-// scroll-jacking or manual scroll-offset math. This just swaps which stacked image is visible,
-// and dims the inactive step text, as each step block crosses the viewport's vertical center.
-// Desktop (lg) only; below that the SCSS mobile fallback already shows every image/step pair
-// as a static stacked block, so no JS is needed there.
+// --- "Understand the process" scroll-pinned crossfade: [data-move] ---
+// A real scroll-linked track, matching the design and mirroring [data-expand] below: the
+// section is 300vh tall (see _how-it-works.scss's lg height override) so the sticky grid
+// inside it has room to hold across three steps' worth of scroll. Each frame, progress
+// (0 → 1) through that trackable range maps to a step index, and that index drives which
+// single image/step pair is shown — never more than one at a time. Desktop (lg) only; below
+// that the SCSS mobile fallback already shows every image/step pair as a static stacked
+// block, so no JS is needed there.
 
-const $moveGrids = $("[data-move-grid]");
-if ($moveGrids.length && "IntersectionObserver" in window) {
-  $moveGrids.each(function () {
-    const grid = this;
+const $moveSections = $("[data-move]");
+if ($moveSections.length && !reducedMotionQuery.matches && window.innerWidth >= 1024) {
+  $moveSections.each(function () {
+    const section = this;
+    const grid = section.querySelector("[data-move-grid]");
+    if (!grid) return;
     const images = Array.from(grid.querySelectorAll("[data-move-img]"));
     const stepEls = Array.from(grid.querySelectorAll("[data-move-step]"));
     if (!images.length || !stepEls.length) return;
 
+    grid.classList.add("is-ready");
+    let activeIndex = -1;
+
     function setActiveStep(index) {
+      if (index === activeIndex) return;
+      activeIndex = index;
       images.forEach((img) => {
         img.classList.toggle("is-active", Number(img.dataset.moveImg) === index);
       });
@@ -2048,20 +2056,29 @@ if ($moveGrids.length && "IntersectionObserver" in window) {
 
     setActiveStep(0);
 
-    if (reducedMotionQuery.matches || window.innerWidth < 1024) return;
+    let moveTicking = false;
 
-    grid.classList.add("is-ready");
+    function applyMove() {
+      const rect = section.getBoundingClientRect();
+      const trackable = rect.height - window.innerHeight;
+      const p =
+        trackable > 0
+          ? Math.min(1, Math.max(0, -rect.top / trackable))
+          : 0;
+      const index = Math.min(stepEls.length - 1, Math.floor(p * stepEls.length));
+      setActiveStep(index);
+      moveTicking = false;
+    }
 
-    const stepObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          setActiveStep(Number(entry.target.dataset.moveStep));
-        });
-      },
-      { threshold: 0, rootMargin: "-45% 0px -45% 0px" },
-    );
-    stepEls.forEach((step) => stepObserver.observe(step));
+    function queueMove() {
+      if (moveTicking) return;
+      moveTicking = true;
+      window.requestAnimationFrame(applyMove);
+    }
+
+    window.addEventListener("scroll", queueMove, { passive: true });
+    window.addEventListener("resize", queueMove, { passive: true });
+    applyMove();
   });
 }
 
