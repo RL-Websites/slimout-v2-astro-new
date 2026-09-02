@@ -39,8 +39,7 @@ const weightLoss: Category = {
 	tag: "Metabolic",
 	blurb:
 		"Provider-guided weight loss programs paired with ongoing support, so your plan adapts as your goals change.",
-	heroImage:
-		"Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/category/weight-loss.webp",
+	heroImage: `${S3}/Slimout_V1/Home_Page/Category_Section/Weight+Loss.png`,
 	products: [
 		{
 			slot: "wl-p1",

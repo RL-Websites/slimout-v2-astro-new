@@ -1,9 +1,9 @@
 @layer components {
   .get-started {
-    @apply bg-cream px-3 sm:px-4 lg:px-6 pb-6 sm:pb-10 lg:pb-14;
+    @apply bg-cream;
 
     &-panel {
-      @apply relative rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] overflow-hidden
+      @apply relative overflow-hidden
         bg-ink px-6 sm:px-14 py-16 sm:py-24 lg:py-32 text-center;
       min-height: min(640px, 78vh);
       display: flex;

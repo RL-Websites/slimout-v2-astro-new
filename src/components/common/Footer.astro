@@ -8,41 +8,33 @@ const { base = "" } = Astro.props;
 ---
 
 <div class="footer">
-	<span class="footer-glow"></span>
 	<div class="footer-inner">
-		<div class="footer-grid">
-			<div class="footer-brand">
-				<a href="#top" class="footer-logo-link">
-					<img
-						src={`${base}Themes/Thrivewellrx.Theme.SlimoutV2/assets/img/logo-alt.svg`}
-						alt="SlimOut"
-						class="footer-logo"
-					/>
-				</a>
-				<p class="footer-tagline"
-					>Personalized telehealth care, from consultation to delivery.</p
+		<div class="footer-row">
+			<div class="footer-main">
+				<h2 class="footer-heading"
+					>Personalized telehealth care, from consultation to delivery.</h2
 				>
+				<p class="footer-copyright">&copy; 2026 | SLIMOUT | ALL RIGHTS RESERVED</p>
 			</div>
-			<div class="footer-col">
-				<div class="footer-col-title">Explore</div>
-				<div class="footer-links">
-					<a href="#programs" class="footer-link">Treatments</a>
-					<a href={`${base}about.html`} class="footer-link">About Us</a>
-					<a href={`${base}login.html`} class="footer-link">Log In</a>
+			<div class="footer-links-row">
+				<div class="footer-col">
+					<div class="footer-col-title">Explore</div>
+					<div class="footer-links">
+						<a href="#programs" class="footer-link">Treatments</a>
+						<a href={`${base}about.html`} class="footer-link">About Us</a>
+						<a href={`${base}login.html`} class="footer-link">Log In</a>
+					</div>
+				</div>
+				<div class="footer-col">
+					<div class="footer-col-title">Contact</div>
+					<div class="footer-links">
+						<a href="tel:8336543553" class="footer-link">(833) 654-3553</a>
+						<a href="mailto:info@slimout.com" class="footer-link"
+							>info@slimout.com</a
+						>
+					</div>
 				</div>
 			</div>
-			<div class="footer-col">
-				<div class="footer-col-title">Contact</div>
-				<div class="footer-links">
-					<a href="tel:8336543553" class="footer-link">(833) 654-3553</a>
-					<a href="mailto:info@slimout.com" class="footer-link"
-						>info@slimout.com</a
-					>
-				</div>
-			</div>
-		</div>
-		<div class="footer-bottom">
-			<span>&copy; 2026 | SLIMOUT | ALL RIGHTS RESERVED</span>
 		</div>
 	</div>
 </div>

@@ -1,58 +1,56 @@
 @layer components {
   .footer {
-    @apply relative bg-ink pt-10 sm:pt-14 lg:pt-16 pb-5 sm:pb-6.5 overflow-hidden;
-
-    &-glow {
-      @apply absolute -top-28 -right-20 w-[340px] h-[340px] rounded-full pointer-events-none;
-      background: radial-gradient(circle, rgba(75, 139, 209, 0.16) 0%, rgba(75, 139, 209, 0) 70%);
-    }
+    @apply relative bg-cream pt-14 sm:pt-16 lg:pt-22.5 overflow-hidden;
 
     &-inner {
-      @apply max-w-[1340px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10;
+      @apply max-w-360 mx-auto px-5 sm:px-8 lg:px-16 relative z-10;
     }
 
-    &-grid {
-      @apply grid grid-cols-1 sm:grid-cols-3 gap-7 sm:gap-11 pb-7 sm:pb-9;
+    &-row {
+      @apply flex flex-wrap items-start justify-between gap-7 sm:gap-14 lg:gap-20;
     }
 
-    &-brand {
-      @apply min-w-0;
+    &-main {
+      @apply flex-1 min-w-70 max-w-140;
     }
 
-    &-logo-link {
-      @apply block w-fit mb-3.5;
+    &-heading {
+      @apply m-0 font-sans text-[28px] sm:text-4xl lg:text-5xl leading-[1.08] tracking-[-0.032em] font-semibold text-ink;
+      text-wrap: pretty;
     }
 
-    &-logo {
-      @apply text-offwhite max-w-[120px];
-
-      img {
-        @apply w-full;
-      }
+    &-copyright {
+      @apply m-0 mt-6 sm:mt-8 text-sm tracking-[0.02em] text-muted;
     }
 
-    &-tagline {
-      @apply m-0 text-sm leading-relaxed text-offwhite/55 max-w-[260px];
+    &-links-row {
+      @apply grid gap-6 sm:gap-8;
+      flex: 0 1 340px;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
     }
 
     &-col {
-      @apply min-w-0;
+      @apply grid content-start gap-3.5;
     }
 
     &-col-title {
-      @apply font-mono text-[10px] tracking-[0.2em] uppercase text-offwhite/40 mb-4;
+      @apply text-[15px] text-muted;
     }
 
     &-links {
-      @apply flex flex-col gap-2.5 text-[14.5px];
+      @apply grid content-start gap-3.5;
     }
 
     &-link {
-      @apply text-offwhite/75;
+      @apply text-base font-medium text-ink;
     }
 
-    &-bottom {
-      @apply pt-5 border-t border-offwhite/10 text-[13px] text-offwhite/40;
+    &-mark {
+      @apply mt-9 sm:mt-10 pb-7 sm:pb-8 text-ink/6 pointer-events-none select-none;
+
+      svg {
+        @apply block w-full max-w-225 h-auto mx-auto;
+      }
     }
   }
 }

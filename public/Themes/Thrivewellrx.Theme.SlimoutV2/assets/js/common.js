@@ -2155,6 +2155,7 @@ if ($brkTracks.length && !reducedMotionQuery.matches && window.innerWidth >= 102
     .map(function () {
       return {
         track: this,
+        wrap: this.querySelector(".explore-wrap"),
         words: Array.from(this.querySelectorAll("[data-brk-w]")),
         items: Array.from(this.querySelectorAll("[data-brk-i]")),
         cluster: this.querySelector("[data-brk-cluster]"),
@@ -2167,7 +2168,7 @@ if ($brkTracks.length && !reducedMotionQuery.matches && window.innerWidth >= 102
 
   function applyBrk() {
     const vh = window.innerHeight;
-    brkTracks.forEach(({ track, words, items, cluster, copy }) => {
+    brkTracks.forEach(({ track, wrap, words, items, cluster, copy }) => {
       const r = track.getBoundingClientRect();
       if (r.bottom < -vh || r.top > vh * 2) return;
       const p = brkClamp01(-r.top / Math.max(1, r.height - vh));
@@ -2176,7 +2177,10 @@ if ($brkTracks.length && !reducedMotionQuery.matches && window.innerWidth >= 102
         const off = parseFloat(w.dataset.o || 0);
         const e = brkEaseOut((p - off) / 0.26);
         w.style.transform = "translate3d(0," + ((1 - e) * 108).toFixed(2) + "%,0)";
-        w.style.opacity = (0.15 + e * 0.85).toFixed(3);
+        // Fades fully from 0 (not a partial floor) — a lingering low-but-nonzero opacity on a
+        // large drop-shadowed word/image reads as a hazy/blurry smudge rather than "revealing",
+        // which is what this section's "blurry before it's shown" feedback was describing.
+        w.style.opacity = e.toFixed(3);
       });
 
       items.forEach((it) => {
@@ -2194,13 +2198,48 @@ if ($brkTracks.length && !reducedMotionQuery.matches && window.innerWidth >= 102
           rot: rot + settle * parseFloat(it.dataset.pr || 0),
           sc: sc * (1 + settle * 0.012),
         };
-        it.style.opacity = (0.06 + e * 0.94).toFixed(3);
+        it.style.opacity = e.toFixed(3);
       });
 
       if (cluster) {
         const clusterE = brkEaseOut(brkClamp01(p / 0.72));
         cluster.style.transform =
           "translate3d(0," + (clusterE * -0.8).toFixed(2) + "vh,0) scale(" + (1 + clusterE * 0.04).toFixed(3) + ")";
+
+        // Centre the product composition on the right-hand copy block, then clamp it so it
+        // never bleeds past the pinned viewport's top/bottom edge — without this, the fixed
+        // `top` from CSS (_explore.scss) can push the images low enough that the bottom one
+        // gets clipped by the section's own overflow, which is the "image cut off at the
+        // bottom" feedback. Extents are derived from each item's settled (post-entrance)
+        // transform, so this is scroll-independent — no feedback loop with the entry animation.
+        if (wrap && copy && items.length) {
+          const wr = wrap.getBoundingClientRect();
+          const cr = copy.getBoundingClientRect();
+          const copyMid = (cr.top + cr.bottom) / 2 - wr.top;
+          const SC = 1.012;
+          let minT = Infinity;
+          let maxB = -Infinity;
+          items.forEach((it) => {
+            const ih = it.offsetHeight;
+            const iw = it.offsetWidth;
+            if (!ih) return;
+            const dy = ((parseFloat(it.dataset.dy || 0) + parseFloat(it.dataset.py || 0)) / 100) * ih;
+            const rad =
+              (Math.abs(parseFloat(it.dataset.r || 0) + parseFloat(it.dataset.pr || 0)) * Math.PI) / 180;
+            const pad = (ih * Math.cos(rad) + iw * Math.sin(rad) - ih) / 2 + (ih * (SC - 1)) / 2;
+            minT = Math.min(minT, it.offsetTop + dy - pad);
+            maxB = Math.max(maxB, it.offsetTop + dy + ih + pad);
+          });
+          if (minT < Infinity) {
+            let top = copyMid - (minT + maxB) / 2;
+            if (top + maxB > vh - 8) top = vh - 8 - maxB;
+            if (top + minT < 8) top = 8 - minT;
+            if (cluster._brkTop !== top) {
+              cluster._brkTop = top;
+              cluster.style.top = top.toFixed(1) + "px";
+            }
+          }
+        }
       }
 
       if (copy) {
