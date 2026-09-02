@@ -32,19 +32,53 @@
     }
 
     &-grid {
-      @apply max-w-[1340px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3;
+      @apply max-w-[1340px] mx-auto flex flex-wrap;
+      gap: clamp(10px, 1vw, 16px);
+      height: auto;
+
+      @media (min-width: 1025px) {
+        flex-wrap: nowrap;
+        height: clamp(360px, 58vh, 560px);
+      }
     }
 
     &-card {
-      @apply relative block h-55 sm:h-70 lg:h-80 rounded-3xl overflow-hidden bg-forest;
+      @apply relative block rounded-3xl overflow-hidden bg-forest;
+      flex: 1 1 100%;
+      height: 180px;
+      will-change: flex-grow;
 
-      &:hover &-image {
-        @apply scale-105;
+      @media (min-width: 640px) {
+        flex: 1 1 calc(50% - 10px);
+        height: clamp(180px, 26vw, 240px);
       }
 
-      &:hover &-arrow {
-        @apply opacity-100;
-        transform: translateY(-50%) translateX(0) rotate(90deg);
+      @media (min-width: 1025px) {
+        flex: 1 1 0;
+        min-width: 0;
+        height: auto;
+        transition: flex-grow 1.1s cubic-bezier(0.2, 0.9, 0.2, 1);
+
+        .programs-grid:hover &:not(:hover) {
+          flex-grow: 0.95;
+        }
+
+        .programs-grid:hover &:not(:hover) &-image {
+          @apply opacity-40;
+        }
+
+        .programs-grid:hover &:not(:hover) &-name {
+          @apply opacity-35;
+        }
+
+        &:hover {
+          flex-grow: 2.2;
+        }
+
+        &:hover &-arrow {
+          @apply opacity-100;
+          transform: translateY(-50%) translateX(0) rotate(90deg);
+        }
       }
     }
 
@@ -53,7 +87,7 @@
     }
 
     &-card-image {
-      @apply w-full h-full object-cover transition-transform duration-700;
+      @apply w-full h-full object-cover transition-opacity duration-700;
     }
 
     &-card-overlay {
