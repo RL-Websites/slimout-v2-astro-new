@@ -28,7 +28,16 @@
         @apply bg-lime-dark shadow-lg opacity-100;
       }
 
+      // Inverted primary — same role (the high-emphasis CTA), flipped for dark surfaces
+      // (e.g. the product-card "Get Started" button on the Explore/Sexual Health rails,
+      // where a navy-on-navy .theme-btn__primary would disappear into the card).
+      &--alt {
+        @apply bg-white text-primary;
 
+        &:hover {
+          @apply bg-sage-100 shadow-lg opacity-100;
+        }
+      }
     }
 
     /* Secondary variant */
@@ -58,8 +67,10 @@
     &__outline {
       @apply bg-offwhite text-ink transition-all duration-300 border border-sage-300;
 
+      // Per the Claude Design button spec: hover only darkens the border, bg/text stay put
+      // (not a full bg/text inversion — that read as a mismatch against the design).
       &:hover {
-        @apply bg-dark text-white shadow-lg opacity-100;
+        @apply border-sage-400 shadow-lg opacity-100;
       }
 
       &:active {
@@ -68,10 +79,12 @@
 
 
       &--white {
-        @apply text-white bg-transparent transition-all duration-300 border border-offwhite;
+        @apply text-white bg-transparent transition-all duration-300 border border-white/28;
 
+        // Matches the design's dark-card outline button exactly: a faint white wash + a
+        // brighter border on hover, text stays white throughout.
         &:hover {
-          @apply bg-offwhite text-dark shadow-lg opacity-100;
+          @apply bg-white/10 border-white/50 shadow-lg opacity-100;
         }
 
         &:active {

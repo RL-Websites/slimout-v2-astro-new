@@ -15,6 +15,10 @@ interface Props {
 	modalId?: string;
 	isFromCart?: boolean;
 	showAddToCart?: boolean;
+	/** Set on dark product-card contexts (e.g. the Explore/Sexual Health rails) so the
+	 * Learn More/Get Started buttons flip to their light-on-dark variants instead of
+	 * disappearing into the card's own dark background. */
+	onDark?: boolean;
 }
 
 const {
@@ -23,8 +27,11 @@ const {
 	modalId,
 	isFromCart = false,
 	showAddToCart = false,
+	onDark = false,
 } = Astro.props;
 const isRecommended = variant === "recommended";
+const outlineClass = onDark ? "theme-btn__outline--white" : "theme-btn__outline";
+const primaryClass = onDark ? "theme-btn__primary--alt" : "theme-btn__primary";
 ---
 
 <div class:list={["product-card", { "product-card__alt": isRecommended }]}>
@@ -96,19 +103,19 @@ const isRecommended = variant === "recommended";
 						{modalId ? (
 							<button
 								type="button"
-								class="theme-btn theme-btn__outline"
+								class:list={["theme-btn", outlineClass]}
 								data-modal-open={modalId}
 							>
 								Learn More
 							</button>
 						) : (
-							<a href="#" class="theme-btn theme-btn__outline">
+							<a href="#" class:list={["theme-btn", outlineClass]}>
 								Learn More
 							</a>
 						)}
 						{showAddToCart ? (
 							<span
-								class="theme-btn theme-btn__primary"
+								class:list={["theme-btn", primaryClass]}
 								data-cart-add
 								data-cart-name={product.name}
 								data-cart-unit={product.unit ?? 0}
@@ -116,7 +123,7 @@ const isRecommended = variant === "recommended";
 								Add to Cart
 							</span>
 						) : (
-							<a href="index.html#cta" class="theme-btn theme-btn__primary ">
+							<a href="index.html#cta" class:list={["theme-btn", primaryClass]}>
 								Get Started
 							</a>
 						)}

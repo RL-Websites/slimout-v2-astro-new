@@ -1,13 +1,17 @@
 @layer components {
   .sexual-health {
-    @apply relative bg-ink overflow-hidden;
+    // #07142A matches the design's own literal value for this section (and #breakthrough) —
+    // close to, but not exactly, the `ink` token (#0B1220), so kept as a raw hex per SKILLS.md's
+    // "recurring raw hex not yet promoted to a token" allowance rather than drifting off-design.
+    @apply relative overflow-hidden;
+    background-color: #07142a;
 
     &-media {
-      @apply absolute inset-0 z-0 overflow-hidden will-change-transform;
+      @apply absolute inset-0 z-0 overflow-hidden;
     }
 
     &-img {
-      @apply w-full h-full object-cover;
+      @apply w-full h-full object-cover block;
     }
 
     &-scrim {
@@ -18,7 +22,7 @@
     }
 
     &-row {
-      @apply relative z-10 max-w-[1440px] mx-auto flex flex-wrap items-center gap-8 lg:gap-16
+      @apply relative z-1 max-w-[1440px] mx-auto flex flex-wrap items-center gap-7 lg:gap-16
         px-5 sm:px-8 lg:px-16 pt-14 sm:pt-20 lg:pt-28 pb-5 sm:pb-8;
     }
 
@@ -27,7 +31,7 @@
     }
 
     &-eyebrow {
-      @apply font-mono text-[13px] tracking-[0.16em] uppercase text-[#cfe0f8]/85;
+      @apply font-mono text-[13px] tracking-[0.16em] uppercase text-[#cfe0f8]/[0.84];
     }
 
     &-title {
@@ -44,34 +48,58 @@
       @apply mt-6 sm:mt-8;
     }
 
+    // --- glass showcase card: SVG progress ring + continuously spinning product shot ---
+
     &-stat {
-      @apply relative shrink-0 w-full sm:w-[min(330px,22vw)] ml-0 lg:ml-auto rounded-panel
-        p-6 sm:p-7 text-center border border-white/[0.14] backdrop-blur-xl;
+      @apply relative z-1 shrink-0 w-full sm:w-[clamp(228px,22vw,330px)] ml-0 lg:ml-auto
+        rounded-panel p-5 sm:p-[clamp(20px,2vw,30px)] text-center border border-[#cfe0f8]/[0.26]
+        backdrop-blur-xl;
       background: rgba(11, 30, 60, 0.42);
       box-shadow: 0 34px 80px rgba(2, 8, 20, 0.5);
     }
 
+    &-stat-ring-wrap {
+      @apply relative aspect-square;
+      perspective: 900px;
+    }
+
+    &-stat-ring {
+      @apply absolute inset-0 w-full h-full overflow-visible;
+
+      circle {
+        stroke: #91b2d6;
+        animation: sexualHealthRingFill 24s linear infinite;
+      }
+    }
+
+    &-stat-spin {
+      @apply absolute inset-[14%] grid place-items-center will-change-transform;
+    }
+
     &-stat-img {
-      @apply mx-auto aspect-square w-[70%] object-contain
-        drop-shadow-[0_22px_34px_rgba(3,10,24,0.55)];
+      @apply w-full h-full object-contain drop-shadow-[0_22px_34px_rgba(3,10,24,0.55)];
     }
 
     &-stat-note {
-      @apply mt-4 text-[12.5px] text-white/65;
+      @apply mt-4 text-[12.5px] tracking-[0.02em] text-white/[0.66];
     }
 
     &-stat-headline {
-      @apply mt-1 font-sora text-[clamp(20px,1.9vw,28px)] font-semibold tracking-tight text-white;
+      @apply mt-1 font-sora text-[clamp(20px,1.9vw,28px)] font-semibold tracking-[-0.028em]
+        text-white;
     }
 
-    // --- horizontal product rail ---
+    // --- horizontal product rail (matches the design's edge-aligned [data-brk-rail]) ---
 
     &-rail {
-      @apply relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 pb-14 sm:pb-20 lg:pb-24;
+      @apply relative z-1 pb-[18px] sm:pb-6 lg:pb-8;
     }
 
     &-rail-track {
-      @apply flex gap-3 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-1;
+      @apply flex gap-3 lg:gap-[clamp(12px,1.5vw,24px)] overflow-x-auto overflow-y-hidden
+        scroll-smooth snap-x snap-mandatory pr-5 sm:pr-8 lg:pr-16 cursor-grab;
+      padding-left: max(clamp(20px, 4vw, 64px), calc((100% - 1440px) / 2 + clamp(20px, 4vw, 64px)));
+      scroll-padding-left: max(clamp(20px, 4vw, 64px), calc((100% - 1440px) / 2 + clamp(20px, 4vw, 64px)));
       scrollbar-width: none;
 
       &::-webkit-scrollbar {
@@ -80,7 +108,7 @@
     }
 
     &-rail-item {
-      @apply shrink-0 w-[248px] sm:w-[272px] snap-start;
+      @apply shrink-0 w-[clamp(232px,22vw,320px)] snap-start;
 
       .product-card {
         @apply bg-primary border-primary h-full;
@@ -98,6 +126,23 @@
       .product-card-price-label {
         @apply text-offwhite/45;
       }
+    }
+  }
+
+  @keyframes sexualHealthRingFill {
+    0% {
+      stroke-dashoffset: 515;
+    }
+
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sexual-health-stat-ring circle {
+      animation: none;
+      stroke-dashoffset: 120;
     }
   }
 }

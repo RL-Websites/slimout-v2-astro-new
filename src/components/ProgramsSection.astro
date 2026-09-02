@@ -15,25 +15,24 @@ import { categories } from "../data/categories";
 			<a href="#cta" class="programs-lead-link">Get Started Today.</a>
 		</p>
 	</div>
-	<div class="programs-grid" data-exp-row data-rvl>
+	<div class="programs-grid" data-rvl>
 		{
 			categories
 				.filter((category) => category.slug !== 'weight-loss' && category.slug !== 'sexual-health')
 				.map((category) => (
-				<a href={`${category.slug}.html`} class="programs-card" data-exp>
+				<a href={`${category.slug}.html`} class="programs-card">
 					<span class="programs-card-media">
 						<img
 							src={category.heroImage}
 							alt={category.name}
 							class="programs-card-image"
-							data-exp-img
 							loading="lazy"
 						/>
 					</span>
 					<span class="programs-card-overlay" />
 					<span class="programs-card-footer">
-						<span class="programs-card-name" data-exp-title>{category.name}</span>
-						<span class="programs-card-arrow" data-exp-arrow>
+						<span class="programs-card-name">{category.name}</span>
+						<span class="programs-card-arrow">
 							<i class="icon-arrow-right" />
 						</span>
 					</span>

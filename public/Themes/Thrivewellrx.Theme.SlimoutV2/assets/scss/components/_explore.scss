@@ -20,8 +20,14 @@
     &-hero {
       @apply relative;
 
+      // Track height sets how much scroll distance maps to the [data-brk-track] progress 0→1
+      // (see common.js's applyBrk). Every phase of that animation — headline lines, cluster
+      // entrance, copy fade-in — is fully resolved by progress ≈0.72; scrolling from there to
+      // 1.0 only continues an imperceptible micro-settle drift. 170vh (vs. a naive 200vh) keeps
+      // just enough of that tail for the drift to read, without a long dead scroll stretch where
+      // the pinned section visibly stops changing.
       @media (min-width: 1024px) {
-        height: 190vh;
+        height: 170vh;
       }
     }
 
@@ -113,7 +119,7 @@
       @apply mt-6 mx-auto lg:mx-0;
     }
 
-    // --- horizontal product rail ("Access our full care programs") ---
+    // --- product programs grid ("Access our full care programs") ---
 
     &-rail {
       @apply relative max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 pt-8 sm:pt-10 lg:pt-12
@@ -129,21 +135,12 @@
         text-offwhite m-0;
     }
 
-    &-rail-arrows {
-      @apply flex gap-2;
-    }
-
     &-rail-track {
-      @apply flex gap-3 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-1;
-      scrollbar-width: none;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6;
     }
 
     &-rail-item {
-      @apply shrink-0 w-[248px] sm:w-[272px] snap-start;
+      @apply min-w-0;
 
       .product-card {
         @apply bg-primary border-primary h-full;
@@ -190,7 +187,10 @@
     }
 
     &-hims-head {
-      @apply font-sora m-0 font-semibold text-white leading-[1.02] tracking-[-0.035em]
+      // Both panels' text needs to sit above the tablet/pen art (z-1 below) — the design
+      // relies on this same stacking (its heading/badge wrapper is z-index:2, the art has
+      // none), not on the text and art never overlapping.
+      @apply relative z-2 font-sora m-0 font-semibold text-white leading-[1.02] tracking-[-0.035em]
         text-[clamp(30px,3.4vw,52px)];
     }
 
@@ -207,7 +207,7 @@
     }
 
     &-hims-notes {
-      @apply hidden lg:block;
+      @apply relative z-2 hidden lg:block;
     }
 
     &-hims-note {
@@ -235,7 +235,7 @@
     }
 
     &-hims-tablet {
-      @apply relative mt-9 mx-auto w-fit max-w-[60%] h-[190px]
+      @apply relative z-1 mt-9 mx-auto w-fit max-w-[60%] h-[190px]
         lg:absolute lg:bottom-[96px] lg:mt-0 lg:mx-0 lg:max-w-none lg:h-[272px]
         lg:left-1/2 lg:-translate-x-1/2;
     }
@@ -247,12 +247,12 @@
     }
 
     &-hims-badge {
-      @apply inline-flex px-4 py-1.5 rounded-full border border-[#91B2D6] text-[12.5px]
+      @apply relative z-2 inline-flex px-4 py-1.5 rounded-full border border-[#91B2D6] text-[12.5px]
         font-semibold text-[#91B2D6];
     }
 
     &-hims-pen {
-      @apply relative mt-2 w-auto h-[180px] lg:absolute lg:top-0 lg:mt-0
+      @apply relative z-1 mt-2 w-auto h-[180px] lg:absolute lg:top-0 lg:mt-0
         lg:h-[26%] lg:left-1/2 lg:-translate-x-1/2;
     }
 

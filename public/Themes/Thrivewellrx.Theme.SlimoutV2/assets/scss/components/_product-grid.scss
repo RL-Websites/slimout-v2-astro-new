@@ -24,14 +24,14 @@
   }
 
   .product-card {
-    @apply bg-white border border-sage-300 rounded-3xl p-3.5 flex flex-col transition-transform duration-300;
+    @apply bg-white border border-sage-300 rounded-3xl overflow-hidden flex flex-col transition-transform duration-300;
 
     &:hover {
       @apply -translate-y-1.5 shadow-card;
     }
 
     &-media {
-      @apply relative h-[230px] sm:h-[260px] lg:h-[290px] rounded-2xl overflow-hidden bg-sage-100 mb-4.5;
+      @apply relative h-[230px] sm:h-[260px] lg:h-[290px] overflow-hidden bg-sage-100;
     }
 
     &-image {
@@ -47,7 +47,7 @@
     }
 
     &-body {
-      @apply flex flex-col flex-1;
+      @apply flex flex-col flex-1 p-3.5;
     }
 
     &-title {

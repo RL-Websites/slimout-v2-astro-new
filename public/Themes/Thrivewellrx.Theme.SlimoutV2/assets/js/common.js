@@ -2232,6 +2232,54 @@ if ($brkTracks.length && !reducedMotionQuery.matches && window.innerWidth >= 102
   }
 }
 
+// --- Hims panel art (tablet/pen): scroll-tied rise + settle + slow drift: [data-hims-art] ---
+// Ported from the design's [data-hims-tablet]/[data-hims-pen] scroll animation — a rise+scale
+// reveal over the first third of the panel's scroll-through, then a slow continued drift for the
+// rest. Applied to the art's wrapping container (not the <img> itself), so it composes with —
+// rather than fights over `transform` with — the image's own idle CSS float animation. The
+// container also carries the Tailwind `-translate-x-1/2` horizontal-centering transform, which
+// this preserves explicitly since writing `transform` here replaces it outright. Desktop only,
+// like every other scroll-pinned effect in this file; below 1024px the art sits in normal flow
+// (see _explore.scss's mobile fallback), so no transform/opacity is needed there.
+
+const $himsArt = $("[data-hims-art]");
+if ($himsArt.length && !reducedMotionQuery.matches && window.innerWidth >= 1024) {
+  const himsClamp01 = (v) => Math.min(1, Math.max(0, v));
+  const himsEaseOut = (t) => 1 - Math.pow(1 - himsClamp01(t), 2.8);
+  const himsArt = $himsArt.get();
+
+  let himsTicking = false;
+
+  function applyHims() {
+    const vh = window.innerHeight;
+    himsArt.forEach((art) => {
+      const panel = art.closest("[data-hims-panel]") || art.parentElement;
+      const r = panel.getBoundingClientRect();
+      if (r.bottom < -vh * 0.4 || r.top > vh * 1.4) return;
+      const p = himsClamp01((vh - r.top) / (vh + r.height));
+
+      const rev = himsEaseOut((p - 0.02) / 0.32);
+      const drift = himsClamp01((p - 0.34) / 0.66);
+      const y = (1 - rev) * 60 - drift * 10;
+      const sc = 0.92 + rev * 0.08 + drift * 0.02;
+
+      art.style.opacity = (0.15 + rev * 0.85).toFixed(3);
+      art.style.transform = "translate3d(-50%," + y.toFixed(1) + "px,0) scale(" + sc.toFixed(4) + ")";
+    });
+    himsTicking = false;
+  }
+
+  function queueHims() {
+    if (himsTicking) return;
+    himsTicking = true;
+    window.requestAnimationFrame(applyHims);
+  }
+
+  window.addEventListener("scroll", queueHims, { passive: true });
+  window.addEventListener("resize", queueHims, { passive: true });
+  applyHims();
+}
+
 // --- Parallax drift: [data-hero-parallax] / [data-parallax], strength via [data-parallax-strength] ---
 // rAF-batched so every parallax element is read/written together, once per frame, instead of
 // causing layout thrashing across separate scroll handlers.
@@ -2308,47 +2356,28 @@ if ($wordReveal.length && !reducedMotionQuery.matches) {
   applyWordReveal();
 }
 
-// --- Programs tile hover-grow: [data-exp-row] / [data-exp] ---
-// The hovered tile grows (flex-grow 2.2), its siblings contract (0.95), and a short pointer-enter
-// delay absorbs quick passes so adjacent tiles don't fight each other mid-transition. Desktop
-// (>1024px) only — below that every tile stays equal-width (flex-grow reset to 1) and stacked
-// per the responsive CSS, matching the design's own tablet/mobile fallback.
+// --- Sexual Health showcase: continuous product spin, no scroll-jacking: [data-spk-spin] ---
+// Ported verbatim from the design's own comment/math — a perpetual gentle rotate + float + scale
+// pulse, deliberately NOT tied to scroll position (unlike the brk/hims effects above).
 
-$("[data-exp-row]").each(function () {
-  const row = this;
-  const $panels = $(row).find("[data-exp]");
-  if (!$panels.length) return;
-
-  const REST = 1;
-  const OPEN = 2.2;
-  const SHRUNK = 0.95;
-
-  function apply(active) {
-    $panels.each(function () {
-      const isActive = this === active;
-      this.style.flexGrow = active == null ? REST : isActive ? OPEN : SHRUNK;
-      this.classList.toggle("is-active", isActive);
-      this.classList.toggle("is-dim", active != null && !isActive);
+const $spkSpin = $("[data-spk-spin]");
+if ($spkSpin.length && !reducedMotionQuery.matches) {
+  const spkSpinners = $spkSpin.get();
+  const spkT0 = performance.now();
+  const spkSpinTick = (now) => {
+    const t = (now - spkT0) / 1000;
+    spkSpinners.forEach((el, i) => {
+      const ph = i * 1.7;
+      const rz = (t * 15) % 360;
+      const fy = Math.sin(t * 0.5 + ph) * 2.2 + Math.sin(t * 0.21 + ph * 1.6) * 1.2;
+      const fs = 1 + Math.sin(t * 0.36 + ph) * 0.012;
+      el.style.transform =
+        "translate3d(0," + fy.toFixed(2) + "%,0) rotate(" + rz.toFixed(2) + "deg) scale(" + fs.toFixed(4) + ")";
     });
-  }
-
-  let hoverTimer;
-  $panels.on("pointerenter", function () {
-    if (window.innerWidth <= 1024) return;
-    const target = this;
-    clearTimeout(hoverTimer);
-    hoverTimer = setTimeout(() => apply(target), 130);
-  });
-  $panels.on("focusin", function () {
-    if (window.innerWidth <= 1024) return;
-    clearTimeout(hoverTimer);
-    apply(this);
-  });
-  $(row).on("pointerleave", () => {
-    clearTimeout(hoverTimer);
-    apply(null);
-  });
-});
+    window.requestAnimationFrame(spkSpinTick);
+  };
+  window.requestAnimationFrame(spkSpinTick);
+}
 
 // --- Horizontal product rail arrows: [data-rail] / [data-rail-track] / [data-rail-prev,next] ---
 // Native overflow-x scrolling + snap already makes the rail usable by touch/trackpad/scrollbar;
@@ -2389,4 +2418,49 @@ $("[data-rail]").each(function () {
   $track.on("scroll", syncEdges);
   window.addEventListener("resize", syncEdges, { passive: true });
   syncEdges();
+
+  // Pointer drag-to-pan on desktop (touch keeps native scrolling) — ported verbatim from
+  // the design's own rail: grab/grabbing cursor, scroll-snap suspended while dragging, and
+  // a "moved" flag so a drag doesn't also fire the card's click-through.
+  const track = $track[0];
+  let dragging = false;
+  let moved = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+
+  track.addEventListener("pointerdown", (ev) => {
+    if (ev.pointerType === "touch") return;
+    dragging = true;
+    moved = false;
+    startX = ev.clientX;
+    startScrollLeft = track.scrollLeft;
+    track.style.cursor = "grabbing";
+    track.style.scrollSnapType = "none";
+  });
+  track.addEventListener("pointermove", (ev) => {
+    if (!dragging) return;
+    const dx = ev.clientX - startX;
+    if (Math.abs(dx) > 3) moved = true;
+    track.scrollLeft = startScrollLeft - dx;
+  });
+  const releaseDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    track.style.cursor = "grab";
+    track.style.scrollSnapType = "x mandatory";
+    syncEdges();
+  };
+  track.addEventListener("pointerup", releaseDrag);
+  track.addEventListener("pointercancel", releaseDrag);
+  track.addEventListener("pointerleave", releaseDrag);
+  track.addEventListener(
+    "click",
+    (ev) => {
+      if (moved) {
+        ev.preventDefault();
+        ev.stopPropagation();
+      }
+    },
+    true,
+  );
 });

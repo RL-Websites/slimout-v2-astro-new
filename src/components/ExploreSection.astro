@@ -79,33 +79,15 @@ const weightLoss = getCategory("weight-loss")!;
 		</div>
 	</div>
 
-	<div class="explore-rail" data-rail>
+	<div class="explore-rail">
 		<div class="explore-rail-head">
 			<h3 class="explore-rail-title">Access our full care programs</h3>
-			<div class="explore-rail-arrows">
-				<button
-					type="button"
-					class="theme-btn theme-btn__icon"
-					data-rail-prev
-					aria-label="Scroll left"
-				>
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
-				</button>
-				<button
-					type="button"
-					class="theme-btn theme-btn__icon"
-					data-rail-next
-					aria-label="Scroll right"
-				>
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
-				</button>
-			</div>
 		</div>
-		<div class="explore-rail-track" data-rail-track>
+		<div class="explore-rail-track">
 			{
 				weightLoss.products.map((product, i) => (
 					<div class="explore-rail-item" data-reveal data-reveal-delay={i * 60}>
-						<ProductCard product={product} modalId={`explore-modal-${product.slot}`} />
+						<ProductCard product={product} modalId={`explore-modal-${product.slot}`} onDark />
 					</div>
 				))
 			}
@@ -113,7 +95,7 @@ const weightLoss = getCategory("weight-loss")!;
 	</div>
 
 	<div class="explore-hims">
-		<div class="explore-hims-panel explore-hims-panel--science" data-reveal>
+		<div class="explore-hims-panel explore-hims-panel--science" data-hims-panel data-reveal>
 			<h3 class="explore-hims-head">
 				<span class="explore-hims-head-line">The science</span>
 				<span class="explore-hims-head-line explore-hims-head-line--alt">behind SlimOut</span>
@@ -130,7 +112,7 @@ const weightLoss = getCategory("weight-loss")!;
 				</p>
 			</div>
 
-			<div class="explore-hims-tablet">
+			<div class="explore-hims-tablet" data-hims-art>
 				<img
 					src={`${MEDICINE}/ChatGPT+Image+Aug+7%2C+2026%2C+12_35_54+PM+1.webp`}
 					alt="SlimOut tablets"
@@ -140,14 +122,14 @@ const weightLoss = getCategory("weight-loss")!;
 			</div>
 		</div>
 
-		<div class="explore-hims-panel explore-hims-panel--care" data-reveal data-reveal-delay="120">
+		<div class="explore-hims-panel explore-hims-panel--care" data-hims-panel data-reveal data-reveal-delay="120">
 			<span class="explore-hims-badge">New dose available</span>
 			<h3 class="explore-hims-head explore-hims-head--care">
 				<span class="explore-hims-head-line">Care built around</span>
 				<span class="explore-hims-head-line">your progress</span>
 			</h3>
 
-			<div class="explore-hims-pen">
+			<div class="explore-hims-pen" data-hims-art>
 				<img
 					src={`${MEDICINE}/ChatGPT+Image+Aug+19%2C+2026%2C+10_47_13+AM+2.webp`}
 					alt="Injection pen"
