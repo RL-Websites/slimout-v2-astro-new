@@ -3117,11 +3117,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: calc(var(--spacing) * 6);
     text-align: center;
-    @media (width >= 64rem) {
-      gap: calc(var(--spacing) * 9);
-    }
     background-color: rgba(47, 72, 106, 0.6);
   }
   .explore-hims-head {
@@ -3145,8 +3141,12 @@ body {
     color: #91B2D6;
   }
   .explore-hims-head--care {
+    margin-top: calc(var(--spacing) * 5);
     --tw-leading: 1.06;
     line-height: 1.06;
+    @media (width >= 64rem) {
+      margin-top: calc(var(--spacing) * 7);
+    }
   }
   .explore-hims-notes {
     position: relative;
@@ -3294,6 +3294,7 @@ body {
   .explore-hims-badge {
     position: relative;
     z-index: 2;
+    margin-top: calc(var(--spacing) * 6);
     display: inline-flex;
     border-radius: calc(infinity * 1px);
     border-style: var(--tw-border-style);
@@ -3305,15 +3306,18 @@ body {
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
     color: #91B2D6;
+    @media (width >= 64rem) {
+      margin-top: calc(var(--spacing) * 8);
+    }
   }
   .explore-hims-pen {
     position: relative;
     z-index: 1;
-    margin-top: calc(var(--spacing) * 2);
+    margin-top: calc(var(--spacing) * 10);
     height: calc(var(--spacing) * 45);
     width: auto;
     @media (width >= 64rem) {
-      margin-top: 0px;
+      margin-top: calc(var(--spacing) * 16);
     }
     @media (width >= 64rem) {
       height: calc(var(--spacing) * 70);

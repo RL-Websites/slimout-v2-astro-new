@@ -191,7 +191,10 @@
         // design keeps this panel's content centered at every breakpoint — badge, headline,
         // pen stacked and centered — so this stays a flex column at every size (unlike the
         // science panel's desktop layout, this one has no absolutely-positioned art to clear).
-        @apply flex flex-col items-center justify-center gap-6 lg:gap-9 text-center;
+        // No `gap` here on purpose: the badge->headline and headline->pen spacing aren't equal
+        // in the design (badge sits close to the headline; the pen sits well below it) — see
+        // the margin-top on `&-hims-head--care` and `&-hims-pen` below instead.
+        @apply flex flex-col items-center justify-center text-center;
         background-color: rgba(47, 72, 106, 0.6);
       }
     }
@@ -213,7 +216,7 @@
     }
 
     &-hims-head--care {
-      @apply leading-[1.06];
+      @apply leading-[1.06] mt-5 lg:mt-7;
     }
 
     // design's own mobile media query keeps these visible (just repositioned to the panel's
@@ -291,16 +294,20 @@
       animation: float 10s ease-in-out infinite;
     }
 
+    // extra breathing room above the badge and before the headline below it — flagged as too
+    // tight against the panel's top edge and the headline
     &-hims-badge {
-      @apply relative z-2 inline-flex px-4 py-1.5 rounded-full border border-[#91B2D6] text-[12.5px]
-        font-semibold text-[#91B2D6];
+      @apply relative z-2 inline-flex mt-6 lg:mt-8 px-4 py-1.5 rounded-full border border-[#91B2D6]
+        text-[12.5px] font-semibold text-[#91B2D6];
     }
 
     // normal flow, centered by the panel's flex layout — not absolutely positioned, so the JS
     // float/bounce loop (common.js) only ever writes a translate/rotate/scale here, no
     // translateX(-50%) centering trick (that's the tablet's job, which does stay absolute).
+    // The generous margin-top (vs. the headline's tight one above) matches the design's own
+    // rhythm — the pen sits well clear of the copy, not snug under it.
     &-hims-pen {
-      @apply relative z-1 mt-2 w-auto h-45 lg:mt-0 lg:h-70;
+      @apply relative z-1 mt-10 w-auto h-45 lg:mt-16 lg:h-70;
     }
 
     &-hims-pen-img {
