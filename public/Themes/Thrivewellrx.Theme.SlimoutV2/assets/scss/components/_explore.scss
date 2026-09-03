@@ -5,7 +5,11 @@
     // (the pinned scroll-track collapses and everything just scrolls past unpinned).
     // .explore-hero-viewport clips its own bleed (cluster images, headline lines) itself, so
     // this only needs to hide overflow on the mobile/tablet stacked layout.
-    @apply relative bg-ink overflow-hidden pb-5 lg:overflow-visible;
+    // #07142A matches the design's own literal value for this section (and .sexual-health) —
+    // close to, but not exactly, the `ink` token (#0B1220), so kept as a raw hex per SKILLS.md's
+    // "recurring raw hex not yet promoted to a token" allowance rather than drifting off-design.
+    @apply relative overflow-hidden pb-5 lg:overflow-visible;
+    background-color: #07142a;
 
     // --- hero: headline + absolute image cluster + copy callout ---
     // Desktop (lg) is a real scroll-pinned track, matching the design's own 190vh
@@ -32,11 +36,73 @@
     }
 
     &-hero-viewport {
+      @apply relative;
+
       @media (min-width: 1024px) {
         position: sticky;
         top: 0;
         height: 100vh;
         overflow: hidden;
+      }
+    }
+
+    // --- atmospheric background: layered radial gradients + a drifting dot-grid + a few
+    // slow-floating blurred orbs, matching the design's own [data-brk] background stack.
+    // Sits behind .explore-wrap (z-0 vs. the wrap's implicit stacking as a later sibling). ---
+
+    &-bg {
+      @apply absolute inset-0 z-0 pointer-events-none;
+      background:
+        radial-gradient(120% 90% at 88% -8%, rgba(127, 170, 232, 0.4), rgba(127, 170, 232, 0) 55%),
+        radial-gradient(90% 70% at 8% 102%, rgba(43, 86, 156, 0.32), rgba(43, 86, 156, 0) 62%),
+        #07142a;
+    }
+
+    &-bg-glow {
+      @apply absolute inset-[-10%] z-0 pointer-events-none;
+      background: radial-gradient(46% 60% at 62% 40%, rgba(180, 205, 240, 0.22), rgba(180, 205, 240, 0) 70%);
+      filter: blur(60px);
+    }
+
+    &-bg-grid {
+      @apply absolute inset-[-10%] z-0 pointer-events-none opacity-[0.12];
+      background-image: radial-gradient(rgba(127, 170, 232, 0.4) 1px, transparent 1.4px);
+      background-size: 34px 34px;
+      animation: exploreBgDrift 46s linear infinite;
+    }
+
+    &-bg-orb {
+      @apply absolute z-0 rounded-full pointer-events-none;
+      will-change: transform;
+
+      &--a {
+        left: 6%;
+        top: 8%;
+        width: min(38vw, 420px);
+        height: min(38vw, 420px);
+        background: radial-gradient(circle, rgba(10, 22, 46, 0.5), rgba(10, 22, 46, 0) 70%);
+        filter: blur(6px);
+        animation: exploreBgFloat1 22s ease-in-out infinite;
+      }
+
+      &--b {
+        right: 8%;
+        top: 38%;
+        width: min(30vw, 340px);
+        height: min(30vw, 340px);
+        background: radial-gradient(circle, rgba(127, 170, 232, 0.26), rgba(127, 170, 232, 0) 70%);
+        filter: blur(4px);
+        animation: exploreBgFloat2 26s ease-in-out infinite;
+      }
+
+      &--c {
+        left: 32%;
+        bottom: 2%;
+        width: min(30vw, 320px);
+        height: min(30vw, 320px);
+        background: radial-gradient(circle, rgba(43, 86, 156, 0.32), rgba(43, 86, 156, 0) 70%);
+        filter: blur(8px);
+        animation: exploreBgFloat3 30s ease-in-out infinite;
       }
     }
 
@@ -124,39 +190,17 @@
     &-rail {
       @apply relative max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 pt-8 sm:pt-10 lg:pt-12
         pb-14 sm:pb-20 lg:pb-24;
-    }
 
-    &-rail-head {
-      @apply flex flex-wrap items-center justify-between gap-4 mb-6 sm:mb-11;
-    }
-
-    &-rail-title {
-      @apply font-sora text-[20px] sm:text-[26px] lg:text-[32px] font-semibold tracking-tight
-        text-offwhite m-0;
-    }
-
-    &-rail-track {
-      @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6;
-    }
-
-    &-rail-item {
-      @apply min-w-0;
-
-      .product-card {
-        @apply bg-primary border-primary h-full;
+      // ProductGrid is a reusable, light-surface component (bg-cream section, ink title) built
+      // for category pages — this section stays on the dark .explore/bg-ink surface, so only the
+      // section chrome is overridden here; ProductGrid's own `.product-grid-list .product-card`
+      // rules already render the cards dark, matching this rail's prior look.
+      .product-grid {
+        @apply bg-transparent max-w-none mx-0 px-0 py-0;
       }
 
-      .product-card-title,
-      .product-card-price-value {
-        @apply text-offwhite;
-      }
-
-      .product-card-desc {
-        @apply text-offwhite/60;
-      }
-
-      .product-card-price-label {
-        @apply text-offwhite/45;
+      .product-grid-title {
+        @apply text-[20px] sm:text-[26px] lg:text-[32px] text-offwhite;
       }
     }
 
@@ -318,9 +362,54 @@
     }
   }
 
+  @keyframes exploreBgDrift {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(-34px, -34px);
+    }
+  }
+
+  @keyframes exploreBgFloat1 {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+
+    50% {
+      transform: translate(3%, 4%);
+    }
+  }
+
+  @keyframes exploreBgFloat2 {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+
+    50% {
+      transform: translate(-4%, 3%);
+    }
+  }
+
+  @keyframes exploreBgFloat3 {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+
+    50% {
+      transform: translate(3%, -3%);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .explore-hims-tablet-img,
     .explore-hims-pen-img {
+      animation: none;
+    }
+
+    .explore-bg-grid,
+    .explore-bg-orb {
       animation: none;
     }
   }

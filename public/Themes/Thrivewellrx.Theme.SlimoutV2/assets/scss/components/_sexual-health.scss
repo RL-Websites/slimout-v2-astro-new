@@ -93,34 +93,15 @@
 
     &-rail {
       @apply relative z-1 pb-[18px] sm:pb-6 lg:pb-8;
-    }
 
-    &-rail-track {
-       @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 px-5 sm:px-8 lg:px-20 ;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-
-    &-rail-item {
-      @apply shrink-0 snap-start;
-
-      .product-card {
-        @apply bg-primary border-primary h-full;
-      }
-
-      .product-card-title,
-      .product-card-price-value {
-        @apply text-offwhite;
-      }
-
-      .product-card-desc {
-        @apply text-offwhite/60;
-      }
-
-      .product-card-price-label {
-        @apply text-offwhite/45;
+      // ProductGrid is a reusable, light-surface component (bg-cream section) built for category
+      // pages — this section stays on the dark .sexual-health surface, so only the section chrome
+      // is overridden here; ProductGrid's own `.product-grid-list .product-card` rules already
+      // render the cards dark, matching this rail's prior look.
+      // Horizontal padding matches `.sexual-health-row` above (px-5/sm:px-8/lg:px-16) so the
+      // rail's product cards line up with the title/copy edge at every breakpoint.
+      .product-grid {
+        @apply bg-transparent max-w-none mx-0 px-5 sm:px-8 lg:px-16 py-0;
       }
     }
   }

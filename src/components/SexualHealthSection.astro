@@ -2,10 +2,10 @@
 // "Sexual Health" — design's `data-spk` section (after the Explore section, before How It
 // Works): full-bleed background video with a two-layer gradient scrim, intro copy + a glass
 // showcase card (SVG ring + a continuously spinning product image — no scroll-jacking, per the
-// design's own comment), and a horizontal product rail. Reuses ProductCard/ProductDetailModal
-// and the category's real product data, same as the weight-loss rail in ExploreSection.
+// design's own comment), and a product rail. Reuses ProductGrid/ProductDetailModal and the
+// category's real product data, same as the weight-loss rail in ExploreSection.
 import { getCategory } from "../data/categories";
-import ProductCard from "./common/ProductCard.astro";
+import ProductGrid from "./ProductGrid.astro";
 import ProductDetailModal from "./ProductDetailModal.astro";
 
 const MEDICINE =
@@ -79,21 +79,13 @@ const sexualHealth = getCategory("sexual-health")!;
 		</div>
 	</div>
 
-	<div class="sexual-health-rail" data-rail>
-		<div class="sexual-health-rail-track" data-rail-track>
-			{
-				sexualHealth.products.map((product) => (
-					<div class="sexual-health-rail-item">
-						<ProductCard
-							product={product}
-							showAddToCart
-							modalId={`spk-modal-${product.slot}`}
-							onDark
-						/>
-					</div>
-				))
-			}
-		</div>
+	<div class="sexual-health-rail">
+		<ProductGrid
+			products={sexualHealth.products}
+			wide
+			enableModals
+			showAddToCart
+		/>
 	</div>
 </section>
 
@@ -101,7 +93,7 @@ const sexualHealth = getCategory("sexual-health")!;
 	sexualHealth.products.map((product) => (
 		<ProductDetailModal
 			product={product}
-			modalId={`spk-modal-${product.slot}`}
+			modalId={`product-modal-${product.slot}`}
 			recommendedItems={sexualHealth.recommended}
 		/>
 	))
