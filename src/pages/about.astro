@@ -1,12 +1,10 @@
 ---
 import AboutAccreditation from "../components/about/AboutAccreditation.astro";
-import AboutCta from "../components/about/AboutCta.astro";
 import AboutHero from "../components/about/AboutHero.astro";
 import AboutSplit from "../components/about/AboutSplit.astro";
 import Footer from "../components/common/Footer.astro";
 import Header from "../components/common/Header.astro";
 import CtaSection from "../components/CtaSection.astro";
-import Marquee from "../components/Marquee.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -31,8 +29,8 @@ import Layout from "../layouts/Layout.astro";
 			titleAlt="Wellness Support"
 			titleBreak={true}
 			body="Whether you're looking for support with weight management, hormone health, sexual wellness, sleep, longevity, peptide therapy, hair restoration, or overall wellness, our experienced clinical team is here to guide you every step of the way."
-			image="about-1.webp"
-			alt="Clinician with patient — calm, modern care"
+			image="https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/About_Us_Page/Provider-guided+care.webp"
+			alt="Provider-guided care"
 		/>
 		<!-- mission section end -->
 
@@ -41,8 +39,8 @@ import Layout from "../layouts/Layout.astro";
 			title="Seamless"
 			titleAlt="Care Journey"
 			body="From online consultation to provider review, prescription fulfillment, and ongoing support, we provide a seamless healthcare experience—all from the comfort of your home. Every treatment plan is reviewed by a licensed healthcare provider to ensure it is appropriate for your individual needs."
-			image="about-2.webp"
-			alt="Provider portrait — warm, approachable"
+			image="https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/About_Us_Page/Fast+%26+Reliable+Homvery.webp"
+			alt="Fast and reliable home delivery"
 			reverse={true}
 			tight={true}
 		/>
@@ -52,12 +50,8 @@ import Layout from "../layouts/Layout.astro";
 		<AboutAccreditation />
 		<!-- accreditation section end -->
 
-		<!-- marquee section start -->
-		<Marquee />
-		<!-- marquee section end -->
-
 		<!-- cta section start -->
-		<CtaSection />
+		<CtaSection href="index.html#programs" />
 		<!-- cta section end -->
 	</main>
 

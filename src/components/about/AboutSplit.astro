@@ -22,6 +22,7 @@ const {
 } = Astro.props;
 
 const ASSET_BASE = 'Themes/Thrivewellrx.Theme.SlimoutV2/assets/img';
+const imageSrc = image.startsWith('http') ? image : `${ASSET_BASE}/${image}`;
 ---
 
 <section
@@ -43,7 +44,7 @@ const ASSET_BASE = 'Themes/Thrivewellrx.Theme.SlimoutV2/assets/img';
 		</div>
 		<div class="about-split-media">
 			<div class="about-split-frame">
-				<img src={`${ASSET_BASE}/${image}`} alt={alt} class="about-split-image" loading="lazy" />
+				<img src={imageSrc} alt={alt} class="about-split-image" loading="lazy" />
 			</div>
 		</div>
 	</div>

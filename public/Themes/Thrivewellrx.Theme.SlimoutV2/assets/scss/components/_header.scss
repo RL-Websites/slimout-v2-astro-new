@@ -8,9 +8,12 @@
   }
 
   .header {
-    @apply fixed top-4 left-1/2 -translate-x-1/2 max-w-[1340px] z-[100] bg-cream/90 backdrop-blur-xl rounded-full flex items-center gap-4 sm:gap-6 lg:gap-8 px-3 sm:pl-6 h-16;
-    width: calc(100% - 2rem);
-    box-shadow: 0 14px 34px -18px rgba(11, 18, 32, 0.4);
+    // Default (inner-page) treatment: a solid, full-width fixed bar — not a floating
+    // pill — matching the design's "About"/inner-page header exactly. The homepage's
+    // `--transparent` variant below overrides the background/shadow only, so both
+    // variants share this same position/size/padding.
+    @apply fixed top-0 left-0 w-full max-w-none z-[100] bg-cream/92 backdrop-blur-[20px] rounded-none flex items-center gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-8 lg:px-13 h-20;
+    box-shadow: 0 14px 34px -18px rgba(3, 44, 89, 0.35);
 
     &-logo {
       @apply max-w-[120px] flex items-center shrink-0 text-ink transition-colors duration-300;
@@ -21,12 +24,12 @@
     }
 
     // Homepage-only transparent-over-hero treatment (see Header.astro's `variant` prop):
-    // full-width, no floating gap/pill, transparent + white text until scrolled, then a
-    // blurred dark bg + shadow fades in (toggled by common.js's [data-header-scroll] handler,
-    // which flips .is-scrolled — the design keeps white text/logo in both states, only the
-    // background changes).
+    // transparent + white text until scrolled, then the same blurred cream bg + navy
+    // shadow as the default bar fades in (toggled by common.js's [data-header-scroll]
+    // handler, which flips .is-scrolled — the design keeps white text/logo in both
+    // states, only the background changes).
     &--transparent {
-      @apply top-0 left-0 translate-x-0 max-w-none w-full rounded-none bg-transparent backdrop-blur-none shadow-none px-4 sm:px-8 lg:px-13;
+      @apply bg-transparent backdrop-blur-none shadow-none;
       transition: background-color 0.45s ease, box-shadow 0.45s ease, backdrop-filter 0.45s ease;
 
       .header-logo,

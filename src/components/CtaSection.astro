@@ -1,5 +1,9 @@
 ---
+interface Props {
+	href?: string;
+}
 
+const { href = '#programs' } = Astro.props;
 ---
 
 <section id="cta" class="get-started">
@@ -24,7 +28,7 @@
 			</h2>
 			<p class="get-started-body" data-reveal data-reveal-delay="160">Let's take the first step together.</p>
 			<div class="get-started-actions">
-				<a href="#programs" class="theme-btn theme-btn__primary">
+				<a href={href} class="theme-btn theme-btn__primary">
 					Explore Treatments
 					<span class="get-started-secondary-arrow">
 						<svg

@@ -67,11 +67,11 @@
     }
 
     &-table-head {
-      @apply py-3.5 px-4.5 sm:px-6.5 bg-[#dce6a8] border-b border-[#E4E7DA];
+      @apply py-3.5 px-4.5 sm:px-6.5 bg-primary border-b border-[#E4E7DA];
     }
 
     &-table-head-cell {
-      @apply font-mono text-[9.5px] tracking-[0.14em] uppercase text-muted;
+      @apply font-mono text-[9.5px] tracking-[0.14em] uppercase text-offwhite;
     }
 
     &-row {
