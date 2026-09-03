@@ -61,6 +61,18 @@
       &:active {
         @apply scale-100;
       }
+      &--alt {
+        @apply py-3;
+        .theme-btn__arrow {
+          @apply grid place-items-center size-8 rounded-full bg-primary text-white leading-1 text-center -rotate-45;
+        }
+        &:hover {
+          @apply bg-primary text-offwhite shadow-lg;
+          .theme-btn__arrow {
+            @apply bg-white text-primary;
+          }
+        }
+      }
     }
 
     /* White variant */

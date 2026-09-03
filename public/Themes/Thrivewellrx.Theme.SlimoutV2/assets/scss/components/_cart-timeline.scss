@@ -7,7 +7,7 @@
     }
 
     &-label {
-      @apply font-sora text-[13px] font-semibold tracking-tight text-[#A9B2A5] text-center;
+      @apply font-sora text-[13px] font-semibold tracking-tight text-muted-light text-center;
 
       &--start {
         @apply text-left;

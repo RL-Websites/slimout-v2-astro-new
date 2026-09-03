@@ -31,7 +31,7 @@
     }
 
     &-note {
-      @apply flex gap-3.25 mt-3.5 sm:mt-4 lg:mt-4.5 p-4.25 bg-sage-100 border border-dashed border-[#C6D38A] rounded-2xl;
+      @apply flex gap-3.25 mt-3.5 sm:mt-4 lg:mt-4.5 p-4.25 bg-sage-100 border border-dashed border-primary/40 rounded-2xl;
     }
 
     &-note-icon {
@@ -43,7 +43,7 @@
     }
 
     &-note-link {
-      @apply text-greenDeep border-b border-greenDeep/40;
+      @apply text-primary border-b border-primary/40;
     }
 
     &-totals {

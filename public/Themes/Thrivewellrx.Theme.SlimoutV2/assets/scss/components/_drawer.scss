@@ -101,7 +101,7 @@
     }
 
     &-warning-label {
-      @apply font-mono text-[9.5px] tracking-[0.16em] uppercase text-lime-darker mb-2.5;
+      @apply font-mono text-[9.5px] tracking-[0.16em] uppercase text-lime mb-2.5;
     }
 
     &-warning-text {
@@ -114,7 +114,7 @@
 
     &-agree {
       @apply flex items-center justify-center gap-2.75 text-base font-medium text-white
-        px-4.25 py-4 pl-7 bg-lime rounded-full cursor-pointer transition-transform duration-300
+        px-4.25 py-4 pl-7 rounded-full cursor-pointer transition-transform duration-300
         ease-[cubic-bezier(0.2,0.8,0.2,1)];
 
       &:hover {
@@ -163,7 +163,7 @@
     }
 
     &-lab-dot {
-      @apply block w-1.25 h-1.25 rounded-full bg-lime-deep shrink-0 mt-2;
+      @apply block w-1.25 h-1.25 rounded-full bg-primary shrink-0 mt-2;
     }
 
     &-lab-sublabel {
@@ -183,7 +183,7 @@
     }
 
     &-lab-note {
-      @apply mt-3 py-4.5 px-4.5 sm:px-6 bg-sage-100 border border-dashed border-[#C6D38A]
+      @apply mt-3 py-4.5 px-4.5 sm:px-6 bg-sage-100 border border-dashed border-lime-deep
         rounded-[18px];
     }
 

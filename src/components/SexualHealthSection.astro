@@ -9,92 +9,109 @@ import ProductGrid from "./ProductGrid.astro";
 import ProductDetailModal from "./ProductDetailModal.astro";
 
 const MEDICINE =
-	"https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/Medicine";
+  "https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/Medicine";
 const sexualHealth = getCategory("sexual-health")!;
 ---
 
 <section class="sexual-health">
-	<div class="sexual-health-media">
-		<video
-			class="sexual-health-img"
-			autoplay
-			muted
-			loop
-			playsinline
-			webkit-playsinline
-		>
-			<source
-				src="https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/Home_Page/Category/0_Couple_Beach_1280x720.mp4"
-				type="video/mp4"
-			/>
-		</video>
-	</div>
-	<span class="sexual-health-scrim" aria-hidden="true"></span>
+  <div class="sexual-health-media">
+    <video
+      class="sexual-health-img"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+    >
+      <source
+        src="https://wellnesplusrx-s3.s3.us-east-1.amazonaws.com/slimout/Slimout_v2/Home_Page/Category/0_Couple_Beach_1280x720.mp4"
+        type="video/mp4"
+      />
+    </video>
+  </div>
+  <span class="sexual-health-scrim" aria-hidden="true"></span>
 
-	<div class="sexual-health-row">
-		<div class="sexual-health-content" data-reveal>
-			<div class="sexual-health-eyebrow">Sexual health</div>
-			<h2 class="sexual-health-title">
-				Better intimacy, without<br />the awkward appointment
-			</h2>
-			<p class="sexual-health-body">
-				A private online consultation, treatment options reviewed by a licensed
-				provider, and refills that arrive at your door.
-			</p>
-			<a href={`${sexualHealth.slug}.html`} class="theme-btn theme-btn__white">
-				View All
-			</a>
-		</div>
+  <div class="sexual-health-row">
+    <div class="sexual-health-content" data-reveal>
+      <div class="sexual-health-eyebrow">Sexual health</div>
+      <h2 class="sexual-health-title">
+        Better intimacy, without<br />the awkward appointment
+      </h2>
+      <p class="sexual-health-body">
+        A private online consultation, treatment options reviewed by a licensed
+        provider, and refills that arrive at your door.
+      </p>
+      <a
+        href={`${sexualHealth.slug}.html`}
+        class="theme-btn theme-btn__white theme-btn__white--alt"
+      >
+        View All
+        <span class="theme-btn__arrow">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+    </div>
 
-		<div class="sexual-health-stat" data-reveal data-reveal-delay="120">
-			<div class="sexual-health-stat-ring-wrap">
-				<svg
-					class="sexual-health-stat-ring"
-					viewBox="0 0 200 200"
-					aria-hidden="true"
-				>
-					<circle
-						cx="100"
-						cy="100"
-						r="82"
-						fill="none"
-						stroke-width="2.4"
-						stroke-linecap="round"
-						stroke-dasharray="515"
-						stroke-dashoffset="515"
-						transform="rotate(-90 100 100)"
-					></circle>
-				</svg>
-				<div class="sexual-health-stat-spin" data-spk-spin>
-					<img
-						src={`${MEDICINE}/ChatGPT+Image+Aug+21%2C+2026%2C+09_20_19+AM+1.webp`}
-						alt="SlimOut tablet"
-						class="sexual-health-stat-img"
-						loading="lazy"
-					/>
-				</div>
-			</div>
-			<div class="sexual-health-stat-note">Reviewed by a licensed provider</div>
-			<div class="sexual-health-stat-headline">Discreet delivery</div>
-		</div>
-	</div>
+    <div class="sexual-health-stat" data-reveal data-reveal-delay="120">
+      <div class="sexual-health-stat-ring-wrap">
+        <svg
+          class="sexual-health-stat-ring"
+          viewBox="0 0 200 200"
+          aria-hidden="true"
+        >
+          <circle
+            cx="100"
+            cy="100"
+            r="82"
+            fill="none"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-dasharray="515"
+            stroke-dashoffset="515"
+            transform="rotate(-90 100 100)"></circle>
+        </svg>
+        <div class="sexual-health-stat-spin" data-spk-spin>
+          <img
+            src={`${MEDICINE}/ChatGPT+Image+Aug+21%2C+2026%2C+09_20_19+AM+1.webp`}
+            alt="SlimOut tablet"
+            class="sexual-health-stat-img"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="sexual-health-stat-note">Reviewed by a licensed provider</div>
+      <div class="sexual-health-stat-headline">Discreet delivery</div>
+    </div>
+  </div>
 
-	<div class="sexual-health-rail">
-		<ProductGrid
-			products={sexualHealth.products}
-			wide
-			enableModals
-			showAddToCart
-		/>
-	</div>
+  <div class="sexual-health-rail">
+    <ProductGrid
+      products={sexualHealth.products}
+      wide
+      enableModals
+      showAddToCart
+    />
+  </div>
 </section>
 
 {
-	sexualHealth.products.map((product) => (
-		<ProductDetailModal
-			product={product}
-			modalId={`product-modal-${product.slot}`}
-			recommendedItems={sexualHealth.recommended}
-		/>
-	))
+  sexualHealth.products.map((product) => (
+    <ProductDetailModal
+      product={product}
+      modalId={`product-modal-${product.slot}`}
+      recommendedItems={sexualHealth.recommended}
+    />
+  ))
 }

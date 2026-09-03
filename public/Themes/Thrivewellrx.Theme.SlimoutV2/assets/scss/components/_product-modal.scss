@@ -2,6 +2,12 @@
   .product-modal {
     @apply relative p-0;
 
+    // Overrides .modal-body's own overflow-y-auto (see components/modal) so this element
+    // never scrolls as a whole — only &-info-side scrolls, keeping &-image-side fixed in view.
+    &.modal-body {
+      @apply flex flex-col h-full overflow-hidden;
+    }
+
     &-close {
       @apply absolute top-4 sm:top-6 right-4 sm:right-6 z-10 size-9 flex items-center justify-center bg-transparent !border border-sage-300 text-dark transition-all duration-200;
 
@@ -11,28 +17,27 @@
     }
 
     &-content {
-      @apply grid grid-cols-1 sm:grid-cols-2 w-full h-full;
+      @apply flex flex-col sm:grid sm:grid-cols-2 w-full h-full min-h-0;
     }
 
     &-image-side {
-      @apply flex items-center justify-center bg-[#E7E7C8] rounded-t-2xl sm:rounded-t-none sm:rounded-l-2xl p-0;
-
+      @apply flex items-center justify-center bg-sage-100 rounded-t-2xl sm:rounded-t-none sm:rounded-l-2xl p-0 shrink-0 sm:h-full;
     }
 
     &-image-wrapper {
-      @apply relative flex items-center justify-center w-full max-w-[300px] sm:max-w-none aspect-square sm:aspect-[0.9];
+      @apply relative flex items-center justify-center w-full aspect-square sm:aspect-auto sm:h-full;
     }
 
     &-image {
-      @apply w-full object-cover;
+      @apply block w-full h-full object-cover;
     }
 
     &-info-side {
-      @apply flex flex-col px-6 sm:px-8 py-5 overflow-y-auto rounded-b-2xl sm:rounded-b-none sm:rounded-r-2xl;
+      @apply flex flex-col flex-1 min-h-0 px-6 sm:px-8 py-5 overflow-y-auto rounded-b-2xl sm:rounded-b-none sm:rounded-r-2xl;
     }
 
     &-badge {
-      @apply inline-flex items-center justify-center gap-1.5 bg-sage-100 text-greenDeep px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide w-fit mb-4;
+      @apply inline-flex items-center justify-center gap-1.5 bg-sage-100 text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide w-fit mb-4;
     }
 
     &-title {
@@ -62,7 +67,7 @@
     }
 
     &-price-value {
-      @apply text-3xl sm:text-4xl font-bold text-greenDeep leading-none;
+      @apply text-3xl sm:text-4xl font-bold text-primary leading-none;
     }
 
     &-actions {

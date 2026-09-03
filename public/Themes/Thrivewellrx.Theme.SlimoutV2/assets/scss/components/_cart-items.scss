@@ -60,12 +60,12 @@
     }
 
     &-shipping {
-      @apply flex items-center font-mono text-[10px] tracking-[0.12em] uppercase text-greenDeep
-        bg-sage-100 border border-[#D9E3B4] px-3.5 h-9 rounded-full whitespace-nowrap;
+      @apply flex items-center font-mono text-[10px] tracking-[0.12em] uppercase text-primary
+        bg-sage-100 border border-primary/40 px-3.5 h-9 rounded-full whitespace-nowrap;
     }
 
     &-remove {
-      @apply flex items-center gap-1.5 text-[13.5px] text-[#8B9483] cursor-pointer px-3.5 h-9
+      @apply flex items-center gap-1.5 text-[13.5px] text-muted cursor-pointer px-3.5 h-9
         border border-[#E4E7DA] rounded-full transition-colors duration-[250ms];
 
       &:hover {
