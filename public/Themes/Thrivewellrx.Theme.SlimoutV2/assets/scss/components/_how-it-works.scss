@@ -1,6 +1,10 @@
 @layer components {
   .how-it-works {
-    @apply bg-cream py-14 sm:py-20 lg:py-28;
+    // Top padding only, matching the design's `padding:clamp(56px,9vh,100px) ... 0` on this
+    // section's heading wrapper — no bottom padding. The section's "end" is the sticky-pinned
+    // grid releasing, not a padded gap; the next section (WhySlimOut) supplies its own top
+    // padding, so a bottom value here would double up into an oversized, uneven gap.
+    @apply bg-cream pt-14 sm:pt-20 lg:pt-28;
 
     // Desktop (>=1024px): a real scroll-linked track, matching the design's structure but
     // taller (450vh vs. the design's 300vh) — three steps' worth of crossfade need enough
@@ -39,6 +43,12 @@
     // `gap:clamp(28px,5vw,80px)` at lg+. Below lg, the media/step wrappers switch to
     // `display:contents` (see mobile block below) so their children interleave into one
     // stacked column, mirroring the design's own mobile fallback (data-move rules) exactly.
+    // `items-center` keeps the image and its step text vertically centered relative to each
+    // other (design intent) — that part was never the problem. The gap came from
+    // `align-content: center` below, which centered the whole (shrink-to-fit) row inside the
+    // full 100vh sticky box: since the image (70vh) never fills that box, the leftover space
+    // split evenly above/below it. `align-content: start` keeps items-center's pairing but
+    // hugs the row to the top of the pinned viewport, so the image has no gap above it.
     &-grid {
       @apply flex flex-col gap-8 sm:gap-10 lg:grid lg:grid-cols-2
         lg:gap-[clamp(28px,5vw,80px)] lg:items-center;
@@ -46,8 +56,7 @@
       @media (min-width: 1024px) {
         position: sticky;
         top: 0;
-        height: 100vh;
-        align-content: center;
+        align-content: start;
       }
 
       // Once JS confirms the step observer is running, stack the steps on top of one another

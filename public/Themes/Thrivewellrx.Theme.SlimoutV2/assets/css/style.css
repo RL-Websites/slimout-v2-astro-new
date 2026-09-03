@@ -3829,12 +3829,12 @@ body {
   }
   .how-it-works {
     background-color: #F5F6F8;
-    padding-block: calc(var(--spacing) * 14);
+    padding-top: calc(var(--spacing) * 14);
     @media (width >= 40rem) {
-      padding-block: calc(var(--spacing) * 20);
+      padding-top: calc(var(--spacing) * 20);
     }
     @media (width >= 64rem) {
-      padding-block: calc(var(--spacing) * 28);
+      padding-top: calc(var(--spacing) * 28);
     }
   }
   @media (min-width: 1024px) {
@@ -3915,8 +3915,7 @@ body {
     .how-it-works-grid {
       position: sticky;
       top: 0;
-      height: 100vh;
-      align-content: center;
+      align-content: start;
     }
     .how-it-works-grid.is-ready .how-it-works-step {
       position: absolute;
