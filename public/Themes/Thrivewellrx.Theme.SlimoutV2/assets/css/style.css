@@ -2392,16 +2392,11 @@ body {
     }
   }
   .product-modal-label {
-    margin-bottom: calc(var(--spacing) * 1.5);
-    display: block;
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
     color: #0B1220;
-    @media (width >= 40rem) {
-      margin-bottom: calc(var(--spacing) * 2);
-    }
     @media (width >= 40rem) {
       font-size: var(--text-sm);
       line-height: var(--tw-leading, var(--text-sm--line-height));
